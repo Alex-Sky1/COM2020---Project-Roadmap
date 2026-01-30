@@ -13,4 +13,80 @@ public class Bundle {
     private boolean reserved;
     private boolean expired;
 
+    public Bundle(){
+    }
+
+    Bundle getBundle(){
+        return this;
+    }
+
+
+    int getPostingID(){
+        return postingID;
+    }
+    void setPostingID(int postingID){
+        this.postingID = postingID;
+    }
+
+    int getSellerID(){
+        return sellerID;
+    }
+    void setSellerID(int sellerID){
+        this.sellerID = sellerID;
+    }
+
+    String getCategory(){
+        return category;
+    }
+    void setCategory(String category){
+        this.category = category;
+    }
+
+    String[] getContents(){
+        return contents;
+    }
+    void setContents(String[] contents){
+        this.contents = contents;
+    }
+
+    String[] getAllergens(){
+        return allergens;
+    }
+    void setAllergens(String[] allergens){
+        this.allergens = allergens;
+    }
+
+    int getQuantity(){
+        return quantity;
+    }
+    void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
+
+    float getPrice(){
+        return price;
+    }
+    void setPrice(float price){
+        this.price = price;
+    }
+
+    int getPickupWindow(){
+        return pickupWindow;
+    }
+    void setPickupWindow(int pickupWindow){
+        this.pickupWindow = pickupWindow;
+    }
+
+    boolean getReserved(){
+        return reserved;
+    }
+    void setReserved(boolean reserved){
+        this.reserved = reserved;
+    }
+
+    boolean getExpired(){
+        return expired;
+    }
+    void setExpired(boolean Expired){this.expired = expired; }
+
 }

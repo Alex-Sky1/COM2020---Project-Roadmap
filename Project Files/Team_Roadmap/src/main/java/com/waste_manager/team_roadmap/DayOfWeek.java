@@ -1,6 +1,6 @@
 package com.waste_manager.team_roadmap;
 
-enum DayOfWeek {
+public enum DayOfWeek {
     MONDAY,
     TUESDAY,
     WEDNESDAY,
