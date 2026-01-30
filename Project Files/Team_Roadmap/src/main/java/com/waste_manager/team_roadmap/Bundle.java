@@ -9,7 +9,7 @@ public class Bundle {
     private int quantity;
     private float price;
     private int discount;
-    private int pickupWindow;
+    private int pickUpWindow;
     private boolean reserved;
     private boolean expired;
 
@@ -70,11 +70,11 @@ public class Bundle {
         this.price = price;
     }
 
-    int getPickupWindow(){
-        return pickupWindow;
+    int getPickUpWindow(){
+        return pickUpWindow;
     }
-    void setPickupWindow(int pickupWindow){
-        this.pickupWindow = pickupWindow;
+    void setPickUpWindow(int pickUpWindow){
+        this.pickUpWindow = pickUpWindow;
     }
 
     boolean getReserved(){
@@ -87,6 +87,14 @@ public class Bundle {
     boolean getExpired(){
         return expired;
     }
-    void setExpired(boolean Expired){this.expired = expired; }
+    void setExpired(boolean expired){
+        this.expired = expired;
+    }
+    int getDiscount(){
+        return discount;
+    }
+    void setDiscount(int discount){
+        this.discount = discount;
+    }
 
 }
