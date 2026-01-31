@@ -1,9 +1,17 @@
 package com.waste_manager.team_roadmap;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
-public class Customer {
-    private int customerID;
+@Entity
+public class Customer implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long customerID;
+
+    @Column(nullable = false)
     private String displayName;
+    @Column(nullable = false)
     private int streak;
     private boolean[] badges;
 
@@ -28,8 +36,8 @@ public class Customer {
     String getImpactSummary(){return null;}
 
 
-    int getCustomerID(){return customerID;}
-    void setCustomerID(int customerID){this.customerID = customerID;}
+    Long getCustomerID(){return customerID;}
+    void setCustomerID(Long customerID){this.customerID = customerID;}
 
     String getDisplayName(){return displayName;}
     void setDisplayName(String displayName){this.displayName = displayName;}
