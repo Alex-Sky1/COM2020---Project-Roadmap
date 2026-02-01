@@ -74,12 +74,14 @@ public class SellerTest {
     @Test
     public void testSetOpeningHours() {
 
-        assertEquals(new int[]{8, 19}, testSeller.getOpeningHours());
+        testSeller.setOpeningHours(new int[]{7, 20});
+        assertEquals(new int[]{7, 20}, testSeller.getOpeningHours());
     }
 
     @Test
     public void testSetContactStub() {
 
+        testSeller.setContactStub("PLACEHOLDER");
         assertSame("PLACEHOLDER", testSeller.getContactStub()); // What is a contact stub?
     }
 }

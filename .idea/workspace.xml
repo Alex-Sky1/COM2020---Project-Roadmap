@@ -5,18 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="added most of the getters and setters test classes">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_01_2026_16_34_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_01_2026_16_34__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/BundleTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/CustomerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ForecastTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/IssueReportTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ReservationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/SellerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Bundle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Bundle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/IssueReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/IssueReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/BundleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/BundleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/CustomerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/CustomerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/IssueReportTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/IssueReportTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ReservationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ReservationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/SellerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/SellerTest.java" afterDir="false" />
     </list>
-    <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
+    <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="">
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/BundleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/BundleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ForecastTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ForecastTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ReservationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ReservationTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,11 +68,57 @@
   }
 }</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="C:\Users\calmu\.gradle\wrapper\dists\gradle-9.3.0-bin\79n14ral3mx1ozqr3csh2u872\gradle-9.3.0" javaHome="C:\Users\calmu\.jdks\openjdk-25.0.2" gradleVersion="9.3.0" />
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/BundleTest.java">
+      <ranges>
+        <range start1="1" end1="3" start2="1" end2="1" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="6" end1="7" start2="4" end2="4" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="17" end1="18" start2="14" end2="15" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="46" end1="53" start2="43" end2="43" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="135" end1="136" start2="125" end2="126" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ReservationTest.java">
+      <ranges>
+        <range start1="4" end1="5" start2="4" end2="6" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="8" end1="8" start2="9" end2="12" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="10" end1="12" start2="14" end2="16" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="14" end1="15" start2="18" end2="19" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="18" end1="19" start2="22" end2="23" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="21" end1="21" start2="25" end2="26" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="24" end1="25" start2="29" end2="30" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="27" end1="27" start2="32" end2="33" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="30" end1="31" start2="36" end2="37" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="33" end1="33" start2="39" end2="40" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="36" end1="37" start2="43" end2="44" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="39" end1="39" start2="46" end2="47" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="42" end1="43" start2="50" end2="51" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="45" end1="45" start2="53" end2="54" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="48" end1="49" start2="57" end2="58" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="51" end1="51" start2="60" end2="61" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="54" end1="55" start2="64" end2="65" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="60" end1="60" start2="70" end2="71" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="64" end1="65" start2="75" end2="76" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="67" end1="67" start2="78" end2="79" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="71" end1="72" start2="83" end2="84" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="74" end1="74" start2="86" end2="87" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="78" end1="79" start2="91" end2="92" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="81" end1="81" start2="94" end2="95" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="84" end1="86" start2="98" end2="100" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="88" end1="88" start2="102" end2="103" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="92" end1="93" start2="107" end2="108" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="95" end1="95" start2="110" end2="111" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="99" end1="100" start2="115" end2="116" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+        <range start1="102" end1="102" start2="118" end2="119" changelist="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" />
+        <range start1="106" end1="107" start2="123" end2="124" changelist="1b09b28a-d18d-43cb-b3aa-110cb265215b" />
+      </ranges>
+    </file>
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nw14QEOn" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -144,8 +191,19 @@
       <workItem from="1769600403208" duration="1595000" />
       <workItem from="1769619774764" duration="81000" />
       <workItem from="1769684342663" duration="3833000" />
-      <workItem from="1769781510432" duration="11699000" />
+      <workItem from="1769781510432" duration="11973000" />
+      <workItem from="1769909342788" duration="1794000" />
+      <workItem from="1769967040961" duration="3499000" />
     </task>
+    <task id="LOCAL-00001" summary="added most of the getters and setters test classes">
+      <option name="closed" value="true" />
+      <created>1769793326568</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1769793326568</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,7 +214,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -165,21 +235,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added most of the getters and setters test classes" />
     <option name="LAST_COMMIT_MESSAGE" value="added most of the getters and setters test classes" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/SellerTest.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint suspend="NONE" type="java-line">
-          <url>file://$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/SellerTest.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

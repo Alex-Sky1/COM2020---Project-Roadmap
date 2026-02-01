@@ -11,7 +11,7 @@ public class IssueReportTest {
 
     // Ran once before any of the tests
     @BeforeAll
-    public static void setup() throws IllegalPackSizeException {
+    public static void setup(){
         testIssueReport = new IssueReport(); // Constructor doesn't exist currently
     }
 
@@ -49,7 +49,7 @@ public class IssueReportTest {
     @Test
     public void testGetFixed() {
 
-        assertTrue(testIssueReport.getFixed() == true);
+        assertTrue(testIssueReport.getFixed());
     }
 
     @Test
@@ -64,46 +64,52 @@ public class IssueReportTest {
     @Test
     public void testSetIssueID() {
 
-        testBundle.setIssueID(3);
-        assertTrue(testBundle.getIssueID() == 3);
+        testIssueReport.setIssueID(3);
+        assertEquals(3, testIssueReport.getIssueID());
     }
 
     @Test
     public void testSetPostingID() {
 
-        testBundle.setPostingID(3);
-        assertTrue(testBundle.getPostingID() == 3);
+        testIssueReport.setPostingID(3);
+        assertEquals(3, testIssueReport.getPostingID());
     }
 
     @Test
     public void testSetCustomerID() {
 
-        testBundle.setCustomerID(3);
-        assertTrue(testBundle.getCustomerID() == 3);
+        testIssueReport.setCustomerID(3);
+        assertEquals(3, testIssueReport.getCustomerID());
     }
 
     // Verifies the ID of the bundle seller
     @Test
     public void testSetType() {
 
-        testBundle.setType("timmy");
-        assertSame("timmy", testBundle.getType());
+        testIssueReport.setType("timmy");
+        assertSame("timmy", testIssueReport.getType());
     }
 
     // Verifies the category of the bundle
     @Test
     public void testSetDescription() {
 
-        testBundle.setDescription("NA");
-        assertSame("NA", testBundle.getDescription());
+        testIssueReport.setDescription("NA");
+        assertSame("NA", testIssueReport.getDescription());
     }
 
+    @Test
+    public void testSetFixed() {
+
+        testIssueReport.setFixed(false);
+        assertSame(false, testIssueReport.getFixed());
+    }
 
     @Test
     public void testSetSellerResponse() {
 
-        testBundle.setSellerResponse("?");
-        assertSame("?", testBundle.getSellerResponse());
+        testIssueReport.setSellerResponse("?");
+        assertSame("?", testIssueReport.getSellerResponse());
     }
 
 

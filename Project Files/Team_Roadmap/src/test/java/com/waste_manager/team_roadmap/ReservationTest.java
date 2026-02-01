@@ -2,108 +2,125 @@ package com.waste_manager.team_roadmap;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.util.Assert;
+import java.time.LocalDateTime;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReservationTest {
 
+    // Initialising the test instance to allow unit tests to be run
+    static Reservation testReservation;
+
     // Ran once before any of the tests
     @BeforeAll
-    public static void setup() throws IllegalPackSizeException {
-        Reservation testReservation = new Reservation(); // Constructor doesn't exist currently
+    public static void setup() {
+        testReservation = new Reservation(); // Constructor doesn't exist currently
     }
 
-    // Verifies the ID of a bundle
+    // Verifies the ID of a reservation
     @Test
     public void testGetReservationID() {
 
-        Assert.assertTrue(testReservation.getReservationID == 1);
+        assertEquals(1, testReservation.getReservationID());
     }
 
+    // Verifies the Posting ID of a reservation
     @Test
     public void testGetPostingID() {
 
-        Assert.assertTrue(testReservation.getPostingID == 1);
+        assertEquals(1, testReservation.getPostingID());
     }
 
+    // Verifies the customer ID of a reservation
     @Test
     public void testGetCustomerID() {
 
-        Assert.assertTrue(testReservation.getCustomerID == 1);
+        assertEquals(1, testReservation.getCustomerID());
     }
 
+    // Verifies the timestamp of a reservation
     @Test
     public void testGetTimestamp() {
 
-        Assert.assertTrue(testReservation.getTimestamp == "01/01/2026");
+        assertSame(LocalDateTime.of(2026, 2, 1, 12, 0), testReservation.getTimeStamp());
     }
 
+    // Verifies the claim code of a reservation
     @Test
     public void testGetClaimCode() {
 
-        Assert.assertTrue(testReservation.getClaimCode == "PLACEHOLDER");
+        assertSame("PLACEHOLDER", testReservation.getClaimCode());
     }
 
+    // verifies the status of a reservation
     @Test
     public void testGetStatus() {
 
-        Assert.assertTrue(testReservation.getStatus == "Claimed");
+        assertSame("Claimed", testReservation.getStatus());
     }
 
+    // Verifies the weather flag of a reservation
     @Test
     public void testGetWeatherFlag() {
 
-        Assert.assertTrue(testReservation.getWeatherFlag == "Raining");
+        assertSame("Raining", testReservation.getWeatherFlag());
     }
 
     /////////////////////////////////////////////////////////
 
 
+    // Verifies changing the ID of a reservation
     @Test
     public void testSetReservationID() {
 
         testReservation.setReservationID(3);
-        Assert.assertTrue(testReservation.getReservationID == 3);
+        assertEquals(3, testReservation.getReservationID());
     }
 
+    // Verifies changing the posting ID of a reservation
     @Test
     public void testSetPostingID() {
 
         testReservation.setPostingID(3);
-        Assert.assertTrue(testReservation.getPostingID == 3);
+        assertEquals(3, testReservation.getPostingID());
     }
 
+    // Verifies changing the customer ID of a reservation
     @Test
     public void testSetCustomerID() {
 
         testReservation.setCustomerID(3);
-        Assert.assertTrue(testReservation.getCustomerID == 3);
+        assertEquals(3, testReservation.getCustomerID());
     }
 
+    // Verifies changing the timestamp of a reservation
     @Test
     public void testSetTimestamp() {
 
-        testReservation.setTimestamp("02/02/2026");
-        Assert.assertTrue(testReservation.getTimestamp == "02/02/2026");
+        testReservation.setTimeStamp(LocalDateTime.now());
+        assertSame(LocalDateTime.now(), testReservation.getTimeStamp());
     }
 
+    // Verifies changing the claim code of a reservation
     @Test
     public void testSetClaimCode() {
 
         testReservation.setClaimCode("ANOTHER_PLACEHOLDER");
-        Assert.assertTrue(testReservation.getClaimCode == "ANOTHER_PLACEHOLDER");
+        assertSame("ANOTHER_PLACEHOLDER", testReservation.getClaimCode());
     }
 
+    // Verifies changing the status of a reservation
     @Test
     public void testSetStatus() {
 
         testReservation.setStatus("Unclaimed");
-        Assert.assertTrue(testReservation.getStatus == "Unclaimed");
+        assertSame("Unclaimed", testReservation.getStatus());
     }
 
+    // Verifies changing the weather flag of a reservation
     @Test
     public void testSetWeatherFlag() {
 
         testReservation.setWeatherFlag("Sunny");
-        Assert.assertTrue(testReservation.getWeatherFlag == "Sunny");
+        assertSame("Sunny", testReservation.getWeatherFlag());
     }
 }
