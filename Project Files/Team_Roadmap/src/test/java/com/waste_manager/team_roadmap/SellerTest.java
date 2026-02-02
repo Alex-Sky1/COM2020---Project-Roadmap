@@ -3,6 +3,9 @@ package com.waste_manager.team_roadmap;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SellerTest {
@@ -12,7 +15,8 @@ public class SellerTest {
     // Ran once before any of the tests
     @BeforeAll
     public static void setup(){
-        testSeller = new Seller(); // Constructor doesn't exist currently
+        testSeller = new Seller(1, "Pete's Puddings", new ArrayList<>(List.of(254, 89)),
+                                new ArrayList<>(List.of(9, 18)), "PPU");
     }
 
     // Verifies the ID of a bundle
@@ -31,20 +35,19 @@ public class SellerTest {
     @Test
     public void testGetLocation() {
 
-        assertArrayEquals(new int[]{43, 65}, testSeller.getLocation());
+        assertEquals(new ArrayList<>(List.of(254, 897)), testSeller.getLocation());
     }
 
     @Test
     public void testGetOpeningHours() {
 
-        assertEquals(new int[]{8, 19}, testSeller.getOpeningHours());
+        assertEquals(new ArrayList<>(List.of(9, 18)), testSeller.getOpeningHours());
     }
 
     @Test
     public void testGetContactStub() {
 
-        // assertArrayEquals(new String[]{"brownie", "chocolate", "sugar"}, testBundle.getContents());
-        assertEquals("PLACEHOLDER", testSeller.getContactStub()); // What is a contact stub?
+        assertEquals("PPU", testSeller.getContactStub());
     }
 
     //////
@@ -66,16 +69,15 @@ public class SellerTest {
     @Test
     public void testSetLocation() {
 
-        int[] newLocation = new int[]{45, 98};
-        testSeller.setLocation(newLocation);
-        assertEquals(new int[]{45, 98}, testSeller.getLocation());
+        testSeller.setLocation(new ArrayList<>(List.of(45, 98)));
+        assertEquals(new ArrayList<>(List.of(45, 98)), testSeller.getLocation());
     }
 
     @Test
     public void testSetOpeningHours() {
 
-        testSeller.setOpeningHours(new int[]{7, 20});
-        assertEquals(new int[]{7, 20}, testSeller.getOpeningHours());
+        testSeller.setOpeningHours(new ArrayList<>(List.of(7, 20)));
+        assertEquals(new ArrayList<>(List.of(7, 20)), testSeller.getOpeningHours());
     }
 
     @Test

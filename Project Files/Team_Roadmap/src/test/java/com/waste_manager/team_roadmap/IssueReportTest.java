@@ -12,7 +12,8 @@ public class IssueReportTest {
     // Ran once before any of the tests
     @BeforeAll
     public static void setup(){
-        testIssueReport = new IssueReport(); // Constructor doesn't exist currently
+        testIssueReport = new IssueReport(1, 1, 1, "Undelivered Food",
+                                        "Food was not available", false, "");
     }
 
     // Verifies the ID of a bundle

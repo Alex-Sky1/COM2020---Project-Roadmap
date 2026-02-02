@@ -1,7 +1,7 @@
 package com.waste_manager.team_roadmap;
 
 import jakarta.persistence.*;
-
+import java.util.ArrayList;
 import java.io.Serializable;
 
 @Entity
@@ -12,8 +12,8 @@ public class Bundle implements Serializable {
     @JoinColumn(name = "seller_id", referencedColumnName = "sellerID")
     private Seller seller;
     private String category;
-    private String[] contents;
-    private String[] allergens;
+    private ArrayList<String> contents;
+    private ArrayList<String> allergens;
     private int quantity;
     private float price;
     private int discount;
@@ -21,8 +21,23 @@ public class Bundle implements Serializable {
     private boolean reserved;
     private boolean expired;
 
-    public Bundle(){
+    public Bundle(int thisPostingID, Seller thisSeller, String thisCategory, ArrayList<String> thisContents,
+                  ArrayList<String> thisAllergens, int thisQuantity, float thisPrice, int thisDiscount, int thisPickUpWindow,
+                  boolean thisReserved, boolean thisExpired){
+
+        this.postingID = thisPostingID;
+        this.seller = thisSeller;
+        this.category = thisCategory;
+        this.contents = thisContents;
+        this.allergens = thisAllergens;
+        this.quantity = thisQuantity;
+        this.price = thisPrice;
+        this.discount = thisDiscount;
+        this.pickUpWindow = thisPickUpWindow;
+        this.reserved = thisReserved;
+        this.expired = thisExpired;
     }
+
 
     Bundle getBundle(){
         return this;
@@ -32,16 +47,18 @@ public class Bundle implements Serializable {
     int getPostingID(){
         return postingID;
     }
+
     void setPostingID(int postingID){
         this.postingID = postingID;
     }
 
-//    int getSellerID(){
-//        return sellerID;
-//    }
-//    void setSellerID(int sellerID){
-//        this.sellerID = sellerID;
-//    }
+    Seller getSeller(){
+        return this.seller;
+    }
+
+    void setSeller(Seller seller){
+        this.seller = seller;
+    }
 
     String getCategory(){
         return category;
@@ -50,17 +67,17 @@ public class Bundle implements Serializable {
         this.category = category;
     }
 
-    String[] getContents(){
-        return contents;
+    ArrayList<String> getContents(){
+        return this.contents;
     }
-    void setContents(String[] contents){
+    void setContents(ArrayList<String> contents){
         this.contents = contents;
     }
 
-    String[] getAllergens(){
-        return allergens;
+    ArrayList<String> getAllergens(){
+        return this.allergens;
     }
-    void setAllergens(String[] allergens){
+    void setAllergens(ArrayList<String> allergens){
         this.allergens = allergens;
     }
 

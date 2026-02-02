@@ -13,7 +13,9 @@ public class ReservationTest {
     // Ran once before any of the tests
     @BeforeAll
     public static void setup() {
-        testReservation = new Reservation(); // Constructor doesn't exist currently
+        testReservation = new Reservation(1, 1, 1,
+                                            LocalDateTime.of(2026, 2, 1, 12, 0),
+                                            "A4RDW", "Unclaimed", "Rainy");
     }
 
     // Verifies the ID of a reservation

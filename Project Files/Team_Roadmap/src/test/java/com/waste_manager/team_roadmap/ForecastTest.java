@@ -11,8 +11,14 @@ public class ForecastTest {
 
     // Ran once before any of the tests
     @BeforeAll
+
     public static void setup() {
-        testForecast = new Forecast(); // Constructor doesn't exist currently
+
+        LocalDateTime testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
+
+        testForecast = new Forecast(DayOfWeek.MONDAY, testTime, 1, "Puddings",
+                12.56f, 5, "sunny", 1, 3,
+                2, 7, 4, 0.76f, "Good");
     }
 
     // Verifies the ID of a bundle
@@ -25,7 +31,7 @@ public class ForecastTest {
     @Test
     public void testGetTime() {
 
-        assertEquals(LocalDateTime.now(), testForecast.getTime()); // Placeholder expected
+        assertEquals(LocalDateTime.of(2026, 2, 1, 12, 0), testForecast.getTime()); // Placeholder expected
     }
 
     @Test

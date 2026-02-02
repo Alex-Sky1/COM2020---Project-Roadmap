@@ -9,7 +9,17 @@ public class IssueReport {
     private boolean fixed;
     private String sellerResponse;
 
-    public IssueReport(){}
+    public IssueReport(int thisIssueID, int thisPostingID, int thisCustomerID, String thisType, String thisDescription,
+                       boolean thisFixed, String thisSellerResponse){
+
+        this.issueID = thisIssueID;
+        this.postingID = thisPostingID;
+        this.customerID = thisCustomerID;
+        this.type = thisType;
+        this.description = thisDescription;
+        this.fixed = thisFixed;
+        this.sellerResponse = thisSellerResponse;
+    }
 
 
     public int getIssueID() {return issueID;}
