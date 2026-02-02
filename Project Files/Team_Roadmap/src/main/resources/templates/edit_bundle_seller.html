@@ -5,9 +5,103 @@
     <title>Edit Bundle</title>
 </head>
 <body>
+<body>
 <div class="header">
-    <h1 class="header-text">Edit Bundles</h1>
+    <h1 class="header-text">Edit Bundle</h1>
     <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
 </div>
+<div style="display: flex">
+    <div class="grid-2-columns">
+        <form>
+            <p class="text-input-label">Food Category</p>
+            <input class="text-input2" type="text">
+            <p class="text-input-label">Price</p>
+            <input class="text-input2" type="text" placeholder="GBP">
+            <p class="text-input-label">Business Name</p>
+            <input class="text-input2" type="text">
+            <p class="text-input-label">Pickup Window</p>
+            <select class="text-input2">
+                <option value="Test">Select</option>
+            </select>
+            <textarea rows=10 style="grid-column: span 2; resize: none">Add a short description of the bundle...</textarea>
+        </form>
+        <button class="button1" style="background-color: #c0d6df; color: #166088">Back to Manage Bundles</button>
+        <button class="button1" style="background-color: #c0d6df; color: #166088">Update</button>
+    </div>
+    <div class="box1" style="width: 25%">
+        <h2>Allergens</h2>
+        <hr>
+        <form>
+            <input type="checkbox" id="celery" name="celery" value="celery">
+            <label for="celery">Celery</label><br>
+            <input type="checkbox" id="gluten" name="gluten" value="gluten">
+            <label for="gluten">Cereals containing Gluten</label><br>
+            <input type="checkbox" id="crustaceans" name="crustaceans" value="crustaceans">
+            <label for="crustaceans">Crustaceans</label><br>
+            <input type="checkbox" id="eggs" name="eggs" value="eggs">
+            <label for="eggs">Eggs</label><br>
+            <input type="checkbox" id="fish" name="fish" value="fish">
+            <label for="fish">Fish</label><br>
+            <input type="checkbox" id="lupin" name="lupin" value="lupin">
+            <label for="lupin">Lupin</label><br>
+            <input type="checkbox" id="milk" name="milk" value="milk">
+            <label for="milk">Milk</label><br>
+            <input type="checkbox" id="molluscs" name="molluscs" value="molluscs">
+            <label for="molluscs">Molluscs</label><br>
+            <input type="checkbox" id="mustard" name="mustard" value="mustard">
+            <label for="mustard">Mustard</label><br>
+            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+            <label for="peanuts">Peanuts</label><br>
+            <input type="checkbox" id="sesame" name="sesame" value="sesame">
+            <label for="sesame">Sesame</label><br>
+            <input type="checkbox" id="soybeans" name="soybeans" value="soybeans">
+            <label for="soybeans">Soybeans</label><br>
+            <input type="checkbox" id="sulphur" name="sulphur" value="sulphur">
+            <label for="sulphur">Sulphur Dioxide / Sulphides</label><br>
+            <input type="checkbox" id="nuts" name="nuts" value="nuts">
+            <label for="nuts">Tree Nuts</label><br>
+        </form>
+    </div>
+    <div style="display: flex; flex-direction: column; width: 25%">
+        <div class="box1" style="width: 100%; padding: 5%; height: 45%">
+            <h2>Contents</h2>
+            <hr>
+            <div style="font-size: 12px">
+                <ul>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                    <li>example</li>
+                </ul>
+            </div>
+        </div>
+        <textarea rows=10 style="resize: none; margin: 5%; width: 100%">Add an Item...</textarea>
+        <div style="display: flex; gap: 10%">
+            <button class="button1" style="background-color: #c0d6df; color: #166088">Quantity</button>
+            <button class="button1" style="background-color: #c0d6df; color: #166088">Add</button>
+        </div>
+    </div>
+</div>
+</body>
 </body>
 </html>

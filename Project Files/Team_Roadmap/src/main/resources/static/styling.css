@@ -4,6 +4,14 @@ body {
     margin: 0;
 }
 
+form {
+    display: contents;
+}
+
+hr {
+    border: solid #4f6d7a;
+}
+
 /* Styling for the header to appear on every page */
 .header {
     background: #166088;
@@ -78,19 +86,25 @@ body {
     color: #166088;
     font-size: 16px;
     padding: 2%;
+    height: 30px;
+    width: 150px;
 }
 
 /* Grid with 2 columns useful for button layouts */
 .grid-2-columns {
     display: grid;
     grid-template-columns: auto auto;
-    margin: 5% 10%;
+    margin: 2%;
     column-gap: 3%;
+    row-gap: 3%;
 }
 
 /* Format for p in box to accompany a text input */
 .text-input-label {
     background-color: #c0d6df;
+    text-align: center;
     font-size: 16px;
+    height: 30px;
+    width: 150px;
     padding: 2%;
 }
