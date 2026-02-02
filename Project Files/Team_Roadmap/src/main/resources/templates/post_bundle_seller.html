@@ -3,11 +3,30 @@
 <head>
     <link rel="stylesheet" href="../static/styling.css" th:href="@{/styling.css}">
     <title>Post Bundle</title>
+    <style>
+        body {
+            background-color: #4f6d7a;
+        }
+    </style>
 </head>
 <body>
 <div class="header">
     <h1 class="header-text">Post Bundle</h1>
     <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
+</div>
+<div class="grid-2-columns">
+    <form>
+        <p class="text-input-label">Food Category</p>
+        <input class="text-input2" type="text">
+        <p class="text-input-label">Price</p>
+        <input class="text-input2" type="text">
+        <p class="text-input-label">Business Name</p>
+        <input class="text-input2" type="text">
+        <p class="text-input-label">Pickup Window</p>
+        <select class="text-input2">
+            <option value="Test">Test</option>
+        </select>
+    </form>
 </div>
 </body>
 </html>

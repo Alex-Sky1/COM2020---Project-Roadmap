@@ -4,6 +4,38 @@ body {
     margin: 0;
 }
 
+/* Styling for the header to appear on every page */
+.header {
+    background: #166088;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+.header-text {
+    color: #dbe9ee;
+    font-size: 30px;
+    font-family: "Nirmala UI", sans-serif;
+    padding-left: 30px;
+    display: flex;
+    float: left;
+}
+.header-img {
+    display: flex;
+    float: right;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px;
+    width: 10%;
+    height: 10%;
+    min-width: 150px;
+}
+
+.simul-entrance-field {
+    float: left;
+    margin: 3%;
+}
+
+/* Dark blue button with light text, rounded corners */
 .button1 {
     background-color: #166088;
     border: none;
@@ -17,69 +49,48 @@ body {
     cursor: pointer;
 }
 
-.text-input1 {
-    background-color: #4f6d7a;
-    color: #dbe9ee;
-    text-align: left;
-    font-size: 16px;
-    padding: 10px 15px;
-}
-
-.header {
-    background: #166088;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-}
-
-.simul-entrance-field {
-    float: left;
-    margin: 3%;
-}
-
-.header-text {
-    color: #dbe9ee;
-    font-size: 30px;
-    font-family: "Nirmala UI", sans-serif;
-    padding-left: 30px;
-    display: flex;
-    float: left;
-}
-
-.header-img {
-    display: flex;
-    float: right;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 15px;
-    width: 10%;
-    height: 10%;
-    min-width: 150px;
-}
-
+/* Light blue box with blue border */
 .box1 {
     background-color: #dbe9ee;
     color: #166088;
     font-size: large;
     float: left;
-    padding: 5px 15px;
+    padding: 2%;
     border-style: solid;
     border-radius: 10px;
     border-color: #166088;
     margin: 5%;
     width: 35%;
+    overflow: auto;
 }
 
-.single-box {
+/* Grey text input for log in page */
+.text-input1 {
+    background-color: #4f6d7a;
+    color: #dbe9ee;
+    font-size: 16px;
+    padding: 2%;
+}
+
+/* Light blue text input */
+.text-input2 {
     background-color: #dbe9ee;
     color: #166088;
-    font-size: large;
-    float: none;
-    padding: 5%;
-    border-style: solid;
-    border-radius: 10px;
-    border-color: #166088;
-    margin: 5%;
-    width: 45%;
-    overflow: auto;
+    font-size: 16px;
+    padding: 2%;
+}
+
+/* Grid with 2 columns useful for button layouts */
+.grid-2-columns {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 5% 10%;
+    column-gap: 3%;
+}
+
+/* Format for p in box to accompany a text input */
+.text-input-label {
+    background-color: #c0d6df;
+    font-size: 16px;
+    padding: 2%;
 }
