@@ -27,7 +27,7 @@ public class IssueReport {
     public String getDescription(){return description;}
     public void setDescription(String description){this.description = description;}
 
-    public boolean isFixed(){return fixed;}
+    public boolean getFixed(){return fixed;}
     public void setFixed(boolean fixed){this.fixed = fixed;}
 
     public String getSellerResponse(){return sellerResponse;}

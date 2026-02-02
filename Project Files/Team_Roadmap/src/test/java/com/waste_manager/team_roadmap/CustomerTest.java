@@ -5,70 +5,76 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomerTest {
 
+    static Customer testCustomer;
     // Ran once before any of the tests
     @BeforeAll
-    public static void setup() throws IllegalPackSizeException {
-        Customer testCustomer = new Customer(); // Constructor doesn't exist currently
+    public static void setup(){
+        testCustomer = new Customer(); // Constructor doesn't exist currently
     }
 
-    // Verifies the ID of a bundle
+    // Verifies the ID of a customer
     @Test
     public void testGetCustomerID() {
 
-        assertTrue(testCustomer.getCustomerID() == 1);
+        assertEquals(1, testCustomer.getCustomerID());
     }
 
+    //Verifies the display name of a customer
     @Test
     public void testGetDisplayName() {
 
         assertSame("Jimmy", testCustomer.getDisplayName());
     }
 
+    //Verifies the streak of a customer
     @Test
     public void testGetStreak() {
 
-        assertTrue(testCustomer.getStreak() == 6);
+        assertEquals(6, testCustomer.getStreak());
     }
 
+    //Verifies the badges of a customer
     @Test
     public void testGetBadges() {
 
-        assertSame("PLACEHOLDER", testCustomer.getBadges());
+        assertSame(new boolean[]{true, true, true}, testCustomer.getBadges());
     }
 
 
     /// //////////////////////////////////////////////////////////////
 
 
+    // Verifies changing the ID of a customer
     @Test
     public void testSetCustomerID() {
 
-        testBundle.setCustomerID(3);
-        assertTrue(testBundle.getCustomerID() == 3);
+        testCustomer.setCustomerID(3);
+        assertEquals(3, testCustomer.getCustomerID());
     }
 
-    // Verifies the ID of the bundle seller
+    // Verifies changing the display name of a customer
     @Test
     public void testSetDisplayName() {
 
-        testBundle.setDisplayName("timmy");
-        assertSame("timmy", testBundle.getDisplayName());
+        testCustomer.setDisplayName("timmy");
+        assertSame("timmy", testCustomer.getDisplayName());
     }
 
-    // Verifies the category of the bundle
+    // Verifies changing the streak of a customer
     @Test
     public void testSetStreak() {
 
-        testBundle.setStreak(7);
-        assertTrue(testBundle.getStreak() == 7);
+        testCustomer.setStreak(7);
+        assertEquals(7, testCustomer.getStreak());
     }
 
+    // Verifies changing the badges of a customer
     @Test
     public void testSetBadges() {
 
         boolean[] contents = {false, true, true};
-        testBundle.setBadges(contents);
-        assertTrue(testBundle.getBadges.equals(new boolean[]{false, true, true}));
+        testCustomer.setBadges(contents);
+        assertArrayEquals(new boolean[]{false, true, true}, testCustomer.getBadges());
 
 
     }

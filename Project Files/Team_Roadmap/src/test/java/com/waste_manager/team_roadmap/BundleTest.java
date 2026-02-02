@@ -1,10 +1,7 @@
 package com.waste_manager.team_roadmap;
 
-
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -15,7 +12,7 @@ public class BundleTest {
     // Ran once before any of the tests
     @BeforeAll
     public static void setup() {
-        Bundle testBundle = new Bundle(); // Constructor doesn't exist currently
+        testBundle = new Bundle(); // Constructor doesn't exist currently
     }
 
     // Verifies the ID of a bundle
@@ -44,13 +41,6 @@ public class BundleTest {
 
         assertArrayEquals(new String[]{"brownie", "chocolate", "sugar"}, testBundle.getContents());
     }
-
-//    @Test
-//    public void testGetItem() { // Need to see how the method will work
-//
-//        testBundle.addItem("Cheese");
-//        assertTrue(testBundle.getItem("Cheese"));
-//    }
 
     @Test
     public void testGetAllergens() {
@@ -133,7 +123,7 @@ public class BundleTest {
     public void testSetAllergens() {
 
         String[] allergens = {"gluten", "dairy", "peanuts"};
-        testBundle.setContents(allergens);
+        testBundle.setAllergens(allergens);
         assertArrayEquals(new String[]{"gluten", "dairy", "peanuts"}, testBundle.getAllergens());
     }
 

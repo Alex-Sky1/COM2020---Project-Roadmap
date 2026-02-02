@@ -14,7 +14,7 @@ public class TeamRoadmapApplication {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "sign_in";
     }
 
     @GetMapping("/sign_in")
