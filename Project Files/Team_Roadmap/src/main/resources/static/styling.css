@@ -18,6 +18,7 @@ hr {
     display: flex;
     justify-content: space-between;
     align-content: center;
+    border: 1px solid black;
 }
 .header-text {
     color: #dbe9ee;
@@ -38,9 +39,20 @@ hr {
     min-width: 150px;
 }
 
-.simul-entrance-field {
-    float: left;
-    margin: 3%;
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: #c0d6df;
+}
+
+
+.container div {
+    background-color: #166088;
+    border: 1px solid black;
+    font-size: 3vmax;
+    font-weight: bold;
+    text-align: center;
+    color: #dbe9ee;
 }
 
 /* Dark blue button with light text, rounded corners */
