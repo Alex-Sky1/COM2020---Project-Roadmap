@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="Made dashboards, started on some seller pages">
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="updated workplace.xml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/styling.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/dashboard_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/dashboard_consumer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/dashboard_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/dashboard_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/edit_bundle_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/edit_bundle_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/post_bundle_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/post_bundle_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_in.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_in.html" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,18 +51,18 @@
     &quot;assignee&quot;: &quot;rb1043&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git&quot;,
-    &quot;accountId&quot;: &quot;0f544ab2-6eec-45ad-af2f-7e304ece0e15&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git",
+    "accountId": "7d41ce5e-3c0a-4225-94bb-a9a52a6ebd2d"
   }
-}</component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="C:\Users\calmu\.gradle\wrapper\dists\gradle-9.3.0-bin\79n14ral3mx1ozqr3csh2u872\gradle-9.3.0" javaHome="C:\Users\calmu\.jdks\openjdk-25.0.2" gradleVersion="9.3.0" />
+}]]></component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.3.0-bin/79n14ral3mx1ozqr3csh2u872/gradle-9.3.0" javaHome="$USER_HOME$/Library/Java/JavaVirtualMachines/openjdk-25.0.2/Contents/Home" gradleVersion="9.3.0" />
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nw14QEOn" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -94,6 +88,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/thomashindle/Documents/Uni/year2/group_software_development_project/test 18.48.07&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -104,7 +99,11 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap" />
       <recent name="C:\Users\rgbra\OneDrive\Documents\Uni\Year 2\Team Project\COM2020---Project-Roadmap\Project Files\Team_Roadmap\src\main\resources\templates" />
     </key>
   </component>
@@ -121,8 +120,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
-        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.169" />
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
       </set>
     </attachedChunks>
   </component>
@@ -141,52 +139,61 @@
       <workItem from="1769600403208" duration="1595000" />
       <workItem from="1769619774764" duration="81000" />
       <workItem from="1769684342663" duration="3833000" />
-      <workItem from="1769781510432" duration="11973000" />
-      <workItem from="1769909342788" duration="1794000" />
-      <workItem from="1769967040961" duration="3499000" />
-      <workItem from="1769988406750" duration="1612000" />
-      <workItem from="1769990149331" duration="1281000" />
+      <workItem from="1769781510432" duration="11699000" />
     </task>
-    <task id="LOCAL-00001" summary="added most of the getters and setters test classes">
+    <task id="LOCAL-00001" summary="Added some of the database setup">
       <option name="closed" value="true" />
-      <created>1769793326568</created>
+      <created>1769886301906</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1769793326568</updated>
+      <updated>1769886301906</updated>
     </task>
-    <task id="LOCAL-00002" summary="Made dashboards, started on some seller pages">
+    <task id="LOCAL-00002" summary="updated workplace.xml">
       <option name="closed" value="true" />
-      <created>1769995563826</created>
+      <created>1770023679587</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1769995563826</updated>
+      <updated>1770023679587</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="updated workplace.xml">
+      <option name="closed" value="true" />
+      <created>1770023703622</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1770023703622</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated workplace.xml">
+      <option name="closed" value="true" />
+      <created>1770036189346</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1770036189346</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="java:io.projectreactor:reactor-core" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
+    <option featureType="dependencySupport" implementationName="java:org.thymeleaf:thymeleaf" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="main" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -194,7 +201,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added most of the getters and setters test classes" />
-    <MESSAGE value="Made dashboards, started on some seller pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made dashboards, started on some seller pages" />
+    <MESSAGE value="Added some of the database setup" />
+    <MESSAGE value="updated workplace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated workplace.xml" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/SellerTest.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint suspend="NONE" type="java-line">
+          <url>file://$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/SellerTest.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

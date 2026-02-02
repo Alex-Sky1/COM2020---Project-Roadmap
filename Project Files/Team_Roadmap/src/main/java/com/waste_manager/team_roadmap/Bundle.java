@@ -1,8 +1,16 @@
 package com.waste_manager.team_roadmap;
 
-public class Bundle {
+import jakarta.persistence.*;
+
+import java.io.Serializable;
+
+@Entity
+public class Bundle implements Serializable {
+    @Id
     private int postingID;
-    private int sellerID;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "seller_id", referencedColumnName = "sellerID")
+    private Seller seller;
     private String category;
     private String[] contents;
     private String[] allergens;
@@ -28,12 +36,12 @@ public class Bundle {
         this.postingID = postingID;
     }
 
-    int getSellerID(){
-        return sellerID;
-    }
-    void setSellerID(int sellerID){
-        this.sellerID = sellerID;
-    }
+//    int getSellerID(){
+//        return sellerID;
+//    }
+//    void setSellerID(int sellerID){
+//        this.sellerID = sellerID;
+//    }
 
     String getCategory(){
         return category;

@@ -1,2 +1,3 @@
 sql-test/target
 sql-test/Cargo.lock
+.idea/workspace.xml
