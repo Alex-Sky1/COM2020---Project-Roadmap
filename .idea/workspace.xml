@@ -7,7 +7,6 @@
     <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="added most of the getters and setters test classes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/styling.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_in.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_in.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_up_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_up_consumer.html" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
@@ -54,12 +53,12 @@
     &quot;assignee&quot;: &quot;rb1043&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git",
-    "accountId": "0f544ab2-6eec-45ad-af2f-7e304ece0e15"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git&quot;,
+    &quot;accountId&quot;: &quot;0f544ab2-6eec-45ad-af2f-7e304ece0e15&quot;
   }
-}]]></component>
+}</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="C:\Users\calmu\.gradle\wrapper\dists\gradle-9.3.0-bin\79n14ral3mx1ozqr3csh2u872\gradle-9.3.0" javaHome="C:\Users\calmu\.jdks\openjdk-25.0.2" gradleVersion="9.3.0" />
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nw14QEOn" />
@@ -142,6 +141,7 @@
       <workItem from="1769909342788" duration="1794000" />
       <workItem from="1769967040961" duration="3499000" />
       <workItem from="1769988406750" duration="1612000" />
+      <workItem from="1769990149331" duration="1281000" />
     </task>
     <task id="LOCAL-00001" summary="added most of the getters and setters test classes">
       <option name="closed" value="true" />

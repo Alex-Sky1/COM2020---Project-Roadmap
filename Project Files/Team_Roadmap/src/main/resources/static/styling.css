@@ -32,6 +32,11 @@ body {
     align-content: center;
 }
 
+.simul-entrance-field {
+    float: left;
+    margin: 3%;
+}
+
 .header-text {
     color: #dbe9ee;
     font-size: 30px;
@@ -63,4 +68,18 @@ body {
     border-color: #166088;
     margin: 5%;
     width: 35%;
+}
+
+.single-box {
+    background-color: #dbe9ee;
+    color: #166088;
+    font-size: large;
+    float: none;
+    padding: 5%;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #166088;
+    margin: 5%;
+    width: 45%;
+    overflow: auto;
 }
