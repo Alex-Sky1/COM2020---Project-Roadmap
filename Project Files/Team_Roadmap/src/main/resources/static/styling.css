@@ -8,6 +8,10 @@ form {
     display: contents;
 }
 
+label {
+    display: contents;
+}
+
 hr {
     border: solid #4f6d7a;
 }
@@ -111,12 +115,13 @@ hr {
     row-gap: 3%;
 }
 
-/* Format for p in box to accompany a text input */
-.text-input-label {
+/* Format for p or label to accompany a text input */
+.label1 {
     background-color: #c0d6df;
     text-align: center;
     font-size: 16px;
     height: 30px;
     width: 150px;
     padding: 2%;
+    display: block;
 }
