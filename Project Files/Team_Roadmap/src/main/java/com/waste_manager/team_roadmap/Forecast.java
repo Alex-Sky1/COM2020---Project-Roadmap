@@ -19,7 +19,26 @@ public class Forecast {
     private float confidence;
     private String rationale;
 
-    public Forecast(){}
+    public Forecast(DayOfWeek thisDay, LocalDateTime thisTime, int thisSellerID, String thisCategory,
+                    float thisPrice, int thisDiscount, String thisWeatherFlag, int thisPostingID,
+                    int thisObservedRes, int thisObservedNoShow, int thisPredictedRes, int thisPredictedNoShow,
+                    float thisConfidence, String thisRationale){
+
+        this.day = thisDay;
+        this.time = thisTime;
+        this.sellerID = thisSellerID;
+        this.category = thisCategory;
+        this.price = thisPrice;
+        this.discount = thisDiscount;
+        this.weatherFlag = thisWeatherFlag;
+        this.postingID = thisPostingID;
+        this.observedRes = thisObservedRes;
+        this.observedNoShow = thisObservedNoShow;
+        this.predictedRes = thisPredictedRes;
+        this.predictedNoShow = thisPredictedNoShow;
+        this.confidence = thisConfidence;
+        this.rationale = thisRationale;
+    }
 
     public int calculatePrediction(){return 0;}
     public String createRecommendation(){return null;}

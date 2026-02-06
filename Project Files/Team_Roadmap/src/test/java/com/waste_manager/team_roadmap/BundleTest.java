@@ -2,17 +2,27 @@ package com.waste_manager.team_roadmap;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class BundleTest {
 
     static Bundle testBundle;
+    static Seller testSeller;
 
     // Ran once before any of the tests
     @BeforeAll
     public static void setup() {
-        testBundle = new Bundle(); // Constructor doesn't exist currently
+        testSeller = new Seller(1, "Pete's Puddings", new ArrayList<>(List.of(254, 89)),
+                new ArrayList<>(List.of(9, 18)), "PPU");
+        testBundle = new Bundle(1, testSeller, "Deserts",new ArrayList<>(List.of("pancakes", "cake", "brownies")),
+                                new ArrayList<>(List.of("gluten, dairy, peanuts")), 1, 11.50f, 10,
+                1230, false, false); // Constructor doesn't exist currently
     }
 
     // Verifies the ID of a bundle
@@ -22,11 +32,13 @@ public class BundleTest {
         assertEquals(1, testBundle.getPostingID());
     }
 
-    // Verifies the ID of the bundle seller
+     //Verifies the ID of the bundle seller
+
+     //Needs changing to a Seller object
     @Test
     public void testGetSellerID() {
 
-        assertEquals(1, testBundle.getSellerID());
+        assertEquals(testSeller, testBundle.getSeller());
     }
 
     // Verifies the category of the bundle
@@ -39,13 +51,13 @@ public class BundleTest {
     @Test
     public void testGetContents() {
 
-        assertArrayEquals(new String[]{"brownie", "chocolate", "sugar"}, testBundle.getContents());
+        assertEquals(new ArrayList<>(List.of("Cake, Brownies, Doughnut")), testBundle.getContents());
     }
 
     @Test
     public void testGetAllergens() {
 
-        assertArrayEquals(new String[]{"gluten", "shellfish"}, testBundle.getAllergens());
+        assertEquals(new ArrayList<>(List.of("gluten, dairy, peanuts")), testBundle.getAllergens());
     }
 
     @Test
@@ -99,8 +111,10 @@ public class BundleTest {
     @Test
     public void testSetSellerID() {
 
-        testBundle.setSellerID(3);
-        assertEquals(3, testBundle.getSellerID());
+        Seller newTestSeller = new Seller(2, "Kim's Cakes", new ArrayList<>(List.of(255, 89)),
+                new ArrayList<>(List.of(9, 18)), "KCA");
+        testBundle.setSeller(newTestSeller);
+        assertEquals(newTestSeller, testBundle.getSeller());
     }
 
     // Verifies the category of the bundle
@@ -114,17 +128,17 @@ public class BundleTest {
     @Test
     public void testSetContents() {
 
-        String[] contents = {"dairy", "fish"};
+        ArrayList<String> contents = new ArrayList<>(List.of("dairy", "fish"));
         testBundle.setContents(contents);
-        assertArrayEquals(new String[]{"dairy", "fish"}, testBundle.getContents());
+        assertEquals(contents, testBundle.getContents());
     }
 
     @Test
     public void testSetAllergens() {
 
-        String[] allergens = {"gluten", "dairy", "peanuts"};
+        ArrayList<String> allergens = new ArrayList<>(List.of("gluten, dairy, peanuts"));
         testBundle.setAllergens(allergens);
-        assertArrayEquals(new String[]{"gluten", "dairy", "peanuts"}, testBundle.getAllergens());
+        assertEquals(allergens, testBundle.getAllergens());
     }
 
     @Test
