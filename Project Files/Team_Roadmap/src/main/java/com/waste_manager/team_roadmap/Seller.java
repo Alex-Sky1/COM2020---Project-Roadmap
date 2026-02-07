@@ -16,6 +16,7 @@ public class Seller implements Serializable {
     private String name;
     private ArrayList<Integer> location;
     private ArrayList<Integer> openingHours;
+    @Column(nullable = false)
     private String contactStub;
 
     // public Seller(){};

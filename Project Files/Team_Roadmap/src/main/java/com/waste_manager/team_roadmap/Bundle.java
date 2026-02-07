@@ -11,14 +11,20 @@ public class Bundle implements Serializable {
     @OneToOne(optional = false)
     @JoinColumn(name = "seller_id", referencedColumnName = "sellerID")
     private Seller seller;
+    @Column(nullable = false)
     private String category;
     private ArrayList<String> contents;
     private ArrayList<String> allergens;
     private int quantity;
+    @Column(nullable = false)
     private float price;
+    @Column(nullable = false)
     private int discount;
+    @Column(nullable = false)
     private int pickUpWindow;
+    @Column(nullable = false)
     private boolean reserved;
+    @Column(nullable = false)
     private boolean expired;
 
     public Bundle(int thisPostingID, Seller thisSeller, String thisCategory, ArrayList<String> thisContents,
