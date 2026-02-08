@@ -20,11 +20,6 @@ public class TeamRoadmapApplication {
         return "redirect:/sign_in";
     }
 
-    @GetMapping("/sign_in")
-    public String sign_in() {
-        return "sign_in";
-    }
-
     @GetMapping("/sign_up_consumer")
     public String sign_up_consumer() {
         return "sign_up_consumer";
