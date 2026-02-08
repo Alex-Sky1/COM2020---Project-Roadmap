@@ -23,43 +23,43 @@
     <h1 class="header-text">Sign Up - Seller</h1>
     <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
 </div>
-<form th:action="@{/sign_in}">
+<form th:action="@{/sign_up_seller}" method="post">
     <div class="box1" style="height: 400px; border: none">
         <div class="grid-2-columns" style="row-gap: 5%; float: left; margin: 5%">
             <label for="fname">First Name(s):</label>
-            <input class="text-input1" type="text" id="fname">
+            <input class="text-input1" type="text" id="fname" name="fname">
             <label for="sname">Surname:</label>
-            <input class="text-input1" type="text" id="sname">
+            <input class="text-input1" type="text" id="sname" name="sname">
             <label for="business">Business Name:</label>
-            <input class="text-input1" type="text" id="business">
+            <input class="text-input1" type="text" id="business" name="business">
             <label for="category">Food Category:</label>
-            <input class="text-input1" type="text" id="category">
+            <input class="text-input1" type="text" id="category" name="category">
             <label for="address_line_1"></label>
-            <input class="text-input1" type="text" placeholder="Address Line 1" style="grid-column: span 2; margin-bottom:2%" id="address_line_1">
+            <input class="text-input1" type="text" placeholder="Address Line 1" style="grid-column: span 2; margin-bottom:2%" id="address_line_1" name="address_line_1">
             <label for="postcode"></label>
-            <input class="text-input1" type="text" placeholder="Postcode" id="postcode">
+            <input class="text-input1" type="text" placeholder="Postcode" id="postcode" name="postcode">
             <label for="county"></label>
-            <input class="text-input1" type="text" placeholder="County" id="county">
+            <input class="text-input1" type="text" placeholder="County" id="county" name="county">
         </div>
     </div>
     <div class="box1" style="height: 400px; border: none">
         <div class="grid-2-columns" style="row-gap: 5%; float: left; margin: 3%">
             <label for="email">Email Address:</label>
-            <input class="text-input1" type="text" id="email">
+            <input class="text-input1" type="text" id="email" name="email">
             <label for="phone">Phone Number:</label>
-            <input class="text-input1" type="text" id="phone">
+            <input class="text-input1" type="text" id="phone" name="phone">
             <label for="password1">Password:</label>
-            <input class="text-input1" type="password" id="password1">
+            <input class="text-input1" type="password" id="password1" name="password1">
             <label for="password2">Confirm Password:</label>
-            <input class="text-input1" type="password" id="password2">
+            <input class="text-input1" type="password" id="password2" name="password2">
             <input style="height: 20px" type="checkbox" id="accept" name="accept" value="accept">
             <label style="font-size: 10px; height: 20px" for="accept">I accept the terms and conditions</label>
             <button type="submit" class="button1" style="width:250px">Create Account</button>
-            <form th:action="@{/sign_in}">
-                <button class="button1" style="width:250px">Return To Login</button>
-            </form>
         </div>
     </div>
+</form>
+<form th:action="@{/sign_in}">
+    <button class="button1" style="width:250px">Return To Login</button>
 </form>
 </body>
 </html>
