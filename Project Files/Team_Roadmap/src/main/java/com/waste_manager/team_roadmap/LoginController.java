@@ -7,12 +7,6 @@ import java.util.List;
 
 @Controller
 public class LoginController {
-    private final SellerRepository sellerRepository;
-    private final CustomerRepository customerRepository;
-    LoginController(SellerRepository sellerRespository, CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-        this.sellerRepository = sellerRespository;
-    }
     @GetMapping("/sign_in")
     public String sign_in() {
         return "sign_in";
