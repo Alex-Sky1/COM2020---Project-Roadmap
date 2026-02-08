@@ -17,4 +17,8 @@ public interface SellerRepository extends Repository<Seller, Long> {
     // Find By
     Optional<Seller> findById(long id);
     List<Seller> findByName(String name);
+
+    // Update
+    Optional<Seller> updateNameById(String newName, long id);
+    Optional<Seller> updateContactStubById(String newContactStub, long id);
 }

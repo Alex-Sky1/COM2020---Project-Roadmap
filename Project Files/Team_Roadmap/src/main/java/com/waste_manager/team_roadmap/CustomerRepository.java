@@ -19,4 +19,7 @@ public interface CustomerRepository extends Repository<Customer, Long> {
     List<Customer> findByDisplayName(String name);
     List<Customer> findByStreakGreaterThan(int streak);
 
+    // update
+    Optional<Customer> updateDisplayNameById(String newName, long id);
+    Optional<Customer> updateStreakById(int newStreak, long id);
 }
