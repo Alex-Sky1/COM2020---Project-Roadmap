@@ -2,6 +2,7 @@ package com.waste_manager.team_roadmap;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
@@ -22,4 +23,10 @@ public interface BundleRepository extends Repository<Bundle, Long> {
     // Order
     List<Bundle> findAllOrderByPrice();
     List<Bundle> findAllOrderByDiscount();
+
+    // updates
+    @Query("update Bundle set reserved=true where id=?1")
+    Optional<Bundle> setBundleReserved(long id);
+    @Query("update Bundle set expired=true where id=?1")
+    Optional<Bundle> setBundleExpired(long id);
 }
