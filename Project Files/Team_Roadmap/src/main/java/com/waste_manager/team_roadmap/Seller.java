@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.util.ArrayList;
 import java.io.Serializable;
 
@@ -13,23 +15,33 @@ public class Seller implements Serializable {
     @GeneratedValue
     private int sellerID;
     @Column(nullable = false)
-    private String name;
-    private ArrayList<Integer> location;
-    private ArrayList<Integer> openingHours;
+    private String dname;
+    private String fname;
+    private String sname;
+    private String address;
+    private String postcode;
+    private String county;
+    //private ArrayList<Integer> openingHours;
     @Column(nullable = false)
-    private String contactStub;
+    private String email;
+    private String phone;
+    private String password;
 
-    // public Seller(){};
+    public Seller(){};
 
-    public Seller(int thisSellerID, String thisName, ArrayList<Integer> thisLocation, ArrayList<Integer> thisOpeningHours, String thisContactStub) {
-        this.sellerID = thisSellerID;
-        this.name = thisName;
-        this.location = thisLocation;
-        this.openingHours = thisOpeningHours;
-        this.contactStub = thisContactStub;
+    public Seller(String fname, String sname, String dname, String adresssLine1, String postcode, String county, String email, String phone, String password) {
+        this.fname = fname;
+        this.sname = sname;
+        this.dname = dname;
+        this.address = adresssLine1;
+        this.postcode = postcode;
+        this.county = county;
+        this.email = email;
+        this.phone = phone;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
     }
 
-    public boolean login(String username, String password){return true;}
     public boolean signup(String fName, String lName, String businessName, String email, String phone, String password, String address1, String postcode, String county){return true;}
     public void createBundle(String category, String[] contents, float price, String[] allergens, int quantity, int discountLevel, int pickupWindow){}
     public ArrayList<Bundle> viewCurrentBundles(){return null;}
@@ -44,20 +56,34 @@ public class Seller implements Serializable {
     public ArrayList<String> calculateOperationalInsights(){return null;}
     public void recordActionTaken(){}
 
+    public int getSellerID() {return sellerID;}
+    public void setSellerID(int sellerID) {}
 
-    public int getSellerID(){return sellerID;}
-    public void setSellerID(int sellerID){this.sellerID = sellerID;}
+    public String getName(){return dname;}
+    public void setName(String dname){this.dname = dname;}
 
-    public String getName(){return name;}
-    public void setName(String name){this.name = name;}
+    public String getFname(){return fname;}
+    public void setFname(String fname){this.fname = fname;}
 
-    public ArrayList<Integer> getLocation(){return location;}
-    public void setLocation(ArrayList<Integer> location){this.location = location;}
+    public String getSname(){return sname;}
+    public void setSname(String sname){this.sname = sname;}
 
-    public ArrayList<Integer> getOpeningHours(){return openingHours;}
-    public void setOpeningHours(ArrayList<Integer> openingHours){this.openingHours = openingHours;}
+    public String getAddress(){return address;}
+    public void setAddress(String address){this.address = address;}
 
-    public String getContactStub(){return contactStub;}
-    public void setContactStub(String contactStub){this.contactStub = contactStub;}
+    public String getPostcode(){return postcode;}
+    public void setPostcode(String postcode){this.postcode = postcode;}
+
+    public String getCounty(){return county;}
+    public void setCounty(String county){this.county = county;}
+
+    public String getEmail(){return email;}
+    public void setEmail(String email){this.email = email;}
+
+    public String getPhone(){return phone;}
+    public void setPhone(String phone){this.phone = phone;}
+
+    public String getPassword(){return password;}
+    public void setPassword(String password){this.password = password;}
 
 }
