@@ -10,7 +10,7 @@ public class Bundle implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int postingID;
     @ManyToOne(optional = false)
-    @JoinColumn(name = "seller_id", referencedColumnName = "sellerID")
+    @JoinColumn(name = "sellerID", referencedColumnName = "sellerID")
     private Seller seller;
     @Column(nullable = false)
     private String category;

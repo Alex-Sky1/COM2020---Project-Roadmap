@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="continue to expand database functionality">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_01_2026_16_34_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_01_2026_16_34__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/browse_bundles_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/browse_bundles_consumer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/manage_bundles_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/manage_bundles_consumer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Seller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Seller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerRepository.java" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,13 +59,13 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git",
-    "accountId": "9ba35089-1c58-4ef7-84a5-4222d5ce0ce1"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git&quot;,
+    &quot;accountId&quot;: &quot;7d41ce5e-3c0a-4225-94bb-a9a52a6ebd2d&quot;
   }
-}]]></component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="C:\Users\alexf\.gradle\wrapper\dists\gradle-9.3.0-bin\79n14ral3mx1ozqr3csh2u872\gradle-9.3.0" javaHome="C:\Users\alexf\.jdks\openjdk-25.0.2" gradleVersion="9.3.0" />
+}</component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.3.0-bin/79n14ral3mx1ozqr3csh2u872/gradle-9.3.0" javaHome="$USER_HOME$/Library/Java/JavaVirtualMachines/openjdk-25.0.2/Contents/Home" gradleVersion="9.3.0" />
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nw14QEOn" />
   </component>
@@ -155,7 +154,6 @@
       <workItem from="1769684342663" duration="3833000" />
       <workItem from="1769781510432" duration="11699000" />
       <workItem from="1770625815197" duration="101000" />
-      <workItem from="1770626021389" duration="7147000" />
     </task>
     <task id="LOCAL-00001" summary="Added some of the database setup">
       <option name="closed" value="true" />

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.persistence.*;
-import org.hibernate.id.IncrementGenerator;
 
 @Entity
 public class Customer implements Serializable {
@@ -13,13 +12,20 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customerID;
     @Column(nullable = false)
-    private String displayName;
-    private String fname;
-    private String sname;
+    private String dName;
+    @Column(nullable = false)
+    private String fName;
+    @Column(nullable = false)
+    private String sName;
+    @Column(nullable = false)
     private String address;
-    private String pcode;
+    @Column(nullable = false)
+    private String postcode;
+    @Column(nullable = false)
     private String county;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String phone;
     @Column(nullable = false)
     private int streak;
@@ -27,12 +33,12 @@ public class Customer implements Serializable {
     private String password;
     public Customer(){};
 
-    public Customer(String fname, String sname, String dname, String al1, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges){
-        this.fname = fname;
-        this.sname = sname;
-        this.displayName = dname;
+    public Customer(String fName, String sName, String dName, String address, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges){
+        this.fName = fName;
+        this.sName = sName;
+        this.dName = dName;
         this.address = address;
-        this.pcode = pcode;
+        this.postcode = pcode;
         this.county = county;
         this.email = email;
         this.phone = phone;
@@ -73,20 +79,20 @@ public class Customer implements Serializable {
     Long getCustomerID(){return customerID;}
     void setCustomerID(Long customerID){this.customerID = customerID;}
 
-    String getDisplayName(){return displayName;}
-    void setDisplayName(String displayName){this.displayName = displayName;}
+    String getdName(){return dName;}
+    void setdName(String dName){this.dName = dName;}
 
-    String getFname(){return fname;}
-    void setFname(String fname){this.fname = fname;}
+    String getfName(){return fName;}
+    void setfName(String fName){this.fName = fName;}
 
-    String getSname(){return sname;}
-    void setSname(String sname){this.sname = sname;}
+    String getsName(){return sName;}
+    void setsName(String sName){this.sName = sName;}
 
     String getAddress(){return address;}
     void setAddress(String address){this.address = address;}
 
-    String getPcode(){return pcode;}
-    void setPcode(String pcode){this.pcode = pcode;}
+    String getPostcode(){return postcode;}
+    void setPostcode(String postcode){this.postcode = postcode;}
 
     String getCounty(){return county;}
     void setCounty(String county){this.county = county;}
