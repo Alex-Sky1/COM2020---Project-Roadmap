@@ -15,7 +15,7 @@
     <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
 </div>
 <div style="display: flex; gap: 5%; flex-wrap: wrap">
-    <form th:action="@{/post_bundle_seller}">
+    <form th:action="@{/post_bundle_seller}" method="post">
         <div class="grid-2-columns">
             <input style="display: none" id="hidden_items" name="hidden_items" type="text">
             <label class="label1" for="category">Food Category</label>
