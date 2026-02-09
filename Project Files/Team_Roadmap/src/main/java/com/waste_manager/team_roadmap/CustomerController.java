@@ -19,10 +19,12 @@ public class CustomerController {
 
     private final CustomerRepository cr;
     private final SellerRepository sr;
+    private final BundleRepository bundleRepository;
 
-    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository) {
+    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository) {
         this.cr = customerRepository;
         this.sr = sellerRepository;
+        this.bundleRepository = bundleRepository;
     }
 
     @PostMapping("/sign_up_consumer")
@@ -106,6 +108,14 @@ public class CustomerController {
         ArrayList<Bundle> allBundles = new ArrayList<>();//(bundleRepository.findAllOrderByPrice());
         model.addAttribute("allBundles", allBundles);
         return "browse_bundles_consumer";
+    }
+
+    @GetMapping("/manage_bundles_consumer")
+    public String listReservedBundles(Model model) {
+        // Need to find a way to know the users ID - Alex
+        List<Bundle> reservedBundles = bundleRepository.findByReserved(true);
+        model.addAttribute(reservedBundles);
+        return "/manage_bundles_consumer";
     }
 
     @PostMapping("/report_issue_consumer")
