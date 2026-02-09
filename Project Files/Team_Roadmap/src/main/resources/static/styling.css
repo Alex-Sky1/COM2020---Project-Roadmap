@@ -49,7 +49,6 @@ hr {
     background-color: #c0d6df;
 }
 
-
 .container div {
     background-color: #166088;
     border: 1px solid black;
@@ -111,7 +110,7 @@ hr {
     display: grid;
     grid-template-columns: auto auto;
     margin: 2%;
-    column-gap: 3%;
+    column-gap: 5%;
     row-gap: 3%;
 }
 

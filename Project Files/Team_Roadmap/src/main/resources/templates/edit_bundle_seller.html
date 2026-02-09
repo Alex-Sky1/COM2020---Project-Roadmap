@@ -14,17 +14,20 @@
     <h1 class="header-text">Edit Bundle</h1>
     <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
 </div>
-<div style="display: flex">
-    <form th:action="@{/edit_bundle_seller}">
+<div style="display: flex; gap: 5%; flex-wrap: wrap">
+    <form th:action="@{/post_bundle_seller}">
         <div class="grid-2-columns">
+            <input style="display: none" id="hidden_items" name="hidden_items" type="text">
             <label class="label1" for="category">Food Category</label>
-            <input class="text-input2" type="text" id="category">
+            <input class="text-input2" type="text" id="category" name="category">
             <label class="label1" for="price">Price</label>
-            <input class="text-input2" type="text" placeholder="GBP" id="price">
-            <label class="label1" for="business_name">Business Name</label>
-            <input class="text-input2" type="text" id="business_name">
+            <input class="text-input2" type="text" placeholder="GBP" id="price" name="price">
+            <label class="label1" for="bundle_numbers">Number of Bundles</label>
+            <input class="text-input2" type="text" id="bundle_numbers" name="bundle_numbers">
+            <label class = label1 for="discount">Discount</label>
+            <input class="text-input2" type="text" placeholder="%" id="discount" name="discount">
             <label class="label1" for="pickup">Pickup Window</label>
-            <select class="text-input2" id="pickup">
+            <select class="text-input2" id="pickup" name="pickup">
                 <option value="00:00-01:00">00:00-01:00</option>
                 <option value="01:00-02:00">01:00-02:00</option>
                 <option value="02:00-03:00">02:00-03:00</option>
@@ -50,14 +53,9 @@
                 <option value="22:00-23:00">22:00-23:00</option>
                 <option value="23:00-00:00">23:00-00:00</option>
             </select>
-            <label for="description"></label>
-            <textarea rows=10 style="grid-column: span 2; resize: none" id="description">Add a short description of the bundle...</textarea>
-            <button type="submit" class="button1" style="background-color: #c0d6df; color: #166088; width: 90%">Edit</button>
-            <form th:action="@{/dashboard_seller}">
-                <button class="button1" style="background-color: #c0d6df; color: #166088; width: 90%">Back to Dashboard</button>
-            </form>
+            <button type="submit" class="button1" style="background-color: #c0d6df; color: #166088; width: 90%" name="edit">Edit</button>
         </div>
-        <div class="box1" style="width: 25%">
+        <div class="box1" style="width: 25%; margin: 1%">
             <h2>Allergens</h2>
             <hr>
             <input type="checkbox" id="celery" name="celery" value="celery">
@@ -93,20 +91,24 @@
             <div class="box1" style="width: 100%; padding: 5%; height: 45%">
                 <h2>Contents</h2>
                 <hr>
-                <div style="font-size: 15px; margin: 3px 0">
+                <div style="font-size: 15px">
                     <ul id="items_list"></ul>
                 </div>
             </div>
             <label for="item"></label>
             <h5 style="color:#dbe9ee; margin: 5% 5% 1% 5%">Enter new items below:</h5>
-            <textarea rows=10 style="resize: none; margin: 0 5% 5% 5%; width: 100%" id="item"></textarea>
-            <div style="display: flex; gap: 10%; margin: 5%">
-                <label for="quantity"></label>
-                <input class="button1" style="width:50%; background-color: #c0d6df; color: #166088;" id="quantity" name="quantity" min="1" max="100" placeholder="1">
-                <button class="button1" style="width:50%; background-color: #c0d6df; color: #166088" id="add" onclick="addListItem()">Add</button>
-            </div>
+            <textarea rows=10 style="resize: none; margin: 0 5% 5% 5%; width: 100%" id="item" name="item"></textarea>
         </div>
     </form>
+</div>
+<label for="quantity"></label>
+<div style="margin: 0 2%">
+    <form th:action="@{/dashboard_seller}">
+        <button class="button1" style="background-color: #c0d6df; color: #166088; width: 9%; margin-right: 60%" name="back">Back to Dashboard</button>
+    </form>
+    <label for="quantity"></label>
+    <input class="button1" style="width:9%; background-color: #c0d6df; color: #166088" id="quantity" name="quantity" min="1" max="100" value=1 type="number">
+    <button class="button1" style="width:9%; background-color: #c0d6df; color: #166088" id="add" onclick="addListItem()">Add</button>
 </div>
 
 <script type="text/javascript" th:src="@{/addItem.js}"></script>
