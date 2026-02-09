@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Seller implements Serializable {
     @Id
     @GeneratedValue
-    private int sellerID;
+    private int ID;
     @Column(nullable = false)
     private String dName;
     @Column(nullable = false)
@@ -62,7 +62,7 @@ public class Seller implements Serializable {
     public ArrayList<String> calculateOperationalInsights(){return null;}
     public void recordActionTaken(){}
 
-    public int getSellerID() {return sellerID;}
+    public int getSellerID() {return ID;}
     public void setSellerID(int sellerID) {}
 
     public String getName(){return dName;}

@@ -1,7 +1,5 @@
 package com.waste_manager.team_roadmap;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
@@ -20,13 +18,12 @@ public interface BundleRepository extends Repository<Bundle, Long> {
     List<Bundle> findByReserved(boolean Reserved);
     List<Bundle> findByExpired(boolean Expired);
     List<Bundle> findBySellerID(long sellerId);
-    @Query("select b from Bundle b where expired=false and sellerId=?1")
-    List<Bundle> findBySellerIDNotExpired(long sellerId);
+    List<Bundle> findByExpiredTrueAndSellerID(long sellerId);
     List<Bundle> findByReservedAndExpired(boolean reserved, boolean expired);
 
     // Order
-    List<Bundle> findAllOrderByPrice();
-    List<Bundle> findAllOrderByDiscount();
+//    List<Bundle> findAllOrderByPrice();
+//    List<Bundle> findAllOrderByDiscount();
 
     // updates
     @Query("update Bundle set reserved=true where id=?1")

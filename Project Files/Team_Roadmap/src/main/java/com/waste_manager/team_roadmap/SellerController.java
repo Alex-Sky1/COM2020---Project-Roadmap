@@ -32,8 +32,8 @@ public class SellerController {
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
                          @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2) {
 
-        List<Seller> s = sr.findByDname(business);
-        List<Customer> c = cr.findByDisplayName(business);
+        List<Seller> s = sr.findByDName(business);
+        List<Customer> c = cr.findByDName(business);
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
             return "/sign_up_seller";
@@ -74,7 +74,7 @@ public class SellerController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Seller s = sr.findByDname(currentUsername).getFirst();
+        Seller s = sr.findByDName(currentUsername).getFirst();
         ArrayList<String> allergens = new ArrayList<>();
         if(celery!= null) allergens.add(celery);
         if(gluten!= null) allergens.add(gluten);
@@ -110,11 +110,11 @@ public class SellerController {
                                     @RequestParam("postcode") String pcode, @RequestParam("county") String county,
                                     @RequestParam("email") String email, @RequestParam("phone") String phone,
                                     @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2){
-        List<Seller> s = sr.findByDname(business);
-        List<Customer> c = cr.findByDisplayName(business);
+        List<Seller> s = sr.findByDName(business);
+        List<Customer> c = cr.findByDName(business);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Seller seller = sr.findByDname(currentUsername).getFirst();
+        Seller seller = sr.findByDName(currentUsername).getFirst();
         int sellerId= seller.getSellerID();
 
 //        if(!business.isEmpty()){

@@ -32,8 +32,8 @@ public class CustomerController {
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
                          @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2) {
 
-        List<Customer> c = cr.findByDisplayName(dname);
-        List<Seller> s = sr.findByDname(dname);
+        List<Customer> c = cr.findByDName(dname);
+        List<Seller> s = sr.findByDName(dname);
 
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
