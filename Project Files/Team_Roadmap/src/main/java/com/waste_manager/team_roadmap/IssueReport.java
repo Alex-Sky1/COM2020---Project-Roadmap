@@ -1,18 +1,17 @@
 package com.waste_manager.team_roadmap;
 
 public class IssueReport {
-    private int issueID;
-    private int postingID;
-    private int customerID;
+    private long issueID;
+    private long postingID;
+    private long customerID;
     private String type;
     private String description;
     private boolean fixed;
     private String sellerResponse;
 
-    public IssueReport(int thisIssueID, int thisPostingID, int thisCustomerID, String thisType, String thisDescription,
+    public IssueReport(long thisPostingID, long thisCustomerID, String thisType, String thisDescription,
                        boolean thisFixed, String thisSellerResponse){
 
-        this.issueID = thisIssueID;
         this.postingID = thisPostingID;
         this.customerID = thisCustomerID;
         this.type = thisType;
@@ -22,13 +21,13 @@ public class IssueReport {
     }
 
 
-    public int getIssueID() {return issueID;}
+    public long getIssueID() {return issueID;}
     public void setIssueID(int issueID){this.issueID = issueID;}
 
-    public int getPostingID(){return postingID;}
+    public long getPostingID(){return postingID;}
     public void setPostingID(int postingID){this.postingID = postingID;}
 
-    public int getCustomerID(){return customerID;}
+    public long getCustomerID(){return customerID;}
     public void setCustomerID(int customerID){this.customerID = customerID;}
 
     public String getType(){return type;}

@@ -7,25 +7,31 @@ import java.io.Serializable;
 @Entity
 public class Bundle implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int postingID;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "seller_id", referencedColumnName = "sellerID")
     private Seller seller;
+    @Column(nullable = false)
     private String category;
     private ArrayList<String> contents;
     private ArrayList<String> allergens;
     private int quantity;
+    @Column(nullable = false)
     private float price;
+    @Column(nullable = false)
     private int discount;
+    @Column(nullable = false)
     private int pickUpWindow;
+    @Column(nullable = false)
     private boolean reserved;
+    @Column(nullable = false)
     private boolean expired;
 
-    public Bundle(int thisPostingID, Seller thisSeller, String thisCategory, ArrayList<String> thisContents,
+    public Bundle(Seller thisSeller, String thisCategory, ArrayList<String> thisContents,
                   ArrayList<String> thisAllergens, int thisQuantity, float thisPrice, int thisDiscount, int thisPickUpWindow,
                   boolean thisReserved, boolean thisExpired){
 
-        this.postingID = thisPostingID;
         this.seller = thisSeller;
         this.category = thisCategory;
         this.contents = thisContents;

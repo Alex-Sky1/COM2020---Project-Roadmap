@@ -4,28 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="updated workplace.xml">
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="continue to expand database functionality">
+      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomAuthenticationSuccessHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomUserDetailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Bundle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Bundle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/BundleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/BundleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/IssueReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/IssueReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Seller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Seller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/TeamRoadmapApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/TeamRoadmapApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/styling.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/browse_bundles_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/browse_bundles_consumer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/dashboard_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/dashboard_consumer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/dashboard_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/dashboard_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/edit_bundle_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/edit_bundle_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/edit_profile_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/edit_profile_consumer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/edit_profile_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/edit_profile_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/forecasting_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/forecasting_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/manage_bundles_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/manage_bundles_consumer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/manage_bundles_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/manage_bundles_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/manage_reservations_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/manage_reservations_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/post_bundle_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/post_bundle_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/report_issue_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/report_issue_consumer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_in.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_in.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_up_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_up_consumer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_up_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/sign_up_seller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/view_analytics_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/view_analytics_consumer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/view_analytics_seller.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/view_analytics_seller.html" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +81,7 @@
     &quot;accountId&quot;: &quot;7d41ce5e-3c0a-4225-94bb-a9a52a6ebd2d&quot;
   }
 }</component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.3.0-bin/79n14ral3mx1ozqr3csh2u872/gradle-9.3.0" javaHome="$USER_HOME$/Library/Java/JavaVirtualMachines/openjdk-25.0.2/Contents/Home" gradleVersion="9.3.0" />
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="C:\Users\rgbra\.gradle\wrapper\dists\gradle-9.3.0-bin\79n14ral3mx1ozqr3csh2u872\gradle-9.3.0" javaHome="C:\Users\rgbra\.jdks\openjdk-25.0.2" gradleVersion="9.3.0" />
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nw14QEOn" />
   </component>
@@ -97,32 +97,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build Team_Roadmap.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.TeamRoadmapApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/thomashindle/Documents/Uni/year2/group_software_development_project/test 18.48.07&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.updates&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build Team_Roadmap.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.TeamRoadmapApplication.executor": "Run",
+    "git-widget-placeholder": "Merging main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/thomashindle/Documents/Uni/year2/group_software_development_project/test 18.48.07",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.updates",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -201,7 +201,31 @@
       <option name="project" value="LOCAL" />
       <updated>1770036189346</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fuck you workspace.xml i hate you">
+      <option name="closed" value="true" />
+      <created>1770037070168</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1770037070168</updated>
+    </task>
+    <task id="LOCAL-00006" summary="temp commit">
+      <option name="closed" value="true" />
+      <created>1770391249388</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1770391249388</updated>
+    </task>
+    <task id="LOCAL-00007" summary="continue to expand database functionality">
+      <option name="closed" value="true" />
+      <created>1770471787059</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1770471787059</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +255,9 @@
     <MESSAGE value="added most of the getters and setters test classes" />
     <MESSAGE value="Added some of the database setup" />
     <MESSAGE value="updated workplace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated workplace.xml" />
+    <MESSAGE value="fuck you workspace.xml i hate you" />
+    <MESSAGE value="temp commit" />
+    <MESSAGE value="continue to expand database functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="continue to expand database functionality" />
   </component>
 </project>
