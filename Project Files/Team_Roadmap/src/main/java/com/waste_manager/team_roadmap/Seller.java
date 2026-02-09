@@ -15,24 +15,30 @@ public class Seller implements Serializable {
     @GeneratedValue
     private int sellerID;
     @Column(nullable = false)
-    private String dname;
-    private String fname;
-    private String sname;
+    private String dName;
+    @Column(nullable = false)
+    private String fName;
+    @Column(nullable = false)
+    private String sName;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private String postcode;
+    @Column(nullable = false)
     private String county;
     //private ArrayList<Integer> openingHours;
     @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String phone;
     private String password;
 
     public Seller(){};
 
-    public Seller(String fname, String sname, String dname, String adresssLine1, String postcode, String county, String email, String phone, String password) {
-        this.fname = fname;
-        this.sname = sname;
-        this.dname = dname;
+    public Seller(String fName, String sName, String dName, String adresssLine1, String postcode, String county, String email, String phone, String password) {
+        this.fName = fName;
+        this.sName = sName;
+        this.dName = dName;
         this.address = adresssLine1;
         this.postcode = postcode;
         this.county = county;
@@ -59,14 +65,14 @@ public class Seller implements Serializable {
     public int getSellerID() {return sellerID;}
     public void setSellerID(int sellerID) {}
 
-    public String getName(){return dname;}
-    public void setName(String dname){this.dname = dname;}
+    public String getName(){return dName;}
+    public void setName(String dName){this.dName = dName;}
 
-    public String getFname(){return fname;}
-    public void setFname(String fname){this.fname = fname;}
+    public String getfName(){return fName;}
+    public void setfName(String fName){this.fName = fName;}
 
-    public String getSname(){return sname;}
-    public void setSname(String sname){this.sname = sname;}
+    public String getsName(){return sName;}
+    public void setsName(String sName){this.sName = sName;}
 
     public String getAddress(){return address;}
     public void setAddress(String address){this.address = address;}

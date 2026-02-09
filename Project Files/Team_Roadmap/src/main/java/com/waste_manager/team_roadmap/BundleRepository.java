@@ -19,6 +19,9 @@ public interface BundleRepository extends Repository<Bundle, Long> {
     Optional<Bundle> findById(long id);
     List<Bundle> findByReserved(boolean Reserved);
     List<Bundle> findByExpired(boolean Expired);
+    List<Bundle> findBySellerID(long sellerId);
+    @Query("select b from Bundle b where expired=false and sellerId=?1")
+    List<Bundle> findBySellerIDNotExpired(long sellerId);
 
     // Order
     List<Bundle> findAllOrderByPrice();
