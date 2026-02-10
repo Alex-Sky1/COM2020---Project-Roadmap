@@ -28,6 +28,7 @@ public class Bundle implements Serializable {
     @Column(nullable = false)
     private boolean expired;
 
+    public Bundle() {}
     public Bundle(Seller thisSeller, String thisCategory, ArrayList<String> thisContents,
                   ArrayList<String> thisAllergens, int thisQuantity, float thisPrice, int thisDiscount, int thisPickUpWindow,
                   boolean thisReserved, boolean thisExpired){
@@ -49,82 +50,108 @@ public class Bundle implements Serializable {
         return this;
     }
 
-
-    int getPostingID(){
-        return postingID;
+    public String getContentsAsString(){
+        StringBuilder contentsString = new StringBuilder();
+        if(this.contents.isEmpty()){
+            return "";
+        }
+        for (String content : this.contents){
+            contentsString.append(content).append(",");
+        }
+        contentsString.deleteCharAt(contentsString.length() - 1);
+        return contentsString.toString();
     }
 
-    void setPostingID(int postingID){
+    public String getAllergensAsString(){
+        StringBuilder allergensString = new StringBuilder();
+        if (this.allergens.isEmpty()){
+            return "";
+        }
+        for (String allergen : this.allergens){
+            allergensString.append(allergen).append(",");
+        }
+        allergensString.deleteCharAt(allergensString.length() - 1);
+
+        return allergensString.toString();
+    }
+
+    public String getPickUpWindowAsString(){
+        return pickUpWindow + ":00";
+    }
+    public int getPostingID(){
+        return postingID;
+    }
+    public void setPostingID(int postingID){
         this.postingID = postingID;
     }
 
-    Seller getSeller(){
+    public Seller getSeller(){
         return this.seller;
     }
-
-    void setSeller(Seller seller){
+    public void setSeller(Seller seller){
         this.seller = seller;
     }
 
-    String getCategory(){
+    public String getCategory(){
         return category;
     }
-    void setCategory(String category){
+    public void setCategory(String category){
         this.category = category;
     }
 
-    ArrayList<String> getContents(){
+    public ArrayList<String> getContents(){
         return this.contents;
     }
-    void setContents(ArrayList<String> contents){
+    public void setContents(ArrayList<String> contents){
         this.contents = contents;
     }
 
-    ArrayList<String> getAllergens(){
+    public ArrayList<String> getAllergens(){
         return this.allergens;
     }
-    void setAllergens(ArrayList<String> allergens){
+    public void setAllergens(ArrayList<String> allergens){
         this.allergens = allergens;
     }
 
-    int getQuantity(){
+    public int getQuantity(){
         return quantity;
     }
-    void setQuantity(int quantity){
+    public void setQuantity(int quantity){
         this.quantity = quantity;
     }
 
-    float getPrice(){
+    public float getPrice(){
         return price;
     }
-    void setPrice(float price){
+    public void setPrice(float price){
         this.price = price;
     }
 
-    int getPickUpWindow(){
+    public int getPickUpWindow(){
         return pickUpWindow;
     }
-    void setPickUpWindow(int pickUpWindow){
+    public void setPickUpWindow(int pickUpWindow){
         this.pickUpWindow = pickUpWindow;
     }
 
-    boolean getReserved(){
+    public boolean getReserved(){
         return reserved;
     }
-    void setReserved(boolean reserved){
+    public void setReserved(boolean reserved){
         this.reserved = reserved;
     }
 
-    boolean getExpired(){
+    public boolean getExpired(){
         return expired;
     }
-    void setExpired(boolean expired){
+    public void setExpired(boolean expired){
         this.expired = expired;
     }
-    int getDiscount(){
+
+    public int getDiscount(){
         return discount;
     }
-    void setDiscount(int discount){
+    public void setDiscount(int discount){
         this.discount = discount;
     }
 

@@ -45,16 +45,6 @@ public class TeamRoadmapApplication {
         return "dashboard_consumer";
     }
 
-    @GetMapping("/browse_bundles_consumer")
-    public String browse_bundles_consumer() {
-        return "browse_bundles_consumer";
-    }
-
-    @GetMapping("/manage_bundles_consumer")
-    public String manage_bundles_consumer() {
-        return "manage_bundles_consumer";
-    }
-
     @GetMapping("/view_analytics_consumer")
     public String view_analytics_consumer() {
         return "view_analytics_consumer";

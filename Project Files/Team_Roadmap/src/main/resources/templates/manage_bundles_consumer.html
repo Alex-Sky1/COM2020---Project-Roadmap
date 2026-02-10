@@ -24,13 +24,13 @@
             <td th:text="${bundle.price}">Ex Price</td>
             <td th:text="${bundle.pickUpWindow}">Pickup Window</td>
             <td>
-                <a th:href="@{/report_issue_consumer.html}">Report An Issue</a>
+                <a th:href="@{/report_issue_consumer}">Report An Issue</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<form th:action="@{/dashboard_consumer.html}" class="box1">
+<form th:action="@{/dashboard_consumer}" class="box1">
     <button class="button1" style="width:220px">Return to Dashboard</button>
 </form>
 </body>

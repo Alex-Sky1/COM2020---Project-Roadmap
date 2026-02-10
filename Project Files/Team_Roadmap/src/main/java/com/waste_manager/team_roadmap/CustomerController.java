@@ -1,5 +1,6 @@
 package com.waste_manager.team_roadmap;
 
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Controller
@@ -56,40 +57,41 @@ public class CustomerController {
         }
     }
 
-//    @PostMapping("edit_profile_consumer")
-//    public String editProfileCustomer(@RequestParam("fname") String fname, @RequestParam("sname") String sname,
-//                                    @RequestParam("dname") String dname, @RequestParam("address_line_1") String al1,
-//                                    @RequestParam("postcode") String pcode, @RequestParam("county") String county,
-//                                    @RequestParam("email") String email, @RequestParam("phone") String phone,
-//                                    @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2) {
-//        List<Seller> s = sr.findByDname(dname);
-//        List<Customer> c = cr.findByDisplayName(dname);
+    @PostMapping("/edit_profile_consumer")
+    public String editProfileCustomer(@RequestParam("fname") String fname, @RequestParam("sname") String sname,
+                                    @RequestParam("dname") String dname, @RequestParam("address_line_1") String al1,
+                                    @RequestParam("postcode") String pcode, @RequestParam("county") String county,
+                                    @RequestParam("email") String email, @RequestParam("phone") String phone,
+                                    @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2) {
+
+//        List<Seller> s = sr.findByDName(dname);
+//        List<Customer> c = cr.findByDName(dname);
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //        String currentUsername = auth.getName();
-//        Customer customer = cr.findByDisplayName(currentUsername).getFirst();
+//        Customer customer = cr.findByDName(currentUsername).getFirst();
 //        long customerId = customer.getCustomerID();
 //
 //        if (!dname.isEmpty()) {
 //            if (!s.isEmpty() || !c.isEmpty()) {
 //                System.out.println("user name already exists");
 //            } else {
-//                cr.updateDisplayNameById(dname, customerId);
+//                cr.updateDNameById(dname, customerId);
 //            }
 //        }
 //        if (!pwd1.isEmpty() && pwd1.equals(pwd2)) {
 //            cr.updatePasswordById(pwd1, customerId);
 //        }
 //        if (!fname.isEmpty()) {
-//            cr.updateFnameById(fname, customerId);
+//            cr.updateFNameById(fname, customerId);
 //        }
 //        if (!sname.isEmpty()) {
-//            cr.updateSnameById(sname, customerId);
+//            cr.updateSNameById(sname, customerId);
 //        }
 //        if (!al1.isEmpty()) {
 //            cr.updateAddressById(al1, customerId);
 //        }
 //        if (!pcode.isEmpty()) {
-//            cr.updatePasswordById(pcode, customerId);
+//            cr.updatePostcodeById(pcode, customerId);
 //        }
 //        if (!county.isEmpty()) {
 //            cr.updateCountyById(county, customerId);
@@ -100,19 +102,41 @@ public class CustomerController {
 //        if (!phone.isEmpty()) {
 //            cr.updatePhoneById(phone, customerId);
 //        }
-//        return "/edit_profile_consumer";
-//    }
+//
+//        Customer newc = cr.findByDName(dname).getFirst();
+//
+//        System.out.println(newc.getAddress() + " " + newc.getPostcode() + " " + newc.getCounty() + " " + newc.getEmail() +  " " + newc.getPhone());
+//        System.out.println();
 
-        @PostMapping("/browse_bundles_consumer")
+        return "/edit_profile_consumer";
+    }
+
+    @GetMapping("/browse_bundles_consumer")
     public String browseBundlesConsumer(@RequestBody(required = false) ArrayList<String> filters, Model model) {
         ArrayList<Bundle> allBundles = new ArrayList<>();//(bundleRepository.findAllOrderByPrice());
         model.addAttribute("allBundles", allBundles);
         return "browse_bundles_consumer";
     }
 
+    @PostMapping("/browse_bundles_consumer")
+    public String reserveBundleConsumer(@RequestParam("postingID") int postingID) {
+        Optional<Bundle> b = bundleRepository.findById(postingID);
+        Bundle b1 = b.get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Customer customer = cr.findByDName(currentUsername).getFirst();
+
+        //new reservation to reserve b1 to customer id
+        bundleRepository.setBundleReserved(postingID);
+
+        return "browse_bundles_consumer";
+    }
     @GetMapping("/manage_bundles_consumer")
     public String listReservedBundles(Model model) {
-        // Need to find a way to know the users ID - Alex
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Customer c = cr.findByDName(currentUsername).getFirst();
+
         List<Bundle> reservedBundles = bundleRepository.findByReserved(true);
         model.addAttribute(reservedBundles);
         return "/manage_bundles_consumer";

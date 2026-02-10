@@ -26,7 +26,7 @@ public class CustomUserDetailService implements UserDetailsService {
         List<Seller> sList = sellerRepository.findByDName(username);
         if(!sList.isEmpty()){
             Seller s = sList.getFirst();
-            return User.withUsername(s.getName()).password(s.getPassword()).authorities("ROLE_SELLER").build();
+            return User.withUsername(s.getdName()).password(s.getPassword()).authorities("ROLE_SELLER").build();
         }
 
 

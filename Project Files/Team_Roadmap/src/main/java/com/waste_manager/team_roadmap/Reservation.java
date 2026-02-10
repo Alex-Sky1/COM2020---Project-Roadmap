@@ -10,10 +10,8 @@ public class Reservation {
     private String status;
     private String weatherFlag;
 
-    public Reservation(int thisReservationID, int thisPostingID, int thisCustomerID, LocalDateTime thisTimeStamp,
+    public Reservation( int thisPostingID, int thisCustomerID, LocalDateTime thisTimeStamp,
                        String thisClaimCode, String thisStatus, String thisWeatherFlag){
-
-        this.reservationID = thisReservationID;
         this.postingID = thisPostingID;
         this.customerID = thisCustomerID;
         this.timeStamp = thisTimeStamp;

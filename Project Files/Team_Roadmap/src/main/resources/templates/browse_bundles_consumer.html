@@ -16,25 +16,32 @@
             <th>Seller</th>
             <th>Category</th>
             <th>Contents</th>
+            <th>Allergens</th>
             <th>Price</th>
+            <th>Discount</th>
             <th>Pickup Window</th>
             <th>Reserve Bundle</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="bundle : ${allBundles}">
-            <td th:text="${bundle.seller}">Ex Seller</td>
+            <td th:text="${bundle.seller.dName}">Ex Seller</td>
             <td th:text="${bundle.category}">Ex Category</td>
-            <td>Ex Contents</td>
+            <td th:text="${bundle.getContentsAsString()}">Ex Contents</td>
+            <td th:text="${bundle.getAllergensAsString()}">Ex Allergens</td>
             <td th:text="${bundle.price}">Ex Price</td>
-            <td th:text="${bundle.pickUpWindow}">Pickup Window</td>
+            <td th:text="${bundle.discount}">Ex Price</td>
+            <td th:text="${bundle.getPickUpWindowAsString()}">Pickup Window</td>
             <td>
-                <a th:href="@{/mnage_bundles_consumer.html}">Reserve Bundle</a>
+                <form th:action="@{/browse_bundles_consumer}" method="post">
+                    <input type="hidden" th:value="${bundle.postingID}" name="postingID">
+                    <button class="button1" style="width:220px">Reserve Bundle</button>
+                </form>
             </td>
         </tr>
         </tbody>
     </table>
-    <form th:action="@{/dashboard_consumer.html}">
+    <form th:action="@{/dashboard_consumer}">
         <button class="button1" style="width:220px">Return to Dashboard</button>
     </form>
 </div>

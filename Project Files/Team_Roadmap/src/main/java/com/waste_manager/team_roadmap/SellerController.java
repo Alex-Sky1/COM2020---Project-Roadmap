@@ -97,7 +97,7 @@ public class SellerController {
 
         ArrayList<String> content = new ArrayList<>();
         int pickupHr = Integer.parseInt(pickup.substring(0,2));
-        System.out.println("regjnhgjenrgkjenr");
+
         Bundle bundle = new Bundle(s, category,  content, allergens, 1, Float.parseFloat(price), 0, pickupHr, false, false);
         br.save(bundle);
         return "/post_bundle_seller";
@@ -125,19 +125,19 @@ public class SellerController {
 //            }
 //        }
 //        if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
-//            sr.updatePasswordById(pwd1, sellerId);
+//            //sr.upd(pwd1, sellerId);
 //        }
 //        if(!fname.isEmpty()){
-//            sr.updateFnameById(fname, sellerId);
+//            sr.updateFNameById(fname, sellerId);
 //        }
 //        if(!sname.isEmpty()){
-//            sr.updateSnameById(sname, sellerId);
+//            sr.updateSNameById(sname, sellerId);
 //        }
 //        if(!al1.isEmpty()){
 //            sr.updateAddressById(al1, sellerId);
 //        }
 //        if(!pcode.isEmpty()){
-//            sr.updatePasswordById(pcode, sellerId);
+//            sr.updatePostcodeById(pcode, sellerId);
 //        }
 //        if(!county.isEmpty()){
 //            sr.updateCountyById(county, sellerId);
