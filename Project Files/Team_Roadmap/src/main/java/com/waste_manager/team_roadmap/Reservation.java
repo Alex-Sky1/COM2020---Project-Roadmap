@@ -1,19 +1,31 @@
 package com.waste_manager.team_roadmap;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
+@Entity
 public class Reservation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long reservationID;
-    private long postingID;
-    private long customerID;
+    @OneToOne
+    @JoinColumn(name = "bundle_id", referencedColumnName = "ID")
+    private Bundle bundle;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "ID")
+    private Customer customer;
     private LocalDateTime timeStamp;
+    @Column(nullable = false)
     private String claimCode;
+    @Column(nullable = false)
     private String status;
+    @Column(nullable = false)
     private String weatherFlag;
 
-    public Reservation( long thisPostingID, long thisCustomerID, LocalDateTime thisTimeStamp,
+    public Reservation(Bundle bundle, Customer customer, LocalDateTime thisTimeStamp,
                        String thisClaimCode, String thisStatus, String thisWeatherFlag){
-        this.postingID = thisPostingID;
-        this.customerID = thisCustomerID;
+        this.bundle = bundle;
+        this.customer = customer;
         this.timeStamp = thisTimeStamp;
         this.claimCode = thisClaimCode;
         this.status = thisStatus;
@@ -24,11 +36,11 @@ public class Reservation {
     public long getReservationID() {return reservationID;}
     public void setReservationID(int reservationID) {this.reservationID = reservationID;}
 
-    public long getPostingID() {return postingID;}
-    public void setPostingID(int postingID) {this.postingID = postingID;}
+    public Bundle getBundle() {return bundle;}
+    public void setBundle(Bundle bundle) {this.bundle = bundle;}
 
-    public long getCustomerID() {return customerID;}
-    public void setCustomerID(int customerID) {this.customerID = customerID;}
+    public Customer getCustomer() {return customer;}
+    public void setCustomer(Customer customer) {this.customer = customer;}
 
     public LocalDateTime getTimeStamp() {return timeStamp;}
     public void setTimeStamp(LocalDateTime timeStamp) {this.timeStamp = timeStamp;}
