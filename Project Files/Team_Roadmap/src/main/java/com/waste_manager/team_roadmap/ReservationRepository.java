@@ -6,7 +6,7 @@ import org.springframework.data.repository.Repository;
 
 import java.util.List;
 
-public interface ReservationRepository extends Repository<Bundle, Long> {
+public interface ReservationRepository extends Repository<Reservation, Long> {
 
     Reservation save(Reservation reservation);
 
