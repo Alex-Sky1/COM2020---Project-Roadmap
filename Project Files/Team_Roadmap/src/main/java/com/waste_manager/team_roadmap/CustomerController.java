@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -113,7 +114,7 @@ public class CustomerController {
 
     @GetMapping("/browse_bundles_consumer")
     public String browseBundlesConsumer(@RequestBody(required = false) ArrayList<String> filters, Model model) {
-        ArrayList<Bundle> allBundles = new ArrayList<>();//(bundleRepository.findAllOrderByPrice());
+        List<Bundle> allBundles = bundleRepository.findAll();
         model.addAttribute("allBundles", allBundles);
         return "browse_bundles_consumer";
     }
@@ -126,8 +127,11 @@ public class CustomerController {
         String currentUsername = auth.getName();
         Customer customer = cr.findByDName(currentUsername).getFirst();
 
-        //new reservation to reserve b1 to customer id
-        bundleRepository.setBundleReserved(postingID);
+        String claimCode = customer.generateClaimCode();
+        Reservation r = new Reservation(postingID, customer.getCustomerID(), LocalDateTime.now(), claimCode, "Reserved", "someWeather");
+
+        //new reservation to reserve b1 to customer id, set claimcode
+        //bundleRepository.setBundleReserved(postingID);
 
         return "browse_bundles_consumer";
     }

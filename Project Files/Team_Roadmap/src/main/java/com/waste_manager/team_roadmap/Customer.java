@@ -57,7 +57,7 @@ public class Customer implements Serializable {
         return null;
     }
 
-    String generateClaimCode(int reservationID){
+    String generateClaimCode(){
         String options = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYS0123456789";
         Random rand = new Random();
         StringBuilder builder = new StringBuilder();

@@ -2,15 +2,15 @@ package com.waste_manager.team_roadmap;
 import java.time.LocalDateTime;
 
 public class Reservation {
-    private int reservationID;
-    private int postingID;
-    private int customerID;
+    private long reservationID;
+    private long postingID;
+    private long customerID;
     private LocalDateTime timeStamp;
     private String claimCode;
     private String status;
     private String weatherFlag;
 
-    public Reservation( int thisPostingID, int thisCustomerID, LocalDateTime thisTimeStamp,
+    public Reservation( long thisPostingID, long thisCustomerID, LocalDateTime thisTimeStamp,
                        String thisClaimCode, String thisStatus, String thisWeatherFlag){
         this.postingID = thisPostingID;
         this.customerID = thisCustomerID;
@@ -21,13 +21,13 @@ public class Reservation {
     }
 
 
-    public int getReservationID() {return reservationID;}
+    public long getReservationID() {return reservationID;}
     public void setReservationID(int reservationID) {this.reservationID = reservationID;}
 
-    public int getPostingID() {return postingID;}
+    public long getPostingID() {return postingID;}
     public void setPostingID(int postingID) {this.postingID = postingID;}
 
-    public int getCustomerID() {return customerID;}
+    public long getCustomerID() {return customerID;}
     public void setCustomerID(int customerID) {this.customerID = customerID;}
 
     public LocalDateTime getTimeStamp() {return timeStamp;}

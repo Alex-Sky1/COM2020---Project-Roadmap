@@ -85,10 +85,6 @@ public class TeamRoadmapApplication {
         return "view_analytics_seller";
     }
 
-    @GetMapping("/forecasting_seller")
-    public String forecasting_seller() {
-        return "forecasting_seller";
-    }
 }
 
 

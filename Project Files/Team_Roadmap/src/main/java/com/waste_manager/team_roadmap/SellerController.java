@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.*;
+import java.time.LocalDateTime;
 
 @Controller
 public class SellerController {
@@ -159,10 +160,24 @@ public class SellerController {
     public String editBundle(){
         return "/edit_bundle_seller";
     }
+
+    @GetMapping("/forecasting_seller")
+    public String forecasting_seller() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).getFirst();
+
+        LocalDateTime now = LocalDateTime.now();
+        String day = now.getDayOfWeek().name();
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(day);
+        //Forecast f = new Forecast(dayOfWeek, now, s.getSellerID(),  )
+        return "forecasting_seller";
+    }
     @PostMapping("/forecasting_seller")
     public String forecastingSeller(){
         return "/forecasting_seller";
     }
+
     @PostMapping("manage_reservations_seller")
     public String manageReservationsSeller(){
         return "/manage_reservations_seller";
