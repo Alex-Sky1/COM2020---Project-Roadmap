@@ -23,28 +23,31 @@ public interface SellerRepository extends Repository<Seller, Long> {
     // Update
     @Modifying
     @Query("update Seller u set u.dName = ?1 where u.id = ?2")
-    Optional<Seller> updateDNameById(String newDName, long id);
+    void updateDNameById(String newDName, long id);
     @Modifying
     @Query("update Seller u set u.fName = ?1 where u.id = ?2")
-    Optional<Seller> updateFNameById(String newFName, long id);
+    void updateFNameById(String newFName, long id);
     @Modifying
     @Query("update Seller u set u.sName = ?1 where u.id = ?2")
-    Optional<Seller> updateSNameById(String newSName, long id);
+    void updateSNameById(String newSName, long id);
 
     @Modifying
     @Query("update Seller u set u.address = ?1 where u.id = ?2")
-    Optional<Seller> updateAddressById(String newAddress, long id);
+    void updateAddressById(String newAddress, long id);
     @Modifying
     @Query("update Seller u set u.postcode = ?1 where u.id = ?2")
-    Optional<Seller> updatePostcodeById(String newPostcode, long id);
+    void updatePostcodeById(String newPostcode, long id);
     @Modifying
     @Query("update Seller u set u.county = ?1 where u.id = ?2")
-    Optional<Seller> updateCountyById(String newCounty, long id);
+    void updateCountyById(String newCounty, long id);
 
     @Modifying
     @Query("update Seller u set u.email = ?1 where u.id = ?2")
-    Optional<Seller> updateEmailById(String newEmail, long id);
+    void updateEmailById(String newEmail, long id);
     @Modifying
     @Query("update Seller u set u.phone = ?1 where u.id = ?2")
-    Optional<Seller> updatePhoneById(String newPhone, long id);
+    void updatePhoneById(String newPhone, long id);
+    @Modifying
+    @Query("update Seller u set u.password = ?1 where u.id = ?2")
+    void updatePasswordById(String newPassword, long id);
 }

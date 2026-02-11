@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Bundle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int postingID;
+    private int ID;
     @ManyToOne(optional = false)
     @JoinColumn(name = "seller_id", referencedColumnName = "ID")
     private Seller seller;
@@ -79,10 +79,10 @@ public class Bundle implements Serializable {
         return pickUpWindow + ":00";
     }
     public int getPostingID(){
-        return postingID;
+        return ID;
     }
     public void setPostingID(int postingID){
-        this.postingID = postingID;
+        this.ID = postingID;
     }
 
     public Seller getSeller(){

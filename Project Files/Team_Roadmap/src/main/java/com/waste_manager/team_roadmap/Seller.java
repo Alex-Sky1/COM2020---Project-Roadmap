@@ -31,6 +31,7 @@ public class Seller implements Serializable {
     private String email;
     @Column(nullable = false)
     private String phone;
+    @Column(nullable = false)
     private String password;
 
     public Seller(){};

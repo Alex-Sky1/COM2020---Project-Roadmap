@@ -1,5 +1,6 @@
 package com.waste_manager.team_roadmap;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
@@ -26,8 +27,10 @@ public interface BundleRepository extends Repository<Bundle, Long> {
 //    List<Bundle> findAllOrderByDiscount();
 
     // updates
-    @Query("update Bundle set reserved=true where id=?1")
-    Optional<Bundle> setBundleReserved(long id);
-    @Query("update Bundle set expired=true where id=?1")
-    Optional<Bundle> setBundleExpired(long id);
+    @Modifying
+    @Query("update Bundle b set b.reserved=?1 where b.id=?2")
+    void setBundleReserved(boolean reserved, long id);
+    @Modifying
+    @Query("update Bundle b set b.expired=true where b.id=?1")
+    void setBundleExpired(long id);
 }

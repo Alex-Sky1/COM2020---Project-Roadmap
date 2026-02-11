@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long customerID;
+    private Long ID;
     @Column(nullable = false)
     private String dName;
     @Column(nullable = false)
@@ -30,6 +30,7 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private int streak;
     private ArrayList<Boolean> badges;
+    @Column(nullable = false)
     private String password;
     public Customer(){};
 
@@ -76,8 +77,8 @@ public class Customer implements Serializable {
     String getImpactSummary(){return null;}
 
 
-    Long getCustomerID(){return customerID;}
-    void setCustomerID(Long customerID){this.customerID = customerID;}
+    Long getCustomerID(){return ID;}
+    void setCustomerID(Long customerID){this.ID = customerID;}
 
     String getdName(){return dName;}
     void setdName(String dName){this.dName = dName;}
