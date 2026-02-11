@@ -58,7 +58,8 @@ public class SellerController {
 
     @PostMapping("/post_bundle_seller")
     public String postBundle(@RequestParam("category") String category, @RequestParam("price") String price,
-                             @RequestParam("pickup") String pickup,
+                             @RequestParam("pickup") String pickup, @RequestParam("bundle_numbers") String quantity,
+                             @RequestParam("hidden_items" )String contents,
                              @RequestParam(value="celery", required = false) String celery,
                              @RequestParam(value = "gluten", required = false) String gluten,
                              @RequestParam(value = "crustaceans", required = false) String crustaceans,
@@ -93,15 +94,13 @@ public class SellerController {
         if(sulphur != null) allergens.add(sulphur);
         if(nuts != null) allergens.add(nuts);
 
-        for(String allergen : allergens){
-            System.out.println(allergen);
-        }
 
-        ArrayList<String> content = new ArrayList<>();
+        ArrayList<String> content = new ArrayList<String>(Arrays.asList(contents.split(",")));
         int pickupHr = Integer.parseInt(pickup.substring(0,2));
-
-        Bundle bundle = new Bundle(s, category,  content, allergens, 1, Float.parseFloat(price), 0, pickupHr, false, false);
-        br.save(bundle);
+        for (int i = 0; i < Integer.parseInt(quantity); i++) {
+            Bundle bundle = new Bundle(s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price), 0, pickupHr, false, false);
+            br.save(bundle);
+        }
         return "/post_bundle_seller";
     }
 
@@ -181,10 +180,22 @@ public class SellerController {
         return "/forecasting_seller";
     }
 
+
+    @GetMapping("/manage_reservations_seller")
+    public String manage_reservations_seller(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).getFirst();
+        //List<Reservation> reservations = rr.findBySellerrID(s.getSellerID());
+        //model.addAttribute("reservations", reservations);
+        return "manage_reservations_seller";
+    }
     @PostMapping("manage_reservations_seller")
     public String manageReservationsSeller(){
         return "/manage_reservations_seller";
     }
+
+
     @PostMapping("view_analytics_seller")
     public String viewAnalyticsSeller(){
         return "/view_analytics_seller";

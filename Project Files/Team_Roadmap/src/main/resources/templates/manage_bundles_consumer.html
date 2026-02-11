@@ -17,16 +17,16 @@
             <th>Price</th>
             <th>Pickup Window</th>
             <th>Claim Code</th>
-            <th>Status</th>
+            <th>Collected</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="reservation : ${reservations}">
             <td th:text="${reservation.bundle.seller.dName}">Ex Seller</td>
             <td th:text="${reservation.bundle.price}">Ex Price</td>
-            <td th:text="${reservation.bundle.pickUpWindow}">Pickup Window</td>
+            <td th:text="${reservation.bundle.getPickUpWindowAsString()}">Pickup Window</td>
             <td th:text="${reservation.claimCode}">Claim Code</td>
-            <td th:text="${reservation.status}">Status</td>
+            <td th:text="${reservation.collected}">Collected</td>
 
             <td>
                 <a th:href="@{/report_issue_consumer}">Report An Issue</a>

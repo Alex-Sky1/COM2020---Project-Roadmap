@@ -18,7 +18,6 @@ public class Bundle implements Serializable {
     private String category;
     private ArrayList<String> contents;
     private ArrayList<String> allergens;
-    private int quantity;
     @Column(nullable = false)
     private float price;
     @Column(nullable = false)
@@ -34,14 +33,13 @@ public class Bundle implements Serializable {
 
     public Bundle() {}
     public Bundle(Seller thisSeller, String thisCategory, ArrayList<String> thisContents,
-                  ArrayList<String> thisAllergens, int thisQuantity, LocalDateTime thisTimeStamp, float thisPrice, int thisDiscount, int thisPickUpWindow,
+                  ArrayList<String> thisAllergens, LocalDateTime thisTimeStamp, float thisPrice, int thisDiscount, int thisPickUpWindow,
                   boolean thisReserved, boolean thisExpired){
 
         this.seller = thisSeller;
         this.category = thisCategory;
         this.contents = thisContents;
         this.allergens = thisAllergens;
-        this.quantity = thisQuantity;
         this.timeStamp = thisTimeStamp;
         this.price = thisPrice;
         this.discount = thisDiscount;
@@ -81,7 +79,8 @@ public class Bundle implements Serializable {
     }
 
     public String getPickUpWindowAsString(){
-        return pickUpWindow + ":00";
+        int pickupEnd = pickUpWindow+1;
+        return pickUpWindow + ":00 - " + pickupEnd +":00";
     }
     public int getPostingID(){
         return ID;
@@ -116,13 +115,6 @@ public class Bundle implements Serializable {
     }
     public void setAllergens(ArrayList<String> allergens){
         this.allergens = allergens;
-    }
-
-    public int getQuantity(){
-        return quantity;
-    }
-    public void setQuantity(int quantity){
-        this.quantity = quantity;
     }
 
     public float getPrice(){

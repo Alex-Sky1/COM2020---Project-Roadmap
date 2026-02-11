@@ -35,6 +35,16 @@ public class TeamRoadmapApplication {
         return "edit_profile_consumer";
     }
 
+    @GetMapping("/tos_consumer")
+    public String tos_consumer() {
+        return "tos_consumer";
+    }
+
+    @GetMapping("/tos_seller")
+    public String tos_seller() {
+        return "tos_seller";
+    }
+
     @GetMapping("/edit_profile_seller")
     public String edit_profile_seller() {
         return "edit_profile_seller";
@@ -73,11 +83,6 @@ public class TeamRoadmapApplication {
     @GetMapping("/edit_bundle_seller")
     public String edit_bundle_seller() {
         return "edit_bundle_seller";
-    }
-
-    @GetMapping("/manage_reservations_seller")
-    public String manage_reservations_seller() {
-        return "manage_reservations_seller";
     }
 
     @GetMapping("/view_analytics_seller")
