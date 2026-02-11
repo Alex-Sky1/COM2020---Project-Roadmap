@@ -21,12 +21,14 @@ public class CustomerController {
 
     private final CustomerRepository cr;
     private final SellerRepository sr;
-    private final BundleRepository bundleRepository;
+    private final BundleRepository br;
+    private final ReservationRepository rr;
 
-    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository) {
+    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
         this.cr = customerRepository;
         this.sr = sellerRepository;
-        this.bundleRepository = bundleRepository;
+        this.br = bundleRepository;
+        this.rr = reservationRepository;
     }
 
     @PostMapping("/sign_up_consumer")
@@ -65,74 +67,73 @@ public class CustomerController {
                                     @RequestParam("email") String email, @RequestParam("phone") String phone,
                                     @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2) {
 
-//        List<Seller> s = sr.findByDName(dname);
-//        List<Customer> c = cr.findByDName(dname);
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String currentUsername = auth.getName();
-//        Customer customer = cr.findByDName(currentUsername).getFirst();
-//        long customerId = customer.getCustomerID();
-//
-//        if (!dname.isEmpty()) {
-//            if (!s.isEmpty() || !c.isEmpty()) {
-//                System.out.println("user name already exists");
-//            } else {
-//                cr.updateDNameById(dname, customerId);
-//            }
-//        }
-//        if (!pwd1.isEmpty() && pwd1.equals(pwd2)) {
-//            cr.updatePasswordById(pwd1, customerId);
-//        }
-//        if (!fname.isEmpty()) {
-//            cr.updateFNameById(fname, customerId);
-//        }
-//        if (!sname.isEmpty()) {
-//            cr.updateSNameById(sname, customerId);
-//        }
-//        if (!al1.isEmpty()) {
-//            cr.updateAddressById(al1, customerId);
-//        }
-//        if (!pcode.isEmpty()) {
-//            cr.updatePostcodeById(pcode, customerId);
-//        }
-//        if (!county.isEmpty()) {
-//            cr.updateCountyById(county, customerId);
-//        }
-//        if (!email.isEmpty()) {
-//            cr.updateEmailById(email, customerId);
-//        }
-//        if (!phone.isEmpty()) {
-//            cr.updatePhoneById(phone, customerId);
-//        }
-//
-//        Customer newc = cr.findByDName(dname).getFirst();
-//
-//        System.out.println(newc.getAddress() + " " + newc.getPostcode() + " " + newc.getCounty() + " " + newc.getEmail() +  " " + newc.getPhone());
-//        System.out.println();
+        List<Seller> s = sr.findByDName(dname);
+        List<Customer> c = cr.findByDName(dname);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Customer customer = cr.findByDName(currentUsername).getFirst();
+        long customerId = customer.getCustomerID();
+        System.out.println("lergfhnkwjrgbnkj");
+        if (!dname.isEmpty()) {
+            if (!s.isEmpty() || !c.isEmpty()) {
+                System.out.println("user name already exists");
+            } else {
+                cr.updateDNameById(dname, customerId);
+            }
+        }
+        if (!pwd1.isEmpty() && pwd1.equals(pwd2)) {
+            cr.updatePasswordById(pwd1, customerId);
+        }
+        if (!fname.isEmpty()) {
+            cr.updateFNameById(fname, customerId);
+        }
+        if (!sname.isEmpty()) {
+            cr.updateSNameById(sname, customerId);
+        }
+        if (!al1.isEmpty()) {
+            cr.updateAddressById(al1, customerId);
+        }
+        if (!pcode.isEmpty()) {
+            cr.updatePostcodeById(pcode, customerId);
+        }
+        if (!county.isEmpty()) {
+            cr.updateCountyById(county, customerId);
+        }
+        if (!email.isEmpty()) {
+            cr.updateEmailById(email, customerId);
+        }
+        if (!phone.isEmpty()) {
+            cr.updatePhoneById(phone, customerId);
+        }
+
+        Customer newc = cr.findByDName(dname).getFirst();
+
+        System.out.println(newc.getAddress() + " " + newc.getPostcode() + " " + newc.getCounty() + " " + newc.getEmail() +  " " + newc.getPhone());
+        System.out.println();
 
         return "/edit_profile_consumer";
     }
 
     @GetMapping("/browse_bundles_consumer")
     public String browseBundlesConsumer(@RequestBody(required = false) ArrayList<String> filters, Model model) {
-        List<Bundle> allBundles = bundleRepository.findAll();
+        List<Bundle> allBundles = br.findByReservedAndExpired(false, false);
         model.addAttribute("allBundles", allBundles);
         return "browse_bundles_consumer";
     }
 
     @PostMapping("/browse_bundles_consumer")
     public String reserveBundleConsumer(@RequestParam("postingID") int postingID) {
-        Optional<Bundle> b = bundleRepository.findById(postingID);
+        Optional<Bundle> b = br.findById(postingID);
         Bundle b1 = b.get();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Customer customer = cr.findByDName(currentUsername).getFirst();
 
         String claimCode = customer.generateClaimCode();
-        Reservation r = new Reservation(postingID, customer.getCustomerID(), LocalDateTime.now(), claimCode, "Reserved", "someWeather");
-
-        //new reservation to reserve b1 to customer id, set claimcode
-        //bundleRepository.setBundleReserved(postingID);
-
+        Reservation r = new Reservation(b1, customer, LocalDateTime.now(), claimCode, "Reserved", "someWeather");
+        rr.save(r);
+        b1.setReserved(true);
+        br.setBundleReserved(true, b1.getPostingID());
         return "browse_bundles_consumer";
     }
     @GetMapping("/manage_bundles_consumer")
@@ -140,9 +141,8 @@ public class CustomerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Customer c = cr.findByDName(currentUsername).getFirst();
-
-        List<Bundle> reservedBundles = bundleRepository.findByReserved(true);
-        model.addAttribute(reservedBundles);
+        List<Reservation> reservations = rr.findByCustomerID(c.getCustomerID());
+        model.addAttribute("reservations", reservations);
         return "/manage_bundles_consumer";
     }
 

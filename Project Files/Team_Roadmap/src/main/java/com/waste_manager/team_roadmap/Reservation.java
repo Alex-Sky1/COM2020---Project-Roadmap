@@ -22,6 +22,7 @@ public class Reservation {
     @Column(nullable = false)
     private String weatherFlag;
 
+    public Reservation(){};
     public Reservation(Bundle bundle, Customer customer, LocalDateTime thisTimeStamp,
                        String thisClaimCode, String thisStatus, String thisWeatherFlag){
         this.bundle = bundle;
