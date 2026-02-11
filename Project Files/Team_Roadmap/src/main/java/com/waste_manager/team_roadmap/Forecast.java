@@ -1,43 +1,40 @@
 package com.waste_manager.team_roadmap;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Forecast {
-    private DayOfWeek day;
-    private LocalDateTime time;
+
+    private LocalDateTime forcastDate;
     private int sellerID;
     private String category;
-    private float price;
-    private int discount;
-    private String weatherFlag;
-    private int postingID;
 
-    //might not need?
-    private int observedRes;
-    private int observedNoShow;
-    private int predictedRes;
-    private int predictedNoShow;
+    private String weatherFlag;
+
+    private ArrayList<Bundle> bundleList;
+    private ArrayList<Reservation> reservationList;
+    private ArrayList<Integer> bundleReservations;
+    private ArrayList<Integer> bundleNoShows;
+
     private float confidence;
     private String rationale;
 
-    public Forecast(DayOfWeek thisDay, LocalDateTime thisTime, int thisSellerID, String thisCategory,
-                    float thisPrice, int thisDiscount, String thisWeatherFlag, int thisPostingID,
-                    int thisObservedRes, int thisObservedNoShow, int thisPredictedRes, int thisPredictedNoShow,
-                    float thisConfidence, String thisRationale){
 
-        this.day = thisDay;
-        this.time = thisTime;
+
+    public Forecast(LocalDateTime thisForcastDate, int thisSellerID, String thisWeatherFlag,
+                    ArrayList<Bundle> thisBundleList, ArrayList<Integer> thisBundleReservations,
+                    ArrayList<Integer> thisBundleNoShows){
+
+        this.forcastDate = thisForcastDate;
         this.sellerID = thisSellerID;
-        this.category = thisCategory;
-        this.price = thisPrice;
-        this.discount = thisDiscount;
         this.weatherFlag = thisWeatherFlag;
-        this.postingID = thisPostingID;
-        this.observedRes = thisObservedRes;
-        this.observedNoShow = thisObservedNoShow;
-        this.predictedRes = thisPredictedRes;
-        this.predictedNoShow = thisPredictedNoShow;
-        this.confidence = thisConfidence;
-        this.rationale = thisRationale;
+        this.bundleList = thisBundleList;
+        this.bundleReservations = thisBundleReservations;
+        this.bundleNoShows = thisBundleNoShows;
     }
 
     public int calculatePrediction(){return 0;}
@@ -47,41 +44,93 @@ public class Forecast {
     public int estimateDemand(String day, LocalDateTime time, String category){return 0;}
 
 
-    public DayOfWeek getDay(){return day;}
-    public void setDay(DayOfWeek day){this.day = day;}
+    private ArrayList<Bundle> bundleFromSelectSeller(){
+        ArrayList<Bundle> a = new ArrayList<>();
 
-    public LocalDateTime getTime(){return time;}
-    public void setTime(LocalDateTime time){this.time = time;}
 
-    public int getSellerID(){return sellerID;}
-    public void setSellerID(int sellerID){this.sellerID = sellerID;}
+        for(Bundle sellerBundles : this.bundleList){
+            if(sellerBundles.getSeller().getSellerID() == this.sellerID){
+                a.add(sellerBundles);
+            }
+        }
+        return a;
+
+    }
+
+    private ArrayList<Reservation> reservationFromSelectSeller(ArrayList<Bundle> sellerBundles){
+        ArrayList<Reservation> a = new ArrayList<>();
+
+
+        for(Reservation sellerReservation : this.reservationList) {
+            for (Bundle sellerBundle : sellerBundles) {
+                if (sellerReservation.getBundle().getPostingID() == sellerBundle.getPostingID()) {
+                    a.add(sellerReservation);
+                    break;
+                }
+            }
+        }
+        return a;
+    }
+
+    private ArrayList<Reservation> searchReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
+
+        List<Reservation> returnList = filteredReservationList.stream()
+                .filter(reservation -> reservation.getTimeStamp().toLocalDate().equals(dateSearched))
+                .toList();
+
+        return new ArrayList<>(List.of((Reservation)returnList));
+    }
+
+    public int seasonalNaive(){
+        ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
+        ArrayList<Reservation> filteredReservationList = reservationFromSelectSeller(filteredBundleList);
+
+        LocalDateTime hold = this.forcastDate.minusDays(7);
+        int returnInt = 0;
+
+        while(bundleList.getFirst().timeStamp.isBefore(hold)){
+
+            ArrayList<Reservation> dayReservationList = searchReservationListDate(hold.toLocalDate(),filteredReservationList);
+
+            if(!dayReservationList.isEmpty()) {
+
+                for (Reservation reservation : dayReservationList) {
+
+                    if (reservation.getTimeStamp().getHour() == hold.getHour() && Objects.equals(reservation.getBundle().getCategory(), category)) {
+
+                        if (!(reservation.getNoShow())) {
+                            returnInt += 1;
+                        }
+                    }
+                }
+                return returnInt;
+            }
+            else {
+                hold = hold.minusDays(7);
+            }
+
+        }
+
+        return -1;
+    }
+
+
+
+
+    public LocalDateTime getforcastDate(){return forcastDate;}
+    public void setTime(LocalDateTime time){this.forcastDate = time;}
 
     public String getCategory(){return category;}
     public void setCategory(String category){this.category = category;}
 
-    public float getPrice(){return price;}
-    public void setPrice(float price){this.price = price;}
-
-    public int getDiscount(){return discount;}
-    public void setDiscount(int discount){this.discount = discount;}
+    public int getSellerID(){return sellerID;}
+    public void setSellerID(int sellerID){this.sellerID = sellerID;}
 
     public String getWeatherFlag(){return weatherFlag;}
     public void setWeatherFlag(String weatherFlag){this.weatherFlag = weatherFlag;}
 
     public int getPostingID(){return postingID;}
     public void setPostingID(int postingID){this.postingID = postingID;}
-
-    public int getObservedRes(){return observedRes;}
-    public void setObservedRes(int observedRes){this.observedRes = observedRes;}
-
-    public int getObservedNoShow(){return observedNoShow;}
-    public void setObservedNoShow(int observedNoShow){this.observedNoShow = observedNoShow;}
-
-    public int getPredictedRes(){return predictedRes;}
-    public void setPredictedRes(int predictedRes){this.predictedRes = predictedRes;}
-
-    public int getPredictedNoShow(){return predictedNoShow;}
-    public void setPredictedNoShow(int predictedNoShow){this.predictedNoShow = predictedNoShow;}
 
     public float getConfidence(){return confidence;}
     public void setConfidence(float confidence){this.confidence = confidence;}
