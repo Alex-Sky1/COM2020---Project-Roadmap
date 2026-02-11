@@ -13,6 +13,8 @@ public interface ReservationRepository extends Repository<Reservation, Long> {
     Reservation save(Reservation reservation);
 
     List<Reservation> findByCustomerID(long customer_id);
+    List<Reservation> findBySellerID(long seller_id);
+
 
     @Transactional
     @Modifying
