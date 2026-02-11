@@ -28,9 +28,9 @@ public interface BundleRepository extends Repository<Bundle, Long> {
 
     // updates
     @Modifying
-    @Query("update Bundle b set b.reserved=?1 where b.id=?2")
+    @Query("update Bundle b set b.reserved=?1 where b.ID=?2")
     void setBundleReserved(boolean reserved, long id);
     @Modifying
-    @Query("update Bundle b set b.expired=true where b.id=?1")
+    @Query("update Bundle b set b.expired=true where b.ID=?1")
     void setBundleExpired(long id);
 }
