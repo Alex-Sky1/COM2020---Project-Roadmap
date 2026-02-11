@@ -14,7 +14,7 @@ public interface ReservationRepository extends Repository<Reservation, Long> {
     List<Reservation> findByCustomerID(long customer_id);
 
     @Modifying
-    @Query("update Reservation r set r.status = :status where r.ID = :ID")
-    void setReservationStatus(@Param("status") String newStatus, @Param("ID") long id);
+    @Query("update Reservation r set r.collected = :status where r.ID = :ID")
+    void setReservationStatus(@Param("collected") boolean newCollected, @Param("ID") long id);
 
 }
