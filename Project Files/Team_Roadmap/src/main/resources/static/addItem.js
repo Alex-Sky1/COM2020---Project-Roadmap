@@ -50,6 +50,7 @@ function addListItem() {
             if (index > -1) {
                 items.splice(index, 1);
             }
+            hiddenItems.setAttribute('value', items.toString())
         });
 
         // add the item and the delete button to the list
