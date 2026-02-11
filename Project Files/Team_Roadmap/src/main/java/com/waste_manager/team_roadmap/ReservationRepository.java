@@ -13,7 +13,7 @@ public interface ReservationRepository extends Repository<Reservation, Long> {
     List<Reservation> findByCustomerID(long customer_id);
 
     @Modifying
-    @Query("update Respository r set r.status = ?1 where r.ID = ?2")
+    @Query("update Reservation r set r.status = ?1 where r.ID = ?2")
     void setReservationStatus(String newStatus, long id);
 
 }

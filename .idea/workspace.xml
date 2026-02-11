@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="fixed reservation repository to actually be a reservation repository">
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/BundleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/BundleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Reservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/ReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/ReservationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerRepository.java" afterDir="false" />
-    </list>
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="changed case of all &quot;id&quot; instances in queries" />
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +277,23 @@
       <option name="project" value="LOCAL" />
       <updated>1770809752563</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="changed reservationID to ID">
+      <option name="closed" value="true" />
+      <created>1770810242583</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1770810242583</updated>
+    </task>
+    <task id="LOCAL-00018" summary="changed case of all &quot;id&quot; instances in queries">
+      <option name="closed" value="true" />
+      <created>1770810258067</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1770810258067</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +334,9 @@
     <MESSAGE value="fixed update queries, added password update queries" />
     <MESSAGE value="added reservation repository" />
     <MESSAGE value="fixed reservation repository to actually be a reservation repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed reservation repository to actually be a reservation repository" />
+    <MESSAGE value="changed reservationID to ID" />
+    <MESSAGE value="changed case of all &quot;id&quot; instances in queries" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed case of all &quot;id&quot; instances in queries" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
