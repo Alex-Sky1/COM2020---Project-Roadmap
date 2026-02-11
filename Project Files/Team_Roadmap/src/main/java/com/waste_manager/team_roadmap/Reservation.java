@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long reservationID;
+    private long ID;
     @OneToOne
     @JoinColumn(name = "bundle_id", referencedColumnName = "ID")
     private Bundle bundle;
@@ -22,6 +22,7 @@ public class Reservation {
     @Column(nullable = false)
     private String weatherFlag;
 
+    public Reservation(){};
     public Reservation(Bundle bundle, Customer customer, LocalDateTime thisTimeStamp,
                        String thisClaimCode, String thisStatus, String thisWeatherFlag){
         this.bundle = bundle;
@@ -33,8 +34,8 @@ public class Reservation {
     }
 
 
-    public long getReservationID() {return reservationID;}
-    public void setReservationID(int reservationID) {this.reservationID = reservationID;}
+    public long getReservationID() {return ID;}
+    public void setReservationID(int reservationID) {this.ID = reservationID;}
 
     public Bundle getBundle() {return bundle;}
     public void setBundle(Bundle bundle) {this.bundle = bundle;}

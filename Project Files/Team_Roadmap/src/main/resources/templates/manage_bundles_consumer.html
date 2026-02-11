@@ -10,19 +10,24 @@
     <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
 </div>
 <div class="box1" style="width: 50%; min-width: 500px">
-    <table th:if="${not#lists.isEmpty(reservedBundles)}" style="column-width: 200px">
+    <table th:if="${not#lists.isEmpty(reservations)}" style="column-width: 200px">
         <thead>
         <tr>
             <th>Seller</th>
             <th>Price</th>
             <th>Pickup Window</th>
+            <th>Claim Code</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="bundle : ${reservedBundles}">
-            <td th:text="${bundle.seller}">Ex Seller</td>
-            <td th:text="${bundle.price}">Ex Price</td>
-            <td th:text="${bundle.pickUpWindow}">Pickup Window</td>
+        <tr th:each="reservation : ${reservations}">
+            <td th:text="${reservation.bundle.seller.dName}">Ex Seller</td>
+            <td th:text="${reservation.bundle.price}">Ex Price</td>
+            <td th:text="${reservation.bundle.pickUpWindow}">Pickup Window</td>
+            <td th:text="${reservation.claimCode}">Claim Code</td>
+            <td th:text="${reservation.status}">Status</td>
+
             <td>
                 <a th:href="@{/report_issue_consumer}">Report An Issue</a>
             </td>

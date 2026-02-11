@@ -18,12 +18,13 @@ public class SellerController {
     private final SellerRepository sr;
     private final CustomerRepository cr;
     private final BundleRepository br;
+    private final ReservationRepository rr;
 
-    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository) {
+    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
         this.sr = sellerRepository;
         this.cr = customerRepository;
         this.br = bundleRepository;
-
+        this.rr = reservationRepository;
     }
 
     @PostMapping("/sign_up_seller")
@@ -117,39 +118,41 @@ public class SellerController {
         String currentUsername = auth.getName();
         Seller seller = sr.findByDName(currentUsername).getFirst();
         int sellerId= seller.getSellerID();
-
-//        if(!business.isEmpty()){
-//            if (!s.isEmpty() || !c.isEmpty()) {
-//                System.out.println("user name already exists");
-//            } else {
-//                sr.updateDNameById(business, sellerId);
-//            }
-//        }
-//        if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
-//            //sr.upd(pwd1, sellerId);
-//        }
-//        if(!fname.isEmpty()){
-//            sr.updateFNameById(fname, sellerId);
-//        }
-//        if(!sname.isEmpty()){
-//            sr.updateSNameById(sname, sellerId);
-//        }
-//        if(!al1.isEmpty()){
-//            sr.updateAddressById(al1, sellerId);
-//        }
-//        if(!pcode.isEmpty()){
-//            sr.updatePostcodeById(pcode, sellerId);
-//        }
-//        if(!county.isEmpty()){
-//            sr.updateCountyById(county, sellerId);
-//        }
-//        if(!email.isEmpty()){
-//            sr.updateEmailById(email, sellerId);
-//        }
-//        if(!phone.isEmpty()){
-//            sr.updatePhoneById(phone, sellerId);
-//        }
-
+        System.out.println("jwkrgfnbkwj");
+        System.out.println(sellerId);
+        if(!business.isEmpty()){
+            if (!s.isEmpty() || !c.isEmpty()) {
+                System.out.println("user name already exists");
+            } else {
+                sr.updateDNameById(business, sellerId);
+            }
+        }
+        if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
+            sr.updatePasswordById(pwd1, sellerId);
+        }
+        if(!fname.isEmpty()){
+            sr.updateFNameById(fname, sellerId);
+        }
+        if(!sname.isEmpty()){
+            sr.updateSNameById(sname, sellerId);
+        }
+        if(!al1.isEmpty()){
+            sr.updateAddressById(al1, sellerId);
+        }
+        if(!pcode.isEmpty()){
+            sr.updatePostcodeById(pcode, sellerId);
+        }
+        if(!county.isEmpty()){
+            sr.updateCountyById(county, sellerId);
+        }
+        if(!email.isEmpty()){
+            sr.updateEmailById(email, sellerId);
+        }
+        if(!phone.isEmpty()){
+            sr.updatePhoneById(phone, sellerId);
+        }
+        Seller newSeller = sr.findByDName(currentUsername).getFirst();
+        System.out.println(newSeller.getAddress() + " " + newSeller.getPostcode() + " " + newSeller.getCounty());
         return "/edit_profile_seller";
     }
     @PostMapping("/manage_bundles_seller")
