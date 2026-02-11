@@ -1,6 +1,8 @@
 package com.waste_manager.team_roadmap;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.io.Serializable;
 
@@ -20,6 +22,8 @@ public class Bundle implements Serializable {
     @Column(nullable = false)
     private float price;
     @Column(nullable = false)
+    LocalDateTime timeStamp;
+    @Column(nullable = false)
     private int discount;
     @Column(nullable = false)
     private int pickUpWindow;
@@ -30,7 +34,7 @@ public class Bundle implements Serializable {
 
     public Bundle() {}
     public Bundle(Seller thisSeller, String thisCategory, ArrayList<String> thisContents,
-                  ArrayList<String> thisAllergens, int thisQuantity, float thisPrice, int thisDiscount, int thisPickUpWindow,
+                  ArrayList<String> thisAllergens, int thisQuantity, LocalDateTime thisTimeStamp, float thisPrice, int thisDiscount, int thisPickUpWindow,
                   boolean thisReserved, boolean thisExpired){
 
         this.seller = thisSeller;
@@ -38,6 +42,7 @@ public class Bundle implements Serializable {
         this.contents = thisContents;
         this.allergens = thisAllergens;
         this.quantity = thisQuantity;
+        this.timeStamp = thisTimeStamp;
         this.price = thisPrice;
         this.discount = thisDiscount;
         this.pickUpWindow = thisPickUpWindow;
