@@ -130,10 +130,10 @@ public class CustomerController {
         Customer customer = cr.findByDName(currentUsername).getFirst();
 
         String claimCode = customer.generateClaimCode();
-        Reservation r = new Reservation(b1, customer, LocalDateTime.now(), claimCode, "Reserved", "someWeather");
+        Reservation r = new Reservation(b1, customer, b1.getSeller(), LocalDateTime.now(), claimCode, false, false, "someWeather");
         rr.save(r);
-        b1.setReserved(true);
-        br.setBundleReserved(true, b1.getPostingID());
+        //b1.setReserved(true);
+        //br.setBundleReserved(true, b1.getPostingID());
         return "browse_bundles_consumer";
     }
     @GetMapping("/manage_bundles_consumer")

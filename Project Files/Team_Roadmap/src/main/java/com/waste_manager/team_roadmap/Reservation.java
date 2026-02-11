@@ -14,6 +14,9 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "ID")
     private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "seller_id", referencedColumnName = "ID")
+    private Seller seller;
     private LocalDateTime timeStamp;
     private LocalDateTime pickupTimeStamp;
     @Column(nullable = false)
@@ -26,10 +29,11 @@ public class Reservation {
     private String weatherFlag;
 
     public Reservation(){};
-    public Reservation(Bundle bundle, Customer customer, LocalDateTime thisTimeStamp,
+    public Reservation(Bundle bundle, Customer customer, Seller seller, LocalDateTime thisTimeStamp,
                        String thisClaimCode, boolean thisNoShow, boolean thisCollected, String thisWeatherFlag){
         this.bundle = bundle;
         this.customer = customer;
+        this.seller = seller;
         this.timeStamp = thisTimeStamp;
         this.claimCode = thisClaimCode;
         this.noShow = thisNoShow;
@@ -46,6 +50,9 @@ public class Reservation {
 
     public Customer getCustomer() {return customer;}
     public void setCustomer(Customer customer) {this.customer = customer;}
+
+    public Seller getSeller() {return seller;}
+    public void setSeller(Seller seller) {this.seller = seller;}
 
     public LocalDateTime getTimeStamp() {return timeStamp;}
     public void setTimeStamp(LocalDateTime timeStamp) {this.timeStamp = timeStamp;}

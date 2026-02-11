@@ -180,10 +180,22 @@ public class SellerController {
         return "/forecasting_seller";
     }
 
+
+    @GetMapping("/manage_reservations_seller")
+    public String manage_reservations_seller(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).getFirst();
+        //List<Reservation> reservations = rr.findBySellerrID(s.getSellerID());
+        //model.addAttribute("reservations", reservations);
+        return "manage_reservations_seller";
+    }
     @PostMapping("manage_reservations_seller")
     public String manageReservationsSeller(){
         return "/manage_reservations_seller";
     }
+
+
     @PostMapping("view_analytics_seller")
     public String viewAnalyticsSeller(){
         return "/view_analytics_seller";

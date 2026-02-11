@@ -79,7 +79,8 @@ public class Bundle implements Serializable {
     }
 
     public String getPickUpWindowAsString(){
-        return pickUpWindow + ":00";
+        int pickupEnd = pickUpWindow+1;
+        return pickUpWindow + ":00 - " + pickupEnd +":00";
     }
     public int getPostingID(){
         return ID;
