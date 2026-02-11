@@ -15,21 +15,25 @@ public class Reservation {
     @JoinColumn(name = "customer_id", referencedColumnName = "ID")
     private Customer customer;
     private LocalDateTime timeStamp;
+    private LocalDateTime pickupTimeStamp;
     @Column(nullable = false)
     private String claimCode;
     @Column(nullable = false)
-    private String status;
+    private Boolean noShow;
+    @Column(nullable = false)
+    private Boolean collected;
     @Column(nullable = false)
     private String weatherFlag;
 
     public Reservation(){};
     public Reservation(Bundle bundle, Customer customer, LocalDateTime thisTimeStamp,
-                       String thisClaimCode, String thisStatus, String thisWeatherFlag){
+                       String thisClaimCode, boolean thisNoShow, boolean thisCollected, String thisWeatherFlag){
         this.bundle = bundle;
         this.customer = customer;
         this.timeStamp = thisTimeStamp;
         this.claimCode = thisClaimCode;
-        this.status = thisStatus;
+        this.noShow = thisNoShow;
+        this.collected = thisCollected;
         this.weatherFlag = thisWeatherFlag;
     }
 
@@ -46,11 +50,17 @@ public class Reservation {
     public LocalDateTime getTimeStamp() {return timeStamp;}
     public void setTimeStamp(LocalDateTime timeStamp) {this.timeStamp = timeStamp;}
 
+    public LocalDateTime getPickupTimeStamp() {return pickupTimeStamp;}
+    public void setPickupTimeStamp(LocalDateTime pickupTimeStamp) {this.pickupTimeStamp = pickupTimeStamp;}
+
     public String getClaimCode() {return claimCode;}
     public void setClaimCode(String claimCode) {this.claimCode = claimCode;}
 
-    public String getStatus() {return status;}
-    public void setStatus(String status) {this.status = status;}
+    public Boolean getNoShow() {return noShow;}
+    public void setNoShow(Boolean noShow) {this.noShow = noShow;}
+
+    public Boolean getCollected() {return collected;}
+    public void setCollected(Boolean collected) {this.collected = collected;}
 
     public String getWeatherFlag() {return weatherFlag;}
     public void setWeatherFlag(String weatherFlag) {this.weatherFlag = weatherFlag;}
