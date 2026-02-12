@@ -149,10 +149,7 @@ public class CustomerController {
     public String viewAnalyticsConsumer(){
         return "view_analytics_consumer";
     }
-    @PostMapping("/manage_bundles_consumer")
-    public String manageBundlesConsumer(){
-        return "manage_bundles_consumer";
-    }
+
 
 
 }

@@ -154,15 +154,64 @@ public class SellerController {
         System.out.println(newSeller.getAddress() + " " + newSeller.getPostcode() + " " + newSeller.getCounty());
         return "/edit_profile_seller";
     }
+
+
+    @GetMapping("/manage_bundles_seller")
+    public String manageBundlesSeller(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).getFirst();
+        List<Reservation> reservations = rr.findBySellerID(s.getSellerID());
+        model.addAttribute("reservations", reservations);
+
+
+        List<Bundle> Allbundles = br.findBySellerID(s.getSellerID());
+        ArrayList<Bundle> bundles = new ArrayList<>();
+        for(Bundle bundle : Allbundles){
+            if(rr.findByBundleID(bundle.getPostingID()).isEmpty()) {
+                bundles.add(bundle);
+            }
+        }
+        model.addAttribute("bundles", bundles);
+
+        return "manage_bundles_seller";
+    }
     @PostMapping("/manage_bundles_seller")
     public String manageBundles(){
         return  "/manage_bundles_seller";
     }
+
+    @GetMapping("/manage_reservations_seller")
+    public String manage_reservations_seller(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).getFirst();
+        List<Reservation> allReservations = rr.findBySellerID(s.getSellerID());
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        for (Reservation reservation : allReservations) {
+            if(reservation.getCollected() == false){
+                reservations.add(reservation);
+            }
+        }
+        model.addAttribute("reservations", reservations);
+        return "manage_reservations_seller";
+    }
+    @PostMapping("manage_reservations_seller")
+    public String manageReservationsSeller(@RequestParam("ClaimCode") String claimCode, @RequestParam("reservationID") long reservationID, Model model){
+        Reservation res = rr.findById(reservationID).get();
+        boolean equalClaimCode = claimCode.equals(res.getClaimCode());
+        model.addAttribute("success", equalClaimCode);
+        System.out.println(equalClaimCode);
+        rr.setReservationStatus(equalClaimCode,  reservationID);
+
+        manage_reservations_seller(model);
+        return "redirect:/manage_reservations_seller";
+    }
+
     @PostMapping("/edit_bundle_seller")
     public String editBundle(){
         return "/edit_bundle_seller";
     }
-
     @GetMapping("/forecasting_seller")
     public String forecasting_seller() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -179,30 +228,6 @@ public class SellerController {
     public String forecastingSeller(){
         return "/forecasting_seller";
     }
-
-
-    @GetMapping("/manage_reservations_seller")
-    public String manage_reservations_seller(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).getFirst();
-        List<Reservation> reservations = rr.findBySellerID(s.getSellerID());
-        model.addAttribute("reservations", reservations);
-        return "manage_reservations_seller";
-    }
-    @PostMapping("manage_reservations_seller")
-    public String manageReservationsSeller(@RequestParam("ClaimCode") String claimCode, @RequestParam("reservationID") long reservationID, Model model){
-        Reservation res = rr.findById(reservationID).get();
-        boolean equalClaimCode = claimCode.equals(res.getClaimCode());
-        model.addAttribute("success", equalClaimCode);
-        System.out.println(equalClaimCode);
-        rr.setReservationStatus(equalClaimCode,  reservationID);
-
-        manage_reservations_seller(model);
-        return "redirect:/manage_reservations_seller";
-    }
-
-
     @PostMapping("view_analytics_seller")
     public String viewAnalyticsSeller(){
         return "/view_analytics_seller";

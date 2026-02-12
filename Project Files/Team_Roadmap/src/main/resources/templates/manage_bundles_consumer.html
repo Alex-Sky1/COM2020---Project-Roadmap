@@ -15,7 +15,10 @@
         <tr>
             <th>Seller</th>
             <th>Price</th>
+            <th>Category</th>
             <th>Pickup Window</th>
+            <th>Contents</th>
+            <th>Allergens</th>
             <th>Claim Code</th>
             <th>Collected</th>
         </tr>
@@ -24,6 +27,9 @@
         <tr th:each="reservation : ${reservations}">
             <td th:text="${reservation.bundle.seller.dName}">Ex Seller</td>
             <td th:text="${reservation.bundle.price}">Ex Price</td>
+            <td th:text="${reservation.bundle.category}">Ex category</td>
+            <td th:text="${reservation.bundle.getContentsAsString()}">Ex contents</td>
+            <td th:text="${reservation.bundle.getAllergensAsString()}">Ex allergens</td>
             <td th:text="${reservation.bundle.getPickUpWindowAsString()}">Pickup Window</td>
             <td th:text="${reservation.claimCode}">Claim Code</td>
             <td th:text="${reservation.collected}">Collected</td>

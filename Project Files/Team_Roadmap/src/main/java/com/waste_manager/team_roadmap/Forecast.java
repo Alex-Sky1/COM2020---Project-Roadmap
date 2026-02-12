@@ -2,68 +2,55 @@ package com.waste_manager.team_roadmap;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Forecast {
 
-    private LocalDateTime forcastDate;
+    private LocalDateTime forecastDate;
     private int sellerID;
     private String category;
-
     private String weatherFlag;
-
     private ArrayList<Bundle> bundleList;
     private ArrayList<Reservation> reservationList;
-    private ArrayList<Integer> bundleReservations;
-    private ArrayList<Integer> bundleNoShows;
-
     private float confidence;
     private String rationale;
 
 
+    public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag,
+                    ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
 
-    public Forecast(LocalDateTime thisForcastDate, int thisSellerID, String thisWeatherFlag,
-                    ArrayList<Bundle> thisBundleList, ArrayList<Integer> thisBundleReservations,
-                    ArrayList<Integer> thisBundleNoShows){
-
-        this.forcastDate = thisForcastDate;
+        this.forecastDate = thisForecastDate;
         this.sellerID = thisSellerID;
         this.weatherFlag = thisWeatherFlag;
         this.bundleList = thisBundleList;
-        this.bundleReservations = thisBundleReservations;
-        this.bundleNoShows = thisBundleNoShows;
+        this.reservationList = thisReservationList;
     }
 
-    public int calculatePrediction(){return 0;}
-    public String createRecommendation(){return null;}
-    public void calculateConfidence(){}
-    public void calculateRationale(){}
-    public int estimateDemand(String day, LocalDateTime time, String category){return 0;}
+    private ArrayList<Bundle> bundleFromSelectSeller() {
 
-
-    private ArrayList<Bundle> bundleFromSelectSeller(){
         ArrayList<Bundle> a = new ArrayList<>();
 
+        for (Bundle sellerBundles : this.bundleList) {
 
-        for(Bundle sellerBundles : this.bundleList){
-            if(sellerBundles.getSeller().getSellerID() == this.sellerID){
+            if (sellerBundles.getSeller().getSellerID() == this.sellerID) {
+
                 a.add(sellerBundles);
             }
         }
         return a;
-
     }
 
-    private ArrayList<Reservation> reservationFromSelectSeller(ArrayList<Bundle> sellerBundles){
+    private ArrayList<Reservation> searchReservationSeller(ArrayList<Bundle> sellerBundles) {
+
         ArrayList<Reservation> a = new ArrayList<>();
 
+        for (Reservation sellerReservation : this.reservationList) {
 
-        for(Reservation sellerReservation : this.reservationList) {
             for (Bundle sellerBundle : sellerBundles) {
+
                 if (sellerReservation.getBundle().getPostingID() == sellerBundle.getPostingID()) {
+
                     a.add(sellerReservation);
                     break;
                 }
@@ -72,31 +59,33 @@ public class Forecast {
         return a;
     }
 
-    private ArrayList<Reservation> searchReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
+    private ArrayList<Reservation> filterReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
 
-        List<Reservation> returnList = filteredReservationList.stream()
-                .filter(reservation -> reservation.getTimeStamp().toLocalDate().equals(dateSearched))
-                .toList();
-
-        return new ArrayList<>(List.of((Reservation)returnList));
+        // Filter the reservations by the date they were listed
+        return filteredReservationList.stream()
+                .filter(reservation -> reservation.getTimeStamp()
+                        .toLocalDate()
+                        .equals(dateSearched))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public int seasonalNaive(){
+    public int seasonalNaive() {
+
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
-        ArrayList<Reservation> filteredReservationList = reservationFromSelectSeller(filteredBundleList);
+        ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
 
-        LocalDateTime hold = this.forcastDate.minusDays(7);
-        int returnInt = 0;
+        LocalDateTime searchDate = this.forecastDate.minusDays(7); // The search date is the date used to provide the seasonal naive
+        int returnInt = 0; // The return integer is the number of bundles that were reserved and picked up
 
-        while(bundleList.getFirst().timeStamp.isBefore(hold)){
+        while (bundleList.getFirst().timeStamp.isBefore(searchDate)) {
 
-            ArrayList<Reservation> dayReservationList = searchReservationListDate(hold.toLocalDate(),filteredReservationList);
+            ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
 
-            if(!dayReservationList.isEmpty()) {
+            if (!dayReservationList.isEmpty()) {
 
                 for (Reservation reservation : dayReservationList) {
 
-                    if (reservation.getTimeStamp().getHour() == hold.getHour() && Objects.equals(reservation.getBundle().getCategory(), category)) {
+                    if (reservation.getTimeStamp().getHour() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
 
                         if (!(reservation.getNoShow())) {
                             returnInt += 1;
@@ -106,19 +95,17 @@ public class Forecast {
                 return returnInt;
             }
             else {
-                hold = hold.minusDays(7);
+                searchDate = searchDate.minusDays(7);
             }
 
         }
-
-        return -1;
+        return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
     }
 
+    // Getters and Setters
 
-
-
-    public LocalDateTime getforcastDate(){return forcastDate;}
-    public void setTime(LocalDateTime time){this.forcastDate = time;}
+    public LocalDateTime getForecastDate(){return forecastDate;}
+    public void setForecastDate(LocalDateTime forecastDate){this.forecastDate = forecastDate;}
 
     public String getCategory(){return category;}
     public void setCategory(String category){this.category = category;}
@@ -129,8 +116,11 @@ public class Forecast {
     public String getWeatherFlag(){return weatherFlag;}
     public void setWeatherFlag(String weatherFlag){this.weatherFlag = weatherFlag;}
 
-    public int getPostingID(){return postingID;}
-    public void setPostingID(int postingID){this.postingID = postingID;}
+    public ArrayList<Bundle> getBundleList(){return bundleList;}
+    public void setBundleList(ArrayList<Bundle> bundleList){this.bundleList = bundleList;}
+
+    public ArrayList<Reservation> getReservationList(){return reservationList;}
+    public void setReservationList(ArrayList<Reservation> reservationList){this.reservationList = reservationList;}
 
     public float getConfidence(){return confidence;}
     public void setConfidence(float confidence){this.confidence = confidence;}

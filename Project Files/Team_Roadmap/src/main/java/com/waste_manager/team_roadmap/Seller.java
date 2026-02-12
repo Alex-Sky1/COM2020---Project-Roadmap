@@ -36,11 +36,11 @@ public class Seller implements Serializable {
 
     public Seller(){};
 
-    public Seller(String fName, String sName, String dName, String adresssLine1, String postcode, String county, String email, String phone, String password) {
+    public Seller(String fName, String sName, String dName, String addressLine1, String postcode, String county, String email, String phone, String password) {
         this.fName = fName;
         this.sName = sName;
         this.dName = dName;
-        this.address = adresssLine1;
+        this.address = addressLine1;
         this.postcode = postcode;
         this.county = county;
         this.email = email;

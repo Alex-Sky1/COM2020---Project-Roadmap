@@ -16,6 +16,7 @@ public interface ReservationRepository extends Repository<Reservation, Long> {
     Optional<Reservation> findById(long id);
     List<Reservation> findByCustomerID(long customer_id);
     List<Reservation> findBySellerID(long seller_id);
+    List<Reservation> findByBundleID(long bundle_id);
 
     @Query("select r.bundle from Reservation r where r.ID = :ID")
     List<Bundle> getCustomerReservedBundles(@Param("ID") long customer_id);
