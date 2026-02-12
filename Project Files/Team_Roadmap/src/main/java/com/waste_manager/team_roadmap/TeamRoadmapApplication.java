@@ -75,11 +75,6 @@ public class TeamRoadmapApplication {
         return "post_bundle_seller";
     }
 
-    @GetMapping("/manage_bundles_seller")
-    public String manage_bundles_seller() {
-        return "manage_bundles_seller";
-    }
-
     @GetMapping("/edit_bundle_seller")
     public String edit_bundle_seller() {
         return "edit_bundle_seller";
