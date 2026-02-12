@@ -63,10 +63,6 @@ public class TeamRoadmapApplication {
         return "dashboard_consumer";
     }
 
-    @GetMapping("/view_analytics_consumer")
-    public String view_analytics_consumer() {
-        return "view_analytics_consumer";
-    }
 
     @GetMapping("/report_issue_consumer")
     public String report_issue_consumer() {

@@ -25,6 +25,11 @@ public interface ReservationRepository extends Repository<Reservation, Long> {
     @Transactional
     @Modifying
     @Query("update Reservation r set r.collected = :collected where r.ID = :ID")
-    void setReservationStatus(@Param("collected") boolean newCollected, @Param("ID") long id);
+    void setReservationCollected(@Param("collected") boolean newCollected, @Param("ID") long id);
+
+    @Transactional
+    @Modifying
+    @Query("update Reservation r set r.noShow = :noShow where r.ID = :ID")
+    void setReservationNoShow(@Param("noShow") boolean newNoShow, @Param("ID") long id);
 
 }

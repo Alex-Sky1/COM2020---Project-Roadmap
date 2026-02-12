@@ -32,7 +32,6 @@ public class Customer implements Serializable {
     private ArrayList<Boolean> badges;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
     private LocalDateTime streakLastUpdate;
     public Customer(){};
 

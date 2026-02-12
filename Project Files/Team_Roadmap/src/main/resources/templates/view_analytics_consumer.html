@@ -12,14 +12,12 @@
 <div class="container" style="padding: 1%">
     <div>My Streak</div>
     <div>Bundles Collected</div>
-    <div>CO2 Saved</div>
+    <div>CO2e Saved</div>
     <div>Badges Collected</div>
-    <div style="font-size: 8vmax; background-color: #4a6fa5">
-        <img src="../static/Star.png" alt="Star" style="width: 60%; padding: 0">
-    </div>
-    <div style="font-size: 8vmax; background-color: #4a6fa5">67</div>
-    <div style="font-size: 8vmax; background-color: #4a6fa5">3</div>
-    <div style="font-size: 8vmax; background-color: #4a6fa5">2/8</div>
+    <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${streak}"></div>
+    <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${collected}"></div>
+    <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${co2_save}"></div>
+    <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${no_badges}"></div>
 </div>
 <div>
     <img src="../static/Star.png" alt="Star" style="width: 10%; height: auto; padding: 2%">
