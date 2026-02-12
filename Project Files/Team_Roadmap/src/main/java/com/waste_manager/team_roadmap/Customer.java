@@ -32,6 +32,7 @@ public class Customer implements Serializable {
     private ArrayList<Boolean> badges;
     @Column(nullable = false)
     private String password;
+    private LocalDateTime steakLastUpdate;
     public Customer(){};
 
     public Customer(String fName, String sName, String dName, String address, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges){
@@ -112,5 +113,8 @@ public class Customer implements Serializable {
 
     public String getPassword(){return password;}
     public void setPassword(String password){this.password = password;}
+
+    public LocalDateTime getSteakLastUpdate(){return steakLastUpdate;}
+    public void setSteakLastUpdate(LocalDateTime lastUpdate){this.steakLastUpdate = lastUpdate;}
 
 }
