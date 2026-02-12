@@ -3,6 +3,7 @@ package com.waste_manager.team_roadmap;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,11 +19,13 @@ public class BundleTest {
     // Ran once before any of the tests
     @BeforeAll
     public static void setup() {
-        testSeller = new Seller(1, "Pete's Puddings", new ArrayList<>(List.of(254, 89)),
-                new ArrayList<>(List.of(9, 18)), "PPU");
-        testBundle = new Bundle(1, testSeller, "Deserts",new ArrayList<>(List.of("pancakes", "cake", "brownies")),
-                                new ArrayList<>(List.of("gluten, dairy, peanuts")), 1, 11.50f, 10,
-                1230, false, false); // Constructor doesn't exist currently
+
+        testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
+                            "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
+
+        testBundle = new Bundle(testSeller, "Deserts",new ArrayList<>(List.of("pancakes", "cake", "brownies")),
+                                new ArrayList<>(List.of("gluten, dairy, peanuts")), LocalDateTime.now(), 11.50f, 10,
+                1230, false, false); 
     }
 
     // Verifies the ID of a bundle
@@ -58,12 +61,6 @@ public class BundleTest {
     public void testGetAllergens() {
 
         assertEquals(new ArrayList<>(List.of("gluten, dairy, peanuts")), testBundle.getAllergens());
-    }
-
-    @Test
-    public void testGetQuantity() {
-
-        assertEquals(1, testBundle.getQuantity());
     }
 
     @Test
