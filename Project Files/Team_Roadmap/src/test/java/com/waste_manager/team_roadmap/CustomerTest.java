@@ -9,8 +9,29 @@ public class CustomerTest {
     // Ran once before any of the tests
     @BeforeAll
     public static void setup(){
-        testCustomer = new Customer(); // Constructor doesn't exist currently
+        testCustomer = new Customer("jim", "bob", "Jimmy", "no man's land", "test", "test", "test@gmail.com", "0000008776", "jim", 6, ArrayList<Boolean> badges); // Constructor doesn't exist currently
     }
+
+
+    @Test
+    public void TestGenerateClaimCode(){
+        String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYS0123456789";
+
+        for(int i =0; i < 10; i++) {
+            String hold = testCustomer.generateClaimCode();
+
+            assertEquals(6,hold.length());
+            for(int j = 0; j< 6; j++){
+                char hold2 = hold.charAt(j);
+                assertTrue(characters.indexOf(hold2) != -1);
+            }
+        }
+
+
+
+    }
+
+
 
     // Verifies the ID of a customer
     @Test
@@ -23,7 +44,7 @@ public class CustomerTest {
     @Test
     public void testGetDisplayName() {
 
-        assertSame("Jimmy", testCustomer.getDisplayName());
+        assertSame("Jimmy", testCustomer.getdName());
     }
 
     //Verifies the streak of a customer
