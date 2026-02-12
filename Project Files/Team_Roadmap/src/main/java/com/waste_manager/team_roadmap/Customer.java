@@ -77,40 +77,40 @@ public class Customer implements Serializable {
     String getImpactSummary(){return null;}
 
 
-    Long getCustomerID(){return ID;}
-    void setCustomerID(Long customerID){this.ID = customerID;}
+    public Long getCustomerID(){return ID;}
+    public void setCustomerID(Long customerID){this.ID = customerID;}
 
-    String getdName(){return dName;}
-    void setdName(String dName){this.dName = dName;}
+    public String getdName(){return dName;}
+    public void setdName(String dName){this.dName = dName;}
 
-    String getfName(){return fName;}
-    void setfName(String fName){this.fName = fName;}
+    public String getfName(){return fName;}
+    public void setfName(String fName){this.fName = fName;}
 
-    String getsName(){return sName;}
-    void setsName(String sName){this.sName = sName;}
+    public String getsName(){return sName;}
+    public void setsName(String sName){this.sName = sName;}
 
-    String getAddress(){return address;}
-    void setAddress(String address){this.address = address;}
+    public String getAddress(){return address;}
+    public void setAddress(String address){this.address = address;}
 
-    String getPostcode(){return postcode;}
-    void setPostcode(String postcode){this.postcode = postcode;}
+    public String getPostcode(){return postcode;}
+    public void setPostcode(String postcode){this.postcode = postcode;}
 
-    String getCounty(){return county;}
-    void setCounty(String county){this.county = county;}
+    public String getCounty(){return county;}
+    public void setCounty(String county){this.county = county;}
 
-    String getEmail(){return email;}
-    void setEmail(String email){this.email = email;}
+    public String getEmail(){return email;}
+    public void setEmail(String email){this.email = email;}
 
-    String getPhone(){return phone;}
-    void setPhone(String phone){this.phone = phone;}
+    public String getPhone(){return phone;}
+    public void setPhone(String phone){this.phone = phone;}
 
-    int getStreak(){return streak;}
-    void setStreak(int streak){this.streak = streak;}
+    public int getStreak(){return streak;}
+    public void setStreak(int streak){this.streak = streak;}
 
-    ArrayList<Boolean> getBadges(){return badges;}
-    void setBadges(ArrayList<Boolean> badges){this.badges = badges;}
+    public ArrayList<Boolean> getBadges(){return badges;}
+    public void setBadges(ArrayList<Boolean> badges){this.badges = badges;}
 
-    String getPassword(){return password;}
-    void setPassword(String password){this.password = password;}
+    public String getPassword(){return password;}
+    public void setPassword(String password){this.password = password;}
 
 }

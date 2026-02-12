@@ -61,11 +61,11 @@ public class CustomerController {
     }
 
     @PostMapping("/edit_profile_consumer")
-    public String editProfileCustomer(@RequestParam("fname") String fname, @RequestParam("sname") String sname,
-                                    @RequestParam("dname") String dname, @RequestParam("address_line_1") String al1,
-                                    @RequestParam("postcode") String pcode, @RequestParam("county") String county,
-                                    @RequestParam("email") String email, @RequestParam("phone") String phone,
-                                    @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2) {
+    public String editProfileCustomer(@RequestParam(value = "fname", required = false) String fname, @RequestParam(value = "sname", required = false) String sname,
+                                    @RequestParam(value = "dname", required = false) String dname, @RequestParam(value = "address_line_1", required = false) String al1,
+                                    @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
+                                    @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2) {
 
         List<Seller> s = sr.findByDName(dname);
         List<Customer> c = cr.findByDName(dname);
@@ -105,12 +105,6 @@ public class CustomerController {
         if (!phone.isEmpty()) {
             cr.updatePhoneById(phone, customerId);
         }
-
-        Customer newc = cr.findByDName(dname).getFirst();
-
-        System.out.println(newc.getAddress() + " " + newc.getPostcode() + " " + newc.getCounty() + " " + newc.getEmail() +  " " + newc.getPhone());
-        System.out.println();
-
         return "/edit_profile_consumer";
     }
 
@@ -122,7 +116,7 @@ public class CustomerController {
     }
 
     @PostMapping("/browse_bundles_consumer")
-    public String reserveBundleConsumer(@RequestParam("postingID") int postingID) {
+    public String reserveBundleConsumer(@RequestParam("postingID") int postingID, Model model) {
         Optional<Bundle> b = br.findById(postingID);
         Bundle b1 = b.get();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -132,8 +126,9 @@ public class CustomerController {
         String claimCode = customer.generateClaimCode();
         Reservation r = new Reservation(b1, customer, b1.getSeller(), LocalDateTime.now(), claimCode, false, false, "someWeather");
         rr.save(r);
-        //b1.setReserved(true);
-        //br.setBundleReserved(true, b1.getPostingID());
+        b1.setReserved(true);
+        br.setBundleReserved(true, b1.getPostingID());
+        browseBundlesConsumer(new ArrayList<>(), model);
         return "browse_bundles_consumer";
     }
     @GetMapping("/manage_bundles_consumer")

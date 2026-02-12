@@ -7,18 +7,23 @@ import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationRepository extends Repository<Reservation, Long> {
 
     Reservation save(Reservation reservation);
 
+    Optional<Reservation> findById(long id);
     List<Reservation> findByCustomerID(long customer_id);
     List<Reservation> findBySellerID(long seller_id);
+
+    @Query("select r.bundle from Reservation r where r.ID = :ID")
+    List<Bundle> getCustomerReservedBundles(@Param("ID") long customer_id);
 
 
     @Transactional
     @Modifying
-    @Query("update Reservation r set r.collected = :status where r.ID = :ID")
+    @Query("update Reservation r set r.collected = :collected where r.ID = :ID")
     void setReservationStatus(@Param("collected") boolean newCollected, @Param("ID") long id);
 
 }

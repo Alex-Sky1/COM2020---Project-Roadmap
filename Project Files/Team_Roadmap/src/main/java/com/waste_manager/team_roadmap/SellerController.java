@@ -106,11 +106,11 @@ public class SellerController {
 
 
     @PostMapping("edit_profile_seller")
-    public String editProfileSeller(@RequestParam(value = "fname") String fname, @RequestParam("sname") String sname,
-                                    @RequestParam("business") String business, @RequestParam("address_line_1") String al1,
-                                    @RequestParam("postcode") String pcode, @RequestParam("county") String county,
-                                    @RequestParam("email") String email, @RequestParam("phone") String phone,
-                                    @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2){
+    public String editProfileSeller(@RequestParam(value = "fname", required = false) String fname, @RequestParam(value = "sname", required = false) String sname,
+                                    @RequestParam(value = "business", required = false) String business, @RequestParam(value = "address_line_1", required = false) String al1,
+                                    @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
+                                    @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2){
         List<Seller> s = sr.findByDName(business);
         List<Customer> c = cr.findByDName(business);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -186,13 +186,20 @@ public class SellerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Seller s = sr.findByDName(currentUsername).getFirst();
-        //List<Reservation> reservations = rr.findBySellerrID(s.getSellerID());
-        //model.addAttribute("reservations", reservations);
+        List<Reservation> reservations = rr.findBySellerID(s.getSellerID());
+        model.addAttribute("reservations", reservations);
         return "manage_reservations_seller";
     }
     @PostMapping("manage_reservations_seller")
-    public String manageReservationsSeller(){
-        return "/manage_reservations_seller";
+    public String manageReservationsSeller(@RequestParam("ClaimCode") String claimCode, @RequestParam("reservationID") long reservationID, Model model){
+        Reservation res = rr.findById(reservationID).get();
+        boolean equalClaimCode = claimCode.equals(res.getClaimCode());
+        model.addAttribute("success", equalClaimCode);
+        System.out.println(equalClaimCode);
+        rr.setReservationStatus(equalClaimCode,  reservationID);
+
+        manage_reservations_seller(model);
+        return "redirect:/manage_reservations_seller";
     }
 
 
