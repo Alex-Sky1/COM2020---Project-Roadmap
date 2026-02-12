@@ -33,7 +33,7 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private LocalDateTime steakLastUpdate;
+    private LocalDateTime streakLastUpdate;
     public Customer(){};
 
     public Customer(String fName, String sName, String dName, String address, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges){
@@ -115,7 +115,7 @@ public class Customer implements Serializable {
     public String getPassword(){return password;}
     public void setPassword(String password){this.password = password;}
 
-    public LocalDateTime getSteakLastUpdate(){return steakLastUpdate;}
-    public void setSteakLastUpdate(LocalDateTime lastUpdate){this.steakLastUpdate = lastUpdate;}
+    public LocalDateTime getStreakLastUpdate(){return streakLastUpdate;}
+    public void setStreakLastUpdate(LocalDateTime lastUpdate){this.streakLastUpdate = lastUpdate;}
 
 }
