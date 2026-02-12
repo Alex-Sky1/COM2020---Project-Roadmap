@@ -5,21 +5,36 @@
     <title>View Analytics</title>
 </head>
 <body>
-<div class="header" style="background: #dbe9ee; ">
-    <h1 class="header-text" style="color: #4a6fa5;">View Analytics</h1>
+<div class="header">
+    <h1 class="header-text">View Analytics</h1>
     <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
 </div>
-<div class="container" style="padding-left: 2%; padding-right: 2%; padding-top: 2%">
+<div class="container" style="padding: 1%">
     <div>My Streak</div>
     <div>Bundles Collected</div>
     <div>CO2 Saved</div>
     <div>Badges Collected</div>
-    <div style="font-size: 15vmax; background-color: #4a6fa5">
-        <img src="../static/Star.png" alt="Star" style="width: 100%">
+    <div style="font-size: 8vmax; background-color: #4a6fa5">
+        <img src="../static/Star.png" alt="Star" style="width: 60%; padding: 0">
     </div>
-    <div style="font-size: 15vmax; background-color: #4a6fa5">67</div>
-    <div style="font-size: 15vmax; background-color: #4a6fa5">3</div>
-    <div style="font-size: 15vmax; background-color: #4a6fa5">2/8</div>
+    <div style="font-size: 8vmax; background-color: #4a6fa5">67</div>
+    <div style="font-size: 8vmax; background-color: #4a6fa5">3</div>
+    <div style="font-size: 8vmax; background-color: #4a6fa5">2/8</div>
+</div>
+<div>
+    <img src="../static/Star.png" alt="Star" style="width: 10%; height: auto; padding: 2%">
+    <img src="../static/Star.png" alt="Star" style="width: 10%; height: auto; padding: 2%">
+    <img src="../static/Star.png" alt="Star" style="width: 10%; height: auto; padding: 2%">
+    <img src="../static/Star.png" alt="Star" style="width: 10%; height: auto; padding: 2%">
+    <img src="../static/Star.png" alt="Star" style="width: 10%; height: auto; padding: 2%">
+    <img src="../static/Star.png" alt="Star" style="width: 10%; height: auto; padding: 2%">
+    <img src="../static/Star.png" alt="Star" style="width: 10%; height: auto; padding: 2%">
+</div>
+<form th:action="@{/dashboard_consumer}">
+    <button class="button1" style="width:250px; margin-left: 5%">Return To Dashboard</button>
+</form>
+<div class="box1" style="margin: 0 1%; height: 2%; padding: 5px 2%; float: right">
+    <p>description of badge:</p>
 </div>
 </body>
 </html>

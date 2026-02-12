@@ -24,8 +24,8 @@
     <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
 </div>
 <form th:action="@{/edit_profile_seller}" method="post">
-    <div class="box1" style="height: 400px; border: none">
-        <div class="grid-2-columns" style="row-gap: 5%; float: left; margin: 5%">
+    <div class="box1" style="height: 400px; border: none; width: 40%">
+        <div class="grid-2-columns" style="row-gap: 5%; float: left; margin: 5%; padding: 5%">
             <label for="fname">First Name(s):</label>
             <input class="text-input1" type="text" id="fname" name="fname">
             <label for="sname">Surname:</label>
@@ -40,8 +40,8 @@
             <input class="text-input1" type="text" placeholder="County" id="county" name="county">
         </div>
     </div>
-    <div class="box1" style="height: 400px; border: none">
-        <div class="grid-2-columns" style="row-gap: 5%; float: left; margin: 3%">
+    <div class="box1" style="height: 400px; border: none; width: 40%">
+        <div class="grid-2-columns" style="row-gap: 5%; float: left; margin: 3%; padding: 5%">
             <label for="email">Email Address:</label>
             <input class="text-input1" type="text" id="email" name="email">
             <label for="phone">Phone Number:</label>
@@ -53,11 +53,11 @@
             <input style="height: 20px" type="checkbox" id="accept" name="accept" value="accept">
             <label style="font-size: 10px; height: 20px" for="accept">I accept the terms and conditions</label>
             <button type="submit" class="button1" style="width:250px">Update Account</button>
-            <form th:action="@{/dashboard_seller}">
-                <button class="button1" style="width:250px">Return To Dashboard</button>
-            </form>
         </div>
     </div>
+</form>
+<form th:action="@{/dashboard_seller}">
+    <button class="button1" style="width:250px; margin-left: 3%">Return To Dashboard</button>
 </form>
 </body>
 </html>

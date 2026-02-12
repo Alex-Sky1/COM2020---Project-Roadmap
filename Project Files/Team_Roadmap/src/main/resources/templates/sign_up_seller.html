@@ -24,7 +24,7 @@
     <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
 </div>
 <form th:action="@{/sign_up_seller}" method="post">
-    <div class="box1" style="height: 400px; border: none">
+    <div class="box1" style="height: 400px; border: none; width: 40%">
         <div class="grid-2-columns" style="row-gap: 5%; float: left; margin: 5%">
             <label for="fname">First Name(s):</label>
             <input class="text-input1" type="text" id="fname" name="fname">
@@ -42,7 +42,7 @@
             <input class="text-input1" type="text" placeholder="County" id="county" name="county">
         </div>
     </div>
-    <div class="box1" style="height: 400px; border: none">
+    <div class="box1" style="height: 400px; border: none; width: 40%">
         <div class="grid-2-columns" style="row-gap: 5%; float: left; margin: 3%">
             <label for="email">Email Address:</label>
             <input class="text-input1" type="text" id="email" name="email">
@@ -53,7 +53,7 @@
             <label for="password2">Confirm Password:</label>
             <input class="text-input1" type="password" id="password2" name="password2">
             <input style="height: 20px" type="checkbox" id="accept" name="accept" value="accept">
-            <label style="font-size: 10px; height: 20px" for="accept">I accept the terms and conditions</label>
+            <label style="font-size: 10px; height: 20px" for="accept">I accept the terms and conditions and private policy</label>
             <button type="submit" class="button1" style="width:250px">Create Account</button>
         </div>
     </div>
@@ -62,7 +62,10 @@
     <button class="button1" style="width:250px">Return To Login</button>
 </form>
 <form th:action="@{/tos_seller}">
-    <button class="button1" style="width:250px">View the Terms and Conditions</button>
+    <button class="button1" style="width:250px">Terms and Conditions</button>
+</form>
+<form th:action="@{/private_policy_seller}">
+    <button class="button1" style="width:250px">Private Policy</button>
 </form>
 </body>
 </html>

@@ -15,8 +15,8 @@ public interface ReservationRepository extends Repository<Reservation, Long> {
     List<Reservation> findByCustomerID(long customer_id);
     List<Reservation> findBySellerID(long seller_id);
 
-    @Query("select r.bundle from Reservation r where r.customer_id = :ID")
-    List<Bundle> getCustomerReservedBundles(@Param("ID") long customer_id);
+    //@Query("select r.bundle from Reservation r where r.customer_id = :ID")
+    //List<Bundle> getCustomerReservedBundles(@Param("ID") long customer_id);
 
 
     @Transactional
