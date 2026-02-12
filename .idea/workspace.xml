@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="New Bundle Tests and some more fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/CustomerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/CustomerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomerRepository.java" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,12 +57,12 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git",
-    "accountId": "461fd7cc-c157-4b5f-b86f-49dd5ab85b55"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git&quot;,
+    &quot;accountId&quot;: &quot;461fd7cc-c157-4b5f-b86f-49dd5ab85b55&quot;
   }
-}]]></component>
+}</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.3.0-bin/79n14ral3mx1ozqr3csh2u872/gradle-9.3.0" javaHome="$USER_HOME$/Library/Java/JavaVirtualMachines/openjdk-25.0.2/Contents/Home" gradleVersion="9.3.0" />
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nw14QEOn" />
