@@ -4,9 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @SpringBootApplication
 @Controller
@@ -43,6 +41,16 @@ public class TeamRoadmapApplication {
     @GetMapping("/tos_seller")
     public String tos_seller() {
         return "tos_seller";
+    }
+
+    @GetMapping("/private_policy_consumer")
+    public String private_policy_consumer() {
+        return "privacy_policy_consumer";
+    }
+
+    @GetMapping("/private_policy_seller")
+    public String private_policy_seller() {
+        return "privacy_policy_seller";
     }
 
     @GetMapping("/edit_profile_seller")
