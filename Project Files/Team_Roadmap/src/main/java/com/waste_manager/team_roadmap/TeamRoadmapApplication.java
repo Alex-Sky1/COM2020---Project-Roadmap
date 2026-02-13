@@ -84,11 +84,6 @@ public class TeamRoadmapApplication {
         return "edit_bundle_seller";
     }
 
-    @GetMapping("/view_analytics_seller")
-    public String view_analytics_seller() {
-        return "view_analytics_seller";
-    }
-
 }
 
 

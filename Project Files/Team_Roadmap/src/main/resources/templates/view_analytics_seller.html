@@ -24,14 +24,10 @@
     </form>
 </div>
 <div style="display: flex; flex-direction: row">
-    <div style="width: 60%">
-        <img src="../static/Star.png" alt="Star" style="width: 40%; padding: 2%">
-        <img src="../static/Star.png" alt="Star" style="width: 40%; padding: 2%">
-    </div>
-    <div class="box1" style="width: 30%">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis felis purus, ut tincidunt elit condimentum non.</p>
-        <p>Cras convallis blandit lorem, non laoreet neque sodales ornare. Ut nec faucibus ligula.</p>
-    </div>
+    <div style="width: 60%" th:text="${sellThrough}"></div>
+    <div style="width: 60%" th:text="${wasteProxy}"></div>
+    <div style="width: 60%" th:text="${pricingEffectiveness}"></div>
+    <div style="width: 60%" th:text="${operationalInsights}"></div>
 </div>
 <form th:action="@{/dashboard_seller}">
     <button class="button1" style="width:250px; margin-left: 5%">Return To Dashboard</button>

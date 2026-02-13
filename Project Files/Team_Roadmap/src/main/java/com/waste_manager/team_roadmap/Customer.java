@@ -61,6 +61,7 @@ public class Customer implements Serializable {
 
     String generateClaimCode(){
         String options = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYS0123456789";
+        //randomly select characters and build into string
         Random rand = new Random();
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < 6; i++){

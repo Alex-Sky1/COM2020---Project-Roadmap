@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
@@ -124,11 +125,22 @@ public class CustomerController {
     }
 
     @GetMapping("/browse_bundles_consumer")
-    public String browseBundlesConsumer(@RequestBody(required = false) ArrayList<String> filters, Model model) {
-        //find all budnles that have not expired and have not already been reserved
+    public String browseBundlesConsumer(Model model) {
+        //find all bundles that have not expired and have not already been reserved
         List<Bundle> allBundles = br.findByReservedAndExpired(false, false);
+        ArrayList<Bundle> bundles = new ArrayList<>();
+        //find if any bundles have gone past expiry
+        for (Bundle bundle : allBundles) {
+            if(bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                br.setBundleExpired(bundle.getPostingID());
+                bundle.setExpired(true);
+            }
+            else{
+                bundles.add(bundle);
+            }
+        }
         //add bundles to web page
-        model.addAttribute("allBundles", allBundles);
+        model.addAttribute("allBundles", bundles);
         return "browse_bundles_consumer";
     }
 
@@ -161,11 +173,10 @@ public class CustomerController {
         Customer c = cr.findByDName(currentUsername).getFirst();
         //get all reservations the user has and list on webpage
         List<Reservation> reservations = rr.findByCustomerID(c.getCustomerID());
-        System.out.println(LocalTime.now().getHour());
         if (!reservations.isEmpty()) {
             for(Reservation reservation : reservations){
-                if(!reservation.getNoShow() && reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour()){
-                    System.out.println("here");
+                //set no show if past pickup window
+                if(!reservation.getNoShow() && reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())){
                     rr.setReservationNoShow(true, reservation.getBundle().getPickUpWindow() + 1);
                     reservation.setNoShow(true);
                 }

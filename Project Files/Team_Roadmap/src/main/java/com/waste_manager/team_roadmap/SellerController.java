@@ -198,9 +198,8 @@ public class SellerController {
         ArrayList<Bundle> bundles = new ArrayList<>();
 
         for(Bundle bundle : allBundles){
-            List<Reservation> reserves = rr.findByBundleID(bundle.getPostingID());
-            if(reserves.isEmpty()) {
-                //set expired of pickup window has passed
+            if(!bundle.getReserved()) {
+                //set expired if pickup window has passed
                 if(!bundle.getExpired() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))){
                     br.setBundleExpired(bundle.getPostingID());
                     bundle.setExpired(true);
@@ -208,6 +207,7 @@ public class SellerController {
                 bundles.add(bundle);
             }
             else{
+                List<Reservation> reserves = rr.findByBundleID(bundle.getPostingID());
                 //set no show if pickup window has passed
                 if(!reserves.getFirst().getNoShow() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || reserves.getFirst().getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) ){
                     rr.setReservationNoShow(true, reserves.getFirst().getReservationID());
@@ -264,8 +264,8 @@ public class SellerController {
             cr.updateStreakUpdateTimeByID(now, c.getCustomerID());
         }
         else {
+            //update streak
             LocalDateTime LastStreakUpdate = c.getStreakLastUpdate();
-            System.out.println(c.getStreakLastUpdate());
             int year1 = now.getYear();
             int year2 = LastStreakUpdate.getYear();
             int week1 = now.get(WeekFields.ISO.weekOfWeekBasedYear());
@@ -279,7 +279,6 @@ public class SellerController {
                 cr.updateStreakById(c.getStreak(), c.getCustomerID());
             }
         }
-        System.out.println(c.getStreak());
 
         //refresh page
         return "redirect:/manage_reservations_seller";
@@ -305,8 +304,54 @@ public class SellerController {
     public String forecastingSeller(){
         return "/forecasting_seller";
     }
-    @PostMapping("view_analytics_seller")
-    public String viewAnalyticsSeller(){
+
+    @GetMapping("view_analytics_seller")
+    public String viewAnalyticsSeller(Model model){
+        //get current user
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).getFirst();
+
+        //calculate no show : collected : expired
+        int noShow = 0;
+        int collected = 0;
+        int expired = 0;
+        List<Reservation> allReservations = rr.findBySellerID(s.getSellerID());
+        for (Reservation reservation : allReservations) {
+            if(reservation.getNoShow()){
+                noShow++;
+            }
+            else if(reservation.getCollected()){
+                collected++;
+            }
+            else{
+                if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                    rr.setReservationNoShow(true, reservation.getReservationID());
+                    reservation.setNoShow(true);
+                    noShow++;
+                }
+            }
+        }
+
+        List<Bundle> allBundles = br.findBySellerID(s.getSellerID());
+        for (Bundle bundle : allBundles) {
+            if(bundle.getExpired()){
+                expired++;
+            }
+            else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                br.setBundleExpired(bundle.getPostingID());
+                bundle.setExpired(true);
+                expired++;
+            }
+        }
+        String sellThrough = collected + " : " + expired + " : " + noShow;
+        model.addAttribute("sellThrough", sellThrough);
+
+        //calculate waste proxy
+        model.addAttribute("wasteProxy", collected*4.2);
+
+        model.addAttribute("pricingEffectiveness", "-");
+        model.addAttribute("operationalInsights", "-");
         return "/view_analytics_seller";
     }
 }
