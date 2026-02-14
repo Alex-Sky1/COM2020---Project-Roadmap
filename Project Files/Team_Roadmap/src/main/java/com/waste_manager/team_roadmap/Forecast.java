@@ -17,16 +17,18 @@ public class Forecast {
     private String rationale;
 
 
-    public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag,
+    public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag, String thisCategory,
                     ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
 
         this.forecastDate = thisForecastDate;
         this.sellerID = thisSellerID;
         this.weatherFlag = thisWeatherFlag;
+        this.category = thisCategory;
         this.bundleList = thisBundleList;
         this.reservationList = thisReservationList;
     }
 
+    // Return bundles that are from a specific seller
     private ArrayList<Bundle> bundleFromSelectSeller() {
 
         ArrayList<Bundle> a = new ArrayList<>();
@@ -41,6 +43,7 @@ public class Forecast {
         return a;
     }
 
+    // Search and return reservations that are of a particular seller
     private ArrayList<Reservation> searchReservationSeller(ArrayList<Bundle> sellerBundles) {
 
         ArrayList<Reservation> a = new ArrayList<>();
@@ -59,9 +62,9 @@ public class Forecast {
         return a;
     }
 
+    // Filter the reservations to return reservations made on a specific date
     private ArrayList<Reservation> filterReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
 
-        // Filter the reservations by the date they were listed
         return filteredReservationList.stream()
                 .filter(reservation -> reservation.getTimeStamp()
                         .toLocalDate()

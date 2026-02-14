@@ -3,124 +3,73 @@ package com.waste_manager.team_roadmap;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ForecastTest {
 
     static Forecast testForecast;
+    static LocalDateTime testTime;
 
     // Ran once before any of the tests
     @BeforeAll
 
     public static void setup() {
 
-        LocalDateTime testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
+        testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
+        ArrayList<Bundle> testBundles = new ArrayList<>();
+        ArrayList<Reservation> testReservations = new ArrayList<>();
 
-        testForecast = new Forecast(DayOfWeek.MONDAY, testTime, 1, "Puddings",
-                12.56f, 5, "sunny", 1, 3,
-                2, 7, 4, 0.76f, "Good");
-    }
+        Seller testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
+                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
+        Customer testCustomer = new Customer("Robin", "Hood", "RobOfNotts1364", "Sherwood Forest", "NG21 9RM", "Nottinghamshire",
+                "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)));
 
-    // Verifies the ID of a bundle
-    @Test
-    public void testGetDayOfWeek() {
+        ArrayList<String> testItems = new ArrayList<>(List.of("chocolate", "pancakes", "brownies", "cake", "biscuit", "pavlova", "toffee", "ice cream"));
+        ArrayList<String> testAllergies = new ArrayList<>(List.of("dairy", "gluten", "nuts", "fish", "eggs"));
 
-        assertEquals(DayOfWeek.MONDAY, testForecast.getDay());
-    }
+        for (int i = 0; i < 4; i++) {
 
-    @Test
-    public void testGetTime() {
+            Collections.shuffle(testItems); Collections.shuffle(testAllergies);
+            Bundle testBundle = new Bundle(testSeller, "puddings", testItems.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)),
+                                            testAllergies.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)), testTime, 7.50f, 10, 1700,
+                                    true, false);
+            testBundles.add(testBundle);
 
-        assertEquals(LocalDateTime.of(2026, 2, 1, 12, 0), testForecast.getTime()); // Placeholder expected
-    }
+            Reservation testReservation = new Reservation(testBundle, testCustomer, testSeller, testTime, "AAAAAA",
+                    false, true, "rainy");
+            testReservations.add(testReservation);
+        }
 
-    @Test
-    public void testGetSellerID() {
+        testForecast = new Forecast(testTime.plusDays(7), 1, "rainy", "puddings", testBundles, testReservations);
+        testForecast.setConfidence(0.5f);
+        testForecast.setRationale("Good food");
 
-        assertEquals(1, testForecast.getSellerID());
-    }
-
-    @Test
-    public void testGetCategory() {
-
-        assertSame("Pastry", testForecast.getCategory());
-    }
-
-    @Test
-    public void testGetPrice() {
-
-        assertEquals(10.50F, testForecast.getPrice());
     }
 
     @Test
-    public void testGetDiscount() {
+    public void testSeasonalNaive() {
 
-        assertEquals(10, testForecast.getDiscount());
+        int seasonalNaiveTestReturn = testForecast.seasonalNaive();
+        assertEquals(4, seasonalNaiveTestReturn);
     }
 
     @Test
-    public void testGetWeatherFlag() {
-
-        assertSame("rainy", testForecast.getWeatherFlag());
-    }
-
-    @Test
-    public void testGetPostingID() {
-
-        assertEquals(1, testForecast.getPostingID());
-    }
-
-    @Test
-    public void testGetObservedRes() {
-
-        assertEquals(5, testForecast.getObservedRes());
-    }
-
-    @Test
-    public void testGetObservedNoShow() {
-
-        assertEquals(1, testForecast.getObservedNoShow());
-    }
-
-    @Test
-    public void testGetPredictedRes() {
-
-        assertEquals(1, testForecast.getPredictedRes());
-    }
-
-    @Test
-    public void testGetPredictedNoShow() {
-
-        assertEquals(1, testForecast.getPredictedNoShow());
-    }
-
-    @Test
-    public void testGetConfidence() {
-
-        assertEquals(0.5F, testForecast.getConfidence());
-    }
-
-    @Test
-    public void testGetRationale() {
-
-        assertSame("Good food", testForecast.getRationale());
-    }
-
-    ///
+    public void testGetForecastDate() {assertEquals(testTime.plusDays(7), testForecast.getForecastDate());}
 
     @Test
     public void testSetDayOfWeek() {
 
-        testForecast.setDay(DayOfWeek.SATURDAY);
-        assertEquals(DayOfWeek.SATURDAY, testForecast.getDay());
+        testForecast.setForecastDate(LocalDateTime.now());
+        assertEquals(LocalDateTime.now(), testForecast.getForecastDate());
     }
 
     @Test
-    public void testSetTime() {
-
-        testForecast.setTime(LocalDateTime.of(2026, 2, 1, 15, 0));
-        assertEquals(LocalDateTime.of(2026, 2, 1, 15, 0), testForecast.getTime());
-    }
+    public void testGetSellerID() {assertEquals(1, testForecast.getSellerID());}
 
     @Test
     public void testSetSellerID() {
@@ -130,32 +79,17 @@ public class ForecastTest {
     }
 
     @Test
+    public void testGetCategory() {assertSame("puddings", testForecast.getCategory());}
+
+    @Test
     public void testSetCategory() {
 
-        testForecast.setCategory("Pudding");
-        assertSame("Pudding", testForecast.getCategory());
+        testForecast.setCategory("deserts");
+        assertSame("deserts", testForecast.getCategory());
     }
 
     @Test
-    public void testSetPrice() {
-
-        testForecast.setPrice(11.01F);
-        assertEquals(11.01F, testForecast.getPrice());
-    }
-
-    @Test
-    public void testSetPostingID(){
-
-        testForecast.setPostingID(12);
-        assertEquals(12, testForecast.getPostingID());
-    }
-
-    @Test
-    public void testSetDiscount() {
-
-        testForecast.setDiscount(20);
-        assertEquals(20, testForecast.getDiscount());
-    }
+    public void testGetWeatherFlag() {assertSame("rainy", testForecast.getWeatherFlag());}
 
     @Test
     public void testSetWeatherFlag() {
@@ -165,32 +99,7 @@ public class ForecastTest {
     }
 
     @Test
-    public void testSetObservedRes() {
-
-        testForecast.setObservedRes(2);
-        assertEquals(2, testForecast.getObservedRes());
-    }
-
-    @Test
-    public void testSetObservedNoShow() {
-
-        testForecast.setObservedNoShow(2);
-        assertEquals(2, testForecast.getObservedNoShow());
-    }
-
-    @Test
-    public void testSetPredictedRes() {
-
-        testForecast.setPredictedRes(2);
-        assertEquals(2, testForecast.getPredictedRes());
-    }
-
-    @Test
-    public void testSetPredictedNoShow() {
-
-        testForecast.setPredictedNoShow(2);
-        assertEquals(2, testForecast.getPredictedNoShow());
-    }
+    public void testGetConfidence() {assertEquals(0.5F, testForecast.getConfidence());}
 
     @Test
     public void testSetConfidence() {
@@ -198,6 +107,9 @@ public class ForecastTest {
         testForecast.setConfidence(0.8F);
         assertEquals(0.8F, testForecast.getConfidence());
     }
+
+    @Test
+    public void testGetRationale() {assertSame("Good food", testForecast.getRationale());}
 
     @Test
     public void testSetRationale() {
