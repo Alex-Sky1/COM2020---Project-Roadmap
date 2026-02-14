@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../static/styling.css" th:href="@{/styling.css}">
-    <title>Edit Bundle</title>
+    <title>Post Bundle</title>
     <style>
         body {
             background-color: #4f6d7a;
@@ -12,11 +12,12 @@
 <body>
 <div class="header">
     <h1 class="header-text">Edit Bundle</h1>
-    <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
+    <img src="../static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
 </div>
-<div style="display: flex; gap: 5%; flex-wrap: wrap">
-    <form th:action="@{/post_bundle_seller}">
-        <div class="grid-2-columns">
+<div class="box1_parent">
+    <form th:action="@{/post_bundle_seller}" method="post">
+
+        <div class="grid-2-columns" style="margin: 30px">
             <input style="display: none" id="hidden_items" name="hidden_items" type="text">
             <label class="label1" for="category">Food Category</label>
             <input class="text-input2" type="text" id="category" name="category">
@@ -53,9 +54,10 @@
                 <option value="22:00-23:00">22:00-23:00</option>
                 <option value="23:00-00:00">23:00-00:00</option>
             </select>
-            <button type="submit" class="button1" style="background-color: #c0d6df; color: #166088; width: 90%" name="edit">Edit</button>
+            <button type="submit" class="button2" style="grid-column: span 2" name="post">Edit Bundle</button>
         </div>
-        <div class="box1" style="width: 25%; margin: 1%">
+
+        <div class="box1" style="width: 25%; min-width: 300px; margin: 30px">
             <h2>Allergens</h2>
             <hr>
             <input type="checkbox" id="celery" name="celery" value="celery">
@@ -87,8 +89,9 @@
             <input type="checkbox" id="nuts" name="nuts" value="nuts">
             <label for="nuts">Tree Nuts</label><br>
         </div>
-        <div style="display: flex; flex-direction: column; width: 25%">
-            <div class="box1" style="width: 100%; padding: 5%; height: 45%">
+
+        <div style="width: 25%; min-width: 300px; margin: 30px">
+            <div class="box1" style="width: 100%; padding: 5%; height: 40vh; min-width: 300px; margin: 2%">
                 <h2>Contents</h2>
                 <hr>
                 <div style="font-size: 15px">
@@ -97,18 +100,18 @@
             </div>
             <label for="item"></label>
             <h5 style="color:#dbe9ee; margin: 5% 5% 1% 5%">Enter new items below:</h5>
-            <textarea rows=10 style="resize: none; margin: 0 5% 5% 5%; width: 100%" id="item" name="item"></textarea>
+            <textarea rows=5 style="resize: none; margin: 0 5% 5% 5%; width: 100%" id="item" name="item"></textarea>
         </div>
+
     </form>
 </div>
-<label for="quantity"></label>
 <div style="margin: 0 2%">
     <form th:action="@{/dashboard_seller}">
-        <button class="button1" style="background-color: #c0d6df; color: #166088; width: 9%; margin-right: 60%" name="back">Back to Dashboard</button>
+        <button class="button2" style="width: 200px; margin-right: 60%" name="back">Back to Dashboard</button>
     </form>
     <label for="quantity"></label>
-    <input class="button1" style="width:9%; background-color: #c0d6df; color: #166088" id="quantity" name="quantity" min="1" max="100" value=1 type="number">
-    <button class="button1" style="width:9%; background-color: #c0d6df; color: #166088" id="add" onclick="addListItem()">Add</button>
+    <input class="button2" style="width: 100px" id="quantity" name="quantity" min="1" max="100" value=1 type="number">
+    <button class="button2" style="width: 200px" id="add" onclick="addListItem()">Add</button>
 </div>
 
 <script type="text/javascript" th:src="@{/addItem.js}"></script>
