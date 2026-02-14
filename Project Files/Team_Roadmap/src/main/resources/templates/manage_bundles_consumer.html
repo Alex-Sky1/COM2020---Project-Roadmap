@@ -14,7 +14,7 @@
 <body>
 <div class="header">
     <h1 class="header-text">Manage Bundles</h1>
-    <img src="../static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
+    <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-img">
 </div>
 <div style="margin: 1%; max-height: 70vh; overflow: auto">
     <table class="bundle-table" th:if="${not#lists.isEmpty(reservations)}">

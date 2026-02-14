@@ -38,7 +38,8 @@ public class CustomerController {
                          @RequestParam("dname") String dname, @RequestParam("address_line_1") String al1,
                          @RequestParam("postcode") String pcode, @RequestParam("county") String county,
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
-                         @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2) {
+                         @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2,
+                         @RequestParam(value = "accept", required = false) String tosAccept) {
 
 
         //check Passwords match
@@ -57,7 +58,11 @@ public class CustomerController {
         if (!s.isEmpty() || !c.isEmpty()) {
             System.out.println("user name already exists");
             return "/sign_up_consumer";
-        } else {
+        }
+        if(tosAccept==null){
+            System.out.println("please accept the terms and conditions");
+            return "/sign_up_consumer";
+        }else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>());
             cr.save(c1);
