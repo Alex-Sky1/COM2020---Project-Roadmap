@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class BundleTest {
@@ -24,8 +25,19 @@ public class BundleTest {
                             "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
 
         testBundle = new Bundle(testSeller, "Deserts",new ArrayList<>(List.of("pancakes", "cake", "brownies")),
-                                new ArrayList<>(List.of("gluten, dairy, peanuts")), LocalDateTime.now(), 11.50f, 10,
+                                new ArrayList<>(List.of("gluten", "dairy", "peanuts")), LocalDateTime.now(), 11.50f, 10,
                 1230, false, false); 
+    }
+
+
+    @Test
+    public void testGetAllergensAsString(){
+        assertEquals("gluten,dairy,peanuts",testBundle.getAllergensAsString());
+    }
+
+    @Test
+    public void testGetContentsAsString(){
+        assertEquals("pancakes,cake,brownies",testBundle.getContentsAsString());
     }
 
     // Verifies the ID of a bundle

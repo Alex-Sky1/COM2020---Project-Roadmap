@@ -7,7 +7,75 @@
 <body>
 <div class="header">
     <h1 class="header-text">Manage Bundles</h1>
-    <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
+    <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-img">
 </div>
+<div class="box1-parent">
+    <div class="box1" style="width: 45vw; margin: 5px; max-height: 70vh; padding: 20px 5px; overflow: auto">
+        <h3 style="margin: 1%">Reserved Bundles</h3>
+        <table class="bundle-table" th:if="${not#lists.isEmpty(reservations)}" style="column-width: 200px; max-width: 43vw; overflow: auto">
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Pickup Window</th>
+                    <th>Contents</th>
+                    <th>Allergens</th>
+                    <th>Collected</th>
+                    <th>Claim Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reservation : ${reservations}">
+                    <td th:text="${reservation.customer.dName}">Ex Customer</td>
+                    <td th:text="${reservation.bundle.price}">Ex Price</td>
+                    <td th:text="${reservation.bundle.category}">Ex category</td>
+                    <td th:text="${reservation.bundle.getPickUpWindowAsString()}">Pickup Window</td>
+                    <td th:text="${reservation.bundle.getContentsAsString()}" style="overflow: auto; max-width: 100px">Ex contents</td>
+                    <td th:text="${reservation.bundle.getAllergensAsString()}" style="overflow: auto; max-width: 100px">Ex allergens</td>
+                    <td th:text="${reservation.collected}">Collected</td>
+                    <td style="display: contents">
+                        <form th:action="@{/manage_reservations_seller}" method="post">
+                            <input type="hidden" th:value="${reservation.reservationID}" name="reservationID">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="box1" style="width: 45vw; margin: 5px; max-height: 70vh; padding: 20px 5px; overflow: auto">
+        <h3 style="margin: 1%">Unreserved</h3>
+        <table class="bundle-table" th:if="${not#lists.isEmpty(bundles)}" style="column-width: 200px; max-width: 43vw; overflow: auto">
+            <thead>
+                <tr>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Pickup Window</th>
+                    <th>Contents</th>
+                    <th>Allergens</th>
+                    <th>Expired</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="bundle : ${bundles}">
+                    <td th:text="${bundle.price}">Ex Price</td>
+                    <td th:text="${bundle.category}">Ex Category</td>
+                    <td th:text="${bundle.getPickUpWindowAsString()}">Pickup Window</td>
+                    <td th:text="${bundle.getContentsAsString()}" style="overflow: auto; max-width: 100px">Ex contents</td>
+                    <td th:text="${bundle.getAllergensAsString()}" style="overflow: auto; max-width: 100px">Ex allergens</td>
+                    <td th:text="${bundle.expired}">Collected</td>
+                    <td style="display: contents">
+                        <form th:action="@{/manage_reservations_seller}" method="post">
+                            <input type="hidden" th:value="${bundle.postingID}" name="reservationID">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<form th:action="@{/dashboard_seller}">
+    <button class="button1" style="width:220px; margin: 5px 20px">Return to Dashboard</button>
+</form>
 </body>
 </html>

@@ -43,22 +43,6 @@ hr {
     min-width: 150px;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    background-color: #c0d6df;
-}
-
-.container div {
-    background-color: #166088;
-    border: 1px solid black;
-    font-size: 3vmax;
-    font-weight: bold;
-    text-align: center;
-    color: #dbe9ee;
-    padding: 2%;
-}
-
 /* Dark blue button with light text, rounded corners */
 .button1 {
     background-color: #166088;
@@ -73,19 +57,40 @@ hr {
     cursor: pointer;
 }
 
+/* Lighter button for bundle screens */
+.button2 {
+    background-color: #c0d6df;
+    border: none;
+    color: #166088;
+    text-align: center;
+    font-family: "Nirmala UI", sans-serif;
+    border-radius: 10px;
+    padding: 15px 32px;
+    font-size: 16px;
+    margin: 15px auto;
+    cursor: pointer;
+}
+
+/* Flex container for boxes to be compatible with a mobile format */
+.box1-parent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
 /* Light blue box with blue border */
 .box1 {
     background-color: #dbe9ee;
     color: #166088;
     font-size: large;
-    float: left;
     padding: 2%;
     border-style: solid;
     border-radius: 10px;
     border-color: #166088;
     margin: 3%;
-    width: 35%;
-    overflow: auto;
+    width: 35vw;
+    min-width: 550px;
 }
 
 /* Grey text input for log in page */
@@ -124,4 +129,39 @@ hr {
     width: 150px;
     padding: 2%;
     display: block;
+}
+
+/* Table for the consumer analytics page - dark blue with borders */
+.analytics-table {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: #c0d6df;
+}
+
+.analytics-table div {
+    background-color: #166088;
+    border: 1px solid black;
+    font-size: 3vmax;
+    font-weight: bold;
+    text-align: center;
+    color: #dbe9ee;
+    padding: 2%;
+}
+
+/* Grid for displaying bundles for reservations */
+.bundle-table {
+    border-collapse: collapse;
+    color: #166088;
+    background-color: #dbe9ee;
+    font-size: 16px;
+    font-weight: bold;
+    place-items: center;
+    padding: 1%;
+}
+
+.bundle-table th, td {
+    padding: 10px;
+    text-align: center;
+    border: solid #166088;
+    width: 100px;
 }

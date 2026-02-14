@@ -18,11 +18,13 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //if user is found in customer DB assign role customer and build user
         List<Customer> cList = customerRepository.findByDName(username);
         if(!cList.isEmpty()){
             Customer c = cList.getFirst();
             return User.withUsername(c.getdName()).password(c.getPassword()).authorities("ROLE_CUSTOMER").build();
         }
+        //if user is found in seller DB assign role Seller and build user
         List<Seller> sList = sellerRepository.findByDName(username);
         if(!sList.isEmpty()){
             Seller s = sList.getFirst();

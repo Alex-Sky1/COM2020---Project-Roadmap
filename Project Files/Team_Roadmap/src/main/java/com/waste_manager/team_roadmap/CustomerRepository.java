@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,10 @@ public interface CustomerRepository extends Repository<Customer, Long> {
     @Modifying
     @Query("update Customer u set u.streak = :streak where u.ID = :ID")
     void updateStreakById(@Param("streak") int newStreak, @Param("ID") long id);
+    @Transactional
+    @Modifying
+    @Query("update Customer u set u.streakLastUpdate = :streak_update where u.ID = :ID")
+    void updateStreakUpdateTimeByID(@Param("streak_update") LocalDateTime lastUpdate, @Param("ID") long id);
 
     @Transactional
     @Modifying

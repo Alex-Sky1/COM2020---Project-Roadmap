@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../static/styling.css" th:href="@{/styling.css}">
-    <title>ToS</title>
+    <title>Privacy Policy</title>
 </head>
 <body>
 <div class="header">
-    <h1 class="header-text">Private Policy</h1>
-    <img src="../static/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
+    <h1 class="header-text">Privacy Policy</h1>
+    <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-img">
 </div>
 <div class="box1" style="width: 90%">
-    <h1>Private Policy (Seller)</h1>
+    <h1>Privacy Policy (Consumer)</h1>
 
     <form th:action="@{/sign_up_seller}">
         <button class="button1" style="width:250px">Return To Sign Up</button>
@@ -50,8 +50,7 @@
     <ul>
         <li>First and last name;</li>
         <li>Email address;</li>
-        <li>Phone number;</li>
-        <li>Business Name; and</li>
+        <li>Phone number; and</li>
         <li>Address.</li>
     </ul>
     <p>This data may be collected using the following methods:</p>

@@ -32,6 +32,7 @@ public class Customer implements Serializable {
     private ArrayList<Boolean> badges;
     @Column(nullable = false)
     private String password;
+    private LocalDateTime streakLastUpdate;
     public Customer(){};
 
     public Customer(String fName, String sName, String dName, String address, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges){
@@ -60,6 +61,7 @@ public class Customer implements Serializable {
 
     String generateClaimCode(){
         String options = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYS0123456789";
+        //randomly select characters and build into string
         Random rand = new Random();
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < 6; i++){
@@ -112,5 +114,8 @@ public class Customer implements Serializable {
 
     public String getPassword(){return password;}
     public void setPassword(String password){this.password = password;}
+
+    public LocalDateTime getStreakLastUpdate(){return streakLastUpdate;}
+    public void setStreakLastUpdate(LocalDateTime lastUpdate){this.streakLastUpdate = lastUpdate;}
 
 }

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.*;
 import java.time.LocalDateTime;
 
@@ -32,22 +35,34 @@ public class SellerController {
                          @RequestParam("business") String business, @RequestParam("address_line_1") String al1,
                          @RequestParam("postcode") String pcode, @RequestParam("county") String county,
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
-                         @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2) {
+                         @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2,
+                         @RequestParam(value = "accept", required = false) String tosAccept) {
 
-        List<Seller> s = sr.findByDName(business);
-        List<Customer> c = cr.findByDName(business);
+
+        //check that passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
             return "/sign_up_seller";
         }
+
+        //if any field is empty don't allow sign up
         if(fname.isEmpty() || sname.isEmpty() || business.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
             System.out.println("Please fill all the fields");
             return "/sign_up_seller";
         }
+
+        //check that no other seller or customer is using that username
+        List<Seller> s = sr.findByDName(business);
+        List<Customer> c = cr.findByDName(business);
         if (!s.isEmpty() || !c.isEmpty()) {
             System.out.println("user name already exists");
             return "/sign_up_seller";
-        } else {
+        }
+        if(tosAccept==null){
+            System.out.println("please accept the terms and conditions");
+            return "/sign_up_seller";
+        }else {
+            //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1);
             System.out.println("success");
             sr.save(s1);
@@ -59,7 +74,7 @@ public class SellerController {
     @PostMapping("/post_bundle_seller")
     public String postBundle(@RequestParam("category") String category, @RequestParam("price") String price,
                              @RequestParam("pickup") String pickup, @RequestParam("bundle_numbers") String quantity,
-                             @RequestParam("hidden_items" )String contents,
+                             @RequestParam("discount") String discount, @RequestParam("hidden_items" )String contents,
                              @RequestParam(value="celery", required = false) String celery,
                              @RequestParam(value = "gluten", required = false) String gluten,
                              @RequestParam(value = "crustaceans", required = false) String crustaceans,
@@ -75,9 +90,12 @@ public class SellerController {
                              @RequestParam(value="sulphur", required = false) String sulphur,
                              @RequestParam(value="nuts", required = false) String nuts){
 
+        //get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Seller s = sr.findByDName(currentUsername).getFirst();
+
+        //check if any allergens have been selected
         ArrayList<String> allergens = new ArrayList<>();
         if(celery!= null) allergens.add(celery);
         if(gluten!= null) allergens.add(gluten);
@@ -94,11 +112,15 @@ public class SellerController {
         if(sulphur != null) allergens.add(sulphur);
         if(nuts != null) allergens.add(nuts);
 
-
+        //add all contents to list
         ArrayList<String> content = new ArrayList<String>(Arrays.asList(contents.split(",")));
+
+        //take pickup hour using first hour as just an integer
         int pickupHr = Integer.parseInt(pickup.substring(0,2));
+
+        //make quantity amount of bundles and save to Database
         for (int i = 0; i < Integer.parseInt(quantity); i++) {
-            Bundle bundle = new Bundle(s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price), 0, pickupHr, false, false);
+            Bundle bundle = new Bundle(s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price), Integer.parseInt(discount), pickupHr, false, false);
             br.save(bundle);
         }
         return "/post_bundle_seller";
@@ -113,12 +135,14 @@ public class SellerController {
                                     @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2){
         List<Seller> s = sr.findByDName(business);
         List<Customer> c = cr.findByDName(business);
+
+        //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Seller seller = sr.findByDName(currentUsername).getFirst();
         int sellerId= seller.getSellerID();
-        System.out.println("jwkrgfnbkwj");
-        System.out.println(sellerId);
+
+        //check if business (username) field is not empty and not being used by anyone else
         if(!business.isEmpty()){
             if (!s.isEmpty() || !c.isEmpty()) {
                 System.out.println("user name already exists");
@@ -126,43 +150,149 @@ public class SellerController {
                 sr.updateDNameById(business, sellerId);
             }
         }
+        //check passwords match if password is being changed
         if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
             sr.updatePasswordById(pwd1, sellerId);
         }
+        //update first name
         if(!fname.isEmpty()){
             sr.updateFNameById(fname, sellerId);
         }
+        //update surname
         if(!sname.isEmpty()){
             sr.updateSNameById(sname, sellerId);
         }
+        //update address
         if(!al1.isEmpty()){
             sr.updateAddressById(al1, sellerId);
         }
+        //update postcode
         if(!pcode.isEmpty()){
             sr.updatePostcodeById(pcode, sellerId);
         }
+        //update county
         if(!county.isEmpty()){
             sr.updateCountyById(county, sellerId);
         }
+        //update email address
         if(!email.isEmpty()){
             sr.updateEmailById(email, sellerId);
         }
+        //update phone number
         if(!phone.isEmpty()){
             sr.updatePhoneById(phone, sellerId);
         }
-        Seller newSeller = sr.findByDName(currentUsername).getFirst();
-        System.out.println(newSeller.getAddress() + " " + newSeller.getPostcode() + " " + newSeller.getCounty());
         return "/edit_profile_seller";
     }
-    @PostMapping("/manage_bundles_seller")
-    public String manageBundles(){
-        return  "/manage_bundles_seller";
+
+
+    @GetMapping("/manage_bundles_seller")
+    public String manageBundlesSeller(Model model) {
+
+        //get current logged in user
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).getFirst();
+
+        //add all reservations to web page
+        List<Reservation> reservations = rr.findBySellerID(s.getSellerID());
+        model.addAttribute("reservations", reservations);
+
+        //add all bundles that are not in reservation to web page
+        List<Bundle> allBundles = br.findBySellerID(s.getSellerID());
+        ArrayList<Bundle> bundles = new ArrayList<>();
+
+        for(Bundle bundle : allBundles){
+            if(!bundle.getReserved()) {
+                //set expired if pickup window has passed
+                if(!bundle.getExpired() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))){
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                }
+                bundles.add(bundle);
+            }
+            else{
+                List<Reservation> reserves = rr.findByBundleID(bundle.getPostingID());
+                //set no show if pickup window has passed
+                if(!reserves.getFirst().getNoShow() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || reserves.getFirst().getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) ){
+                    rr.setReservationNoShow(true, reserves.getFirst().getReservationID());
+                }
+
+            }
+        }
+        model.addAttribute("bundles", bundles);
+
+        return "manage_bundles_seller";
     }
+
+
+    @GetMapping("/manage_reservations_seller")
+    public String manage_reservations_seller(Model model) {
+        //get current user
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).getFirst();
+        //add all reservations to web page
+        List<Reservation> allReservations = rr.findBySellerID(s.getSellerID());
+        ArrayList<Reservation> reservations = new ArrayList<>();
+
+        for (Reservation reservation : allReservations) {
+            //set no show if pickup window passed
+            if(!reservation.getNoShow() && (reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                rr.setReservationNoShow(true, reservation.getReservationID());
+            }
+            //only add reservations that have not been collected and not classed as no show
+            if(!reservation.getCollected() && !reservation.getNoShow()){
+                reservations.add(reservation);
+            }
+        }
+        model.addAttribute("reservations", reservations);
+        return "manage_reservations_seller";
+    }
+    @PostMapping("manage_reservations_seller")
+    public String manageReservationsSeller(@RequestParam("ClaimCode") String claimCode, @RequestParam("reservationID") long reservationID, Model model){
+        //get reservation that a claim code has been entered for
+        Reservation res = rr.findById(reservationID).get();
+        //check if claim code is correct
+        boolean equalClaimCode = claimCode.equals(res.getClaimCode());
+        //add true/false for if it was correct
+        model.addAttribute("success", equalClaimCode);
+        //change collected status in database
+        rr.setReservationCollected(equalClaimCode,  reservationID);
+
+        Customer c = res.getCustomer();
+        LocalDateTime now = LocalDateTime.now();
+        if(c.getStreakLastUpdate() == null){
+            c.setStreakLastUpdate(now);
+            c.setStreak(1);
+            cr.updateStreakById(1, c.getCustomerID());
+            cr.updateStreakUpdateTimeByID(now, c.getCustomerID());
+        }
+        else {
+            //update streak
+            LocalDateTime LastStreakUpdate = c.getStreakLastUpdate();
+            int year1 = now.getYear();
+            int year2 = LastStreakUpdate.getYear();
+            int week1 = now.get(WeekFields.ISO.weekOfWeekBasedYear());
+            int week2 = LastStreakUpdate.get(WeekFields.ISO.weekOfWeekBasedYear());
+            if (week2 - week1 > 1 && year1 == year2) {
+                c.setStreak(0);
+                cr.updateStreakById(0, c.getCustomerID());
+            }
+            if (week2 - week1 == 1 && year1 == year2) {
+                c.setStreak(c.getStreak() + 1);
+                cr.updateStreakById(c.getStreak(), c.getCustomerID());
+            }
+        }
+
+        //refresh page
+        return "redirect:/manage_reservations_seller";
+    }
+
     @PostMapping("/edit_bundle_seller")
     public String editBundle(){
         return "/edit_bundle_seller";
     }
-
     @GetMapping("/forecasting_seller")
     public String forecasting_seller() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -180,31 +310,53 @@ public class SellerController {
         return "/forecasting_seller";
     }
 
-
-    @GetMapping("/manage_reservations_seller")
-    public String manage_reservations_seller(Model model) {
+    @GetMapping("view_analytics_seller")
+    public String viewAnalyticsSeller(Model model){
+        //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Seller s = sr.findByDName(currentUsername).getFirst();
-        List<Reservation> reservations = rr.findBySellerID(s.getSellerID());
-        model.addAttribute("reservations", reservations);
-        return "manage_reservations_seller";
-    }
-    @PostMapping("manage_reservations_seller")
-    public String manageReservationsSeller(@RequestParam("ClaimCode") String claimCode, @RequestParam("reservationID") long reservationID, Model model){
-        Reservation res = rr.findById(reservationID).get();
-        boolean equalClaimCode = claimCode.equals(res.getClaimCode());
-        model.addAttribute("success", equalClaimCode);
-        System.out.println(equalClaimCode);
-        rr.setReservationStatus(equalClaimCode,  reservationID);
 
-        manage_reservations_seller(model);
-        return "redirect:/manage_reservations_seller";
-    }
+        //calculate no show : collected : expired
+        int noShow = 0;
+        int collected = 0;
+        int expired = 0;
+        List<Reservation> allReservations = rr.findBySellerID(s.getSellerID());
+        for (Reservation reservation : allReservations) {
+            if(reservation.getNoShow()){
+                noShow++;
+            }
+            else if(reservation.getCollected()){
+                collected++;
+            }
+            else{
+                if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                    rr.setReservationNoShow(true, reservation.getReservationID());
+                    reservation.setNoShow(true);
+                    noShow++;
+                }
+            }
+        }
 
+        List<Bundle> allBundles = br.findBySellerID(s.getSellerID());
+        for (Bundle bundle : allBundles) {
+            if(bundle.getExpired()){
+                expired++;
+            }
+            else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                br.setBundleExpired(bundle.getPostingID());
+                bundle.setExpired(true);
+                expired++;
+            }
+        }
+        String sellThrough = collected + " : " + expired + " : " + noShow;
+        model.addAttribute("sellThrough", sellThrough);
 
-    @PostMapping("view_analytics_seller")
-    public String viewAnalyticsSeller(){
+        //calculate waste proxy
+        model.addAttribute("wasteProxy", collected*4.2);
+
+        model.addAttribute("pricingEffectiveness", "-");
+        model.addAttribute("operationalInsights", "-");
         return "/view_analytics_seller";
     }
 }

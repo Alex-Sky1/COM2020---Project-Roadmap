@@ -124,6 +124,9 @@ public class Bundle implements Serializable {
         this.price = price;
     }
 
+    public LocalDateTime getTimeStamp(){return timeStamp;}
+    public void setTimeStamp(LocalDateTime timeStamp){this.timeStamp = timeStamp;}
+
     public int getPickUpWindow(){
         return pickUpWindow;
     }
