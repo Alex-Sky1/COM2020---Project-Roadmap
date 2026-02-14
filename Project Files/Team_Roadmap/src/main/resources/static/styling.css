@@ -72,7 +72,7 @@ hr {
 }
 
 /* Flex container for boxes to be compatible with a mobile format */
-.box1_parent {
+.box1-parent {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -132,13 +132,13 @@ hr {
 }
 
 /* Table for the consumer analytics page - dark blue with borders */
-.analytics_table {
+.analytics-table {
     display: grid;
     grid-template-columns: auto auto auto auto;
     background-color: #c0d6df;
 }
 
-.analytics_table div {
+.analytics-table div {
     background-color: #166088;
     border: 1px solid black;
     font-size: 3vmax;
@@ -146,4 +146,22 @@ hr {
     text-align: center;
     color: #dbe9ee;
     padding: 2%;
+}
+
+/* Grid for displaying bundles for reservations */
+.bundle-table {
+    border-collapse: collapse;
+    color: #166088;
+    background-color: #dbe9ee;
+    font-size: 16px;
+    font-weight: bold;
+    place-items: center;
+    padding: 1%;
+}
+
+.bundle-table th, td {
+    padding: 10px;
+    text-align: center;
+    border: solid #166088;
+    width: 100px;
 }
