@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+
 @SpringBootApplication
 @Controller
 public class TeamRoadmapApplication {
@@ -87,7 +89,7 @@ public class TeamRoadmapApplication {
 
 
     @PostConstruct
-    public void temp_load_database(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
+    public void temp_load_database(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) throws IOException {
         CSVDatabaseLoader.read_all_csvs(sellerRepository, customerRepository, bundleRepository, reservationRepository);
     }
 
