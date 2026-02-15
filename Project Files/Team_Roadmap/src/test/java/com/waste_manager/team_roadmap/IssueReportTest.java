@@ -12,8 +12,8 @@ public class IssueReportTest {
     // Ran once before any of the tests
     @BeforeAll
     public static void setup(){
-        testIssueReport = new IssueReport(1, 1, 1, "Undelivered Food",
-                                        "Food was not available", false, "");
+        testIssueReport = new IssueReport(1, 1, "complaint", "Undelivered Food",
+                                        false, "");
     }
 
     // Verifies the ID of a bundle

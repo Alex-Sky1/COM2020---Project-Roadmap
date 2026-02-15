@@ -67,7 +67,7 @@ public class Seller implements Serializable {
     public void setSellerID(int sellerID) {}
 
     public String getdName(){return dName;}
-    public void setName(String dName){this.dName = dName;}
+    public void setdName(String dName){this.dName = dName;}
 
     public String getfName(){return fName;}
     public void setfName(String fName){this.fName = fName;}

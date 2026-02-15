@@ -62,10 +62,11 @@ public class ForecastTest {
     public void testGetForecastDate() {assertEquals(testTime.plusDays(7), testForecast.getForecastDate());}
 
     @Test
-    public void testSetDayOfWeek() {
+    public void testSetForecastDate() {
 
-        testForecast.setForecastDate(LocalDateTime.now());
-        assertEquals(LocalDateTime.now(), testForecast.getForecastDate());
+        LocalDateTime newTime = LocalDateTime.now();
+        testForecast.setForecastDate(newTime);
+        assertEquals(newTime, testForecast.getForecastDate());
     }
 
     @Test

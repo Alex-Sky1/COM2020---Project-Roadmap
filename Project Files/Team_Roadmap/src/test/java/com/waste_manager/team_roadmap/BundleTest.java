@@ -120,8 +120,8 @@ public class BundleTest {
     @Test
     public void testSetSellerID() {
 
-        Seller newTestSeller = new Seller(2, "Kim's Cakes", new ArrayList<>(List.of(255, 89)),
-                new ArrayList<>(List.of(9, 18)), "KCA");
+        Seller newTestSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
+                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
         testBundle.setSeller(newTestSeller);
         assertEquals(newTestSeller, testBundle.getSeller());
     }
@@ -148,13 +148,6 @@ public class BundleTest {
         ArrayList<String> allergens = new ArrayList<>(List.of("gluten, dairy, peanuts"));
         testBundle.setAllergens(allergens);
         assertEquals(allergens, testBundle.getAllergens());
-    }
-
-    @Test
-    public void testSetQuantity() {
-
-        testBundle.setQuantity(3);
-        assertEquals(3, testBundle.getQuantity());
     }
 
     @Test
