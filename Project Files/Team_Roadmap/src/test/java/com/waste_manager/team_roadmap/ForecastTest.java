@@ -36,7 +36,7 @@ public class ForecastTest {
 
             Collections.shuffle(testItems); Collections.shuffle(testAllergies);
             Bundle testBundle = new Bundle(testSeller, "puddings", testItems.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)),
-                                            testAllergies.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)), testTime, 7.50f, 10, 1700,
+                                            testAllergies.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)), testTime, 7.50f, 10, 12,
                                     true, false);
             testBundles.add(testBundle);
 

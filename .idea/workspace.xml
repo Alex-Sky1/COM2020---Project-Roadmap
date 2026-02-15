@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="most of the tests now work. only a few dont">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - BundleTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - CustomerTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - ForecastTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - IssueReportTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - ReservationTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - SellerTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_02_2026_12_36_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_02_2026_12_36__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_02_2026_13_32_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_02_2026_13_32__Changes_.xml" beforeDir="false" />
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="test results reformatted">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
@@ -24,7 +13,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExportTestResults" outputFolder="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs" userTempatePath="" />
+  <component name="ExportTestResults" exportFormat="Xml" outputFolder="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs" userTempatePath="" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Project Files/Team_Roadmap">
       <ProjectState />
@@ -141,7 +130,7 @@
       <recent name="C:\Users\rgbra\OneDrive\Documents\Uni\Year 2\Team Project\COM2020---Project-Roadmap\Project Files\Team_Roadmap\src\main\resources\templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ReservationTest">
+  <component name="RunManager" selected="Gradle.ForecastTest">
     <configuration name="BundleTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -287,9 +276,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ForecastTest" />
         <item itemvalue="Gradle.ReservationTest" />
         <item itemvalue="Gradle.IssueReportTest" />
-        <item itemvalue="Gradle.ForecastTest" />
         <item itemvalue="Gradle.CustomerTest" />
         <item itemvalue="Gradle.BundleTest" />
       </list>
@@ -328,7 +317,7 @@
       <workItem from="1770912410734" duration="2318000" />
       <workItem from="1771153263301" duration="6100000" />
       <workItem from="1771173465771" duration="3097000" />
-      <workItem from="1771176596622" duration="548000" />
+      <workItem from="1771176596622" duration="3541000" />
     </task>
     <task id="LOCAL-00001" summary="Added some of the database setup">
       <option name="closed" value="true" />
@@ -474,7 +463,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771158751118</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="test results">
+      <option name="closed" value="true" />
+      <created>1771177240178</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1771177240178</updated>
+    </task>
+    <task id="LOCAL-00020" summary="test results reformatted">
+      <option name="closed" value="true" />
+      <created>1771177461059</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1771177461059</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -517,7 +522,9 @@
     <MESSAGE value="fixed reservation repository to actually be a reservation repository" />
     <MESSAGE value="New Bundle Tests and some more fixes" />
     <MESSAGE value="most of the tests now work. only a few dont" />
-    <option name="LAST_COMMIT_MESSAGE" value="most of the tests now work. only a few dont" />
+    <MESSAGE value="test results" />
+    <MESSAGE value="test results reformatted" />
+    <option name="LAST_COMMIT_MESSAGE" value="test results reformatted" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
