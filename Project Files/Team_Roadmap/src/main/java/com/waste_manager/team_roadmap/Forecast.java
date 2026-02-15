@@ -17,17 +17,19 @@ public class Forecast {
     private String rationale;
 
 
-    public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag,
+    public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag, String thisCategory,
                     ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
 
         this.forecastDate = thisForecastDate;
         this.sellerID = thisSellerID;
         this.weatherFlag = thisWeatherFlag;
+        this.category = thisCategory;
         this.bundleList = thisBundleList;
         this.reservationList = thisReservationList;
     }
 
-    private ArrayList<Bundle> bundleFromSelectSeller() {
+    // Return bundles that are from a specific seller
+    public ArrayList<Bundle> bundleFromSelectSeller() {
 
         ArrayList<Bundle> a = new ArrayList<>();
 
@@ -41,7 +43,8 @@ public class Forecast {
         return a;
     }
 
-    private ArrayList<Reservation> searchReservationSeller(ArrayList<Bundle> sellerBundles) {
+    // Search and return reservations that are of a particular seller
+    public ArrayList<Reservation> searchReservationSeller(ArrayList<Bundle> sellerBundles) {
 
         ArrayList<Reservation> a = new ArrayList<>();
 
@@ -59,9 +62,9 @@ public class Forecast {
         return a;
     }
 
-    private ArrayList<Reservation> filterReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
+    // Filter the reservations to return reservations made on a specific date
+    public ArrayList<Reservation> filterReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
 
-        // Filter the reservations by the date they were listed
         return filteredReservationList.stream()
                 .filter(reservation -> reservation.getTimeStamp()
                         .toLocalDate()
@@ -74,14 +77,17 @@ public class Forecast {
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
 
+
+
         LocalDateTime searchDate = this.forecastDate.minusDays(7); // The search date is the date used to provide the seasonal naive
         int returnInt = 0; // The return integer is the number of bundles that were reserved and picked up
 
-        while (bundleList.getFirst().timeStamp.isBefore(searchDate)) {
+        while (!(bundleList.getFirst().getTimeStamp().isAfter(searchDate))) {
 
             ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
 
             if (!dayReservationList.isEmpty()) {
+
 
                 for (Reservation reservation : dayReservationList) {
 

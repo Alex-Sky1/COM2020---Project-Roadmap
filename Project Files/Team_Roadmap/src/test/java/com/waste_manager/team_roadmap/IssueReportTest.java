@@ -1,6 +1,7 @@
 package com.waste_manager.team_roadmap;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,17 +11,17 @@ public class IssueReportTest {
     static IssueReport testIssueReport;
 
     // Ran once before any of the tests
-    @BeforeAll
-    public static void setup(){
-        testIssueReport = new IssueReport(1, 1, 1, "Undelivered Food",
-                                        "Food was not available", false, "");
+    @BeforeEach
+    public void setup(){
+        testIssueReport = new IssueReport(1, 1, "complaint", "Undelivered Food",
+                                        false, "");
     }
 
     // Verifies the ID of a bundle
     @Test
     public void testGetIssueID() {
 
-        assertEquals(1, testIssueReport.getIssueID());
+        assertEquals(0, testIssueReport.getIssueID());
     }
 
     @Test
@@ -38,25 +39,25 @@ public class IssueReportTest {
     @Test
     public void testGetType() {
 
-        assertSame("missing item", testIssueReport.getType());
+        assertSame("complaint", testIssueReport.getType());
     }
 
     @Test
     public void testGetDescription() {
 
-        assertSame("A bit Fishy", testIssueReport.getDescription());
+        assertSame("Undelivered Food", testIssueReport.getDescription());
     }
 
     @Test
     public void testGetFixed() {
 
-        assertTrue(testIssueReport.getFixed());
+        assertFalse(testIssueReport.getFixed());
     }
 
     @Test
     public void testGetSellerResponse() {
 
-        assertSame("come back and I will sort out your order", testIssueReport.getSellerResponse());
+        assertSame("", testIssueReport.getSellerResponse());
     }
 
 

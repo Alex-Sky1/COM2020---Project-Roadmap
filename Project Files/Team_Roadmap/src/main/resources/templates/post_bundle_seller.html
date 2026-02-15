@@ -12,10 +12,10 @@
 <body>
 <div class="header">
     <h1 class="header-text">Post Bundle</h1>
-    <img src="../static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-img">
+    <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-img">
 </div>
 <div class="box1-parent">
-    <form th:action="@{/post_bundle_seller}" method="post">
+    <form th:action="@{/post_bundle_seller}" method="post" autocomplete="off">
 
         <div class="grid-2-columns" style="margin: 30px">
             <input style="display: none" id="hidden_items" name="hidden_items" type="text">

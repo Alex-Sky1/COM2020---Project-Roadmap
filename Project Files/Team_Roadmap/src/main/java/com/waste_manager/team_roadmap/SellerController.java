@@ -35,7 +35,8 @@ public class SellerController {
                          @RequestParam("business") String business, @RequestParam("address_line_1") String al1,
                          @RequestParam("postcode") String pcode, @RequestParam("county") String county,
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
-                         @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2) {
+                         @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2,
+                         @RequestParam(value = "accept", required = false) String tosAccept) {
 
 
         //check that passwords match
@@ -56,7 +57,11 @@ public class SellerController {
         if (!s.isEmpty() || !c.isEmpty()) {
             System.out.println("user name already exists");
             return "/sign_up_seller";
-        } else {
+        }
+        if(tosAccept==null){
+            System.out.println("please accept the terms and conditions");
+            return "/sign_up_seller";
+        }else {
             //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1);
             System.out.println("success");
@@ -69,7 +74,7 @@ public class SellerController {
     @PostMapping("/post_bundle_seller")
     public String postBundle(@RequestParam("category") String category, @RequestParam("price") String price,
                              @RequestParam("pickup") String pickup, @RequestParam("bundle_numbers") String quantity,
-                             @RequestParam("hidden_items" )String contents,
+                             @RequestParam("discount") String discount, @RequestParam("hidden_items" )String contents,
                              @RequestParam(value="celery", required = false) String celery,
                              @RequestParam(value = "gluten", required = false) String gluten,
                              @RequestParam(value = "crustaceans", required = false) String crustaceans,
@@ -115,7 +120,7 @@ public class SellerController {
 
         //make quantity amount of bundles and save to Database
         for (int i = 0; i < Integer.parseInt(quantity); i++) {
-            Bundle bundle = new Bundle(s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price), 0, pickupHr, false, false);
+            Bundle bundle = new Bundle(s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price), Integer.parseInt(discount), pickupHr, false, false);
             br.save(bundle);
         }
         return "/post_bundle_seller";
@@ -244,6 +249,7 @@ public class SellerController {
         model.addAttribute("reservations", reservations);
         return "manage_reservations_seller";
     }
+
     @PostMapping("manage_reservations_seller")
     public String manageReservationsSeller(@RequestParam("ClaimCode") String claimCode, @RequestParam("reservationID") long reservationID, Model model){
         //get reservation that a claim code has been entered for
@@ -348,7 +354,7 @@ public class SellerController {
         model.addAttribute("sellThrough", sellThrough);
 
         //calculate waste proxy
-        model.addAttribute("wasteProxy", collected*4.2);
+        model.addAttribute("wasteProxy", collected*1);
 
         model.addAttribute("pricingEffectiveness", "-");
         model.addAttribute("operationalInsights", "-");

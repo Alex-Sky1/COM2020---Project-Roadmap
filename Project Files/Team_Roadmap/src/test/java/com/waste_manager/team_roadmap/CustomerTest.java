@@ -1,15 +1,22 @@
 package com.waste_manager.team_roadmap;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomerTest {
 
     static Customer testCustomer;
     // Ran once before any of the tests
-    @BeforeAll
-    public static void setup(){
-        testCustomer = new Customer("jim", "bob", "Jimmy", "no man's land", "test", "test", "test@gmail.com", "0000008776", "jim", 6, ArrayList<Boolean> badges); // Constructor doesn't exist currently
+    @BeforeEach
+    public void setup(){
+        testCustomer = new Customer("jim", "bob", "Jimmy", "no man's land",
+                "test", "test", "test@gmail.com", "0000008776", "jim"
+                , 6, new ArrayList<>(List.of(false, false, false, false, false)));
     }
 
 
@@ -26,12 +33,7 @@ public class CustomerTest {
                 assertTrue(characters.indexOf(hold2) != -1);
             }
         }
-
-
-
     }
-
-
 
     // Verifies the ID of a customer
     @Test
@@ -58,7 +60,7 @@ public class CustomerTest {
     @Test
     public void testGetBadges() {
 
-        assertSame(new boolean[]{true, true, true}, testCustomer.getBadges());
+        assertSame(new ArrayList<>(List.of(false, false, false, false, false)), testCustomer.getBadges());
     }
 
 
@@ -69,7 +71,7 @@ public class CustomerTest {
     @Test
     public void testSetCustomerID() {
 
-        testCustomer.setCustomerID(3);
+        testCustomer.setCustomerID((long) 3);
         assertEquals(3, testCustomer.getCustomerID());
     }
 
@@ -77,8 +79,8 @@ public class CustomerTest {
     @Test
     public void testSetDisplayName() {
 
-        testCustomer.setDisplayName("timmy");
-        assertSame("timmy", testCustomer.getDisplayName());
+        testCustomer.setdName("timmy");
+        assertSame("timmy", testCustomer.getdName());
     }
 
     // Verifies changing the streak of a customer
@@ -93,10 +95,8 @@ public class CustomerTest {
     @Test
     public void testSetBadges() {
 
-        boolean[] contents = {false, true, true};
+        ArrayList<Boolean> contents = new ArrayList<>(List.of(true, false, false, false, false));
         testCustomer.setBadges(contents);
-        assertArrayEquals(new boolean[]{false, true, true}, testCustomer.getBadges());
-
-
+        assertEquals(new ArrayList<>(List.of(true, false, false, false, false)), testCustomer.getBadges());
     }
 }

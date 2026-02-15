@@ -1,6 +1,7 @@
 package com.waste_manager.team_roadmap;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -18,15 +19,15 @@ public class BundleTest {
     static Seller testSeller;
 
     // Ran once before any of the tests
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    public void setup() {
 
         testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
                             "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
 
         testBundle = new Bundle(testSeller, "Deserts",new ArrayList<>(List.of("pancakes", "cake", "brownies")),
                                 new ArrayList<>(List.of("gluten", "dairy", "peanuts")), LocalDateTime.now(), 11.50f, 10,
-                1230, false, false); 
+                12, false, false);
     }
 
 
@@ -44,7 +45,7 @@ public class BundleTest {
     @Test
     public void testGetPostID() {
 
-        assertEquals(1, testBundle.getPostingID());
+        assertEquals(0, testBundle.getPostingID());
     }
 
      //Verifies the ID of the bundle seller
@@ -60,25 +61,25 @@ public class BundleTest {
     @Test
     public void testGetCategory() {
 
-        assertSame("PLACEHOLDER", testBundle.getCategory()); // Need to check what categories exist
+        assertSame("Deserts", testBundle.getCategory()); // Need to check what categories exist
     }
 
     @Test
     public void testGetContents() {
 
-        assertEquals(new ArrayList<>(List.of("Cake, Brownies, Doughnut")), testBundle.getContents());
+        assertEquals(new ArrayList<>(List.of("pancakes", "cake", "brownies")), testBundle.getContents());
     }
 
     @Test
     public void testGetAllergens() {
 
-        assertEquals(new ArrayList<>(List.of("gluten, dairy, peanuts")), testBundle.getAllergens());
+        assertEquals(new ArrayList<>(List.of("gluten", "dairy", "peanuts")), testBundle.getAllergens());
     }
 
     @Test
     public void testGetPrice() {
 
-        assertEquals(10.00, testBundle.getPrice());
+        assertEquals(11.50, testBundle.getPrice());
     }
 
     @Test
@@ -90,19 +91,19 @@ public class BundleTest {
     @Test
     public void testGetPickUpWindow() {
 
-        assertEquals(1, testBundle.getPickUpWindow());
+        assertEquals(12, testBundle.getPickUpWindow());
     }
 
     @Test
     public void testGetReserved() {
 
-        assertTrue(testBundle.getReserved());
+        assertFalse(testBundle.getReserved());
     }
 
     @Test
     public void testGetExpired() {
 
-        assertTrue(testBundle.getExpired());
+        assertFalse(testBundle.getExpired());
     }
 
 
@@ -120,8 +121,8 @@ public class BundleTest {
     @Test
     public void testSetSellerID() {
 
-        Seller newTestSeller = new Seller(2, "Kim's Cakes", new ArrayList<>(List.of(255, 89)),
-                new ArrayList<>(List.of(9, 18)), "KCA");
+        Seller newTestSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
+                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
         testBundle.setSeller(newTestSeller);
         assertEquals(newTestSeller, testBundle.getSeller());
     }
@@ -148,13 +149,6 @@ public class BundleTest {
         ArrayList<String> allergens = new ArrayList<>(List.of("gluten, dairy, peanuts"));
         testBundle.setAllergens(allergens);
         assertEquals(allergens, testBundle.getAllergens());
-    }
-
-    @Test
-    public void testSetQuantity() {
-
-        testBundle.setQuantity(3);
-        assertEquals(3, testBundle.getQuantity());
     }
 
     @Test

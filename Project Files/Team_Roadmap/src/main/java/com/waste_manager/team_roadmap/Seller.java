@@ -64,10 +64,10 @@ public class Seller implements Serializable {
     public void recordActionTaken(){}
 
     public int getSellerID() {return ID;}
-    public void setSellerID(int sellerID) {}
+    public void setSellerID(int sellerID) {this.ID = sellerID;}
 
     public String getdName(){return dName;}
-    public void setName(String dName){this.dName = dName;}
+    public void setdName(String dName){this.dName = dName;}
 
     public String getfName(){return fName;}
     public void setfName(String fName){this.fName = fName;}
