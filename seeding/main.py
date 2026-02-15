@@ -32,9 +32,9 @@ def main():
     reservation_info = reservations.seed_reservations(customer_info, bundle_info, 25)
     print("---------------------Seeded Reservations-----------------\n\n")
 
-    write_to_csv("sellers.csv", seller_info)
-    write_to_csv("customers.csv", customer_info)
-    write_to_csv("bundles.csv", bundle_info)
-    write_to_csv("reservation.csv", reservation_info)
+    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/sellers.csv", seller_info)
+    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/customers.csv", customer_info)
+    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/bundles.csv", bundle_info)
+    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/reservation.csv", reservation_info)
 
 main()

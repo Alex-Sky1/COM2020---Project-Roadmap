@@ -1,5 +1,6 @@
 package com.waste_manager.team_roadmap;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -82,6 +83,12 @@ public class TeamRoadmapApplication {
     @GetMapping("/edit_bundle_seller")
     public String edit_bundle_seller() {
         return "edit_bundle_seller";
+    }
+
+
+    @PostConstruct
+    public void temp_load_database(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
+        CSVDatabaseLoader.read_all_csvs(sellerRepository, customerRepository, bundleRepository, reservationRepository);
     }
 
 }
