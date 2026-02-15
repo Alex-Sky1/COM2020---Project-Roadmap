@@ -1,5 +1,6 @@
 package com.waste_manager.team_roadmap;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ public class CustomerTest {
 
     static Customer testCustomer;
     // Ran once before any of the tests
-    @BeforeAll
-    public static void setup(){
+    @BeforeEach
+    public void setup(){
         testCustomer = new Customer("jim", "bob", "Jimmy", "no man's land",
                 "test", "test", "test@gmail.com", "0000008776", "jim"
                 , 6, new ArrayList<>(List.of(false, false, false, false, false)));
@@ -59,7 +60,7 @@ public class CustomerTest {
     @Test
     public void testGetBadges() {
 
-        assertSame(new ArrayList<>(List.of(true, true, true)), testCustomer.getBadges());
+        assertSame(new ArrayList<>(List.of(false, false, false, false, false)), testCustomer.getBadges());
     }
 
 
@@ -94,8 +95,8 @@ public class CustomerTest {
     @Test
     public void testSetBadges() {
 
-        ArrayList<Boolean> contents = new ArrayList<>(List.of(false, false, false, false, false));
+        ArrayList<Boolean> contents = new ArrayList<>(List.of(true, false, false, false, false));
         testCustomer.setBadges(contents);
-        assertEquals(new ArrayList<>(List.of(false, false, false, false, false)), testCustomer.getBadges());
+        assertEquals(new ArrayList<>(List.of(true, false, false, false, false)), testCustomer.getBadges());
     }
 }

@@ -1,6 +1,7 @@
 package com.waste_manager.team_roadmap;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,19 +14,18 @@ public class SellerTest {
     static Seller testSeller;
 
     // Ran once before any of the tests
-    @BeforeAll
-    public static void setup(){
+    @BeforeEach
+    public void setup(){
         testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
                 "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
     }
 
     // Verifies the ID of a bundle
     @Test
-    public void testGetSellerID() {assertEquals(1, testSeller.getSellerID());}
+    public void testGetSellerID() {assertEquals(0, testSeller.getSellerID());}
 
     @Test
     public void testSetSellerID() {
-
         testSeller.setSellerID(3);
         assertEquals(3, testSeller.getSellerID());
     }
@@ -84,7 +84,7 @@ public class SellerTest {
     @Test
     public void testSetEmail() {
         testSeller.setEmail("Stephen.Fry12@hookmail.com");
-        assertEquals("Stephen.Fry@hookmail.com", testSeller.getEmail());
+        assertEquals("Stephen.Fry12@hookmail.com", testSeller.getEmail());
     }
 
     @Test

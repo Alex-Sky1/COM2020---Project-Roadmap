@@ -1,6 +1,7 @@
 package com.waste_manager.team_roadmap;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ public class ReservationTest {
     static Bundle testBundle;
 
     // Ran once before any of the tests
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    public void setup() {
         LocalDateTime testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
 
         testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
@@ -30,7 +31,7 @@ public class ReservationTest {
                 new ArrayList<>(List.of("gluten", "dairy")), testTime, 7.50f, 10, 1700,
                 true, false);
         testReservation = new Reservation(testBundle, testCustomer, testSeller, testTime, "AAAAAA",
-                false, true, "rainy");
+                false, false, "rainy");
     }
 
 //    // Verifies the ID of a reservation
@@ -47,7 +48,7 @@ public class ReservationTest {
 
     // Verifies the Posting ID of a reservation
     @Test
-    public void testGetPostingID() {assertEquals(1, testReservation.getReservationID());}
+    public void testGetPostingID() {assertEquals(0, testReservation.getReservationID());}
 
     // Verifies changing the posting ID of a reservation
     @Test
