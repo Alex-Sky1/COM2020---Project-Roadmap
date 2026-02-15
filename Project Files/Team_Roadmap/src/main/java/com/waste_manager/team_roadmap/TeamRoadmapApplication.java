@@ -3,6 +3,7 @@ package com.waste_manager.team_roadmap;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,9 +89,14 @@ public class TeamRoadmapApplication {
     }
 
 
-    @PostConstruct
-    public void temp_load_database(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) throws IOException {
-        CSVDatabaseLoader.read_all_csvs(sellerRepository, customerRepository, bundleRepository, reservationRepository);
+    @Bean
+    public String temp_load_database(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
+        try {
+            CSVDatabaseLoader.read_all_csvs(sellerRepository, customerRepository, bundleRepository, reservationRepository);
+        } catch (IOException e) {
+            return "Failed Somehow";
+        }
+        return "Database Loaded";
     }
 
 }
