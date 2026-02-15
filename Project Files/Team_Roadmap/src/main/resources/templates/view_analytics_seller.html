@@ -24,10 +24,13 @@
     </form>
 </div>
 <div style="display: flex; flex-direction: row">
-    <div style="width: 60%" th:text="${sellThrough}"></div>
-    <div style="width: 60%" th:text="${wasteProxy}"></div>
-    <div style="width: 60%" th:text="${pricingEffectiveness}"></div>
-    <div style="width: 60%" th:text="${operationalInsights}"></div>
+    <div style="width: 15%; padding: 2%; margin: 1% 2%">
+        <p>Collected : Expired : No Show </p>
+        <p style="margin: 1% 2%" th:text="${sellThrough}"></p>
+    </div>
+    <p style="width: 15%; padding: 2%; margin: 1% 2%" th:text="${wasteProxy}"></p>
+    <p style="width: 15%; padding: 2%; margin: 1% 2%" th:text="${pricingEffectiveness}"></p>
+    <p style="width: 15%; padding: 2%; margin: 1% 2%" th:text="${operationalInsights}"></p>
 </div>
 <form th:action="@{/dashboard_seller}">
     <button class="button1" style="width:250px; margin-left: 5%">Return To Dashboard</button>
