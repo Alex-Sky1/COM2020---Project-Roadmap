@@ -249,6 +249,7 @@ public class SellerController {
         model.addAttribute("reservations", reservations);
         return "manage_reservations_seller";
     }
+
     @PostMapping("manage_reservations_seller")
     public String manageReservationsSeller(@RequestParam("ClaimCode") String claimCode, @RequestParam("reservationID") long reservationID, Model model){
         //get reservation that a claim code has been entered for
@@ -353,7 +354,7 @@ public class SellerController {
         model.addAttribute("sellThrough", sellThrough);
 
         //calculate waste proxy
-        model.addAttribute("wasteProxy", collected*4.2);
+        model.addAttribute("wasteProxy", collected*1);
 
         model.addAttribute("pricingEffectiveness", "-");
         model.addAttribute("operationalInsights", "-");
