@@ -29,7 +29,7 @@ public class Forecast {
     }
 
     // Return bundles that are from a specific seller
-    private ArrayList<Bundle> bundleFromSelectSeller() {
+    public ArrayList<Bundle> bundleFromSelectSeller() {
 
         ArrayList<Bundle> a = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public class Forecast {
     }
 
     // Search and return reservations that are of a particular seller
-    private ArrayList<Reservation> searchReservationSeller(ArrayList<Bundle> sellerBundles) {
+    public ArrayList<Reservation> searchReservationSeller(ArrayList<Bundle> sellerBundles) {
 
         ArrayList<Reservation> a = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class Forecast {
     }
 
     // Filter the reservations to return reservations made on a specific date
-    private ArrayList<Reservation> filterReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
+    public ArrayList<Reservation> filterReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
 
         return filteredReservationList.stream()
                 .filter(reservation -> reservation.getTimeStamp()
@@ -77,14 +77,17 @@ public class Forecast {
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
 
+
+
         LocalDateTime searchDate = this.forecastDate.minusDays(7); // The search date is the date used to provide the seasonal naive
         int returnInt = 0; // The return integer is the number of bundles that were reserved and picked up
 
-        while (bundleList.getFirst().timeStamp.isBefore(searchDate)) {
+        while (!(bundleList.getFirst().getTimeStamp().isAfter(searchDate))) {
 
             ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
 
             if (!dayReservationList.isEmpty()) {
+
 
                 for (Reservation reservation : dayReservationList) {
 

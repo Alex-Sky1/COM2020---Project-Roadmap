@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="New Bundle Tests and some more fixes" />
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="New Bundle Tests and some more fixes">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_02_2026_22_15_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_02_2026_22_15__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Forecast.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Forecast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Seller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Seller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/BundleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/BundleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/CustomerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/CustomerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ForecastTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ForecastTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/IssueReportTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/IssueReportTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ReservationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/ReservationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/SellerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/SellerTest.java" afterDir="false" />
+    </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +31,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/Project Files/Team_Roadmap">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -54,13 +69,13 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git",
-    "accountId": "7d41ce5e-3c0a-4225-94bb-a9a52a6ebd2d"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git&quot;,
+    &quot;accountId&quot;: &quot;461fd7cc-c157-4b5f-b86f-49dd5ab85b55&quot;
   }
-}]]></component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.3.0-bin/79n14ral3mx1ozqr3csh2u872/gradle-9.3.0" javaHome="$USER_HOME$/Library/Java/JavaVirtualMachines/openjdk-25.0.2/Contents/Home" gradleVersion="9.3.0" />
+}</component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="C:\Users\calmu\.gradle\wrapper\dists\gradle-9.3.0-bin\79n14ral3mx1ozqr3csh2u872\gradle-9.3.0" javaHome="C:\Users\calmu\.jdks\openjdk-25.0.2" gradleVersion="9.3.0" />
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nw14QEOn" />
   </component>
@@ -76,32 +91,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build Team_Roadmap.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.TeamRoadmapApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/thomashindle/Documents/Uni/year2/group_software_development_project/test 18.48.07&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build Team_Roadmap.executor": "Run",
+    "Gradle.BundleTest.executor": "Run",
+    "Gradle.BundleTest.testGetAllergensAsString.executor": "Run",
+    "Gradle.CustomerTest.executor": "Run",
+    "Gradle.ForecastTest.executor": "Run",
+    "Gradle.ForecastTest.testBundleFromSelectSeller.executor": "Run",
+    "Gradle.ForecastTest.testSeasonalNaive.executor": "Run",
+    "Gradle.IssueReportTest.executor": "Run",
+    "Gradle.ReservationTest.executor": "Run",
+    "Gradle.SellerTest.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.TeamRoadmapApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/thomashindle/Documents/Uni/year2/group_software_development_project/test 18.48.07",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -114,7 +138,142 @@
       <recent name="C:\Users\rgbra\OneDrive\Documents\Uni\Year 2\Team Project\COM2020---Project-Roadmap\Project Files\Team_Roadmap\src\main\resources\templates" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.SellerTest">
+    <configuration name="BundleTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Project Files/Team_Roadmap" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.waste_manager.team_roadmap.BundleTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="CustomerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Project Files/Team_Roadmap" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.waste_manager.team_roadmap.CustomerTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ForecastTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Project Files/Team_Roadmap" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.waste_manager.team_roadmap.ForecastTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="IssueReportTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Project Files/Team_Roadmap" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.waste_manager.team_roadmap.IssueReportTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SellerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Project Files/Team_Roadmap" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.waste_manager.team_roadmap.SellerTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
     <configuration name="TeamRoadmapApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="Team_Roadmap.main" />
@@ -123,11 +282,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.SellerTest" />
+        <item itemvalue="Gradle.IssueReportTest" />
+        <item itemvalue="Gradle.ForecastTest" />
+        <item itemvalue="Gradle.CustomerTest" />
+        <item itemvalue="Gradle.BundleTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
         <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.30387.90" />
       </set>
     </attachedChunks>
   </component>
@@ -154,6 +323,7 @@
       <workItem from="1770899850755" duration="1721000" />
       <workItem from="1770901629115" duration="2645000" />
       <workItem from="1770912410734" duration="2318000" />
+      <workItem from="1771153263301" duration="5133000" />
     </task>
     <task id="LOCAL-00001" summary="Added some of the database setup">
       <option name="closed" value="true" />
@@ -352,6 +522,11 @@
           <line>26</line>
           <properties field="email" class="com.waste_manager.team_roadmap.Customer" />
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/java/com/waste_manager/team_roadmap/CustomerTest.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

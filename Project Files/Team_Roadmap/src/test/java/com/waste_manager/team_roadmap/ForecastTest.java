@@ -1,6 +1,7 @@
 package com.waste_manager.team_roadmap;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,9 +17,8 @@ public class ForecastTest {
     static LocalDateTime testTime;
 
     // Ran once before any of the tests
-    @BeforeAll
-
-    public static void setup() {
+    @BeforeEach
+    public void setup() {
 
         testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
         ArrayList<Bundle> testBundles = new ArrayList<>();
@@ -45,15 +45,20 @@ public class ForecastTest {
             testReservations.add(testReservation);
         }
 
-        testForecast = new Forecast(testTime.plusDays(7), 1, "rainy", "puddings", testBundles, testReservations);
+        testForecast = new Forecast(testTime.plusDays(7), 0, "rainy", "puddings", testBundles, testReservations);
         testForecast.setConfidence(0.5f);
         testForecast.setRationale("Good food");
 
     }
 
     @Test
-    public void testSeasonalNaive() {
+    public void testBundleFromSelectSeller(){
+        ArrayList<Bundle> filteredBundleList = testForecast.bundleFromSelectSeller();
+        assertEquals("a",filteredBundleList);
+    }
 
+    @Test
+    public void testSeasonalNaive() {
         int seasonalNaiveTestReturn = testForecast.seasonalNaive();
         assertEquals(4, seasonalNaiveTestReturn);
     }
@@ -70,7 +75,7 @@ public class ForecastTest {
     }
 
     @Test
-    public void testGetSellerID() {assertEquals(1, testForecast.getSellerID());}
+    public void testGetSellerID() {assertEquals(0, testForecast.getSellerID());}
 
     @Test
     public void testSetSellerID() {
