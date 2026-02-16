@@ -47,12 +47,12 @@ public class TeamRoadmapApplication {
         return "tos_seller";
     }
 
-    @GetMapping("/private_policy_consumer")
+    @GetMapping("/privacy_policy_consumer")
     public String private_policy_consumer() {
         return "privacy_policy_consumer";
     }
 
-    @GetMapping("/private_policy_seller")
+    @GetMapping("/privacy_policy_seller")
     public String private_policy_seller() {
         return "privacy_policy_seller";
     }
