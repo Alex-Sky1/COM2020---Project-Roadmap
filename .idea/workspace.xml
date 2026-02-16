@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="fixed some errors with loading csv data">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="further csv file loading fixes">
       <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabaseLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabaseLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/TeamRoadmapApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/TeamRoadmapApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/csv/bundles.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/csv/bundles.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/csv/customers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/csv/customers.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/csv/reservation.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/csv/reservation.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/csv/sellers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/csv/sellers.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeding/bundles.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeding/bundles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeding/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeding/main.py" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -511,7 +503,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771189877241</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="further csv file loading fixes">
+      <option name="closed" value="true" />
+      <created>1771243025919</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1771243025919</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +559,8 @@
     <MESSAGE value="half added csv database loading" />
     <MESSAGE value="fixed mission IOException" />
     <MESSAGE value="fixed some errors with loading csv data" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed some errors with loading csv data" />
+    <MESSAGE value="further csv file loading fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="further csv file loading fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

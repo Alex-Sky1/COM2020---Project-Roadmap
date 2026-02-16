@@ -91,15 +91,12 @@ public class CSVDatabaseLoader {
 
             while (scanner.hasNextLine()) {
                 List<String> bundle_info = getRecordFromLine(scanner.nextLine());
-                log.info(bundle_info);
 
                 // convert from text to array lists
                 ArrayList<String> contents = new ArrayList<>();
                 ArrayList<String> allergens = new ArrayList<>();
 
-                log.info("Getting seller for bundle");
                 Seller seller = sellerRepository.findById(Integer.parseInt(bundle_info.getFirst()) + 1).get();
-                log.info("HELP");
 
                 bundleRepository.save(new Bundle(
                         seller,
@@ -113,12 +110,38 @@ public class CSVDatabaseLoader {
                         Boolean.parseBoolean(bundle_info.get(7)),
                         Boolean.parseBoolean(bundle_info.get(8))
                 ));
-                log.info("HELP");
             }
         }
         log.info("Bundles Loaded");
 
         // load reservations
+        log.info("Loading Reservations");
+        try (Scanner scanner = new Scanner(new ClassPathResource("static/csv/reservation.csv").getFile())) {
+
+            while (scanner.hasNextLine()) {
+                List<String> reservation_info = getRecordFromLine(scanner.nextLine());
+
+//                Bundle bundle, Customer customer, Seller seller, LocalDateTime thisTimeStamp,
+//                        String thisClaimCode, boolean thisNoShow, boolean thisCollected, String thisWeatherFlag)
+
+                // convert from text to array lists
+                Bundle bundle = bundleRepository.findById(Integer.parseInt(reservation_info.getFirst()) + 1).get();
+                Customer customer = customerRepository.findById(Integer.parseInt(reservation_info.get(1)) + 1).get();
+                Seller seller = sellerRepository.findById(Integer.parseInt(reservation_info.get(2)) + 1).get();
+
+                reservationRepository.save(new Reservation(
+                        bundle,
+                        customer,
+                        seller,
+                        LocalDateTime.now(),
+                        reservation_info.get(3),
+                        Boolean.parseBoolean(reservation_info.get(4)),
+                        Boolean.parseBoolean(reservation_info.get(5)),
+                        reservation_info.get(6)
+                ));
+            }
+        }
+        log.info("Reservations Loaded");
 
     }
 
