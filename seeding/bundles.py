@@ -38,7 +38,7 @@ def seed_bundles(sellers, count_per_seller):
                 foods,
                 allergens,
                 price,
-                max(price / 2, r.randint(5, 20)), #discount
+                round(max(price / 2, r.randint(5, 20))), #discount
                 5,
                 False, # reserverd
                 False # expired

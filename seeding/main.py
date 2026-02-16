@@ -10,7 +10,7 @@ import reservations
 
 def write_to_csv(filename, info):
     with open(filename, "w", newline="") as csvfile:
-        writer = csv.writer(csvfile, delimiter="|", quotechar="\\", quoting=csv.QUOTE_MINIMAL)
+        writer = csv.writer(csvfile, delimiter="&", quotechar="\\", quoting=csv.QUOTE_MINIMAL)
         for line in info:
             writer.writerow(line)
         csvfile.close()

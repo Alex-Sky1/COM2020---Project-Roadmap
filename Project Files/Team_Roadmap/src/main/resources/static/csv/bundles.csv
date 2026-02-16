@@ -1,250 +1,250 @@
-20|sad bundles|['alligator', 'bread 2', 'bread 2', 'cheese', 'lobster thermador', 'mice', 'mice']|['fish']|30.7|18|5|False|False
-23|tree time|['bread', 'cheese', 'cheese', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']|['gluten', 'sulphur', 'eggs']|25.8|12.9|5|False|False
-18|cakes|['alligator', 'bread', 'bread 2', 'bread 2', 'cheese', 'lobster thermador', 'lobster thermador', 'mice', 'mice']|['gluten', 'peanuts', 'molluscs']|20.2|10.1|5|False|False
-9|sad bundles|['bread', 'egg', 'egg', 'egg', 'lobster thermador', 'mice']|['milk', 'peanuts', 'molluscs']|29.9|14.95|5|False|False
-18|happy days|['alligator', 'bread', 'bread 2', 'cheese', 'cheese', 'mice', 'mice']|['lupin', 'peanuts']|77.8|38.9|5|False|False
-6|tree time|['beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg', 'lobster thermador', 'mice']|['mustard', 'celery']|65.1|32.55|5|False|False
-10|tree time|['bread', 'bread', 'bread 2', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador']|['gluten', 'milk', 'eggs']|41.3|20.65|5|False|False
-20|cakes|['alligator', 'beans', 'bread 2', 'egg', 'egg', 'lobster thermador', 'mice']|['sulphur']|12.2|16|5|False|False
-24|happy days|['beans', 'beans', 'bread', 'bread 2', 'egg', 'mice']|['peanuts', 'nuts']|39.2|19.6|5|True|False
-16|egg bundles|['alligator', 'alligator', 'bread 2', 'cheese', 'cheese', 'lobster thermador']|['fish', 'celery']|89.5|44.75|5|False|False
-14|cakes|['alligator', 'bread', 'egg', 'egg', 'lobster thermador']|['sulphur']|22.6|11.3|5|False|False
-0|egg bundles|['beans', 'cheese', 'egg', 'lobster thermador']|['mustard', 'fish', 'celery']|33.6|16.8|5|False|False
-17|tree time|['alligator', 'beans', 'bread', 'bread 2', 'cheese', 'cheese', 'cheese']|['mustard', 'lupin']|22.3|14|5|True|False
-22|egg bundles|['bread', 'bread', 'bread 2', 'cheese', 'cheese', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']|['mustard', 'sesame', 'celery']|74.7|37.35|5|False|False
-11|happy days|['alligator', 'alligator', 'beans', 'bread', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'mice']|['milk', 'sulphur', 'molluscs']|62.1|31.05|5|False|False
-1|tree time|['beans', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']|['mustard']|42.6|21.3|5|False|False
-23|sad bundles|['alligator', 'alligator', 'beans', 'lobster thermador', 'mice', 'mice', 'mice']|['milk', 'sesame', 'fish']|48.5|24.25|5|False|False
-1|happy days|['beans', 'bread', 'bread', 'bread', 'lobster thermador', 'lobster thermador', 'mice', 'mice']|['celery', 'nuts']|8.3|13|5|False|False
-8|egg bundles|['beans', 'bread', 'cheese', 'cheese', 'egg', 'egg', 'lobster thermador', 'mice']|['milk', 'nuts']|90.3|45.15|5|False|False
-12|tree time|['beans', 'bread', 'cheese', 'lobster thermador']|['fish', 'peanuts', 'celery']|91.5|45.75|5|False|False
-22|happy days|['alligator', 'alligator', 'alligator', 'bread 2', 'cheese', 'lobster thermador']|['sesame']|49.6|24.8|5|False|False
-17|happy days|['beans', 'bread 2', 'cheese', 'mice', 'mice', 'mice']|['sulphur', 'eggs']|48.6|24.3|5|False|False
-21|happy days|['alligator', 'beans', 'beans', 'bread 2', 'egg', 'egg', 'egg', 'lobster thermador', 'mice', 'mice']|['crustaceons', 'gluten', 'sesame']|36.0|18.0|5|False|False
-9|happy days|['alligator', 'alligator', 'alligator', 'beans', 'beans', 'bread', 'cheese', 'cheese', 'lobster thermador', 'lobster thermador']|['sesame', 'fish']|99.5|49.75|5|False|False
-11|sad bundles|['alligator', 'beans', 'egg', 'egg', 'lobster thermador']|['crustaceons', 'mustard', 'celery']|23.9|11.95|5|False|False
-5|sad bundles|['alligator', 'alligator', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'egg', 'egg', 'lobster thermador']|['crustaceons', 'sesame']|84.2|42.1|5|True|False
-15|egg bundles|['alligator', 'beans', 'bread', 'bread', 'bread', 'cheese', 'cheese', 'cheese', 'egg', 'egg']|['soybeans', 'eggs']|63.1|31.55|5|False|False
-4|happy days|['alligator', 'alligator', 'alligator', 'bread 2', 'bread 2', 'egg', 'mice']|['eggs', 'molluscs', 'milk']|57.0|28.5|5|False|False
-22|cakes|['bread', 'bread', 'bread 2', 'cheese', 'cheese', 'egg', 'lobster thermador', 'mice', 'mice']|['fish', 'eggs']|81.4|40.7|5|False|False
-23|tree time|['alligator', 'alligator', 'bread', 'cheese', 'cheese', 'cheese', 'egg', 'lobster thermador']|['mustard', 'lupin', 'celery']|99.5|49.75|5|False|False
-22|tree time|['alligator', 'alligator', 'beans', 'cheese', 'cheese', 'egg', 'egg', 'egg', 'egg', 'mice']|['fish', 'celery']|55.3|27.65|5|False|False
-19|sad bundles|['alligator', 'alligator', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'cheese', 'lobster thermador', 'mice']|['soybeans']|47.0|23.5|5|False|False
-5|egg bundles|['alligator', 'bread', 'bread', 'bread 2', 'egg', 'egg', 'lobster thermador', 'mice', 'mice']|['molluscs']|53.8|26.9|5|True|False
-0|cakes|['alligator', 'beans', 'bread', 'egg', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['molluscs']|63.4|31.7|5|True|False
-5|cakes|['alligator', 'beans', 'bread 2', 'bread 2', 'cheese', 'cheese', 'mice', 'mice', 'mice']|['milk']|17.4|19|5|False|False
-23|sad bundles|['alligator', 'bread 2', 'egg', 'lobster thermador']|['soybeans', 'eggs']|77.7|38.85|5|False|False
-16|sad bundles|['alligator', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'lobster thermador']|['soybeans']|93.9|46.95|5|False|False
-20|happy days|['alligator', 'bread', 'cheese', 'egg', 'egg', 'mice', 'mice']|['peanuts']|60.0|30.0|5|False|False
-7|tree time|['alligator', 'alligator', 'alligator', 'bread', 'bread 2', 'bread 2', 'egg', 'lobster thermador', 'lobster thermador']|['fish', 'soybeans', 'lupin']|34.4|17.2|5|False|False
-23|tree time|['beans', 'bread', 'bread 2', 'bread 2', 'egg', 'lobster thermador', 'mice']|['peanuts']|56.0|28.0|5|True|False
-20|egg bundles|['alligator', 'bread', 'bread 2', 'cheese', 'mice', 'mice']|['sulphur']|86.5|43.25|5|False|False
-11|sad bundles|['alligator', 'bread 2', 'bread 2', 'bread 2', 'egg', 'egg', 'mice', 'mice', 'mice']|['sesame', 'lupin']|28.6|17|5|False|False
-3|tree time|['alligator', 'beans', 'bread 2', 'bread 2', 'lobster thermador', 'lobster thermador', 'lobster thermador']|['gluten']|24.6|19|5|False|False
-20|happy days|['alligator', 'beans', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['sesame', 'celery']|40.7|20.35|5|False|False
-16|egg bundles|['alligator', 'bread', 'bread', 'bread 2']|['mustard']|44.3|22.15|5|False|False
-19|sad bundles|['beans', 'lobster thermador', 'mice', 'mice']|['soybeans']|8.9|17|5|False|False
-16|sad bundles|['beans', 'bread', 'bread 2', 'lobster thermador', 'mice', 'mice']|['crustaceons', 'celery']|72.9|36.45|5|False|False
-21|happy days|['bread 2', 'cheese', 'egg', 'lobster thermador']|['sesame', 'fish', 'peanuts']|9.4|15|5|False|False
-20|cakes|['alligator', 'beans', 'beans', 'bread', 'bread 2', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador']|['molluscs']|64.1|32.05|5|False|False
-7|egg bundles|['alligator', 'alligator', 'alligator', 'beans', 'bread', 'cheese', 'cheese', 'lobster thermador']|['mustard']|27.7|13.85|5|False|False
-0|tree time|['alligator', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'egg']|['mustard', 'sesame', 'molluscs']|79.3|39.65|5|False|False
-11|egg bundles|['alligator', 'alligator', 'bread 2', 'lobster thermador']|['crustaceons', 'sulphur']|93.6|46.8|5|False|False
-18|sad bundles|['alligator', 'bread 2', 'bread 2', 'cheese']|['milk', 'lupin', 'peanuts']|70.9|35.45|5|False|False
-17|egg bundles|['bread 2', 'egg', 'lobster thermador', 'mice']|['sesame', 'fish', 'nuts']|79.6|39.8|5|True|False
-8|happy days|['beans', 'bread', 'bread 2', 'mice']|['soybeans', 'eggs']|53.3|26.65|5|False|False
-7|tree time|['beans', 'beans', 'bread', 'bread', 'egg', 'egg']|['fish']|50.3|25.15|5|False|False
-21|tree time|['alligator', 'alligator', 'beans', 'bread 2', 'bread 2', 'cheese', 'mice']|['sulphur', 'lupin', 'nuts']|97.1|48.55|5|False|False
-22|happy days|['bread 2', 'cheese', 'lobster thermador', 'lobster thermador', 'lobster thermador']|['milk', 'peanuts', 'nuts']|87.8|43.9|5|False|False
-0|egg bundles|['alligator', 'beans', 'bread', 'bread', 'bread 2', 'lobster thermador', 'mice', 'mice']|['gluten', 'milk', 'sulphur']|19.4|16|5|False|False
-8|sad bundles|['egg', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'mice', 'mice']|['gluten', 'mustard', 'celery']|15.0|9|5|False|False
-18|tree time|['alligator', 'beans', 'bread', 'bread', 'lobster thermador', 'mice', 'mice']|['celery', 'nuts']|7.1|14|5|False|False
-2|cakes|['alligator', 'bread', 'bread 2', 'mice']|['celery']|88.6|44.3|5|False|False
-17|sad bundles|['alligator', 'alligator', 'bread', 'bread 2', 'lobster thermador']|['milk', 'soybeans', 'nuts']|71.0|35.5|5|True|False
-19|sad bundles|['alligator', 'beans', 'bread', 'bread', 'bread 2', 'lobster thermador', 'mice']|['celery', 'nuts']|40.6|20.3|5|False|False
-12|tree time|['alligator', 'beans', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'cheese', 'cheese', 'mice']|['mustard', 'sulphur', 'soybeans']|58.1|29.05|5|True|False
-8|cakes|['bread 2', 'cheese', 'cheese', 'mice']|['lupin']|56.2|28.1|5|False|False
-15|egg bundles|['alligator', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg', 'lobster thermador', 'mice']|['eggs']|33.1|18|5|False|False
-8|tree time|['alligator', 'beans', 'cheese', 'mice']|['peanuts']|47.7|23.85|5|False|False
-2|tree time|['beans', 'bread 2', 'bread 2', 'egg', 'lobster thermador', 'mice', 'mice', 'mice']|['molluscs']|91.8|45.9|5|False|False
-21|cakes|['bread 2', 'cheese', 'egg', 'lobster thermador', 'mice']|['soybeans', 'sesame', 'lupin']|20.5|17|5|False|False
-1|tree time|['beans', 'egg', 'lobster thermador', 'mice', 'mice']|['celery', 'molluscs']|27.5|20|5|False|False
-22|happy days|['alligator', 'alligator', 'bread', 'bread', 'bread 2', 'cheese', 'egg']|['sulphur']|71.6|35.8|5|False|False
-3|happy days|['alligator', 'bread', 'bread', 'egg', 'lobster thermador', 'lobster thermador']|['mustard', 'sesame', 'peanuts']|7.0|13|5|False|False
-17|cakes|['alligator', 'cheese', 'egg', 'egg']|['lupin', 'eggs']|63.1|31.55|5|False|False
-6|happy days|['alligator', 'beans', 'cheese', 'egg', 'egg', 'mice']|['peanuts']|10.8|8|5|False|False
-1|cakes|['beans', 'bread 2', 'lobster thermador', 'lobster thermador', 'mice', 'mice']|['crustaceons', 'molluscs']|74.1|37.05|5|False|False
-7|sad bundles|['alligator', 'alligator', 'alligator', 'cheese', 'lobster thermador']|['mustard', 'sulphur', 'lupin']|71.7|35.85|5|False|False
-11|egg bundles|['alligator', 'bread', 'bread', 'bread', 'cheese', 'lobster thermador', 'lobster thermador', 'mice', 'mice', 'mice']|['crustaceons', 'mustard']|35.8|17.9|5|False|False
-13|tree time|['alligator', 'beans', 'bread 2', 'cheese', 'cheese', 'egg', 'mice', 'mice']|['gluten', 'lupin']|96.5|48.25|5|False|False
-1|sad bundles|['bread 2', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg']|['sesame', 'celery']|84.9|42.45|5|False|False
-13|cakes|['bread 2', 'cheese', 'cheese', 'lobster thermador']|['milk', 'molluscs']|38.7|20|5|False|False
-19|sad bundles|['alligator', 'bread', 'cheese', 'egg', 'lobster thermador']|['crustaceons', 'mustard', 'eggs']|35.4|17.7|5|False|False
-1|happy days|['alligator', 'beans', 'bread 2', 'mice', 'mice']|['sulphur', 'fish']|99.3|49.65|5|False|False
-8|tree time|['alligator', 'alligator', 'egg', 'lobster thermador']|['mustard', 'sesame', 'lupin']|39.6|19.8|5|False|False
-17|happy days|['bread', 'bread', 'bread 2', 'bread 2', 'cheese', 'lobster thermador', 'lobster thermador', 'lobster thermador']|['sulphur', 'lupin', 'nuts']|23.3|11.65|5|False|False
-10|tree time|['bread', 'bread 2', 'egg', 'egg', 'lobster thermador']|['celery', 'eggs']|61.4|30.7|5|False|False
-21|cakes|['bread 2', 'bread 2', 'bread 2', 'cheese', 'egg', 'egg', 'mice', 'mice']|['gluten', 'lupin']|40.3|20.15|5|False|False
-18|egg bundles|['alligator', 'beans', 'bread', 'bread', 'cheese']|['crustaceons', 'gluten', 'milk']|67.8|33.9|5|False|False
-18|sad bundles|['alligator', 'beans', 'bread 2', 'cheese', 'egg', 'mice', 'mice']|['celery']|64.0|32.0|5|False|False
-5|tree time|['alligator', 'bread', 'bread 2', 'mice']|['peanuts', 'molluscs']|16.0|15|5|False|False
-3|egg bundles|['beans', 'bread 2', 'bread 2', 'cheese', 'egg']|['milk']|27.4|15|5|False|False
-22|cakes|['beans', 'bread 2', 'egg', 'mice', 'mice']|['sesame']|22.8|11.4|5|False|False
-15|tree time|['alligator', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'cheese', 'mice', 'mice', 'mice']|['mustard', 'nuts']|36.0|18.0|5|False|False
-4|cakes|['beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']|['peanuts']|75.5|37.75|5|True|False
-21|happy days|['bread', 'lobster thermador', 'mice', 'mice']|['soybeans']|12.5|10|5|False|False
-16|cakes|['alligator', 'beans', 'bread 2', 'egg', 'mice']|['crustaceons', 'soybeans', 'peanuts']|45.6|22.8|5|True|False
-20|happy days|['alligator', 'beans', 'bread 2', 'cheese', 'egg', 'egg', 'egg', 'egg', 'mice']|['mustard', 'peanuts']|6.1|17|5|False|False
-9|cakes|['beans', 'bread 2', 'bread 2', 'mice']|['gluten', 'soybeans']|32.3|20|5|False|False
-6|cakes|['alligator', 'bread 2', 'bread 2', 'egg', 'egg', 'lobster thermador', 'mice']|['milk', 'soybeans', 'peanuts']|38.0|19.0|5|False|False
-2|cakes|['alligator', 'bread', 'bread 2', 'cheese', 'cheese', 'egg', 'egg', 'mice', 'mice']|['sesame', 'fish', 'molluscs']|97.6|48.8|5|False|False
-22|cakes|['beans', 'beans', 'bread', 'cheese', 'egg', 'egg', 'lobster thermador', 'mice', 'mice']|['fish', 'lupin']|97.1|48.55|5|False|False
-24|sad bundles|['beans', 'bread', 'bread 2', 'bread 2', 'cheese']|['mustard', 'soybeans', 'nuts']|62.7|31.35|5|False|False
-2|egg bundles|['alligator', 'alligator', 'alligator', 'alligator', 'bread', 'bread', 'bread', 'egg', 'egg']|['mustard']|28.8|14.4|5|False|False
-3|tree time|['alligator', 'beans', 'beans', 'bread 2', 'cheese', 'cheese', 'egg']|['mustard', 'nuts']|95.2|47.6|5|False|False
-1|egg bundles|['beans', 'bread', 'bread', 'bread', 'egg', 'mice', 'mice']|['sulphur', 'sesame', 'fish']|80.8|40.4|5|False|False
-0|happy days|['alligator', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'lobster thermador']|['soybeans', 'celery', 'sesame']|79.3|39.65|5|False|False
-5|sad bundles|['alligator', 'beans', 'cheese', 'cheese', 'mice']|['peanuts']|44.3|22.15|5|False|False
-3|sad bundles|['alligator', 'bread 2', 'bread 2', 'bread 2', 'bread 2', 'bread 2', 'egg', 'mice']|['gluten', 'celery']|27.3|13.65|5|False|False
-14|sad bundles|['alligator', 'bread', 'bread', 'bread 2', 'bread 2', 'egg', 'egg', 'lobster thermador', 'mice', 'mice']|['lupin', 'peanuts']|84.8|42.4|5|False|False
-14|happy days|['alligator', 'alligator', 'alligator', 'beans', 'bread 2', 'egg', 'lobster thermador', 'mice', 'mice', 'mice']|['molluscs', 'mustard', 'eggs']|33.9|16.95|5|True|False
-4|egg bundles|['alligator', 'beans', 'beans', 'bread', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']|['mustard']|77.9|38.95|5|False|False
-10|cakes|['alligator', 'bread', 'bread 2', 'lobster thermador', 'mice', 'mice']|['peanuts']|83.0|41.5|5|False|False
-23|sad bundles|['alligator', 'bread', 'cheese', 'cheese', 'cheese', 'egg', 'lobster thermador']|['soybeans', 'lupin', 'celery']|50.6|25.3|5|False|False
-23|tree time|['alligator', 'beans', 'beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'lobster thermador', 'mice', 'mice']|['soybeans', 'sulphur', 'nuts']|55.7|27.85|5|False|False
-3|happy days|['beans', 'bread', 'bread 2', 'cheese', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador']|['crustaceons', 'gluten']|89.9|44.95|5|False|False
-9|happy days|['bread', 'bread', 'bread', 'bread', 'bread 2', 'cheese', 'egg', 'egg', 'egg', 'mice']|['peanuts', 'celery']|93.3|46.65|5|False|False
-6|egg bundles|['alligator', 'alligator', 'bread 2', 'egg', 'egg', 'lobster thermador', 'lobster thermador']|['crustaceons', 'eggs', 'molluscs']|93.5|46.75|5|False|False
-9|sad bundles|['alligator', 'bread', 'bread', 'bread', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'mice', 'mice']|['lupin', 'peanuts', 'nuts']|69.7|34.85|5|False|False
-12|happy days|['bread 2', 'bread 2', 'bread 2', 'cheese', 'lobster thermador', 'mice', 'mice']|['celery']|8.1|15|5|False|False
-24|cakes|['alligator', 'beans', 'bread', 'bread', 'lobster thermador', 'lobster thermador', 'mice', 'mice', 'mice', 'mice']|['fish']|52.0|26.0|5|False|False
-15|egg bundles|['alligator', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'egg']|['mustard', 'lupin', 'milk']|86.6|43.3|5|False|False
-12|sad bundles|['alligator', 'alligator', 'bread 2', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg']|['celery']|70.4|35.2|5|False|False
-16|sad bundles|['beans', 'bread', 'mice', 'mice']|['mustard', 'celery', 'nuts']|12.1|7|5|False|False
-14|tree time|['alligator', 'beans', 'beans', 'bread 2', 'mice']|['sulphur', 'lupin']|72.0|36.0|5|False|False
-7|cakes|['beans', 'beans', 'bread', 'egg', 'egg', 'mice', 'mice', 'mice']|['mustard', 'soybeans']|62.6|31.3|5|False|False
-24|tree time|['bread', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'lobster thermador', 'mice']|['mustard', 'fish', 'milk']|63.5|31.75|5|False|False
-3|egg bundles|['beans', 'beans', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['sesame', 'eggs', 'nuts']|82.1|41.05|5|False|False
-20|happy days|['bread', 'bread', 'bread 2', 'cheese', 'lobster thermador', 'lobster thermador', 'mice']|['milk']|98.8|49.4|5|False|False
-11|cakes|['alligator', 'alligator', 'bread', 'bread', 'bread', 'cheese', 'egg', 'mice']|['sesame', 'lupin', 'nuts']|93.5|46.75|5|False|False
-24|egg bundles|['alligator', 'alligator', 'bread', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese']|['soybeans', 'peanuts', 'molluscs']|49.7|24.85|5|False|False
-15|sad bundles|['alligator', 'beans', 'bread 2', 'cheese', 'egg', 'egg', 'lobster thermador']|['molluscs', 'nuts']|79.0|39.5|5|False|False
-7|egg bundles|['beans', 'beans', 'bread', 'bread', 'bread', 'bread 2', 'cheese', 'egg', 'mice', 'mice']|['milk', 'sesame', 'molluscs']|60.6|30.3|5|False|False
-13|egg bundles|['bread', 'lobster thermador', 'lobster thermador', 'mice', 'mice']|['mustard']|58.1|29.05|5|False|False
-9|tree time|['alligator', 'alligator', 'beans', 'lobster thermador', 'lobster thermador', 'mice', 'mice']|['molluscs', 'soybeans', 'eggs']|63.4|31.7|5|False|False
-10|happy days|['beans', 'bread 2', 'cheese', 'mice', 'mice', 'mice']|['celery']|49.5|24.75|5|False|False
-3|egg bundles|['alligator', 'alligator', 'beans', 'bread', 'lobster thermador', 'lobster thermador']|['soybeans', 'celery', 'eggs']|96.7|48.35|5|False|False
-19|egg bundles|['alligator', 'beans', 'bread', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'mice', 'mice']|['crustaceons', 'soybeans', 'celery']|37.9|18.95|5|False|False
-4|happy days|['beans', 'bread', 'bread 2', 'mice']|['eggs', 'lupin', 'molluscs']|78.1|39.05|5|False|False
-14|egg bundles|['alligator', 'alligator', 'beans', 'beans', 'bread', 'egg', 'lobster thermador', 'mice', 'mice']|['gluten', 'peanuts']|89.1|44.55|5|False|False
-21|sad bundles|['beans', 'beans', 'beans', 'beans', 'bread 2', 'egg', 'mice']|['eggs']|87.7|43.85|5|False|False
-10|egg bundles|['cheese', 'cheese', 'egg', 'egg', 'lobster thermador']|['lupin']|88.6|44.3|5|False|False
-15|happy days|['beans', 'beans', 'bread', 'bread', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['crustaceons', 'sulphur', 'nuts']|46.3|23.15|5|False|False
-0|egg bundles|['alligator', 'bread', 'egg', 'egg', 'egg', 'lobster thermador', 'mice']|['crustaceons', 'fish']|86.8|43.4|5|False|False
-4|happy days|['alligator', 'alligator', 'bread', 'cheese', 'cheese', 'egg', 'egg', 'egg', 'lobster thermador', 'lobster thermador']|['sulphur']|37.0|18.5|5|False|False
-5|tree time|['alligator', 'beans', 'bread', 'bread', 'bread', 'bread', 'cheese', 'egg', 'lobster thermador', 'mice']|['milk']|95.6|47.8|5|False|False
-0|egg bundles|['alligator', 'alligator', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']|['peanuts']|96.9|48.45|5|False|False
-23|tree time|['alligator', 'beans', 'bread', 'bread', 'bread', 'cheese', 'egg', 'lobster thermador', 'mice']|['eggs']|40.3|20.15|5|False|False
-6|tree time|['alligator', 'alligator', 'beans', 'beans', 'mice']|['milk', 'molluscs']|61.7|30.85|5|False|False
-23|happy days|['bread', 'bread', 'cheese', 'egg', 'egg', 'egg']|['mustard']|99.9|49.95|5|False|False
-11|egg bundles|['alligator', 'bread', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'mice']|['peanuts']|11.5|20|5|False|False
-7|sad bundles|['beans', 'bread', 'bread', 'bread 2', 'cheese']|['mustard']|46.1|23.05|5|False|False
-10|sad bundles|['alligator', 'alligator', 'bread 2', 'lobster thermador', 'mice', 'mice']|['molluscs', 'celery']|46.9|23.45|5|False|False
-6|happy days|['alligator', 'alligator', 'beans', 'beans', 'bread 2', 'bread 2', 'egg', 'egg', 'lobster thermador']|['celery', 'molluscs']|69.1|34.55|5|False|False
-6|cakes|['alligator', 'beans', 'bread', 'bread 2', 'lobster thermador', 'lobster thermador']|['gluten', 'eggs']|33.9|18|5|True|False
-8|happy days|['bread', 'cheese', 'cheese', 'egg']|['nuts']|24.7|12.35|5|False|False
-19|cakes|['beans', 'egg', 'lobster thermador', 'mice']|['sulphur']|51.5|25.75|5|True|False
-9|cakes|['beans', 'bread 2', 'cheese', 'lobster thermador', 'lobster thermador', 'mice', 'mice']|['gluten', 'sulphur']|15.2|17|5|False|False
-1|cakes|['alligator', 'alligator', 'beans', 'beans', 'egg', 'egg', 'egg', 'lobster thermador']|['eggs']|80.0|40.0|5|False|False
-13|happy days|['alligator', 'alligator', 'alligator', 'bread', 'cheese', 'cheese', 'mice']|['soybeans', 'lupin', 'eggs']|79.4|39.7|5|False|False
-16|tree time|['beans', 'bread', 'bread', 'bread 2', 'cheese', 'cheese', 'cheese', 'egg', 'mice']|['sulphur', 'fish']|68.8|34.4|5|False|False
-14|sad bundles|['bread', 'bread 2', 'cheese', 'cheese', 'cheese', 'cheese', 'lobster thermador']|['crustaceons', 'gluten']|78.0|39.0|5|True|False
-12|sad bundles|['alligator', 'bread 2', 'cheese', 'cheese', 'egg', 'egg']|['sulphur', 'soybeans', 'celery']|58.4|29.2|5|False|False
-12|cakes|['bread 2', 'cheese', 'cheese', 'egg']|['sesame', 'peanuts', 'celery']|60.5|30.25|5|True|False
-12|happy days|['alligator', 'beans', 'bread', 'lobster thermador']|['sesame', 'fish', 'peanuts']|23.6|15|5|False|False
-8|tree time|['alligator', 'bread', 'bread', 'bread 2', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['milk', 'sesame', 'celery']|34.4|17.2|5|False|False
-10|happy days|['alligator', 'alligator', 'alligator', 'beans', 'bread', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'lobster thermador']|['fish']|24.0|18|5|True|False
-15|sad bundles|['alligator', 'bread 2', 'cheese', 'cheese', 'lobster thermador']|['milk', 'sulphur', 'peanuts']|89.3|44.65|5|False|False
-12|sad bundles|['alligator', 'alligator', 'beans', 'cheese', 'egg', 'lobster thermador']|['gluten']|30.0|15.0|5|False|False
-18|cakes|['alligator', 'alligator', 'beans', 'bread', 'cheese', 'lobster thermador', 'lobster thermador', 'mice']|['gluten', 'milk', 'lupin']|72.1|36.05|5|False|False
-3|happy days|['alligator', 'beans', 'bread', 'bread', 'bread 2', 'egg', 'lobster thermador', 'mice']|['crustaceons', 'soybeans']|53.0|26.5|5|False|False
-18|cakes|['alligator', 'beans', 'egg', 'mice']|['fish']|88.1|44.05|5|False|False
-19|tree time|['alligator', 'beans', 'bread 2', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']|['crustaceons', 'eggs', 'celery']|21.2|10.6|5|False|False
-14|tree time|['beans', 'bread 2', 'egg', 'lobster thermador']|['soybeans']|43.5|21.75|5|False|False
-2|egg bundles|['beans', 'lobster thermador', 'lobster thermador', 'mice']|['celery']|41.8|20.9|5|False|False
-6|egg bundles|['alligator', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']|['milk']|6.5|10|5|False|False
-18|happy days|['alligator', 'alligator', 'egg', 'egg', 'egg', 'egg', 'lobster thermador', 'mice']|['molluscs', 'nuts']|91.8|45.9|5|False|False
-17|cakes|['alligator', 'bread', 'bread', 'bread 2', 'cheese', 'egg', 'mice']|['mustard', 'sulphur', 'nuts']|27.6|13.8|5|False|False
-24|cakes|['beans', 'egg', 'mice', 'mice']|['sesame']|70.5|35.25|5|False|False
-21|happy days|['bread', 'bread 2', 'lobster thermador', 'mice', 'mice']|['milk']|92.2|46.1|5|False|False
-17|tree time|['lobster thermador', 'lobster thermador', 'mice', 'mice']|['gluten', 'peanuts', 'eggs']|73.4|36.7|5|False|False
-15|happy days|['alligator', 'bread', 'bread', 'bread', 'bread 2', 'cheese', 'egg', 'egg', 'mice', 'mice']|['sesame']|16.2|11|5|False|False
-10|cakes|['alligator', 'alligator', 'beans', 'egg', 'lobster thermador']|['peanuts']|89.5|44.75|5|False|False
-20|cakes|['bread', 'bread', 'bread', 'bread 2', 'cheese', 'lobster thermador', 'mice']|['sesame', 'fish', 'nuts']|11.8|18|5|False|False
-24|sad bundles|['bread', 'bread 2', 'cheese', 'egg', 'mice', 'mice']|['mustard', 'eggs', 'celery']|61.4|30.7|5|True|False
-11|egg bundles|['alligator', 'alligator', 'bread', 'bread 2', 'cheese', 'egg', 'mice', 'mice', 'mice']|['soybeans', 'lupin', 'peanuts']|21.7|17|5|False|False
-2|sad bundles|['bread 2', 'bread 2', 'cheese', 'lobster thermador']|['milk']|22.2|11.1|5|False|False
-14|tree time|['alligator', 'beans', 'beans', 'beans', 'bread', 'bread', 'bread 2', 'egg', 'mice', 'mice']|['peanuts', 'molluscs']|29.3|14.65|5|False|False
-17|sad bundles|['beans', 'lobster thermador', 'lobster thermador', 'mice']|['crustaceons', 'fish', 'celery']|10.4|10|5|False|False
-4|sad bundles|['alligator', 'beans', 'bread', 'bread', 'bread', 'cheese', 'lobster thermador', 'mice']|['lupin', 'celery', 'nuts']|20.0|10.0|5|False|False
-2|happy days|['alligator', 'bread', 'bread 2', 'cheese', 'egg', 'mice', 'mice']|['crustaceons', 'milk', 'nuts']|12.6|9|5|False|False
-2|cakes|['alligator', 'beans', 'bread', 'bread 2', 'bread 2']|['gluten', 'molluscs']|81.5|40.75|5|True|False
-24|cakes|['alligator', 'alligator', 'beans', 'bread', 'bread', 'egg', 'lobster thermador', 'mice']|['gluten', 'soybeans', 'peanuts']|95.3|47.65|5|False|False
-13|egg bundles|['alligator', 'beans', 'bread', 'lobster thermador', 'mice']|['lupin', 'peanuts', 'nuts']|55.5|27.75|5|False|False
-11|cakes|['alligator', 'beans', 'beans', 'bread', 'cheese']|['nuts']|71.9|35.95|5|False|False
-16|tree time|['alligator', 'beans', 'bread', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'lobster thermador']|['crustaceons', 'lupin', 'nuts']|20.3|10.15|5|False|False
-8|sad bundles|['alligator', 'alligator', 'bread', 'bread']|['peanuts']|8.2|10|5|False|False
-13|happy days|['bread', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['soybeans']|72.9|36.45|5|False|False
-22|egg bundles|['beans', 'beans', 'beans', 'bread', 'bread', 'bread 2', 'mice']|['milk', 'peanuts', 'celery']|44.2|22.1|5|False|False
-19|cakes|['beans', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['milk', 'sulphur', 'lupin']|34.4|20|5|False|False
-21|happy days|['alligator', 'beans', 'bread', 'lobster thermador', 'lobster thermador']|['crustaceons']|86.7|43.35|5|False|False
-17|sad bundles|['beans', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'cheese', 'lobster thermador']|['fish']|33.3|16.65|5|False|False
-5|tree time|['alligator', 'alligator', 'beans', 'bread', 'lobster thermador', 'lobster thermador', 'mice']|['sulphur', 'soybeans']|96.2|48.1|5|False|False
-7|happy days|['alligator', 'beans', 'beans', 'bread', 'cheese', 'egg', 'mice', 'mice']|['milk', 'soybeans', 'fish']|96.1|48.05|5|False|False
-11|sad bundles|['alligator', 'alligator', 'egg', 'lobster thermador', 'mice', 'mice', 'mice']|['soybeans', 'sulphur', 'milk']|60.1|30.05|5|False|False
-21|tree time|['bread 2', 'bread 2', 'lobster thermador', 'lobster thermador', 'mice', 'mice']|['crustaceons', 'mustard', 'eggs']|39.2|19.6|5|False|False
-16|sad bundles|['alligator', 'bread', 'bread 2', 'egg']|['gluten', 'molluscs']|39.3|19.65|5|False|False
-4|sad bundles|['cheese', 'cheese', 'cheese', 'egg', 'egg']|['milk']|21.0|19|5|False|False
-12|tree time|['bread 2', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'mice']|['crustaceons', 'milk', 'peanuts']|76.1|38.05|5|False|False
-10|tree time|['alligator', 'beans', 'beans', 'bread', 'bread', 'bread 2', 'lobster thermador', 'lobster thermador', 'mice']|['sesame']|30.7|15.35|5|False|False
-13|tree time|['beans', 'bread', 'bread', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'mice']|['gluten', 'mustard', 'fish']|83.3|41.65|5|False|False
-10|tree time|['alligator', 'beans', 'cheese', 'egg', 'egg']|['sesame', 'eggs']|98.5|49.25|5|False|False
-4|cakes|['alligator', 'alligator', 'bread 2', 'lobster thermador', 'lobster thermador', 'mice']|['gluten', 'mustard', 'nuts']|31.8|15.9|5|False|False
-4|happy days|['alligator', 'alligator', 'cheese', 'cheese', 'egg', 'lobster thermador']|['milk', 'soybeans', 'fish']|40.4|20.2|5|True|False
-3|sad bundles|['alligator', 'alligator', 'beans', 'bread', 'cheese']|['milk', 'fish', 'nuts']|85.8|42.9|5|False|False
-24|cakes|['alligator', 'beans', 'egg', 'egg']|['mustard', 'sulphur', 'lupin']|88.7|44.35|5|False|False
-2|sad bundles|['alligator', 'beans', 'bread 2', 'bread 2', 'cheese', 'mice', 'mice', 'mice']|['gluten']|36.3|19|5|False|False
-9|egg bundles|['beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg', 'egg', 'egg']|['mustard']|65.3|32.65|5|False|False
-0|tree time|['alligator', 'beans', 'bread', 'lobster thermador', 'lobster thermador', 'mice', 'mice']|['sulphur']|62.2|31.1|5|True|False
-14|cakes|['bread', 'bread 2', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['crustaceons', 'mustard', 'fish']|54.6|27.3|5|False|False
-9|tree time|['bread 2', 'bread 2', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'lobster thermador']|['crustaceons', 'sulphur', 'peanuts']|9.6|8|5|False|False
-1|cakes|['beans', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['soybeans', 'nuts']|28.6|14.3|5|False|False
-23|tree time|['alligator', 'bread 2', 'bread 2', 'cheese', 'cheese', 'cheese', 'lobster thermador']|['gluten', 'sesame', 'eggs']|81.5|40.75|5|False|False
-7|cakes|['beans', 'bread', 'bread 2', 'cheese', 'egg', 'lobster thermador']|['mustard', 'nuts']|89.8|44.9|5|False|False
-7|cakes|['bread 2', 'bread 2', 'bread 2', 'cheese', 'cheese', 'cheese', 'egg']|['crustaceons', 'peanuts']|94.0|47.0|5|False|False
-15|cakes|['bread', 'bread 2', 'egg', 'mice']|['milk', 'lupin', 'nuts']|95.3|47.65|5|False|False
-20|sad bundles|['beans', 'beans', 'beans', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'egg', 'egg']|['crustaceons', 'soybeans']|46.1|23.05|5|False|False
-13|cakes|['beans', 'bread', 'bread', 'bread 2', 'bread 2', 'egg', 'lobster thermador', 'mice']|['mustard', 'eggs']|61.9|30.95|5|False|False
-0|egg bundles|['bread', 'bread 2', 'cheese', 'egg', 'lobster thermador']|['sulphur']|82.9|41.45|5|False|False
-13|happy days|['alligator', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'cheese', 'egg', 'egg', 'mice']|['sesame', 'nuts']|68.5|34.25|5|False|False
-15|happy days|['alligator', 'alligator', 'alligator', 'bread 2', 'bread 2', 'cheese', 'mice', 'mice']|['mustard']|88.5|44.25|5|True|False
-22|cakes|['alligator', 'alligator', 'bread', 'mice', 'mice']|['fish']|86.5|43.25|5|False|False
-2|cakes|['alligator', 'alligator', 'bread', 'egg']|['soybeans', 'sulphur']|80.0|40.0|5|False|False
-0|sad bundles|['beans', 'bread', 'bread', 'cheese', 'lobster thermador', 'mice']|['crustaceons', 'gluten']|49.9|24.95|5|False|False
-5|tree time|['alligator', 'beans', 'bread 2', 'bread 2', 'egg', 'lobster thermador', 'mice']|['sesame']|49.1|24.55|5|False|False
-19|sad bundles|['alligator', 'beans', 'bread', 'cheese', 'cheese', 'cheese', 'lobster thermador', 'mice', 'mice', 'mice']|['sesame']|20.7|16|5|True|False
-12|tree time|['alligator', 'beans', 'beans', 'bread 2', 'bread 2', 'cheese', 'cheese', 'cheese', 'mice', 'mice']|['mustard']|41.2|20.6|5|False|False
-8|cakes|['alligator', 'beans', 'beans', 'bread', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'mice', 'mice', 'mice']|['lupin']|10.1|9|5|True|False
-6|cakes|['alligator', 'alligator', 'bread', 'bread 2', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice']|['sulphur', 'lupin', 'eggs']|40.1|20.05|5|False|False
-5|happy days|['beans', 'bread', 'bread', 'bread', 'bread 2', 'cheese', 'egg']|['mustard', 'soybeans', 'nuts']|62.3|31.15|5|False|False
-14|sad bundles|['beans', 'bread', 'bread 2', 'bread 2', 'egg']|['eggs']|81.6|40.8|5|False|False
-16|tree time|['beans', 'bread', 'bread', 'egg', 'egg', 'lobster thermador', 'lobster thermador']|['milk', 'peanuts']|24.1|17|5|False|False
-9|tree time|['beans', 'bread 2', 'bread 2', 'bread 2', 'egg', 'lobster thermador', 'mice', 'mice']|['sulphur', 'lupin', 'sesame']|10.1|17|5|False|False
-5|egg bundles|['bread', 'bread 2', 'egg', 'egg', 'mice']|['sesame', 'celery', 'nuts']|90.4|45.2|5|False|False
-19|tree time|['alligator', 'alligator', 'beans', 'bread', 'bread 2', 'egg', 'egg', 'egg', 'mice']|['soybeans', 'lupin']|71.0|35.5|5|False|False
-13|cakes|['alligator', 'beans', 'beans', 'beans', 'bread', 'bread 2', 'lobster thermador', 'lobster thermador', 'mice']|['eggs']|25.2|18|5|False|False
-6|tree time|['egg', 'lobster thermador', 'mice', 'mice', 'mice']|['crustaceons', 'milk', 'celery']|74.4|37.2|5|False|False
-18|cakes|['beans', 'bread', 'bread', 'cheese', 'cheese', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'mice']|['celery']|47.1|23.55|5|False|False
-24|tree time|['alligator', 'alligator', 'beans', 'bread', 'bread', 'bread', 'cheese', 'cheese', 'egg', 'egg']|['gluten', 'soybeans']|67.9|33.95|5|True|False
-1|egg bundles|['alligator', 'alligator', 'beans', 'bread 2', 'bread 2', 'cheese', 'egg', 'egg', 'lobster thermador']|['soybeans', 'peanuts']|38.1|19.05|5|False|False
-4|tree time|['alligator', 'beans', 'beans', 'bread', 'bread', 'egg', 'lobster thermador', 'mice', 'mice', 'mice']|['sulphur', 'eggs', 'nuts']|95.2|47.6|5|False|False
+4&happy days&['alligator', 'alligator', 'bread', 'bread 2', 'egg', 'egg']&['fish']&85.6&43&5&False&False
+1&tree time&['bread', 'cheese', 'egg', 'egg']&['mustard']&83.6&42&5&False&False
+8&cakes&['beans', 'beans', 'bread 2', 'cheese', 'cheese', 'egg', 'egg', 'lobster thermador', 'mice']&['sulphur', 'nuts']&6.4&5&5&False&False
+23&cakes&['alligator', 'beans', 'bread', 'bread', 'bread 2', 'bread 2']&['nuts', 'peanuts', 'fish']&17.9&13&5&False&False
+4&tree time&['alligator', 'bread 2', 'bread 2', 'mice', 'mice']&['sesame', 'eggs', 'molluscs']&36.8&18&5&False&False
+6&sad bundles&['alligator', 'beans', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['lupin', 'fish']&19.2&16&5&True&False
+19&happy days&['alligator', 'beans', 'beans', 'bread 2', 'bread 2', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['nuts']&20.7&15&5&False&False
+3&tree time&['alligator', 'bread 2', 'bread 2', 'cheese', 'lobster thermador', 'mice']&['fish']&20.5&12&5&False&False
+15&happy days&['bread', 'bread 2', 'bread 2', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['sulphur', 'soybeans', 'mustard']&95.2&48&5&False&False
+15&tree time&['bread', 'cheese', 'cheese', 'lobster thermador']&['fish']&33.6&17&5&False&False
+4&cakes&['bread', 'bread', 'bread 2', 'egg', 'lobster thermador', 'mice']&['lupin', 'molluscs']&10.7&20&5&False&False
+16&tree time&['alligator', 'alligator', 'bread', 'bread', 'bread', 'egg', 'egg', 'egg', 'lobster thermador', 'lobster thermador']&['sulphur']&59.8&30&5&False&False
+9&cakes&['alligator', 'beans', 'bread', 'bread', 'bread', 'cheese', 'mice', 'mice']&['celery', 'gluten', 'crustaceons']&92.0&46&5&False&False
+22&sad bundles&['alligator', 'beans', 'bread', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'lobster thermador', 'mice']&['milk', 'celery', 'gluten']&50.6&25&5&False&False
+4&cakes&['alligator', 'alligator', 'beans', 'bread', 'bread 2', 'bread 2', 'egg', 'mice', 'mice']&['milk', 'nuts', 'gluten']&48.1&24&5&True&False
+3&happy days&['alligator', 'alligator', 'bread 2', 'egg', 'egg', 'egg', 'mice']&['eggs']&68.9&34&5&False&False
+24&cakes&['beans', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['peanuts']&8.5&8&5&False&False
+22&sad bundles&['alligator', 'alligator', 'beans', 'cheese', 'cheese', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador']&['fish']&30.6&15&5&False&False
+6&happy days&['alligator', 'bread', 'bread', 'bread 2', 'cheese', 'egg', 'egg', 'mice']&['eggs', 'mustard']&52.6&26&5&False&False
+2&sad bundles&['alligator', 'bread', 'bread 2', 'bread 2', 'bread 2', 'lobster thermador', 'lobster thermador', 'mice']&['eggs', 'peanuts', 'crustaceons']&22.0&14&5&False&False
+1&happy days&['beans', 'bread', 'bread', 'mice', 'mice']&['eggs', 'gluten']&87.3&44&5&True&False
+24&cakes&['beans', 'beans', 'bread 2', 'egg']&['celery', 'soybeans', 'crustaceons']&48.9&24&5&False&False
+22&egg bundles&['alligator', 'bread 2', 'egg', 'egg', 'lobster thermador', 'lobster thermador']&['milk']&81.7&41&5&False&False
+23&happy days&['alligator', 'bread', 'bread', 'cheese', 'lobster thermador']&['milk', 'molluscs']&59.5&30&5&False&False
+3&sad bundles&['beans', 'beans', 'beans', 'beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'lobster thermador']&['soybeans', 'molluscs']&7.0&11&5&False&False
+0&tree time&['beans', 'bread', 'bread', 'bread', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'mice']&['sesame']&61.9&31&5&False&False
+7&happy days&['bread 2', 'cheese', 'cheese', 'egg']&['celery', 'crustaceons', 'fish']&27.3&18&5&False&False
+4&egg bundles&['alligator', 'alligator', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'lobster thermador', 'mice']&['nuts', 'celery']&27.9&18&5&False&False
+20&egg bundles&['alligator', 'alligator', 'alligator', 'beans', 'cheese', 'cheese', 'egg', 'egg', 'mice', 'mice']&['milk', 'eggs']&77.3&39&5&False&False
+1&happy days&['alligator', 'beans', 'egg', 'lobster thermador', 'mice']&['soybeans']&48.5&24&5&False&False
+5&sad bundles&['alligator', 'alligator', 'bread 2', 'lobster thermador', 'mice']&['soybeans']&20.6&14&5&False&False
+13&tree time&['alligator', 'bread', 'bread 2', 'cheese', 'cheese', 'egg', 'egg', 'mice']&['nuts', 'gluten', 'crustaceons']&9.6&16&5&False&False
+17&egg bundles&['alligator', 'beans', 'beans', 'bread 2', 'cheese', 'cheese', 'cheese', 'egg', 'mice']&['mustard']&58.6&29&5&False&False
+8&cakes&['alligator', 'beans', 'beans', 'bread', 'bread', 'lobster thermador', 'mice', 'mice']&['milk', 'soybeans']&21.1&17&5&False&False
+21&cakes&['alligator', 'beans', 'bread', 'cheese', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador']&['crustaceons']&78.9&39&5&False&False
+18&tree time&['beans', 'bread', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'cheese', 'egg', 'mice']&['peanuts', 'gluten']&58.3&29&5&False&False
+17&cakes&['alligator', 'alligator', 'bread', 'bread 2', 'cheese', 'mice']&['milk', 'celery']&94.2&47&5&False&False
+17&sad bundles&['bread 2', 'egg', 'lobster thermador', 'lobster thermador']&['milk']&18.3&9&5&False&False
+13&sad bundles&['beans', 'bread 2', 'cheese', 'cheese', 'egg', 'mice']&['lupin', 'soybeans']&63.5&32&5&False&False
+10&happy days&['bread', 'bread', 'bread 2', 'bread 2', 'lobster thermador']&['sulphur', 'gluten', 'crustaceons']&68.1&34&5&False&False
+18&happy days&['bread', 'bread', 'bread', 'bread', 'egg', 'egg', 'egg', 'egg', 'egg']&['mustard', 'peanuts']&14.8&20&5&True&False
+16&sad bundles&['beans', 'bread', 'cheese', 'cheese', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['soybeans', 'peanuts']&13.6&14&5&False&False
+18&tree time&['alligator', 'alligator', 'beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'cheese', 'lobster thermador']&['sulphur']&20.5&10&5&False&False
+24&tree time&['bread', 'bread', 'bread', 'cheese', 'lobster thermador']&['peanuts', 'molluscs']&59.2&30&5&False&False
+3&happy days&['beans', 'bread', 'cheese', 'egg']&['gluten']&72.5&36&5&False&False
+8&happy days&['bread', 'bread', 'egg', 'lobster thermador', 'mice']&['eggs', 'sesame']&71.3&36&5&False&False
+19&egg bundles&['beans', 'beans', 'bread', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'mice']&['crustaceons']&77.8&39&5&False&False
+9&sad bundles&['alligator', 'alligator', 'beans', 'beans', 'cheese', 'cheese', 'cheese', 'cheese', 'egg', 'mice']&['lupin', 'eggs', 'soybeans']&8.0&10&5&True&False
+17&cakes&['alligator', 'beans', 'bread', 'bread 2', 'cheese', 'mice']&['lupin', 'fish']&48.2&24&5&False&False
+15&cakes&['alligator', 'bread 2', 'cheese', 'lobster thermador', 'mice']&['soybeans', 'crustaceons']&33.9&17&5&False&False
+15&egg bundles&['alligator', 'beans', 'beans', 'bread', 'bread 2', 'mice', 'mice']&['lupin', 'sesame', 'eggs']&60.1&30&5&False&False
+22&cakes&['beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']&['sulphur', 'mustard', 'fish']&98.0&49&5&False&False
+5&sad bundles&['beans', 'beans', 'bread', 'egg', 'lobster thermador']&['sulphur', 'soybeans', 'crustaceons']&14.3&16&5&False&False
+6&happy days&['alligator', 'bread', 'bread 2', 'bread 2', 'bread 2', 'bread 2', 'egg', 'mice', 'mice', 'mice']&['sesame', 'peanuts', 'fish']&30.9&15&5&False&False
+16&cakes&['beans', 'beans', 'bread', 'bread', 'bread 2', 'egg', 'lobster thermador', 'lobster thermador']&['eggs', 'crustaceons']&77.7&39&5&False&False
+6&cakes&['beans', 'bread', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'mice']&['sulphur', 'soybeans', 'fish']&28.5&14&5&False&False
+23&happy days&['alligator', 'alligator', 'beans', 'beans', 'bread 2', 'cheese', 'mice']&['lupin', 'eggs', 'sesame']&48.0&24&5&False&False
+7&happy days&['beans', 'cheese', 'egg', 'lobster thermador']&['milk', 'sesame']&87.7&44&5&True&False
+18&egg bundles&['alligator', 'beans', 'bread 2', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['crustaceons', 'fish']&66.3&33&5&False&False
+10&happy days&['alligator', 'alligator', 'alligator', 'beans', 'bread', 'bread', 'egg', 'mice']&['milk', 'nuts', 'peanuts']&47.4&24&5&False&False
+14&sad bundles&['bread', 'bread 2', 'egg', 'lobster thermador', 'lobster thermador']&['milk', 'nuts']&74.6&37&5&False&False
+21&cakes&['bread', 'cheese', 'egg', 'mice']&['celery']&62.2&31&5&False&False
+17&egg bundles&['beans', 'bread', 'lobster thermador', 'mice']&['sulphur', 'celery', 'crustaceons']&17.3&18&5&False&False
+5&cakes&['beans', 'bread 2', 'cheese', 'lobster thermador']&['peanuts']&78.1&39&5&False&False
+5&egg bundles&['bread', 'bread 2', 'lobster thermador', 'mice']&['nuts', 'peanuts']&28.4&19&5&False&False
+13&sad bundles&['alligator', 'beans', 'bread', 'bread', 'cheese', 'cheese', 'cheese', 'cheese', 'lobster thermador', 'mice']&['nuts', 'celery', 'eggs']&24.3&12&5&False&False
+21&sad bundles&['alligator', 'beans', 'beans', 'beans', 'bread 2', 'cheese', 'cheese']&['peanuts']&68.0&34&5&False&False
+20&tree time&['beans', 'beans', 'beans', 'cheese', 'egg', 'egg', 'egg', 'lobster thermador']&['molluscs']&17.8&20&5&False&False
+16&egg bundles&['alligator', 'alligator', 'beans', 'bread', 'cheese', 'cheese', 'lobster thermador']&['sesame', 'celery']&18.0&10&5&False&False
+20&egg bundles&['alligator', 'beans', 'bread', 'cheese', 'egg', 'lobster thermador', 'mice']&['mustard']&90.6&45&5&False&False
+12&cakes&['cheese', 'cheese', 'egg', 'egg', 'lobster thermador', 'mice', 'mice']&['gluten']&56.3&28&5&False&False
+2&cakes&['alligator', 'bread 2', 'cheese', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['milk', 'lupin']&18.7&16&5&False&False
+24&egg bundles&['bread', 'bread 2', 'bread 2', 'egg', 'mice']&['eggs']&72.6&36&5&False&False
+0&egg bundles&['beans', 'bread', 'cheese', 'cheese', 'egg', 'lobster thermador', 'mice', 'mice', 'mice']&['molluscs', 'crustaceons']&80.6&40&5&False&False
+3&cakes&['beans', 'beans', 'bread', 'bread 2', 'cheese', 'egg', 'egg', 'lobster thermador', 'mice']&['milk', 'sesame', 'nuts']&37.0&18&5&False&False
+14&cakes&['beans', 'bread', 'bread 2', 'bread 2', 'egg', 'egg', 'egg', 'mice', 'mice']&['molluscs', 'peanuts', 'mustard']&32.9&20&5&False&False
+7&sad bundles&['beans', 'bread', 'bread 2', 'cheese', 'cheese', 'mice']&['eggs']&39.6&20&5&False&False
+24&tree time&['alligator', 'beans', 'beans', 'bread 2', 'bread 2', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['gluten', 'fish']&19.0&11&5&False&False
+2&egg bundles&['beans', 'beans', 'cheese', 'cheese', 'egg', 'egg']&['molluscs', 'fish']&28.2&14&5&True&False
+1&sad bundles&['alligator', 'alligator', 'alligator', 'alligator', 'beans', 'cheese', 'lobster thermador', 'mice']&['celery', 'peanuts', 'gluten']&62.0&31&5&False&False
+3&tree time&['alligator', 'beans', 'bread', 'bread 2', 'cheese']&['molluscs']&57.7&29&5&False&False
+24&egg bundles&['alligator', 'beans', 'bread', 'bread', 'bread', 'bread', 'cheese']&['peanuts', 'nuts', 'gluten']&27.6&14&5&False&False
+15&sad bundles&['alligator', 'bread 2', 'cheese', 'egg', 'egg', 'egg', 'lobster thermador', 'mice', 'mice']&['milk', 'gluten', 'crustaceons']&52.6&26&5&False&False
+10&egg bundles&['alligator', 'alligator', 'alligator', 'beans', 'beans', 'bread', 'bread 2', 'cheese', 'lobster thermador']&['mustard']&85.5&43&5&False&False
+11&sad bundles&['alligator', 'beans', 'beans', 'bread 2', 'egg']&['sulphur', 'eggs', 'mustard']&13.0&18&5&False&False
+1&sad bundles&['alligator', 'beans', 'beans', 'bread 2', 'bread 2', 'cheese', 'mice', 'mice', 'mice']&['eggs', 'soybeans', 'molluscs']&77.4&39&5&False&False
+7&sad bundles&['alligator', 'alligator', 'alligator', 'beans', 'beans', 'bread', 'cheese', 'lobster thermador', 'mice']&['sesame', 'eggs', 'mustard']&54.2&27&5&False&False
+10&egg bundles&['bread', 'bread', 'egg', 'egg', 'lobster thermador', 'lobster thermador']&['peanuts']&88.1&44&5&False&False
+20&egg bundles&['bread', 'bread', 'bread', 'bread', 'bread 2', 'lobster thermador', 'mice']&['eggs']&66.8&33&5&False&False
+18&happy days&['alligator', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['milk', 'peanuts']&80.5&40&5&False&False
+11&tree time&['alligator', 'beans', 'beans', 'bread', 'cheese', 'cheese', 'egg', 'egg', 'egg', 'mice']&['molluscs']&37.9&19&5&True&False
+1&sad bundles&['beans', 'bread', 'cheese', 'cheese', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador']&['sulphur', 'mustard']&37.9&19&5&True&False
+9&cakes&['alligator', 'egg', 'egg', 'egg']&['molluscs', 'gluten']&91.6&46&5&False&False
+14&sad bundles&['bread', 'bread', 'bread', 'egg', 'mice']&['lupin', 'sesame']&22.9&11&5&True&False
+12&tree time&['alligator', 'alligator', 'beans', 'cheese', 'egg', 'lobster thermador', 'mice']&['lupin']&70.8&35&5&False&False
+15&sad bundles&['alligator', 'beans', 'beans', 'bread 2', 'bread 2', 'bread 2', 'mice']&['soybeans', 'peanuts']&58.3&29&5&False&False
+17&egg bundles&['alligator', 'cheese', 'egg', 'lobster thermador', 'mice']&['lupin', 'sesame']&95.2&48&5&False&False
+12&tree time&['alligator', 'alligator', 'beans', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['nuts', 'molluscs']&24.4&15&5&False&False
+23&cakes&['alligator', 'bread', 'cheese', 'cheese', 'egg', 'egg', 'lobster thermador']&['sulphur', 'nuts', 'eggs']&10.1&12&5&False&False
+6&egg bundles&['alligator', 'alligator', 'alligator', 'alligator', 'alligator', 'bread', 'bread', 'cheese', 'cheese', 'lobster thermador']&['nuts', 'mustard']&61.9&31&5&False&False
+6&happy days&['beans', 'bread', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['sulphur', 'peanuts']&56.5&28&5&False&False
+12&happy days&['beans', 'beans', 'bread', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'egg', 'lobster thermador']&['mustard', 'molluscs']&13.6&19&5&False&False
+16&happy days&['alligator', 'alligator', 'beans', 'bread', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'mice']&['nuts', 'mustard']&73.6&37&5&False&False
+4&cakes&['alligator', 'beans', 'bread 2', 'cheese', 'egg']&['crustaceons']&96.0&48&5&False&False
+2&egg bundles&['beans', 'bread', 'cheese', 'egg', 'egg', 'egg', 'egg', 'lobster thermador']&['celery', 'peanuts', 'crustaceons']&72.2&36&5&False&False
+20&egg bundles&['alligator', 'alligator', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['sulphur', 'mustard']&68.9&34&5&False&False
+9&happy days&['alligator', 'bread 2', 'bread 2', 'cheese', 'egg', 'egg', 'egg', 'egg', 'lobster thermador', 'mice']&['peanuts', 'molluscs', 'crustaceons']&97.5&49&5&False&False
+23&sad bundles&['alligator', 'alligator', 'egg', 'mice']&['sesame', 'eggs', 'molluscs']&71.8&36&5&False&False
+15&sad bundles&['alligator', 'beans', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['gluten']&81.2&41&5&False&False
+9&egg bundles&['alligator', 'bread', 'bread', 'bread 2', 'bread 2', 'bread 2', 'cheese']&['eggs']&87.2&44&5&True&False
+3&sad bundles&['alligator', 'beans', 'bread', 'bread', 'cheese', 'mice']&['soybeans']&16.3&9&5&False&False
+23&cakes&['beans', 'bread 2', 'bread 2', 'cheese']&['eggs']&88.1&44&5&False&False
+20&happy days&['alligator', 'beans', 'bread', 'bread', 'bread', 'bread 2', 'egg', 'lobster thermador', 'mice']&['eggs']&32.8&16&5&False&False
+4&cakes&['bread', 'bread 2', 'cheese', 'cheese', 'egg', 'lobster thermador', 'mice']&['soybeans']&14.5&7&5&False&False
+21&egg bundles&['bread 2', 'bread 2', 'bread 2', 'mice', 'mice']&['celery', 'crustaceons']&36.7&18&5&True&False
+7&happy days&['alligator', 'beans', 'beans', 'bread', 'bread 2', 'mice']&['crustaceons', 'fish']&98.4&49&5&False&False
+24&happy days&['bread 2', 'cheese', 'cheese', 'cheese', 'egg', 'egg', 'lobster thermador', 'mice', 'mice', 'mice']&['molluscs']&78.1&39&5&False&False
+7&tree time&['alligator', 'beans', 'bread', 'bread', 'mice']&['sulphur', 'fish']&87.3&44&5&False&False
+19&cakes&['bread', 'bread 2', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['gluten']&68.7&34&5&False&False
+0&egg bundles&['alligator', 'beans', 'bread', 'cheese', 'egg', 'lobster thermador', 'mice', 'mice', 'mice']&['eggs']&13.1&11&5&False&False
+18&tree time&['alligator', 'alligator', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'cheese', 'lobster thermador']&['milk', 'soybeans']&47.9&24&5&False&False
+14&tree time&['beans', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg']&['mustard', 'molluscs', 'crustaceons']&82.0&41&5&False&False
+11&cakes&['bread', 'bread', 'bread 2', 'bread 2', 'egg', 'lobster thermador']&['celery', 'gluten']&75.1&38&5&False&False
+23&tree time&['alligator', 'bread 2', 'cheese', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador']&['milk']&47.5&24&5&True&False
+0&egg bundles&['bread', 'bread 2', 'bread 2', 'cheese', 'egg', 'mice']&['sesame', 'celery']&5.7&12&5&False&False
+23&happy days&['alligator', 'alligator', 'alligator', 'bread 2', 'cheese', 'lobster thermador', 'mice', 'mice']&['eggs', 'molluscs', 'fish']&76.6&38&5&False&False
+0&sad bundles&['beans', 'cheese', 'egg', 'lobster thermador', 'mice']&['molluscs', 'gluten']&24.3&12&5&True&False
+11&cakes&['beans', 'bread', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'egg']&['molluscs']&17.3&11&5&False&False
+19&tree time&['alligator', 'alligator', 'bread', 'cheese', 'lobster thermador', 'mice']&['lupin', 'nuts', 'crustaceons']&48.2&24&5&False&False
+21&tree time&['beans', 'beans', 'cheese', 'egg', 'lobster thermador', 'mice', 'mice']&['sesame', 'molluscs', 'crustaceons']&81.9&41&5&False&False
+2&tree time&['alligator', 'bread 2', 'bread 2', 'egg', 'mice']&['soybeans', 'gluten']&97.2&49&5&False&False
+12&tree time&['beans', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador']&['sesame']&30.1&16&5&False&False
+21&cakes&['alligator', 'beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'egg', 'egg', 'mice', 'mice']&['molluscs']&77.0&38&5&False&False
+23&happy days&['beans', 'mice', 'mice', 'mice']&['sesame']&20.3&15&5&False&False
+14&happy days&['alligator', 'alligator', 'alligator', 'bread', 'cheese', 'cheese', 'cheese', 'cheese', 'egg']&['sulphur', 'nuts', 'soybeans']&64.6&32&5&False&False
+13&sad bundles&['alligator', 'alligator', 'beans', 'beans', 'bread 2', 'cheese', 'egg', 'egg', 'egg', 'lobster thermador']&['eggs']&97.7&49&5&False&False
+13&sad bundles&['alligator', 'beans', 'cheese', 'egg', 'egg', 'egg']&['sulphur', 'lupin', 'fish']&17.7&18&5&False&False
+5&happy days&['beans', 'bread', 'bread 2', 'cheese', 'lobster thermador']&['fish']&63.9&32&5&False&False
+2&cakes&['beans', 'beans', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['crustaceons']&79.5&40&5&False&False
+22&sad bundles&['alligator', 'alligator', 'alligator', 'alligator', 'alligator', 'bread 2', 'egg', 'egg', 'lobster thermador', 'lobster thermador']&['sesame', 'molluscs']&45.9&23&5&False&False
+10&tree time&['alligator', 'bread', 'bread 2', 'cheese', 'cheese', 'egg', 'egg', 'mice']&['eggs']&52.0&26&5&False&False
+20&tree time&['beans', 'beans', 'bread 2', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'lobster thermador']&['molluscs', 'fish']&53.6&27&5&False&False
+8&sad bundles&['beans', 'bread', 'bread', 'cheese', 'egg', 'egg']&['eggs', 'peanuts']&48.0&24&5&False&False
+11&egg bundles&['alligator', 'alligator', 'beans', 'bread', 'bread', 'bread', 'bread 2', 'lobster thermador', 'lobster thermador', 'mice']&['milk', 'eggs']&17.7&20&5&False&False
+9&tree time&['bread', 'bread', 'cheese', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'mice']&['sesame', 'nuts', 'crustaceons']&67.8&34&5&False&False
+7&happy days&['beans', 'bread', 'bread', 'bread', 'bread 2', 'bread 2', 'cheese', 'egg']&['peanuts']&54.1&27&5&False&False
+3&egg bundles&['beans', 'bread', 'bread', 'bread 2', 'cheese', 'mice']&['lupin', 'celery']&37.9&19&5&False&False
+9&sad bundles&['alligator', 'alligator', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'mice']&['molluscs']&26.8&13&5&False&False
+13&egg bundles&['alligator', 'beans', 'beans', 'beans', 'beans', 'beans', 'bread', 'bread', 'mice']&['sulphur', 'soybeans']&45.6&23&5&False&False
+0&cakes&['alligator', 'beans', 'bread', 'bread', 'egg', 'egg', 'egg', 'mice']&['milk', 'crustaceons']&25.0&12&5&True&False
+5&tree time&['beans', 'bread', 'bread 2', 'bread 2', 'cheese']&['milk', 'lupin']&16.1&8&5&False&False
+19&egg bundles&['bread 2', 'bread 2', 'bread 2', 'egg', 'mice']&['milk', 'sulphur', 'sesame']&88.4&44&5&False&False
+16&cakes&['alligator', 'beans', 'bread', 'cheese', 'lobster thermador']&['milk', 'celery', 'gluten']&38.2&19&5&False&False
+0&tree time&['bread 2', 'cheese', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['soybeans']&40.4&20&5&False&False
+12&sad bundles&['alligator', 'beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'lobster thermador', 'mice']&['celery', 'molluscs']&37.0&18&5&False&False
+8&cakes&['alligator', 'beans', 'bread', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg', 'lobster thermador']&['peanuts', 'lupin', 'mustard']&94.4&47&5&False&False
+1&egg bundles&['bread', 'bread 2', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['mustard']&97.2&49&5&False&False
+4&sad bundles&['beans', 'bread', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['sulphur', 'nuts', 'lupin']&75.5&38&5&False&False
+10&sad bundles&['alligator', 'alligator', 'bread', 'bread 2', 'cheese', 'egg', 'egg', 'lobster thermador', 'mice']&['gluten']&15.9&8&5&False&False
+13&sad bundles&['alligator', 'alligator', 'cheese', 'mice', 'mice']&['peanuts']&49.6&25&5&False&False
+16&sad bundles&['alligator', 'alligator', 'alligator', 'bread', 'cheese', 'egg', 'lobster thermador', 'mice']&['milk', 'soybeans']&66.2&33&5&False&False
+16&happy days&['alligator', 'bread 2', 'bread 2', 'cheese', 'cheese', 'lobster thermador']&['sesame', 'crustaceons']&41.6&21&5&False&False
+3&egg bundles&['alligator', 'beans', 'bread 2', 'egg']&['nuts', 'crustaceons', 'fish']&97.9&49&5&True&False
+11&tree time&['beans', 'beans', 'bread', 'cheese']&['peanuts']&39.9&20&5&False&False
+21&cakes&['bread', 'cheese', 'lobster thermador', 'lobster thermador', 'lobster thermador']&['molluscs']&39.9&20&5&False&False
+7&happy days&['alligator', 'beans', 'beans', 'lobster thermador']&['milk', 'eggs', 'celery']&61.0&30&5&False&False
+2&tree time&['beans', 'bread', 'cheese', 'cheese', 'cheese', 'egg', 'egg', 'lobster thermador', 'mice']&['sulphur', 'fish']&60.0&30&5&False&False
+17&tree time&['alligator', 'bread 2', 'bread 2', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'mice']&['sulphur']&21.2&11&5&False&False
+10&tree time&['alligator', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'cheese', 'egg', 'lobster thermador', 'lobster thermador']&['milk', 'lupin']&33.1&17&5&False&False
+24&tree time&['beans', 'bread', 'bread', 'bread', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'lobster thermador']&['lupin']&47.2&24&5&False&False
+4&sad bundles&['beans', 'beans', 'beans', 'bread 2', 'cheese', 'lobster thermador', 'mice']&['sulphur']&13.8&7&5&False&False
+14&egg bundles&['alligator', 'bread', 'cheese', 'lobster thermador', 'mice', 'mice']&['milk', 'celery', 'soybeans']&59.7&30&5&False&False
+17&egg bundles&['beans', 'bread', 'bread', 'egg']&['peanuts', 'mustard', 'crustaceons']&17.5&9&5&False&False
+10&tree time&['alligator', 'bread 2', 'cheese', 'cheese', 'cheese', 'cheese', 'cheese', 'egg', 'mice']&['sesame', 'molluscs']&64.2&32&5&False&False
+1&happy days&['alligator', 'beans', 'beans', 'beans', 'bread', 'cheese']&['nuts', 'fish']&86.9&43&5&False&False
+21&egg bundles&['alligator', 'bread', 'bread', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador']&['peanuts']&78.5&39&5&True&False
+1&sad bundles&['beans', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'egg', 'egg']&['lupin']&7.1&18&5&False&False
+6&cakes&['alligator', 'alligator', 'beans', 'bread', 'cheese', 'cheese', 'egg', 'lobster thermador']&['lupin', 'sesame', 'mustard']&95.7&48&5&False&False
+22&tree time&['alligator', 'beans', 'beans', 'bread', 'cheese', 'cheese', 'cheese', 'egg']&['mustard']&47.6&24&5&False&False
+8&sad bundles&['beans', 'bread', 'cheese', 'cheese', 'egg', 'mice', 'mice']&['lupin', 'celery']&29.4&15&5&False&False
+13&tree time&['alligator', 'alligator', 'bread 2', 'bread 2', 'cheese', 'cheese', 'cheese', 'cheese', 'egg', 'egg']&['lupin', 'molluscs']&85.9&43&5&True&False
+5&cakes&['beans', 'beans', 'beans', 'bread', 'cheese', 'mice', 'mice']&['crustaceons', 'fish']&46.1&23&5&False&False
+12&tree time&['alligator', 'bread 2', 'egg', 'lobster thermador', 'lobster thermador', 'mice', 'mice', 'mice']&['celery', 'crustaceons']&62.4&31&5&False&False
+14&egg bundles&['alligator', 'beans', 'beans', 'bread 2', 'cheese', 'lobster thermador', 'mice', 'mice']&['sesame', 'mustard']&36.9&18&5&False&False
+24&cakes&['bread 2', 'bread 2', 'cheese', 'egg', 'egg', 'egg', 'lobster thermador']&['nuts', 'celery']&49.3&25&5&False&False
+7&egg bundles&['alligator', 'alligator', 'beans', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg', 'mice']&['sesame', 'eggs', 'gluten']&36.8&18&5&False&False
+12&tree time&['bread 2', 'bread 2', 'egg', 'egg', 'mice']&['eggs', 'gluten']&34.5&19&5&False&False
+13&egg bundles&['alligator', 'beans', 'bread', 'bread', 'lobster thermador', 'lobster thermador', 'mice']&['milk', 'sulphur']&75.3&38&5&True&False
+9&egg bundles&['beans', 'beans', 'bread', 'bread 2', 'egg', 'lobster thermador', 'mice', 'mice']&['milk', 'lupin']&90.1&45&5&False&False
+0&egg bundles&['beans', 'bread 2', 'bread 2', 'cheese', 'lobster thermador']&['molluscs', 'peanuts']&88.3&44&5&False&False
+0&tree time&['alligator', 'alligator', 'cheese', 'lobster thermador', 'mice']&['peanuts', 'gluten', 'fish']&58.8&29&5&False&False
+8&happy days&['beans', 'beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'lobster thermador', 'lobster thermador']&['sulphur', 'celery']&54.4&27&5&True&False
+2&egg bundles&['bread', 'bread', 'bread', 'cheese', 'lobster thermador']&['lupin', 'sesame', 'peanuts']&81.9&41&5&False&False
+16&happy days&['beans', 'beans', 'bread', 'mice']&['nuts', 'crustaceons']&12.4&12&5&False&False
+15&cakes&['alligator', 'alligator', 'bread 2', 'egg', 'egg', 'egg']&['lupin', 'eggs', 'crustaceons']&59.7&30&5&False&False
+22&happy days&['beans', 'bread', 'bread 2', 'cheese', 'mice', 'mice']&['lupin', 'gluten']&6.7&9&5&False&False
+8&egg bundles&['alligator', 'alligator', 'bread', 'bread', 'bread', 'cheese', 'cheese', 'lobster thermador', 'lobster thermador', 'mice']&['celery', 'fish']&73.7&37&5&False&False
+6&cakes&['alligator', 'alligator', 'bread', 'bread 2', 'cheese', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'lobster thermador']&['molluscs', 'peanuts']&86.1&43&5&False&False
+1&egg bundles&['alligator', 'beans', 'beans', 'bread', 'bread', 'lobster thermador', 'mice', 'mice']&['eggs', 'crustaceons']&41.9&21&5&False&False
+19&tree time&['alligator', 'beans', 'beans', 'cheese', 'egg']&['sulphur', 'peanuts']&96.7&48&5&False&False
+11&sad bundles&['alligator', 'alligator', 'bread', 'bread', 'bread 2', 'cheese']&['lupin', 'soybeans', 'gluten']&5.2&16&5&False&False
+10&sad bundles&['alligator', 'bread 2', 'bread 2', 'bread 2', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'lobster thermador']&['lupin', 'eggs', 'gluten']&25.8&19&5&False&False
+20&tree time&['bread', 'bread', 'cheese', 'egg']&['milk']&91.0&46&5&False&False
+17&tree time&['alligator', 'bread', 'bread', 'bread 2', 'bread 2', 'cheese', 'mice']&['molluscs']&94.6&47&5&False&False
+9&egg bundles&['beans', 'bread 2', 'mice', 'mice']&['sesame']&69.5&35&5&False&False
+12&tree time&['alligator', 'beans', 'bread', 'bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg']&['sesame', 'mustard']&54.0&27&5&False&False
+8&happy days&['alligator', 'beans', 'beans', 'bread', 'bread', 'cheese', 'egg', 'egg']&['lupin', 'sesame']&39.7&20&5&False&False
+18&sad bundles&['beans', 'bread', 'bread 2', 'cheese', 'cheese', 'cheese', 'egg', 'lobster thermador', 'mice', 'mice']&['sesame', 'gluten']&49.4&25&5&False&False
+2&egg bundles&['beans', 'egg', 'egg', 'mice']&['mustard', 'peanuts']&32.8&16&5&False&False
+0&cakes&['alligator', 'bread', 'bread', 'mice']&['celery', 'peanuts']&89.2&45&5&False&False
+18&cakes&['beans', 'beans', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'egg', 'mice']&['sesame', 'molluscs']&88.2&44&5&False&False
+14&cakes&['alligator', 'bread 2', 'lobster thermador', 'mice', 'mice']&['lupin']&76.2&38&5&False&False
+19&happy days&['alligator', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['lupin', 'nuts', 'fish']&63.5&32&5&False&False
+7&happy days&['beans', 'bread', 'bread', 'bread 2', 'bread 2', 'egg']&['milk', 'lupin', 'soybeans']&6.0&18&5&False&False
+5&cakes&['alligator', 'egg', 'egg', 'egg', 'egg', 'egg', 'mice', 'mice']&['lupin', 'eggs']&44.3&22&5&False&False
+12&sad bundles&['beans', 'bread', 'bread', 'bread', 'egg', 'egg']&['sesame', 'soybeans', 'gluten']&96.3&48&5&False&False
+22&sad bundles&['beans', 'beans', 'bread', 'bread', 'bread 2', 'cheese', 'mice']&['peanuts']&24.2&12&5&False&False
+8&sad bundles&['alligator', 'bread', 'bread', 'bread 2', 'bread 2', 'bread 2', 'cheese', 'lobster thermador', 'mice']&['lupin', 'gluten', 'fish']&44.2&22&5&False&False
+22&happy days&['alligator', 'bread', 'bread 2', 'cheese', 'lobster thermador', 'lobster thermador', 'mice']&['milk', 'lupin', 'sesame']&54.0&27&5&True&False
+20&egg bundles&['alligator', 'alligator', 'alligator', 'egg']&['sesame', 'soybeans']&97.3&49&5&False&False
+6&egg bundles&['beans', 'beans', 'bread 2', 'bread 2', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'mice']&['molluscs']&37.6&19&5&False&False
+5&cakes&['beans', 'beans', 'cheese', 'mice']&['peanuts', 'gluten']&9.1&16&5&False&False
+11&happy days&['alligator', 'beans', 'bread', 'bread', 'cheese', 'egg', 'mice', 'mice', 'mice']&['peanuts']&21.0&14&5&False&False
+4&sad bundles&['alligator', 'beans', 'beans', 'bread 2', 'cheese', 'egg', 'egg', 'egg', 'lobster thermador']&['lupin']&57.9&29&5&False&False
+13&sad bundles&['egg', 'mice', 'mice', 'mice']&['sulphur', 'nuts']&31.8&16&5&False&False
+3&happy days&['bread 2', 'cheese', 'egg', 'mice']&['peanuts', 'mustard', 'molluscs']&12.2&9&5&False&False
+19&tree time&['alligator', 'alligator', 'alligator', 'beans', 'beans', 'bread 2', 'cheese', 'egg', 'mice', 'mice']&['soybeans', 'crustaceons']&17.0&10&5&False&False
+18&cakes&['cheese', 'cheese', 'mice', 'mice', 'mice']&['sesame']&6.2&18&5&False&False
+14&egg bundles&['beans', 'bread', 'bread 2', 'cheese']&['celery']&54.0&27&5&False&False
+10&egg bundles&['alligator', 'beans', 'beans', 'bread 2', 'cheese', 'cheese', 'egg', 'lobster thermador']&['sulphur', 'gluten', 'crustaceons']&23.6&17&5&False&False
+18&sad bundles&['alligator', 'alligator', 'bread 2', 'bread 2', 'cheese', 'cheese', 'egg']&['celery', 'molluscs']&8.9&19&5&False&False
+22&happy days&['bread', 'bread 2', 'bread 2', 'cheese']&['sesame', 'peanuts', 'crustaceons']&20.7&12&5&False&False
+15&sad bundles&['alligator', 'beans', 'beans', 'beans', 'bread', 'bread 2', 'bread 2', 'cheese', 'egg', 'mice']&['gluten']&60.8&30&5&False&False
+5&cakes&['alligator', 'alligator', 'beans', 'bread', 'bread 2', 'egg', 'mice']&['milk', 'soybeans', 'fish']&35.5&18&5&True&False
+19&egg bundles&['beans', 'beans', 'lobster thermador', 'lobster thermador']&['molluscs', 'crustaceons']&95.6&48&5&False&False
+11&tree time&['alligator', 'beans', 'beans', 'bread', 'cheese', 'lobster thermador', 'lobster thermador', 'mice', 'mice', 'mice']&['sesame']&19.8&11&5&False&False
+15&egg bundles&['bread 2', 'cheese', 'egg', 'egg', 'lobster thermador', 'lobster thermador', 'lobster thermador', 'lobster thermador']&['molluscs', 'gluten']&86.6&43&5&False&False
+6&cakes&['alligator', 'beans', 'beans', 'beans', 'bread', 'bread', 'egg', 'egg', 'egg']&['fish']&73.7&37&5&False&False
+21&sad bundles&['bread', 'bread 2', 'cheese', 'egg', 'egg', 'egg', 'egg']&['celery', 'mustard']&8.7&13&5&False&False
+19&tree time&['alligator', 'bread 2', 'lobster thermador', 'lobster thermador', 'lobster thermador']&['nuts', 'soybeans']&55.8&28&5&False&False
+16&tree time&['alligator', 'beans', 'beans', 'bread 2', 'bread 2', 'cheese', 'egg', 'lobster thermador', 'mice']&['nuts', 'eggs', 'gluten']&72.4&36&5&False&False
+14&tree time&['bread 2', 'cheese', 'cheese', 'cheese']&['sulphur', 'peanuts']&25.9&16&5&False&False
+11&tree time&['alligator', 'alligator', 'beans', 'beans', 'bread', 'bread', 'egg', 'egg', 'egg']&['mustard', 'molluscs']&29.2&16&5&False&False
+23&cakes&['alligator', 'alligator', 'beans', 'beans', 'bread 2', 'bread 2', 'egg', 'mice']&['peanuts', 'fish']&48.3&24&5&True&False
+21&sad bundles&['bread', 'bread 2', 'bread 2', 'cheese', 'cheese', 'cheese', 'lobster thermador']&['lupin']&65.1&33&5&False&False
+20&tree time&['beans', 'cheese', 'cheese', 'mice', 'mice', 'mice']&['soybeans', 'crustaceons']&98.6&49&5&True&False
+9&sad bundles&['bread 2', 'cheese', 'cheese', 'egg', 'lobster thermador', 'lobster thermador', 'mice', 'mice']&['celery']&64.5&32&5&True&False
+24&sad bundles&['bread', 'bread', 'bread 2', 'cheese', 'egg']&['peanuts']&76.2&38&5&False&False
+17&sad bundles&['alligator', 'beans', 'bread', 'bread 2']&['lupin']&71.7&36&5&False&False
+2&cakes&['alligator', 'alligator', 'bread 2', 'bread 2', 'mice']&['sesame']&28.2&17&5&False&False
