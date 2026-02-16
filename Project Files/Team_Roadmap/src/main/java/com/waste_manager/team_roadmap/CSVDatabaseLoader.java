@@ -92,9 +92,14 @@ public class CSVDatabaseLoader {
             while (scanner.hasNextLine()) {
                 List<String> bundle_info = getRecordFromLine(scanner.nextLine());
 
+
                 // convert from text to array lists
-                ArrayList<String> contents = new ArrayList<>();
-                ArrayList<String> allergens = new ArrayList<>();
+                String sanitised_contents = bundle_info.get(2).replaceAll("[\\s\\[\\]']", "");
+                String sanitised_allergens = bundle_info.get(3).replaceAll("[\\s\\[\\]']", "");
+
+                ArrayList<String> contents = new ArrayList<>(Arrays.asList(sanitised_contents.split(",")));
+                ArrayList<String> allergens = new ArrayList<>(Arrays.asList(sanitised_allergens.split(",")));
+
 
                 Seller seller = sellerRepository.findById(Integer.parseInt(bundle_info.getFirst()) + 1).get();
 
