@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="most of the tests now work. only a few dont">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - BundleTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - CustomerTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - ForecastTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - IssueReportTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - ReservationTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs/Test Results - SellerTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_02_2026_12_36_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_02_2026_12_36__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_02_2026_13_32_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_02_2026_13_32__Changes_.xml" beforeDir="false" />
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="finished csv file loading">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabaseLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabaseLoader.java" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +14,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExportTestResults" outputFolder="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs" userTempatePath="" />
+  <component name="ExportTestResults" exportFormat="Xml" outputFolder="$PROJECT_DIR$/Project Files/Team_Roadmap/src/test/test runs" userTempatePath="" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Project Files/Team_Roadmap">
       <ProjectState />
@@ -53,8 +43,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -74,7 +64,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git&quot;,
-    &quot;accountId&quot;: &quot;461fd7cc-c157-4b5f-b86f-49dd5ab85b55&quot;
+    &quot;accountId&quot;: &quot;7d41ce5e-3c0a-4225-94bb-a9a52a6ebd2d&quot;
   }
 }</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Project Files/Team_Roadmap" gradleHome="C:\Users\calmu\.gradle\wrapper\dists\gradle-9.3.0-bin\79n14ral3mx1ozqr3csh2u872\gradle-9.3.0" javaHome="C:\Users\calmu\.jdks\openjdk-25.0.2" gradleVersion="9.3.0" />
@@ -137,11 +127,12 @@
       <recent name="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/csv" />
       <recent name="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap" />
       <recent name="C:\Users\rgbra\OneDrive\Documents\Uni\Year 2\Team Project\COM2020---Project-Roadmap\Project Files\Team_Roadmap\src\main\resources\templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ReservationTest">
+  <component name="RunManager" selected="Spring Boot.TeamRoadmapApplication">
     <configuration name="BundleTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -287,9 +278,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ForecastTest" />
         <item itemvalue="Gradle.ReservationTest" />
         <item itemvalue="Gradle.IssueReportTest" />
-        <item itemvalue="Gradle.ForecastTest" />
         <item itemvalue="Gradle.CustomerTest" />
         <item itemvalue="Gradle.BundleTest" />
       </list>
@@ -299,7 +290,6 @@
     <attachedChunks>
       <set>
         <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.30387.90" />
       </set>
     </attachedChunks>
   </component>
@@ -328,7 +318,7 @@
       <workItem from="1770912410734" duration="2318000" />
       <workItem from="1771153263301" duration="6100000" />
       <workItem from="1771173465771" duration="3097000" />
-      <workItem from="1771176596622" duration="548000" />
+      <workItem from="1771176596622" duration="3541000" />
     </task>
     <task id="LOCAL-00001" summary="Added some of the database setup">
       <option name="closed" value="true" />
@@ -474,7 +464,63 @@
       <option name="project" value="LOCAL" />
       <updated>1771158751118</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="test results">
+      <option name="closed" value="true" />
+      <created>1771177240178</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1771177240178</updated>
+    </task>
+    <task id="LOCAL-00020" summary="test results reformatted">
+      <option name="closed" value="true" />
+      <created>1771177461059</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1771177461059</updated>
+    </task>
+    <task id="LOCAL-00021" summary="half added csv database loading">
+      <option name="closed" value="true" />
+      <created>1771189425453</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1771189425453</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fixed mission IOException">
+      <option name="closed" value="true" />
+      <created>1771189462387</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1771189462387</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fixed some errors with loading csv data">
+      <option name="closed" value="true" />
+      <created>1771189877241</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1771189877241</updated>
+    </task>
+    <task id="LOCAL-00024" summary="further csv file loading fixes">
+      <option name="closed" value="true" />
+      <created>1771243025919</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1771243025919</updated>
+    </task>
+    <task id="LOCAL-00025" summary="finished csv file loading">
+      <option name="closed" value="true" />
+      <created>1771243600712</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1771243600712</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -517,7 +563,14 @@
     <MESSAGE value="fixed reservation repository to actually be a reservation repository" />
     <MESSAGE value="New Bundle Tests and some more fixes" />
     <MESSAGE value="most of the tests now work. only a few dont" />
-    <option name="LAST_COMMIT_MESSAGE" value="most of the tests now work. only a few dont" />
+    <MESSAGE value="test results" />
+    <MESSAGE value="test results reformatted" />
+    <MESSAGE value="half added csv database loading" />
+    <MESSAGE value="fixed mission IOException" />
+    <MESSAGE value="fixed some errors with loading csv data" />
+    <MESSAGE value="further csv file loading fixes" />
+    <MESSAGE value="finished csv file loading" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished csv file loading" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

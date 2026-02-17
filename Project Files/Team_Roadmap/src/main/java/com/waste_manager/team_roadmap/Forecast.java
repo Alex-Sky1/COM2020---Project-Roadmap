@@ -91,7 +91,7 @@ public class Forecast {
 
                 for (Reservation reservation : dayReservationList) {
 
-                    if (reservation.getTimeStamp().getHour() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
+                    if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
 
                         if (!(reservation.getNoShow())) {
                             returnInt += 1;

@@ -1,0 +1,38 @@
+import csv
+import random as r
+import general
+
+from general import *
+
+
+
+def seed_reservations(customers, bundles, count):
+
+    info = []
+    ids = r.sample(range(len(bundles)), count)
+
+    for bundle_id in ids:
+        
+
+        info.append([
+            bundle_id,
+            r.randint(0, len(customers)-1), # customer id
+            bundles[bundle_id][0], # seller id
+            "1245", # claim code
+            False, # no show
+            True, # Collected
+            "rain" # weather flag
+        ])
+
+        print(f"Seeded Reservation {bundle_id+1}")
+
+
+    ## updarte bundles
+    for id in range(len(bundles)):
+        if id in ids:
+            bundles[id][7] = True
+
+
+    return info
+
+    
