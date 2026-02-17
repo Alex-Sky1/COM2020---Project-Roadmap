@@ -111,7 +111,7 @@ public class CSVDatabase {
                 ArrayList<String> allergens = new ArrayList<>(Arrays.asList(sanitised_allergens.split(",")));
 
                 // get relational components
-                Seller seller = sellerRepository.findById(Integer.parseInt(bundle_info.getFirst()) + 1).get();
+                Seller seller = sellerRepository.findById(Integer.parseInt(bundle_info.get(0)) + 1).get();
 
                 // add to repo
                 bundleRepository.save(new Bundle(
@@ -139,7 +139,7 @@ public class CSVDatabase {
                 List<String> reservation_info = getRecordFromLine(scanner.nextLine());
 
                 // get relational components
-                Bundle bundle = bundleRepository.findById(Integer.parseInt(reservation_info.getFirst()) + 1).get();
+                Bundle bundle = bundleRepository.findById(Integer.parseInt(reservation_info.get(0)) + 1).get();
                 Customer customer = customerRepository.findById(Integer.parseInt(reservation_info.get(1)) + 1).get();
                 Seller seller = sellerRepository.findById(Integer.parseInt(reservation_info.get(2)) + 1).get();
 
