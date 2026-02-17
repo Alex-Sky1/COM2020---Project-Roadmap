@@ -45,7 +45,6 @@ public class CSVDatabase {
 
     @PostConstruct
     public void read_all_csvs() throws IOException {
-
         // set up logging
         Log log = LogFactory.getLog(TeamRoadmapApplication.class);
 
@@ -168,6 +167,7 @@ public class CSVDatabase {
         Log log = LogFactory.getLog(TeamRoadmapApplication.class);
 
         // get all file writers
+        System.out.println("Testing Testing 123");
 //        PrintWriter seller_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/seller.csv").getFile()));
 //        PrintWriter customer_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/customer.csv").getFile()));
 //        PrintWriter bundle_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/bundle.csv").getFile()));
