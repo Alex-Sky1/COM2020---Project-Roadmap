@@ -1,10 +1,10 @@
 package com.waste_manager.team_roadmap;
 
-import jakarta.annotation.PostConstruct;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Controller;
@@ -16,9 +16,7 @@ import java.io.IOException;
 @SpringBootApplication
 @Controller
 public class TeamRoadmapApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(TeamRoadmapApplication.class, args);
-    }
+    public static void main(String[] args) {ConfigurableApplicationContext ctx = SpringApplication.run(TeamRoadmapApplication.class, args);}
 
 
 
@@ -108,19 +106,8 @@ public class TeamRoadmapApplication {
     }
 
 
-    @Bean
-    public String temp_load_database(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
 
-        Log log = LogFactory.getLog(TeamRoadmapApplication.class);
-        try {
-            CSVDatabaseLoader.read_all_csvs(sellerRepository, customerRepository, bundleRepository, reservationRepository);
-        } catch (IOException e) {
-            log.info("Database Loading Failed");
-            return "Failed Somehow";
-        }
-        log.info("Database Loaded");
-        return "Database Loaded";
-    }
+
 
 }
 

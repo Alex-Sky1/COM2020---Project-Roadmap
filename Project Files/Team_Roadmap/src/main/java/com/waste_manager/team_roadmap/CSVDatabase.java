@@ -1,29 +1,36 @@
 package com.waste_manager.team_roadmap;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-@Service
-public class CSVDatabaseLoader {
+@Component
+public class CSVDatabase {
 
     @Autowired
     private ResourceLoader resourceLoader;
     private static final String DELIMITER = "&";
+
+    @Autowired
+    SellerRepository sellerRepository;
+    @Autowired
+    CustomerRepository customerRepository;
+    @Autowired
+    BundleRepository bundleRepository;
+    @Autowired
+    ReservationRepository reservationRepository;
 
     private static List<String> getRecordFromLine(String line) {
         List<String> values = new ArrayList<String>();
@@ -36,7 +43,8 @@ public class CSVDatabaseLoader {
         return values;
     }
 
-    public static void read_all_csvs(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) throws IOException {
+    @PostConstruct
+    public void read_all_csvs() throws IOException {
 
         // set up logging
         Log log = LogFactory.getLog(TeamRoadmapApplication.class);
@@ -48,6 +56,7 @@ public class CSVDatabaseLoader {
             while (scanner.hasNextLine()) {
                 List<String> seller_info = getRecordFromLine(scanner.nextLine());
 
+                // add to repo
                 sellerRepository.save(new Seller(
                     seller_info.get(0),
                         seller_info.get(1),
@@ -68,6 +77,8 @@ public class CSVDatabaseLoader {
         try (Scanner scanner = new Scanner(new ClassPathResource("static/csv/customers.csv").getFile())) {
             while (scanner.hasNextLine()) {
                 List<String> customer_info = getRecordFromLine(scanner.nextLine());
+
+                // add to repo
                 customerRepository.save(new Customer(
                         customer_info.get(0),
                         customer_info.get(1),
@@ -100,14 +111,16 @@ public class CSVDatabaseLoader {
                 ArrayList<String> contents = new ArrayList<>(Arrays.asList(sanitised_contents.split(",")));
                 ArrayList<String> allergens = new ArrayList<>(Arrays.asList(sanitised_allergens.split(",")));
 
-
+                // get relational components
                 Seller seller = sellerRepository.findById(Integer.parseInt(bundle_info.getFirst()) + 1).get();
 
+                // add to repo
                 bundleRepository.save(new Bundle(
                         seller,
                         bundle_info.get(1),
                         contents,
                         allergens,
+                        // 2026-02-17T18:25:43.014748
                         LocalDateTime.now(),
                         Float.parseFloat(bundle_info.get(4)),
                         Integer.parseInt(bundle_info.get(5)),
@@ -126,14 +139,12 @@ public class CSVDatabaseLoader {
             while (scanner.hasNextLine()) {
                 List<String> reservation_info = getRecordFromLine(scanner.nextLine());
 
-//                Bundle bundle, Customer customer, Seller seller, LocalDateTime thisTimeStamp,
-//                        String thisClaimCode, boolean thisNoShow, boolean thisCollected, String thisWeatherFlag)
-
-                // convert from text to array lists
+                // get relational components
                 Bundle bundle = bundleRepository.findById(Integer.parseInt(reservation_info.getFirst()) + 1).get();
                 Customer customer = customerRepository.findById(Integer.parseInt(reservation_info.get(1)) + 1).get();
                 Seller seller = sellerRepository.findById(Integer.parseInt(reservation_info.get(2)) + 1).get();
 
+                // add to repo
                 reservationRepository.save(new Reservation(
                         bundle,
                         customer,
@@ -151,4 +162,64 @@ public class CSVDatabaseLoader {
     }
 
 
+    @PreDestroy
+    public void write_all_csvs() throws IOException {
+        // set up logging
+        Log log = LogFactory.getLog(TeamRoadmapApplication.class);
+
+        // get all file writers
+//        PrintWriter seller_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/seller.csv").getFile()));
+//        PrintWriter customer_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/customer.csv").getFile()));
+//        PrintWriter bundle_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/bundle.csv").getFile()));
+//        PrintWriter reservation_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/reservation.csv").getFile()));
+
+        // write all sellers
+        log.info("writing sellers");
+        for (Seller seller : sellerRepository.findAll()) {
+//            seller_writer.printf(
+//                    "%s%s%s%s%s%s%s%s%s",
+//                    seller.getfName(),
+//                    seller.getsName(),
+//                    seller.getdName(),
+//                    seller.getAddress(),
+//                    seller.getPostcode(),
+//                    seller.getCounty(),
+//                    seller.getEmail(),
+//                    seller.getPhone(),
+//                    seller.getPassword()
+//                );
+        }
+        log.info("sellers written");
+
+
+        // write all customers
+        log.info("writing customers");
+        for (Customer customer : customerRepository.findAll()) {
+
+        }
+        log.info("customers written");
+
+
+        // write all bundles
+        log.info("writing bundles");
+        for (Bundle bundle : bundleRepository.findAll()) {
+
+        }
+        log.info("bundles written");
+
+
+        // write all reservations
+        log.info("writing reservations");
+        for (Reservation reservation : reservationRepository.findAll()) {
+
+        }
+        log.info("reservations written");
+
+        // close writers
+//        seller_writer.close();
+//        customer_writer.close();
+//        bundle_writer.close();
+//        reservation_writer.close();
+        log.info("finished writing database to csv files");
+    }
 }

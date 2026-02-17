@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="finished csv file loading">
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="correctly load bundle contents from csv">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_02_2026_13_38_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_02_2026_13_38__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabaseLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabaseLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabaseLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/ReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/ReservationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/TeamRoadmapApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/TeamRoadmapApplication.java" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -520,7 +524,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771243600712</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="correctly load bundle contents from csv">
+      <option name="closed" value="true" />
+      <created>1771244558669</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1771244558669</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,7 +582,8 @@
     <MESSAGE value="fixed some errors with loading csv data" />
     <MESSAGE value="further csv file loading fixes" />
     <MESSAGE value="finished csv file loading" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished csv file loading" />
+    <MESSAGE value="correctly load bundle contents from csv" />
+    <option name="LAST_COMMIT_MESSAGE" value="correctly load bundle contents from csv" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
