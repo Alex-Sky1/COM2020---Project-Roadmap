@@ -62,6 +62,10 @@ public class Forecast {
         return a;
     }
 
+
+    // For if people want to understand how this works
+    //https://www.geeksforgeeks.org/java/stream-filter-java-examples/   ,
+    //https://www.baeldung.com/java-convert-collection-arraylist
     // Filter the reservations to return reservations made on a specific date
     public ArrayList<Reservation> filterReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
 
