@@ -6,7 +6,10 @@ import reservations
 
 
 
+### INDICES ARE INCREMENTED BY 1 FOR DATABASE IDS
+### DATETIME FORMAT: 2026-02-17T18:25:43.014748
 
+### SOMETIMES THE BUNDLES RANDOMLY REPLACE 5 WITH TRUE, FIX THIS
 
 def write_to_csv(filename, info):
     with open(filename, "w", newline="") as csvfile:

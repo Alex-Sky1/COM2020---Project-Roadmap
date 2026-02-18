@@ -41,9 +41,9 @@ def seed_customers(count):
             r.choice(COUNTIES),
             gen_email(dname),
             random_phone_number(),
+            "Password1234",
             0,
-            [],
-            "Password1234"
+            []
         ])
 
         print(f"Seeded Customer {x+1}")

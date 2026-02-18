@@ -31,15 +31,18 @@ def seed_bundles(sellers, count_per_seller):
             foods.sort()
 
             price = r.randint(50, 1000) / 10
-        
+
+
+           
             info.append([
-                seller_id,
+                seller_id + 1,
                 r.choice(CATEGORIES),
                 foods,
                 allergens,
+                "2026-02-17T18:25:43.014748",
                 price,
                 round(max(price / 2, r.randint(5, 20))), #discount
-                5,
+                "5",
                 False, # reserverd
                 False # expired
             ])

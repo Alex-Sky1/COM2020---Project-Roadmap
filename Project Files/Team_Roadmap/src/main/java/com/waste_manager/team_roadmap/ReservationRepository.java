@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface ReservationRepository extends Repository<Reservation, Long> {
 
     Reservation save(Reservation reservation);
+    List<Reservation> findAll();
 
     Optional<Reservation> findById(long id);
     List<Reservation> findByCustomerID(long customer_id);
