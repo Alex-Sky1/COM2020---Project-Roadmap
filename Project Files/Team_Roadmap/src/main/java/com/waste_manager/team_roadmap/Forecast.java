@@ -86,7 +86,7 @@ public class Forecast {
         LocalDateTime searchDate = this.forecastDate.minusDays(7); // The search date is the date used to provide the seasonal naive
         int returnInt = 0; // The return integer is the number of bundles that were reserved and picked up
 
-        while (!(bundleList.getFirst().getTimeStamp().isAfter(searchDate))) {
+        while (!(bundleList.get(0).getTimeStamp().isAfter(searchDate))) {
 
             ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
 

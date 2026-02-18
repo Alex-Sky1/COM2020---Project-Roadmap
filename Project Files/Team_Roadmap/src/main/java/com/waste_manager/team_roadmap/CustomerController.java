@@ -45,29 +45,29 @@ public class CustomerController {
         //check Passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
-            return "/sign_up_consumer";
+            return "sign_up_consumer";
         }
         //if any field is empty don't allow sign up
         if(fname.isEmpty() || sname.isEmpty() || dname.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
             System.out.println("Please fill all the fields");
-            return "/sign_up_consumer";
+            return "sign_up_consumer";
         }
         //check that no other seller or customer is using that username
         List<Customer> c = cr.findByDName(dname);
         List<Seller> s = sr.findByDName(dname);
         if (!s.isEmpty() || !c.isEmpty()) {
             System.out.println("user name already exists");
-            return "/sign_up_consumer";
+            return "sign_up_consumer";
         }
         if(tosAccept==null){
             System.out.println("please accept the terms and conditions");
-            return "/sign_up_consumer";
+            return "sign_up_consumer";
         }else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>());
             cr.save(c1);
             System.out.println("sign up successful");
-            return "/sign_in";
+            return "sign_in";
         }
     }
 
@@ -83,7 +83,7 @@ public class CustomerController {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Customer customer = cr.findByDName(currentUsername).getFirst();
+        Customer customer = cr.findByDName(currentUsername).get(0);
         long customerId = customer.getCustomerID();
 
         //if username is already being used don't allow
@@ -126,7 +126,7 @@ public class CustomerController {
         if (!phone.isEmpty()) {
             cr.updatePhoneById(phone, customerId);
         }
-        return "/edit_profile_consumer";
+        return "edit_profile_consumer";
     }
 
     @GetMapping("/browse_bundles_consumer")
@@ -157,7 +157,7 @@ public class CustomerController {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Customer customer = cr.findByDName(currentUsername).getFirst();
+        Customer customer = cr.findByDName(currentUsername).get(0);
 
         //generate claim code for reservation
         String claimCode = customer.generateClaimCode();
@@ -175,7 +175,7 @@ public class CustomerController {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Customer c = cr.findByDName(currentUsername).getFirst();
+        Customer c = cr.findByDName(currentUsername).get(0);
         //get all reservations the user has and list on webpage
         List<Reservation> reservations = rr.findByCustomerID(c.getCustomerID());
         if (!reservations.isEmpty()) {
@@ -188,7 +188,7 @@ public class CustomerController {
             }
         }
         model.addAttribute("reservations", reservations);
-        return "/manage_bundles_consumer";
+        return "manage_bundles_consumer";
     }
 
     @PostMapping("/report_issue_consumer")
@@ -201,7 +201,7 @@ public class CustomerController {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Customer c = cr.findByDName(currentUsername).getFirst();
+        Customer c = cr.findByDName(currentUsername).get(0);
 
         //get total number of collected bundles for the user
         int num_collected = 0;

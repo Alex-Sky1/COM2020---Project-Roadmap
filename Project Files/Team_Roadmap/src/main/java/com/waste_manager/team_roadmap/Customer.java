@@ -49,6 +49,19 @@ public class Customer implements Serializable {
         this.streak = streak;
         this.badges = badges;
     }
+    public Customer(String fName, String sName, String dName, String address, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges, boolean fromCSV){
+        this.fName = fName;
+        this.sName = sName;
+        this.dName = dName;
+        this.address = address;
+        this.postcode = pcode;
+        this.county = county;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.streak = streak;
+        this.badges = badges;
+    }
 
     public boolean signup(String fName, String lName, String businessName, String email, String phone, String password, String address1, String postcode, String county) {
         return  false;

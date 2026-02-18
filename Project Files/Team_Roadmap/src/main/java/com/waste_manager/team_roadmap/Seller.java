@@ -47,7 +47,20 @@ public class Seller implements Serializable {
         this.phone = phone;
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.password = passwordEncoder.encode(password);
-        // $2a$10$MJIP2Ai5Cy2KsJrsb0sw3e1HnVRXvOR.BxZfJvSixF.Mt66RAXm5W
+
+    }
+
+    public Seller(String fName, String sName, String dName, String addressLine1, String postcode, String county, String email, String phone, String password, boolean fromCSV) {
+        this.fName = fName;
+        this.sName = sName;
+        this.dName = dName;
+        this.address = addressLine1;
+        this.postcode = postcode;
+        this.county = county;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+
     }
 
     public boolean signup(String fName, String lName, String businessName, String email, String phone, String password, String address1, String postcode, String county){return true;}

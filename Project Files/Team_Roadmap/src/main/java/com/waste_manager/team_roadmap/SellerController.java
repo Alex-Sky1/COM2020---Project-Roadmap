@@ -42,13 +42,13 @@ public class SellerController {
         //check that passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
-            return "/sign_up_seller";
+            return "sign_up_seller";
         }
 
         //if any field is empty don't allow sign up
         if(fname.isEmpty() || sname.isEmpty() || business.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
             System.out.println("Please fill all the fields");
-            return "/sign_up_seller";
+            return "sign_up_seller";
         }
 
         //check that no other seller or customer is using that username
@@ -56,17 +56,17 @@ public class SellerController {
         List<Customer> c = cr.findByDName(business);
         if (!s.isEmpty() || !c.isEmpty()) {
             System.out.println("user name already exists");
-            return "/sign_up_seller";
+            return "sign_up_seller";
         }
         if(tosAccept==null){
             System.out.println("please accept the terms and conditions");
-            return "/sign_up_seller";
+            return "sign_up_seller";
         }else {
             //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1);
             System.out.println("success");
             sr.save(s1);
-            return "/sign_in";
+            return "sign_in";
         }
 
     }
@@ -93,7 +93,7 @@ public class SellerController {
         //get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).getFirst();
+        Seller s = sr.findByDName(currentUsername).get(0);
 
         //check if any allergens have been selected
         ArrayList<String> allergens = new ArrayList<>();
@@ -123,7 +123,7 @@ public class SellerController {
             Bundle bundle = new Bundle(s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price), Integer.parseInt(discount), pickupHr, false, false);
             br.save(bundle);
         }
-        return "/post_bundle_seller";
+        return "post_bundle_seller";
     }
 
 
@@ -139,7 +139,7 @@ public class SellerController {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Seller seller = sr.findByDName(currentUsername).getFirst();
+        Seller seller = sr.findByDName(currentUsername).get(0);
         int sellerId= seller.getSellerID();
 
         //check if business (username) field is not empty and not being used by anyone else
@@ -182,7 +182,7 @@ public class SellerController {
         if(!phone.isEmpty()){
             sr.updatePhoneById(phone, sellerId);
         }
-        return "/edit_profile_seller";
+        return "edit_profile_seller";
     }
 
 
@@ -192,7 +192,7 @@ public class SellerController {
         //get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).getFirst();
+        Seller s = sr.findByDName(currentUsername).get(0);
 
         //add all reservations to web page
         List<Reservation> reservations = rr.findBySellerID(s.getSellerID());
@@ -214,8 +214,8 @@ public class SellerController {
             else{
                 List<Reservation> reserves = rr.findByBundleID(bundle.getPostingID());
                 //set no show if pickup window has passed
-                if(!reserves.getFirst().getNoShow() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || reserves.getFirst().getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) ){
-                    rr.setReservationNoShow(true, reserves.getFirst().getReservationID());
+                if(!reserves.get(0).getNoShow() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || reserves.get(0).getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) ){
+                    rr.setReservationNoShow(true, reserves.get(0).getReservationID());
                 }
 
             }
@@ -231,7 +231,7 @@ public class SellerController {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).getFirst();
+        Seller s = sr.findByDName(currentUsername).get(0);
         //add all reservations to web page
         List<Reservation> allReservations = rr.findBySellerID(s.getSellerID());
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -292,13 +292,13 @@ public class SellerController {
 
     @PostMapping("/edit_bundle_seller")
     public String editBundle(){
-        return "/edit_bundle_seller";
+        return "edit_bundle_seller";
     }
     @GetMapping("/forecasting_seller")
     public String forecasting_seller() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).getFirst();
+        Seller s = sr.findByDName(currentUsername).get(0);
 
         LocalDateTime now = LocalDateTime.now();
         String day = now.getDayOfWeek().name();
@@ -308,7 +308,7 @@ public class SellerController {
     }
     @PostMapping("/forecasting_seller")
     public String forecastingSeller(){
-        return "/forecasting_seller";
+        return "forecasting_seller";
     }
 
     @GetMapping("view_analytics_seller")
@@ -316,7 +316,7 @@ public class SellerController {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).getFirst();
+        Seller s = sr.findByDName(currentUsername).get(0);
 
         //calculate no show : collected : expired
         int noShow = 0;
@@ -358,6 +358,6 @@ public class SellerController {
 
         model.addAttribute("pricingEffectiveness", "-");
         model.addAttribute("operationalInsights", "-");
-        return "/view_analytics_seller";
+        return "view_analytics_seller";
     }
 }

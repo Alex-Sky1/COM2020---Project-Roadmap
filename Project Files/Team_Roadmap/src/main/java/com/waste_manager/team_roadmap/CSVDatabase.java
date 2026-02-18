@@ -57,7 +57,7 @@ public class CSVDatabase {
         // load sellers
         log.info("Loading Sellers");
         sellerCSV = new ClassPathResource("static/csv/sellers.csv");
-        try (Scanner scanner = new Scanner(sellerCSV.getFile())) {
+        try (Scanner scanner = new Scanner(new InputStreamReader(sellerCSV.getInputStream()))) {
             while (scanner.hasNextLine()) {
                 List<String> seller_info = getRecordFromLine(scanner.nextLine());
 
@@ -71,7 +71,8 @@ public class CSVDatabase {
                         seller_info.get(5),
                         seller_info.get(6),
                         seller_info.get(7),
-                        seller_info.get(8)
+                        seller_info.get(8),
+                        true
                 ));
             }
         }
@@ -80,7 +81,7 @@ public class CSVDatabase {
         // load customers
         log.info("Loading Customers");
         customerCSV = new ClassPathResource("static/csv/customers.csv");
-        try (Scanner scanner = new Scanner(customerCSV.getFile())) {
+        try (Scanner scanner = new Scanner(new InputStreamReader(customerCSV.getInputStream()))) {
             while (scanner.hasNextLine()) {
                 List<String> customer_info = getRecordFromLine(scanner.nextLine());
 
@@ -103,7 +104,8 @@ public class CSVDatabase {
                         customer_info.get(7),
                         customer_info.get(8),
                         Integer.parseInt(customer_info.get(9)),
-                        badges
+                        badges,
+                        true
                 ));
             }
         }
@@ -112,7 +114,7 @@ public class CSVDatabase {
         // load bundles
         log.info("Loading Bundles");
         bundleCSV = new ClassPathResource("static/csv/bundles.csv");
-        try (Scanner scanner = new Scanner(bundleCSV.getFile())) {
+        try (Scanner scanner = new Scanner(new InputStreamReader(bundleCSV.getInputStream()))) {
 
             while (scanner.hasNextLine()) {
                 List<String> bundle_info = getRecordFromLine(scanner.nextLine());
@@ -148,7 +150,7 @@ public class CSVDatabase {
         // load reservations
         log.info("Loading Reservations");
         reservationCSV = new ClassPathResource("static/csv/reservation.csv");
-        try (Scanner scanner = new Scanner(reservationCSV.getFile())) {
+        try (Scanner scanner = new Scanner(new InputStreamReader(reservationCSV.getInputStream()))) {
 
             while (scanner.hasNextLine()) {
                 List<String> reservation_info = getRecordFromLine(scanner.nextLine());
