@@ -84,6 +84,13 @@ public class CSVDatabase {
             while (scanner.hasNextLine()) {
                 List<String> customer_info = getRecordFromLine(scanner.nextLine());
 
+                // convert from text to array lists
+                String sanitised_badges = customer_info.get(10).replaceAll("[\\s\\[\\]']", "");
+                ArrayList<Boolean> badges = new ArrayList<>();
+                for (String badge : sanitised_badges.split(",")) {
+                    badges.add(Boolean.parseBoolean(badge));
+                }
+
                 // add to repo
                 customerRepository.save(new Customer(
                         customer_info.get(0),
@@ -95,8 +102,8 @@ public class CSVDatabase {
                         customer_info.get(6),
                         customer_info.get(7),
                         customer_info.get(8),
-                        5,
-                        new ArrayList<Boolean>()
+                        Integer.parseInt(customer_info.get(9)),
+                        badges
                 ));
             }
         }
@@ -119,7 +126,7 @@ public class CSVDatabase {
                 ArrayList<String> allergens = new ArrayList<>(Arrays.asList(sanitised_allergens.split(",")));
 
                 // get relational components
-                Seller seller = sellerRepository.findById(Integer.parseInt(bundle_info.get(0)) + 1).get();
+                Seller seller = sellerRepository.findById(Integer.parseInt(bundle_info.get(0))).get();
 
                 // add to repo
                 bundleRepository.save(new Bundle(
@@ -127,13 +134,12 @@ public class CSVDatabase {
                         bundle_info.get(1),
                         contents,
                         allergens,
-                        // 2026-02-17T18:25:43.014748
-                        LocalDateTime.now(),
-                        Float.parseFloat(bundle_info.get(4)),
-                        Integer.parseInt(bundle_info.get(5)),
+                        LocalDateTime.parse(bundle_info.get(4)),
+                        Float.parseFloat(bundle_info.get(5)),
                         Integer.parseInt(bundle_info.get(6)),
-                        Boolean.parseBoolean(bundle_info.get(7)),
-                        Boolean.parseBoolean(bundle_info.get(8))
+                        Integer.parseInt(bundle_info.get(7)),
+                        Boolean.parseBoolean(bundle_info.get(8)),
+                        Boolean.parseBoolean(bundle_info.get(9))
                 ));
             }
         }
@@ -148,20 +154,20 @@ public class CSVDatabase {
                 List<String> reservation_info = getRecordFromLine(scanner.nextLine());
 
                 // get relational components
-                Bundle bundle = bundleRepository.findById(Integer.parseInt(reservation_info.get(0)) + 1).get();
-                Customer customer = customerRepository.findById(Integer.parseInt(reservation_info.get(1)) + 1).get();
-                Seller seller = sellerRepository.findById(Integer.parseInt(reservation_info.get(2)) + 1).get();
+                Bundle bundle = bundleRepository.findById(Integer.parseInt(reservation_info.get(0))).get();
+                Customer customer = customerRepository.findById(Integer.parseInt(reservation_info.get(1))).get();
+                Seller seller = sellerRepository.findById(Integer.parseInt(reservation_info.get(2))).get();
 
                 // add to repo
                 reservationRepository.save(new Reservation(
                         bundle,
                         customer,
                         seller,
-                        LocalDateTime.now(),
-                        reservation_info.get(3),
-                        Boolean.parseBoolean(reservation_info.get(4)),
+                        LocalDateTime.parse(reservation_info.get(3)),
+                        reservation_info.get(4),
                         Boolean.parseBoolean(reservation_info.get(5)),
-                        reservation_info.get(6)
+                        Boolean.parseBoolean(reservation_info.get(6)),
+                        reservation_info.get(7)
                 ));
             }
         }
@@ -229,7 +235,7 @@ public class CSVDatabase {
         for (Bundle bundle : bundleRepository.findAll()) {
             bundle_writer.printf(
                     "%d&%s&%s&%s&%s&%f&%d&%d&%b&%b\n",
-                    bundle.getSeller().getSellerID() - 1,
+                    bundle.getSeller().getSellerID(),
                     bundle.getCategory(),
                     bundle.getContents().toString(),
                     bundle.getAllergens().toString(),
@@ -250,9 +256,9 @@ public class CSVDatabase {
         for (Reservation reservation : reservationRepository.findAll()) {
             reservation_writer.printf(
                     "%d&%d&%d&%s&%s&%b&%b&%s\n",
-                    reservation.getBundle().getPostingID() - 1,
-                    reservation.getCustomer().getCustomerID() - 1,
-                    reservation.getSeller().getSellerID() - 1,
+                    reservation.getBundle().getPostingID(),
+                    reservation.getCustomer().getCustomerID(),
+                    reservation.getSeller().getSellerID(),
                     reservation.getTimeStamp().toString(),
                     reservation.getClaimCode(),
                     reservation.getNoShow(),

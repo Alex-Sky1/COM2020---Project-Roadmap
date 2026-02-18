@@ -15,9 +15,10 @@ def seed_reservations(customers, bundles, count):
         
 
         info.append([
-            bundle_id,
-            r.randint(0, len(customers)-1), # customer id
+            bundle_id + 1,
+            r.randint(0, len(customers)-1) + 1, # customer id
             bundles[bundle_id][0], # seller id
+            "2026-02-17T18:25:43.014748", # Date
             "1245", # claim code
             False, # no show
             True, # Collected
