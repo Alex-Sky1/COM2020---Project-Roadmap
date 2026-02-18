@@ -24,7 +24,7 @@ public class BundleTest {
     public void setup() {
 
         testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
-                            "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
+                            "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!", true);
 
         testBundle = new Bundle(testSeller, "Deserts",new ArrayList<>(List.of("pancakes", "cake", "brownies")),
                                 new ArrayList<>(List.of("gluten", "dairy", "peanuts")), testTime, 11.50f, 10,
@@ -47,7 +47,7 @@ public class BundleTest {
     @Test
     public void testSetSeller() {
         Seller newTestSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
-                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
+                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!", true);
         testBundle.setSeller(newTestSeller);
         assertEquals(newTestSeller, testBundle.getSeller());
     }

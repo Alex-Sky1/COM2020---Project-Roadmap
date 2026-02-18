@@ -18,7 +18,6 @@ public class Forecast {
     private float confidence;
     private String rationale;
 
-
     public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag, String thisCategory,
                     ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
 
@@ -64,10 +63,6 @@ public class Forecast {
         return a;
     }
 
-
-    // For if people want to understand how this works
-    //https://www.geeksforgeeks.org/java/stream-filter-java-examples/   ,
-    //https://www.baeldung.com/java-convert-collection-arraylist
     // Filter the reservations to return reservations made on a specific date
     public ArrayList<Reservation> filterReservationListDate(LocalDate dateSearched, ArrayList<Reservation> filteredReservationList) {
 
@@ -78,18 +73,12 @@ public class Forecast {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-
-
     public int seasonalNaive() {return seasonalNaive(this.forecastDate.minusDays(7));}
-
 
     public int seasonalNaive(LocalDateTime date) {
 
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
-
-
-
         LocalDateTime searchDate = date; // The search date is the date used to provide the seasonal naive
         int returnInt = 0; // The return integer is the number of bundles that were reserved and picked up
 
@@ -98,7 +87,6 @@ public class Forecast {
             ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
 
             if (!dayReservationList.isEmpty()) {
-
 
                 for (Reservation reservation : dayReservationList) {
 
@@ -110,11 +98,9 @@ public class Forecast {
                     }
                 }
                 return returnInt;
-            }
-            else {
+            } else {
                 searchDate = searchDate.minusDays(7);
             }
-
         }
         return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
     }
@@ -123,25 +109,24 @@ public class Forecast {
 
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
-        int number = 0;
-
-        float mae = 0;
         LocalDateTime searchDate = this.forecastDate.minusDays(7);
-        while ((searchDate.getDayOfWeek() != DayOfWeek.MONDAY)){
+        int number = 0;
+        float mae = 0;
+
+        while (searchDate.getDayOfWeek() != DayOfWeek.MONDAY) {
             searchDate = searchDate.minusDays(1);
         }
         LocalDateTime hold = this.forecastDate;
         int returnInt = 0;
 
-
-        while(searchDate.getDayOfMonth() != hold.getDayOfMonth()){
+        while (searchDate.getDayOfMonth() != hold.getDayOfMonth()) {
             LocalDateTime check = searchDate;
 
-            while(check.getHour() != 0){
+            while (check.getHour() != 0){
                 check = check.minusHours(1);
             }
 
-            for(int i = 0;i < 24;i++) {
+            for (int i = 0;i < 24;i++) {
                 ArrayList<Reservation> dayReservationList = filterReservationListDate(check.toLocalDate(), filteredReservationList);
 
                 if (!dayReservationList.isEmpty()) {
@@ -150,7 +135,7 @@ public class Forecast {
 
                         if (reservation.getBundle().getPickUpWindow() == check.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
 
-                            if (!(reservation.getNoShow())) {
+                            if (!reservation.getNoShow()) {
                                 returnInt += 1;
                             }
                         }

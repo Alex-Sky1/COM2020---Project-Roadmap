@@ -1,4 +1,5 @@
 package com.waste_manager.team_roadmap;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private String password;
     private LocalDateTime streakLastUpdate;
-    public Customer(){};
+    public Customer(){}
 
     public Customer(String fName, String sName, String dName, String address, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges, boolean hashPassword) {
         this.fName = fName;

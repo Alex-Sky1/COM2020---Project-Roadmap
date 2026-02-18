@@ -15,7 +15,7 @@ public class SellerTest {
     @BeforeEach
     public void setup(){
         testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
-                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
+                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!", true);
     }
 
     // Verifies the ID of a bundle

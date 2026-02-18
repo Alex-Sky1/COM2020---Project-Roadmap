@@ -18,11 +18,10 @@ public class CustomerTest {
     public void setup() {
         testCustomer = new Customer("jim", "bob", "Jimmy", "no man's land",
                 "NW1 6XE", "test", "test@gmail.com", "0000008776", "jim"
-                , 6, new ArrayList<>(List.of(false, false, false, false, false)));
+                , 6, new ArrayList<>(List.of(false, false, false, false, false)), true);
 
         testCustomer.setCustomerID(1L);
     }
-
 
     @Test
     public void TestGenerateClaimCode() {
