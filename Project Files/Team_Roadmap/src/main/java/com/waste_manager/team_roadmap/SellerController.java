@@ -65,7 +65,7 @@ public class SellerController {
             return "sign_up_seller";
         }else {
             //create and save new seller
-            Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1);
+            Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1, true);
             System.out.println("success");
             sr.save(s1);
             return "sign_in";

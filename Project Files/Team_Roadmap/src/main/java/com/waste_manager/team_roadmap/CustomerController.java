@@ -62,7 +62,7 @@ public class CustomerController {
             return "sign_up_consumer";
         }else {
             //create and save new customer
-            Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>());
+            Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>(), true);
             cr.save(c1);
             System.out.println("sign up successful");
             return "sign_in";
