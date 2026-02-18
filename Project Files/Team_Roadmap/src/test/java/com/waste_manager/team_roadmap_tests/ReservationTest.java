@@ -24,9 +24,9 @@ public class ReservationTest {
         testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
 
         testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
-                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
+                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!", true);
         testCustomer = new Customer("Robin", "Hood", "RobOfNotts1364", "Sherwood Forest", "NG21 9RM", "Nottinghamshire",
-                "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)));
+                "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)), true);
         testBundle = new Bundle(testSeller, "puddings", new ArrayList<>(List.of("chocolate", "pancakes", "brownies", "cake")),
                 new ArrayList<>(List.of("gluten", "dairy")), testTime, 7.50f, 10, 1700,
                 true, false);
@@ -57,7 +57,7 @@ public class ReservationTest {
     public void testSetCustomer() {
 
         Customer newCustomer = new Customer("Reanne", "Hood", "RobOfNotts1364", "Sherwood Forest", "NG21 9RM", "Nottinghamshire",
-                "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)));
+                "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)), true);
         testReservation.setCustomer(newCustomer);
         assertEquals(newCustomer, testReservation.getCustomer());
     }

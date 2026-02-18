@@ -32,9 +32,9 @@ public class ForecastTest {
         testReservations = new ArrayList<>();
 
         testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
-                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
+                "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!", true);
         testCustomer = new Customer("Robin", "Hood", "RobOfNotts1364", "Sherwood Forest", "NG21 9RM", "Nottinghamshire",
-                "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)));
+                "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)), true);
 
         testItems = new ArrayList<>(List.of("chocolate", "pancakes", "brownies", "cake", "biscuit", "pavlova", "toffee", "ice cream"));
         testAllergies = new ArrayList<>(List.of("dairy", "gluten", "nuts", "fish", "eggs"));
