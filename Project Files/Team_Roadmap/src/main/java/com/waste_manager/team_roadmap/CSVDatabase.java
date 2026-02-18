@@ -32,6 +32,11 @@ public class CSVDatabase {
     @Autowired
     ReservationRepository reservationRepository;
 
+    ClassPathResource sellerCSV;
+    ClassPathResource customerCSV;
+    ClassPathResource bundleCSV;
+    ClassPathResource reservationCSV;
+
     private static List<String> getRecordFromLine(String line) {
         List<String> values = new ArrayList<String>();
         try (Scanner rowScanner = new Scanner(line)) {
@@ -51,7 +56,8 @@ public class CSVDatabase {
 
         // load sellers
         log.info("Loading Sellers");
-        try (Scanner scanner = new Scanner(new ClassPathResource("static/csv/sellers.csv").getFile())) {
+        sellerCSV = new ClassPathResource("static/csv/sellers.csv");
+        try (Scanner scanner = new Scanner(sellerCSV.getFile())) {
             while (scanner.hasNextLine()) {
                 List<String> seller_info = getRecordFromLine(scanner.nextLine());
 
@@ -73,7 +79,8 @@ public class CSVDatabase {
 
         // load customers
         log.info("Loading Customers");
-        try (Scanner scanner = new Scanner(new ClassPathResource("static/csv/customers.csv").getFile())) {
+        customerCSV = new ClassPathResource("static/csv/customers.csv");
+        try (Scanner scanner = new Scanner(customerCSV.getFile())) {
             while (scanner.hasNextLine()) {
                 List<String> customer_info = getRecordFromLine(scanner.nextLine());
 
@@ -97,7 +104,8 @@ public class CSVDatabase {
 
         // load bundles
         log.info("Loading Bundles");
-        try (Scanner scanner = new Scanner(new ClassPathResource("static/csv/bundles.csv").getFile())) {
+        bundleCSV = new ClassPathResource("static/csv/bundles.csv");
+        try (Scanner scanner = new Scanner(bundleCSV.getFile())) {
 
             while (scanner.hasNextLine()) {
                 List<String> bundle_info = getRecordFromLine(scanner.nextLine());
@@ -133,7 +141,8 @@ public class CSVDatabase {
 
         // load reservations
         log.info("Loading Reservations");
-        try (Scanner scanner = new Scanner(new ClassPathResource("static/csv/reservation.csv").getFile())) {
+        reservationCSV = new ClassPathResource("static/csv/reservation.csv");
+        try (Scanner scanner = new Scanner(reservationCSV.getFile())) {
 
             while (scanner.hasNextLine()) {
                 List<String> reservation_info = getRecordFromLine(scanner.nextLine());
@@ -168,58 +177,93 @@ public class CSVDatabase {
 
         // get all file writers
         System.out.println("Testing Testing 123");
-//        PrintWriter seller_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/seller.csv").getFile()));
-//        PrintWriter customer_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/customer.csv").getFile()));
-//        PrintWriter bundle_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/bundle.csv").getFile()));
-//        PrintWriter reservation_writer = new PrintWriter(new FileWriter(new ClassPathResource("static/csv/reservation.csv").getFile()));
+        PrintWriter seller_writer = new PrintWriter(sellerCSV.getFile());
+        PrintWriter customer_writer = new PrintWriter(customerCSV.getFile());
+        PrintWriter bundle_writer = new PrintWriter(bundleCSV.getFile());
+        PrintWriter reservation_writer = new PrintWriter(reservationCSV.getFile());
 
         // write all sellers
         log.info("writing sellers");
         for (Seller seller : sellerRepository.findAll()) {
-//            seller_writer.printf(
-//                    "%s%s%s%s%s%s%s%s%s",
-//                    seller.getfName(),
-//                    seller.getsName(),
-//                    seller.getdName(),
-//                    seller.getAddress(),
-//                    seller.getPostcode(),
-//                    seller.getCounty(),
-//                    seller.getEmail(),
-//                    seller.getPhone(),
-//                    seller.getPassword()
-//                );
+            seller_writer.printf(
+                    "%s&%s&%s&%s&%s&%s&%s&%s&%s\n",
+                    seller.getfName(),
+                    seller.getsName(),
+                    seller.getdName(),
+                    seller.getAddress(),
+                    seller.getPostcode(),
+                    seller.getCounty(),
+                    seller.getEmail(),
+                    seller.getPhone(),
+                    seller.getPassword()
+                );
         }
         log.info("sellers written");
+        seller_writer.close();
 
 
         // write all customers
         log.info("writing customers");
         for (Customer customer : customerRepository.findAll()) {
-
+            customer_writer.printf(
+                    "%s&%s&%s&%s&%s&%s&%s&%s&%s&%d&%s\n",
+                    customer.getfName(),
+                    customer.getsName(),
+                    customer.getdName(),
+                    customer.getAddress(),
+                    customer.getPostcode(),
+                    customer.getCounty(),
+                    customer.getEmail(),
+                    customer.getPhone(),
+                    customer.getPassword(),
+                    customer.getStreak(),
+                    customer.getBadges().toString()
+            );
         }
         log.info("customers written");
+        customer_writer.close();
 
 
         // write all bundles
         log.info("writing bundles");
         for (Bundle bundle : bundleRepository.findAll()) {
-
+            bundle_writer.printf(
+                    "%d&%s&%s&%s&%s&%f&%d&%d&%b&%b\n",
+                    bundle.getSeller().getSellerID() - 1,
+                    bundle.getCategory(),
+                    bundle.getContents().toString(),
+                    bundle.getAllergens().toString(),
+                    bundle.getTimeStamp().toString(),
+                    bundle.getPrice(),
+                    bundle.getDiscount(),
+                    bundle.getPickUpWindow(),
+                    bundle.getReserved(),
+                    bundle.getExpired()
+            );
         }
+        bundle_writer.close();
         log.info("bundles written");
 
 
         // write all reservations
         log.info("writing reservations");
         for (Reservation reservation : reservationRepository.findAll()) {
-
+            reservation_writer.printf(
+                    "%d&%d&%d&%s&%s&%b&%b&%s\n",
+                    reservation.getBundle().getPostingID() - 1,
+                    reservation.getCustomer().getCustomerID() - 1,
+                    reservation.getSeller().getSellerID() - 1,
+                    reservation.getTimeStamp().toString(),
+                    reservation.getClaimCode(),
+                    reservation.getNoShow(),
+                    reservation.getCollected(),
+                    reservation.getWeatherFlag()
+            );
         }
+        reservation_writer.close();
         log.info("reservations written");
 
-        // close writers
-//        seller_writer.close();
-//        customer_writer.close();
-//        bundle_writer.close();
-//        reservation_writer.close();
+
         log.info("finished writing database to csv files");
     }
 }
