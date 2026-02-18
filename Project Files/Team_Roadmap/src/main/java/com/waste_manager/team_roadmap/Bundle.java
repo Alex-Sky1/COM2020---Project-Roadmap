@@ -48,11 +48,6 @@ public class Bundle implements Serializable {
         this.expired = thisExpired;
     }
 
-
-    Bundle getBundle(){
-        return this;
-    }
-
     public String getContentsAsString(){
         StringBuilder contentsString = new StringBuilder();
         if(this.contents.isEmpty()){

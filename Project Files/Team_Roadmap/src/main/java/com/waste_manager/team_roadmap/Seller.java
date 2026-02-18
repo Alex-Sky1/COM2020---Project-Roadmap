@@ -63,20 +63,6 @@ public class Seller implements Serializable {
 
     }
 
-    public boolean signup(String fName, String lName, String businessName, String email, String phone, String password, String address1, String postcode, String county){return true;}
-    public void createBundle(String category, String[] contents, float price, String[] allergens, int quantity, int discountLevel, int pickupWindow){}
-    public ArrayList<Bundle> viewCurrentBundles(){return null;}
-    public ArrayList<Bundle> viewAllBundles(){return null;}
-    public Forecast viewForecast(){return null;}
-    public boolean verifyClaimCode(String code){return true;}
-    public void changeReservationStatus(){}
-    public void issueResponse(int issueID, String Response, boolean fix){}
-    public ArrayList<Integer> calculateSellThrough(){return null;}
-    public int calculateWasteProxy(){return 0;}
-    public ArrayList<Integer> calculatePricingEffectiveness(){return null;}
-    public ArrayList<String> calculateOperationalInsights(){return null;}
-    public void recordActionTaken(){}
-
     public int getSellerID() {return ID;}
     public void setSellerID(int sellerID) {this.ID = sellerID;}
 

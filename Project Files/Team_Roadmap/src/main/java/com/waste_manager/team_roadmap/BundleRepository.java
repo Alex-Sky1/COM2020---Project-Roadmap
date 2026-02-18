@@ -24,11 +24,7 @@ public interface BundleRepository extends Repository<Bundle, Long> {
     List<Bundle> findByExpiredTrueAndSellerID(long sellerId);
     List<Bundle> findByReservedAndExpired(boolean reserved, boolean expired);
 
-    // Order
-//    List<Bundle> findAllOrderByPrice();
-//    List<Bundle> findAllOrderByDiscount();
-
-    // updates
+    // Updates
     @Transactional
     @Modifying
     @Query("update Bundle b set b.reserved = :reserved where b.ID = :ID")

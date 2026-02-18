@@ -18,8 +18,8 @@ public class WebSecurityConfig {
     private final CustomAuthenticationSuccessHandler successHandler;
     public WebSecurityConfig(CustomAuthenticationSuccessHandler successHandler, CustomUserDetailService userDetailService) {
             this.successHandler = successHandler;
-
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -33,6 +33,4 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()).formLogin((form)->form.loginPage("/sign_in").permitAll().successHandler(successHandler)).logout(LogoutConfigurer::permitAll); //login using /signup page and allow logout
         return http.build();
     }
-
-
 }

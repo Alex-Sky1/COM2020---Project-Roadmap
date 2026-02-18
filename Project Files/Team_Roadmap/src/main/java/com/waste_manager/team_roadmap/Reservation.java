@@ -28,7 +28,7 @@ public class Reservation {
     @Column(nullable = false)
     private String weatherFlag;
 
-    public Reservation(){};
+    public Reservation(){}
     public Reservation(Bundle bundle, Customer customer, Seller seller, LocalDateTime thisTimeStamp,
                        String thisClaimCode, boolean thisNoShow, boolean thisCollected, String thisWeatherFlag){
         this.bundle = bundle;
@@ -71,5 +71,4 @@ public class Reservation {
 
     public String getWeatherFlag() {return weatherFlag;}
     public void setWeatherFlag(String weatherFlag) {this.weatherFlag = weatherFlag;}
-
 }

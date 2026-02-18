@@ -63,34 +63,19 @@ public class Customer implements Serializable {
         this.badges = badges;
     }
 
-    public boolean signup(String fName, String lName, String businessName, String email, String phone, String password, String address1, String postcode, String county) {
-        return  false;
-    }
+    public String generateClaimCode() {
 
-
-    Reservation getReservation(){
-        return null;
-    }
-
-    public String generateClaimCode(){
         String options = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYS0123456789";
-        //randomly select characters and build into string
+
+        // Randomly select characters and build into string
         Random rand = new Random();
         StringBuilder builder = new StringBuilder();
+
         for(int i = 0; i < 6; i++){
             builder.append(options.charAt(rand.nextInt(62)));
         }
         return builder.toString();
     }
-    void reportIssue(int reservationID, String type, String description, int postingID){
-    }
-    ArrayList<Bundle> viewBundles(ArrayList<String> allergens, LocalDateTime time, ArrayList<Integer> location, String category){
-        return null;
-    }
-    void reserveBundle(int postingID){}
-    String customerNotification(){return null;}
-    String getImpactSummary(){return null;}
-
 
     public Long getCustomerID(){return ID;}
     public void setCustomerID(Long customerID){this.ID = customerID;}
