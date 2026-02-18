@@ -44,6 +44,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-webclient-test")
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testImplementation("org.springframework.boot:spring-boot-starter-thymeleaf-test")
+    testImplementation("org.junit.platform:junit-platform-suite:1.12.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

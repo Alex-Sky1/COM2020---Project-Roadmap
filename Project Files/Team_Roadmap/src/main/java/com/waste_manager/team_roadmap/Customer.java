@@ -59,7 +59,7 @@ public class Customer implements Serializable {
         return null;
     }
 
-    String generateClaimCode(){
+    public String generateClaimCode(){
         String options = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYS0123456789";
         //randomly select characters and build into string
         Random rand = new Random();
@@ -113,7 +113,11 @@ public class Customer implements Serializable {
     public void setBadges(ArrayList<Boolean> badges){this.badges = badges;}
 
     public String getPassword(){return password;}
-    public void setPassword(String password){this.password = password;}
+    public void setPassword(String password){
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
 
     public LocalDateTime getStreakLastUpdate(){return streakLastUpdate;}
     public void setStreakLastUpdate(LocalDateTime lastUpdate){this.streakLastUpdate = lastUpdate;}

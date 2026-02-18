@@ -47,6 +47,7 @@ public class Seller implements Serializable {
         this.phone = phone;
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.password = passwordEncoder.encode(password);
+        // $2a$10$MJIP2Ai5Cy2KsJrsb0sw3e1HnVRXvOR.BxZfJvSixF.Mt66RAXm5W
     }
 
     public boolean signup(String fName, String lName, String businessName, String email, String phone, String password, String address1, String postcode, String county){return true;}
@@ -91,6 +92,10 @@ public class Seller implements Serializable {
     public void setPhone(String phone){this.phone = phone;}
 
     public String getPassword(){return password;}
-    public void setPassword(String password){this.password = password;}
+    public void setPassword(String password){
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
 
 }

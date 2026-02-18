@@ -1,12 +1,11 @@
-package com.waste_manager.team_roadmap;
+package com.waste_manager.team_roadmap_tests;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import com.waste_manager.team_roadmap.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,11 +16,12 @@ public class ReservationTest {
     static Customer testCustomer;
     static Seller testSeller;
     static Bundle testBundle;
+    static LocalDateTime testTime;
 
     // Ran once before any of the tests
     @BeforeEach
     public void setup() {
-        LocalDateTime testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
+        testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
 
         testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
                 "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
@@ -32,6 +32,8 @@ public class ReservationTest {
                 true, false);
         testReservation = new Reservation(testBundle, testCustomer, testSeller, testTime, "AAAAAA",
                 false, false, "rainy");
+
+        testReservation.setPickupTimeStamp(testTime);
     }
 
 //    // Verifies the ID of a reservation
@@ -74,7 +76,7 @@ public class ReservationTest {
 
     // Verifies the timestamp of a reservation
     @Test
-    public void testGetTimestamp() {assertSame(LocalDateTime.of(2026, 2, 1, 12, 0), testReservation.getTimeStamp());}
+    public void testGetTimestamp() {assertEquals(LocalDateTime.of(2026, 2, 1, 12, 0), testReservation.getTimeStamp());}
 
     // Verifies changing the timestamp of a reservation
     @Test
@@ -83,6 +85,16 @@ public class ReservationTest {
         LocalDateTime newTime = LocalDateTime.now();
         testReservation.setTimeStamp(newTime);
         assertSame(newTime, testReservation.getTimeStamp());
+    }
+
+    @Test
+    public void testGetPickupTimeStamp() {assertEquals(testTime, testReservation.getPickupTimeStamp());}
+
+    @Test
+    public void getGetPickupTimeStamp() {
+
+        testReservation.setPickupTimeStamp(testTime.plusDays(1));
+        assertEquals(testTime.plusDays(1), testReservation.getPickupTimeStamp());
     }
 
     // Verifies the claim code of a reservation
