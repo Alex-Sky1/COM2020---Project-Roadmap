@@ -2,6 +2,7 @@ package com.waste_manager.team_roadmap;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Controller;
@@ -11,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 @Controller
-public class TeamRoadmapApplication {
+public class TeamRoadmapApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {ConfigurableApplicationContext ctx = SpringApplication.run(TeamRoadmapApplication.class, args);}
-
-
 
     @RequestMapping("/")
     @DependsOn("temp_load_database")
