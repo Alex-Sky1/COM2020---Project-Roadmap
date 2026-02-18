@@ -99,7 +99,7 @@ public class CSVDatabase {
                     seller_info.get(6),
                     seller_info.get(7),
                     seller_info.get(8),
-                    !newSellerFile
+                    newSellerFile
             ));
         }
         log.info("Sellers Loaded");
@@ -135,7 +135,7 @@ public class CSVDatabase {
                     customer_info.get(8),
                     Integer.parseInt(customer_info.get(9)),
                     badges,
-                    !newCustomerFile
+                    newCustomerFile
             ));
 
         }

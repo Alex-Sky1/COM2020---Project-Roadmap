@@ -35,7 +35,7 @@ public class Customer implements Serializable {
     private LocalDateTime streakLastUpdate;
     public Customer(){};
 
-    public Customer(String fName, String sName, String dName, String address, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges){
+    public Customer(String fName, String sName, String dName, String address, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges, boolean hashPassword) {
         this.fName = fName;
         this.sName = sName;
         this.dName = dName;
@@ -44,21 +44,13 @@ public class Customer implements Serializable {
         this.county = county;
         this.email = email;
         this.phone = phone;
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);
-        this.streak = streak;
-        this.badges = badges;
-    }
-    public Customer(String fName, String sName, String dName, String address, String pcode, String county, String email, String phone, String password, int streak, ArrayList<Boolean> badges, boolean fromCSV){
-        this.fName = fName;
-        this.sName = sName;
-        this.dName = dName;
-        this.address = address;
-        this.postcode = pcode;
-        this.county = county;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
+        if(hashPassword) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            this.password = passwordEncoder.encode(password);
+        }
+        else {
+            this.password = password;
+        }
         this.streak = streak;
         this.badges = badges;
     }
