@@ -1,11 +1,11 @@
 package com.waste_manager.team_roadmap;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.
 
 public class Forecast {
 
@@ -177,23 +177,17 @@ public class Forecast {
             for(int i = 0;i < 24;i++) {
                 ArrayList<Reservation> dayReservationList = filterReservationListDate(check.toLocalDate(), filteredReservationList);
 
-
                 if (!dayReservationList.isEmpty()) {
 
                     for (Reservation reservation : dayReservationList) {
 
                         if (reservation.getBundle().getPickUpWindow() == check.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
 
-
                             if (!(reservation.getNoShow())) {
                                 returnInt += 1;
                             }
                         }
                     }
-
-                }
-                else {
-                    returnInt = 0;
                 }
 
                 int naive = seasonalNaive(check);
@@ -209,29 +203,6 @@ public class Forecast {
         }
         mae = mae/number;
         return mae;
-
-
-        }
-
-        if (!dayReservationList.isEmpty()) {
-
-
-            for (Reservation reservation : dayReservationList) {
-
-                if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
-
-                    if (!(reservation.getNoShow())) {
-                        returnInt += 1;
-                    }
-                }
-            }
-            return returnInt;
-        }
-        else {
-            searchDate = searchDate.minusDays(7);
-        }
-
-
     }
 
     // Getters and Setters

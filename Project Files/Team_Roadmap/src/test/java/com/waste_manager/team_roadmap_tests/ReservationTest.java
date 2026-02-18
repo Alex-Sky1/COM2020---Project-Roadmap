@@ -36,18 +36,6 @@ public class ReservationTest {
         testReservation.setPickupTimeStamp(testTime);
     }
 
-//    // Verifies the ID of a reservation
-//    @Test
-//    public void testGetReservationID() {assertEquals(1, testReservation.getReservationID());}
-//
-//    // Verifies changing the ID of a reservation
-//    @Test
-//    public void testSetReservationID() {
-//
-//        testReservation.setReservationID(3);
-//        assertEquals(3, testReservation.getReservationID());
-//    }
-
     // Verifies the Posting ID of a reservation
     @Test
     public void testGetPostingID() {assertEquals(0, testReservation.getReservationID());}

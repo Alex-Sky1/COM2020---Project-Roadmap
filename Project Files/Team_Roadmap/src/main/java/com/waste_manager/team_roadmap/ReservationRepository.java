@@ -32,5 +32,4 @@ public interface ReservationRepository extends Repository<Reservation, Long> {
     @Modifying
     @Query("update Reservation r set r.noShow = :noShow where r.ID = :ID")
     void setReservationNoShow(@Param("noShow") boolean newNoShow, @Param("ID") long id);
-
 }

@@ -1,6 +1,6 @@
 package com.waste_manager.team_roadmap;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

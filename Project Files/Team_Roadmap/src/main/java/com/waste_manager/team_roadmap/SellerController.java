@@ -364,7 +364,7 @@ public class SellerController {
         String sellThrough = collected + " : " + expired + " : " + noShow;
         model.addAttribute("sellThrough", sellThrough);
 
-        //calculate waste proxy
+        // Calculate waste proxy
         model.addAttribute("wasteProxy", collected*1);
 
         model.addAttribute("pricingEffectiveness", "-");
