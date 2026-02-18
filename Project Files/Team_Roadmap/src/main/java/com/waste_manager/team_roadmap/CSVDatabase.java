@@ -185,10 +185,10 @@ public class CSVDatabase {
 
         // get all file writers
         System.out.println("Testing Testing 123");
-        PrintWriter seller_writer = new PrintWriter(sellerCSV.getFile());
-        PrintWriter customer_writer = new PrintWriter(customerCSV.getFile());
-        PrintWriter bundle_writer = new PrintWriter(bundleCSV.getFile());
-        PrintWriter reservation_writer = new PrintWriter(reservationCSV.getFile());
+        PrintWriter seller_writer = new PrintWriter(new FileWriter(sellerCSV.getPath()));
+        PrintWriter customer_writer = new PrintWriter(new FileWriter(customerCSV.getPath()));
+        PrintWriter bundle_writer = new PrintWriter(new FileWriter(bundleCSV.getPath()));
+        PrintWriter reservation_writer = new PrintWriter(new FileWriter(reservationCSV.getPath()));
 
         // write all sellers
         log.info("writing sellers");
