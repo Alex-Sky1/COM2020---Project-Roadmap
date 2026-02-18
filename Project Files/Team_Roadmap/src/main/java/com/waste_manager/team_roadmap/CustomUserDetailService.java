@@ -21,13 +21,13 @@ public class CustomUserDetailService implements UserDetailsService {
         //if user is found in customer DB assign role customer and build user
         List<Customer> cList = customerRepository.findByDName(username);
         if(!cList.isEmpty()){
-            Customer c = cList.getFirst();
+            Customer c = cList.get(0);
             return User.withUsername(c.getdName()).password(c.getPassword()).authorities("ROLE_CUSTOMER").build();
         }
         //if user is found in seller DB assign role Seller and build user
         List<Seller> sList = sellerRepository.findByDName(username);
         if(!sList.isEmpty()){
-            Seller s = sList.getFirst();
+            Seller s = sList.get(0);
             return User.withUsername(s.getdName()).password(s.getPassword()).authorities("ROLE_SELLER").build();
         }
 

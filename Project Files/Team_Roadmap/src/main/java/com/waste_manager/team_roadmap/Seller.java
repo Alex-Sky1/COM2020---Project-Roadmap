@@ -47,21 +47,21 @@ public class Seller implements Serializable {
         this.phone = phone;
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.password = passwordEncoder.encode(password);
+
     }
 
-    public boolean signup(String fName, String lName, String businessName, String email, String phone, String password, String address1, String postcode, String county){return true;}
-    public void createBundle(String category, String[] contents, float price, String[] allergens, int quantity, int discountLevel, int pickupWindow){}
-    public ArrayList<Bundle> viewCurrentBundles(){return null;}
-    public ArrayList<Bundle> viewAllBundles(){return null;}
-    public Forecast viewForecast(){return null;}
-    public boolean verifyClaimCode(String code){return true;}
-    public void changeReservationStatus(){}
-    public void issueResponse(int issueID, String Response, boolean fix){}
-    public ArrayList<Integer> calculateSellThrough(){return null;}
-    public int calculateWasteProxy(){return 0;}
-    public ArrayList<Integer> calculatePricingEffectiveness(){return null;}
-    public ArrayList<String> calculateOperationalInsights(){return null;}
-    public void recordActionTaken(){}
+    public Seller(String fName, String sName, String dName, String addressLine1, String postcode, String county, String email, String phone, String password, boolean fromCSV) {
+        this.fName = fName;
+        this.sName = sName;
+        this.dName = dName;
+        this.address = addressLine1;
+        this.postcode = postcode;
+        this.county = county;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+
+    }
 
     public int getSellerID() {return ID;}
     public void setSellerID(int sellerID) {this.ID = sellerID;}
@@ -91,6 +91,10 @@ public class Seller implements Serializable {
     public void setPhone(String phone){this.phone = phone;}
 
     public String getPassword(){return password;}
-    public void setPassword(String password){this.password = password;}
+    public void setPassword(String password){
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
 
 }

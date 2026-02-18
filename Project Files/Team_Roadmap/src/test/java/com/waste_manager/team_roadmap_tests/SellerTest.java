@@ -1,11 +1,9 @@
-package com.waste_manager.team_roadmap;
+package com.waste_manager.team_roadmap_tests;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.waste_manager.team_roadmap.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,6 +77,15 @@ public class SellerTest {
     }
 
     @Test
+    public void testGetCounty() {assertEquals("Crocodile Creek", testSeller.getCounty());}
+
+    @Test
+    public void testSetCounty() {
+        testSeller.setCounty("Neverland");
+        assertEquals("Neverland", testSeller.getCounty());
+    }
+
+    @Test
     public void testGetEmail() {assertEquals("Peter.Pan12@hookmail.com", testSeller.getEmail());}
 
     @Test
@@ -97,11 +104,15 @@ public class SellerTest {
     }
 
     @Test
-    public void testGetPassword() {assertEquals("T1nkerb3ll!", testSeller.getPassword());}
+    public void testGetPassword() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        assertTrue(passwordEncoder.matches("T1nkerb3ll!", testSeller.getPassword()));
+    }
 
     @Test
     public void testSetPassword() {
         testSeller.setPassword("HughLaurie2!");
-        assertEquals("HughLaurie2!", testSeller.getPassword());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        assertTrue(passwordEncoder.matches("HughLaurie2!", testSeller.getPassword()));
     }
 }

@@ -1,6 +1,5 @@
-package com.waste_manager.team_roadmap;
+package com.waste_manager.team_roadmap_tests;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.waste_manager.team_roadmap.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,13 +15,14 @@ public class ForecastTest {
 
     static Forecast testForecast;
     static LocalDateTime testTime;
+    static ArrayList<Bundle> testBundles;
 
     // Ran once before any of the tests
     @BeforeEach
     public void setup() {
 
         testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
-        ArrayList<Bundle> testBundles = new ArrayList<>();
+        testBundles = new ArrayList<>();
         ArrayList<Reservation> testReservations = new ArrayList<>();
 
         Seller testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
@@ -54,7 +55,7 @@ public class ForecastTest {
     @Test
     public void testBundleFromSelectSeller(){
         ArrayList<Bundle> filteredBundleList = testForecast.bundleFromSelectSeller();
-        assertEquals("a",filteredBundleList);
+        assertEquals(testBundles, filteredBundleList);
     }
 
     @Test
