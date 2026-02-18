@@ -5,7 +5,6 @@ import jakarta.annotation.PreDestroy;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
@@ -51,7 +50,7 @@ public class CSVDatabase {
         return values;
     }
 
-    private void setup_file_paths() throws IOException {
+    private void setupFilePaths() throws IOException {
         String userHome = System.getProperty("user.home");
 
 
@@ -67,9 +66,9 @@ public class CSVDatabase {
     }
 
     @PostConstruct
-    public void read_all_csvs() throws IOException {
+    public void readAllCVSFiles() throws IOException {
         // set file links
-        setup_file_paths();
+        setupFilePaths();
 
         // set up logging
         Log log = LogFactory.getLog(TeamRoadmapApplication.class);
@@ -79,7 +78,8 @@ public class CSVDatabase {
         log.info("Loading Sellers");
 
         Scanner scanner;
-        if (sellerCSV.createNewFile()) { // if file new then we read from static
+        boolean newSellerFile = sellerCSV.createNewFile();
+        if (newSellerFile) { // if file new then we read from static
             scanner = new Scanner(new InputStreamReader(new ClassPathResource("static/csv/sellers.csv").getInputStream()));
         } else { // otherwise read that file
             scanner = new Scanner(sellerCSV);
@@ -99,14 +99,15 @@ public class CSVDatabase {
                     seller_info.get(6),
                     seller_info.get(7),
                     seller_info.get(8),
-                    true
+                    !newSellerFile
             ));
         }
         log.info("Sellers Loaded");
 
         // load customers
         log.info("Loading Customers");
-        if(customerCSV.createNewFile()) {
+        boolean newCustomerFile = customerCSV.createNewFile();
+        if (newCustomerFile) {
             scanner = new Scanner(new InputStreamReader(new ClassPathResource("static/csv/customers.csv").getInputStream()));
         }else{
             scanner = new Scanner(customerCSV);
@@ -134,7 +135,7 @@ public class CSVDatabase {
                     customer_info.get(8),
                     Integer.parseInt(customer_info.get(9)),
                     badges,
-                    true
+                    !newCustomerFile
             ));
 
         }
@@ -214,7 +215,7 @@ public class CSVDatabase {
 
 
     @PreDestroy
-    public void write_all_csvs() throws IOException {
+    public void writeAllCSVFiles() throws IOException {
         // set up logging
         Log log = LogFactory.getLog(TeamRoadmapApplication.class);
 
