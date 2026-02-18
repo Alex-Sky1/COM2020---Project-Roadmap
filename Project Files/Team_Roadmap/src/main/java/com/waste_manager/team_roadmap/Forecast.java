@@ -78,41 +78,9 @@ public class Forecast {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public int seasonalNaive() {
-
-        ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
-        ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
 
 
-
-        LocalDateTime searchDate = this.forecastDate.minusDays(7); // The search date is the date used to provide the seasonal naive
-        int returnInt = 0; // The return integer is the number of bundles that were reserved and picked up
-
-        while (!(bundleList.get(0).getTimeStamp().isAfter(searchDate))) {
-
-            ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
-
-            if (!dayReservationList.isEmpty()) {
-
-
-                for (Reservation reservation : dayReservationList) {
-
-                    if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
-
-                        if (!(reservation.getNoShow())) {
-                            returnInt += 1;
-                        }
-                    }
-                }
-                return returnInt;
-            }
-            else {
-                searchDate = searchDate.minusDays(7);
-            }
-
-        }
-        return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
-    }
+    public int seasonalNaive() {return seasonalNaive(this.forecastDate.minusDays(7));}
 
 
     public int seasonalNaive(LocalDateTime date) {
@@ -151,9 +119,8 @@ public class Forecast {
         return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
     }
 
+    public float MAE() {
 
-
-    public float MAE(){
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
         int number = 0;
@@ -201,7 +168,7 @@ public class Forecast {
         if(number == 0) {
             return 1;
         }
-        mae = mae/number;
+        mae = mae / number;
         return mae;
     }
 

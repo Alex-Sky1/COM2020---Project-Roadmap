@@ -12,5 +12,4 @@ import org.junit.platform.suite.api.Suite;
         ReservationTest.class,
         ForecastTest.class
 })
-public class TeamRoadmapTestSuite {
-}
+public class TeamRoadmapTestSuite {}

@@ -15,7 +15,13 @@ public class ForecastTest {
 
     static Forecast testForecast;
     static LocalDateTime testTime;
+    static Seller testSeller;
+    static Customer testCustomer;
+    static ArrayList<String> testItems;
+    static ArrayList<String> testAllergies;
     static ArrayList<Bundle> testBundles;
+    static ArrayList<Reservation> testReservations;
+
 
     // Ran once before any of the tests
     @BeforeEach
@@ -23,15 +29,15 @@ public class ForecastTest {
 
         testTime = LocalDateTime.of(2026, 2, 1, 12, 0);
         testBundles = new ArrayList<>();
-        ArrayList<Reservation> testReservations = new ArrayList<>();
+        testReservations = new ArrayList<>();
 
-        Seller testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
+        testSeller = new Seller("Peter", "Pan", "Pete's Pancakes", "Neverland", "NV21 TK2", "Crocodile Creek",
                 "Peter.Pan12@hookmail.com", "06847 268425", "T1nkerb3ll!");
-        Customer testCustomer = new Customer("Robin", "Hood", "RobOfNotts1364", "Sherwood Forest", "NG21 9RM", "Nottinghamshire",
+        testCustomer = new Customer("Robin", "Hood", "RobOfNotts1364", "Sherwood Forest", "NG21 9RM", "Nottinghamshire",
                 "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)));
 
-        ArrayList<String> testItems = new ArrayList<>(List.of("chocolate", "pancakes", "brownies", "cake", "biscuit", "pavlova", "toffee", "ice cream"));
-        ArrayList<String> testAllergies = new ArrayList<>(List.of("dairy", "gluten", "nuts", "fish", "eggs"));
+        testItems = new ArrayList<>(List.of("chocolate", "pancakes", "brownies", "cake", "biscuit", "pavlova", "toffee", "ice cream"));
+        testAllergies = new ArrayList<>(List.of("dairy", "gluten", "nuts", "fish", "eggs"));
 
         for (int i = 0; i < 4; i++) {
 
@@ -123,5 +129,39 @@ public class ForecastTest {
 
         testForecast.setRationale("bad food");
         assertSame("bad food", testForecast.getRationale());
+    }
+
+    @Test
+    public void testGetBundleList() {assertEquals(testBundles, testForecast.getBundleList());}
+
+    @Test
+    public void testSetBundleList() {
+
+        Bundle testBundle = new Bundle(testSeller, "puddings", testItems.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)),
+                testAllergies.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)), testTime, 7.50f, 10, 12,
+                true, false);
+
+        testBundles.add(testBundle);
+        testForecast.setBundleList(testBundles);
+
+        assertEquals(testBundles, testForecast.getBundleList());
+    }
+
+    @Test
+    public void testGetReservationList() {assertEquals(testReservations, testForecast.getReservationList());}
+
+    @Test
+    public void testSetReservationList() {
+
+        Bundle testBundle = new Bundle(testSeller, "puddings", testItems.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)),
+                testAllergies.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)), testTime, 7.50f, 10, 12,
+                true, false);
+        Reservation testReservation = new Reservation(testBundle, testCustomer, testSeller, testTime, "AAAAAA",
+                false, true, "rainy");
+
+        testReservations.add(testReservation);
+        testForecast.setReservationList(testReservations);
+
+        assertEquals(testReservations, testForecast.getReservationList());
     }
 }
