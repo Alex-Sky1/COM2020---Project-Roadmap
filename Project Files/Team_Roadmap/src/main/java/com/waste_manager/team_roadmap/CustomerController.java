@@ -179,7 +179,7 @@ public class CustomerController {
         if (!reservations.isEmpty()) {
             for(Reservation reservation : reservations){
                 //set no show if past pickup window
-                if(!reservation.getNoShow() && reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())){
+                if(reservation.getCollected() == false && !reservation.getNoShow() && (reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now()))){
                     rr.setReservationNoShow(true, reservation.getBundle().getPickUpWindow() + 1);
                     reservation.setNoShow(true);
                 }

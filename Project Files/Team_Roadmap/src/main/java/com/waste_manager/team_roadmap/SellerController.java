@@ -1,5 +1,6 @@
 package com.waste_manager.team_roadmap;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -218,7 +219,7 @@ public class SellerController {
             else{
                 List<Reservation> reserves = rr.findByBundleID(bundle.getPostingID());
                 // Set no show if pickup window has passed
-                if(!reserves.get(0).getNoShow() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || reserves.get(0).getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) ){
+                if(reserves.get(0).getCollected() == false && !reserves.get(0).getNoShow() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || reserves.get(0).getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) ){
                     rr.setReservationNoShow(true, reserves.get(0).getReservationID());
                 }
 
@@ -242,7 +243,7 @@ public class SellerController {
 
         for (Reservation reservation : allReservations) {
             // Set no show if pickup window passed
-            if(!reservation.getNoShow() && (reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+            if(reservation.getCollected() == false && !reservation.getNoShow() && (reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
                 rr.setReservationNoShow(true, reservation.getReservationID());
             }
             // Only add reservations that have not been collected and not classed as no show
@@ -308,11 +309,16 @@ public class SellerController {
     }
 
     @GetMapping("/forecasting_seller")
-    public String forecasting_seller() {
+    public String forecasting_seller(Model model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Seller s = sr.findByDName(currentUsername).get(0);
+
+        Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), "rain", "Category1", new ArrayList<>(br.findAll()), new ArrayList<>(rr.findAll()));
+        float mae = forecast.MAE();
+        model.addAttribute("mae", mae);
+
         return "forecasting_seller";
     }
     @PostMapping("/forecasting_seller")

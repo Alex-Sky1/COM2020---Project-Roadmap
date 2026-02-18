@@ -135,6 +135,7 @@ public class Forecast {
 
 
         while(searchDate.getDayOfMonth() != hold.getDayOfMonth()){
+
             LocalDateTime check = searchDate;
 
             while(check.getHour() != 0){
@@ -152,22 +153,28 @@ public class Forecast {
 
                             if (!(reservation.getNoShow())) {
                                 returnInt += 1;
+                                System.out.println(returnInt);
                             }
                         }
                     }
                 }
 
+
                 int naive = seasonalNaive(check);
+                if(naive == -1){naive = 0;}
                 mae += Math.abs(returnInt - naive);
+                System.out.println(mae);
                 returnInt = 0;
                 number += 1;
                 check = check.plusHours(1);
             }
-            hold = hold.plusDays(1);
+            searchDate = searchDate.plusDays(1);
         }
         if(number == 0) {
             return 1;
         }
+        System.out.println(mae);
+        System.out.println(number);
         mae = mae / number;
         return mae;
     }
