@@ -1,9 +1,11 @@
 package com.waste_manager.team_roadmap;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.
 
 public class Forecast {
 
@@ -110,6 +112,126 @@ public class Forecast {
 
         }
         return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
+    }
+
+
+    public int seasonalNaive(LocalDateTime date) {
+
+        ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
+        ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
+
+
+
+        LocalDateTime searchDate = date; // The search date is the date used to provide the seasonal naive
+        int returnInt = 0; // The return integer is the number of bundles that were reserved and picked up
+
+        while (!(bundleList.get(0).getTimeStamp().isAfter(searchDate))) {
+
+            ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
+
+            if (!dayReservationList.isEmpty()) {
+
+
+                for (Reservation reservation : dayReservationList) {
+
+                    if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
+
+                        if (!(reservation.getNoShow())) {
+                            returnInt += 1;
+                        }
+                    }
+                }
+                return returnInt;
+            }
+            else {
+                searchDate = searchDate.minusDays(7);
+            }
+
+        }
+        return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
+    }
+
+
+
+    public float MAE(){
+        ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
+        ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
+        int number = 0;
+
+        float mae = 0;
+        LocalDateTime searchDate = this.forecastDate.minusDays(7);
+        while ((searchDate.getDayOfWeek() != DayOfWeek.MONDAY)){
+            searchDate = searchDate.minusDays(1);
+        }
+        LocalDateTime hold = this.forecastDate;
+        int returnInt = 0;
+
+
+        while(searchDate.getDayOfMonth() != hold.getDayOfMonth()){
+            LocalDateTime check = searchDate;
+
+            while(check.getHour() != 0){
+                check = check.minusHours(1);
+            }
+
+            for(int i = 0;i < 24;i++) {
+                ArrayList<Reservation> dayReservationList = filterReservationListDate(check.toLocalDate(), filteredReservationList);
+
+
+                if (!dayReservationList.isEmpty()) {
+
+                    for (Reservation reservation : dayReservationList) {
+
+                        if (reservation.getBundle().getPickUpWindow() == check.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
+
+
+                            if (!(reservation.getNoShow())) {
+                                returnInt += 1;
+                            }
+                        }
+                    }
+
+                }
+                else {
+                    returnInt = 0;
+                }
+
+                int naive = seasonalNaive(check);
+                mae += Math.abs(returnInt - naive);
+                returnInt = 0;
+                number += 1;
+                check = check.plusHours(1);
+            }
+            hold = hold.plusDays(1);
+        }
+        if(number == 0) {
+            return 1;
+        }
+        mae = mae/number;
+        return mae;
+
+
+        }
+
+        if (!dayReservationList.isEmpty()) {
+
+
+            for (Reservation reservation : dayReservationList) {
+
+                if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
+
+                    if (!(reservation.getNoShow())) {
+                        returnInt += 1;
+                    }
+                }
+            }
+            return returnInt;
+        }
+        else {
+            searchDate = searchDate.minusDays(7);
+        }
+
+
     }
 
     // Getters and Setters
