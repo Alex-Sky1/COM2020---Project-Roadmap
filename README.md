@@ -30,3 +30,6 @@
 
 ## Scrum Board
 https://lucid.app/lucidspark/4e8a1254-63f4-4daa-9034-f6b065367c03/edit?viewport_loc=-3644%2C-1330%2C3932%2C1994%2C0_0&invitationId=inv_e3c3fd4f-5c1d-4277-907d-860102c0e660
+
+## Deployment Guide
+Please view deployment_guide.pdf in submission for details
