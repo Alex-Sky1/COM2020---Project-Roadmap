@@ -6,17 +6,17 @@ public class IssueReport {
     private long customerID;
     private String type;
     private String description;
-    private boolean fixed;
+    private boolean resolved;
     private String sellerResponse;
 
     public IssueReport(long thisPostingID, long thisCustomerID, String thisType, String thisDescription,
-                       boolean thisFixed, String thisSellerResponse){
+                       boolean thisResolved, String thisSellerResponse){
 
         this.postingID = thisPostingID;
         this.customerID = thisCustomerID;
         this.type = thisType;
         this.description = thisDescription;
-        this.fixed = thisFixed;
+        this.resolved = thisResolved;
         this.sellerResponse = thisSellerResponse;
     }
 
@@ -36,8 +36,8 @@ public class IssueReport {
     public String getDescription(){return description;}
     public void setDescription(String description){this.description = description;}
 
-    public boolean getFixed(){return fixed;}
-    public void setFixed(boolean fixed){this.fixed = fixed;}
+    public boolean getResolved(){return resolved;}
+    public void setResolved(boolean resolved){this.resolved = resolved;}
 
     public String getSellerResponse(){return sellerResponse;}
     public void setSellerResponse(String sellerResponse){this.sellerResponse = sellerResponse;}

@@ -23,12 +23,14 @@ public class CustomerController {
     private final SellerRepository sr;
     private final BundleRepository br;
     private final ReservationRepository rr;
+    private final IssueReportRepository irr;
 
-    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
+    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
         this.cr = customerRepository;
         this.sr = sellerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
+        this.irr = issueReportRepository;
     }
 
     @PostMapping("/sign_up_consumer")
@@ -189,13 +191,8 @@ public class CustomerController {
         return "manage_bundles_consumer";
     }
 
-    @PostMapping("/report_issue_consumer")
-    public String reportIssue(){
-        return "report_issue_consumer";
-    }
-
     @GetMapping("/view_analytics_consumer")
-    public String viewAnanalyticsConsumer(Model model) {
+    public String viewAnalyticsConsumer(Model model) {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
@@ -240,7 +237,39 @@ public class CustomerController {
         return "view_analytics_consumer";
     }
 
+    //when customer selects 'view issues' button on dashboard
+    @GetMapping("/view_issues_consumer")
+    public String viewIssuesConsumer(Model model) {
+        //get current user
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Customer c = cr.findByDName(currentUsername).get(0);
 
+        //find all issues that have the correct customer id
+        List<IssueReport> allIssueReports = irr.findByCustomerId(c.getCustomerID());
 
+        //add issue reports to the web page
+        model.addAttribute("allIssueReports", allIssueReports);
+        return "view_issues_consumer";
+    }
 
+    @PostMapping("/report_issue_consumer")
+    public String reportIssue(@RequestParam("postingID") int postingID,
+                              @RequestParam("type") String type,
+                              @RequestParam("description") String description)
+    {
+        //get current user
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Customer c = cr.findByDName(currentUsername).get(0);
+
+        //get bundle from web page
+        Optional<Bundle> b = br.findById(postingID);
+        Bundle b1 = b.get();
+
+        //save report to database
+        IssueReport issueReport = new IssueReport(postingID, c.getCustomerID(), type, description, false, null);
+        irr.save(issueReport);
+        return "report_issue_consumer";
+    }
 }

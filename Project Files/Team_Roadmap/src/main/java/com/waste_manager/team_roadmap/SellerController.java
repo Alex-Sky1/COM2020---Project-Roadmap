@@ -23,12 +23,14 @@ public class SellerController {
     private final CustomerRepository cr;
     private final BundleRepository br;
     private final ReservationRepository rr;
+    private final IssueReportRepository irr;
 
-    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
+    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
         this.sr = sellerRepository;
         this.cr = customerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
+        this.irr = issueReportRepository;
     }
 
     @PostMapping("/sign_up_seller")
@@ -376,5 +378,53 @@ public class SellerController {
         model.addAttribute("pricingEffectiveness", "-");
         model.addAttribute("operationalInsights", "-");
         return "view_analytics_seller";
+    }
+
+    @GetMapping("/view_issues_seller")
+    public String viewIssuesSeller(Model model)
+    {
+        // Get current logged in seller
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).get(0);
+
+        //find all issues that have seller id of seller
+        List<IssueReport> allIssueReports = irr.findBySellerID(s.getSellerID());
+
+        //List of unresolved issues
+        ArrayList<IssueReport> unresolvedIssueReports = new ArrayList<>();
+        ArrayList<IssueReport> resolvedIssueReports = new ArrayList<>();
+        for(IssueReport issueReport : allIssueReports){
+            if(!issueReport.getResolved()) {
+                unresolvedIssueReports.add(issueReport);
+            }
+            else {
+                resolvedIssueReports.add(issueReport);
+            }
+        }
+        //add all issue reports to the web page
+        model.addAttribute("unresolvedIssueReports", unresolvedIssueReports);
+        model.addAttribute("resolvedIssueReports", resolvedIssueReports);
+        return "view_issues_seller";
+    }
+
+    @PostMapping("/issue_report_response")
+    public String issueReportResponse(@RequestParam("issueID") int issueID,
+                                      @RequestParam("sellerResponse") String sellerResponse) {
+        //get current seller
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).get(0);
+
+        //get the issue report from the database
+        Optional<IssueReport> issueReport = irr.findById(issueID);
+        IssueReport ir1 = issueReport.get();
+        ir1.setSellerResponse(sellerResponse);
+        ir1.setResolved(true);
+
+        //save to database
+        irr.save(ir1);
+
+        return "issue_report_response";
     }
 }

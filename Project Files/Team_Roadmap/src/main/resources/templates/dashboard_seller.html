@@ -29,6 +29,9 @@
         <form th:action="@{/forecasting_seller}">
             <button class="button1" style="width:300px; height: 100px">Forecasting</button>
         </form>
+        <form th:action="@{/view_issues_seller}">
+            <button class="button1" style="width:300px; height: 100px">View Issue Reports</button>
+        </form>
         <form th:action="@{/logout}" method="post">
             <button class="button1" style="grid-column: span 2; width: 300px">Log Out</button>
         </form>
@@ -41,7 +44,8 @@
             <li>Manage bundles to view currently active bundles and check whether they have expired</li>
             <li>View analytics page to check your statistics on sell through, waste proxy, pricing effectiveness and insights</li>
             <li>Verify claim codes on your manage reservations page</li>
-            <li> Check predictions for future bundle reservations on your forecasting page to plan ahead</li>
+            <li>Check predictions for future bundle reservations on your forecasting page to plan ahead</li>
+            <li>Respond to issue reports made by customers about your products.</li>
         </ul>
         <p><i>Disclaimer: As a seller, it is your responsibility to ensure that all allergens and bundle information is up to date and
         accurate to the best of your ability</i></p>
