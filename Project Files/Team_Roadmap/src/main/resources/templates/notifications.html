@@ -8,21 +8,20 @@
 <div class="header">
     <h1 class="header-text">Notifications</h1>
     <div class="header-images">
-        <a th:href="@{/REPLACE}"><img th:src="@{images/home.png}" alt="Home" class="header-icons"></a>
+        <a th:href="@{/dashboard_consumer}"><img th:src="@{images/home.png}" alt="Home" class="header-icons"></a>
         <a th:href="@{/notifications}"><img th:src="@{images/bell.png}" alt="Bell" class="header-icons"></a>
-        <a th:href="@{/sign_in}"><img th:src="@{images/logout.png}" alt="Logout" class="header-icons"></a>
+        <form th:action="@{/logout}" method="post"><input class="header-icons" type="image" th:src="@{images/logout.png}" alt="logout"></form>
         <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-logo">
     </div>
 </div>
 
 <div style="margin: 1%; max-height: 70vh; overflow: auto">
     <div style="margin-bottom: 2vh">
-        <p class="notifications-text">Unread Notifications</p>
-        <table class="notification-table" th:if="${not#lists.isEmpty(x)}">
+        <p class="notifications-text">Notifications</p>
+        <table class="notification-table" th:if="${not#lists.isEmpty(notifications)}">
             <tbody>
-            <tr th:each="x : ${xs}">
-                <td th:text="${x}" style="width: 10vw">Ex Date</td>
-                <td th:text="${x}" style="width: 75vw">Ex Contents</td>
+            <tr th:each="notification : ${notifications}">
+                <td th:text="${notification}" style="width: 80vw"></td>
                 <td style="width: 10vw">
                     <form th:action="@{/x}">
                         <button class="button1" style="width:150px; padding: 10px 5px; margin:0">Read</button>
@@ -32,6 +31,7 @@
             </tbody>
         </table>
     </div>
+    <!--
     <hr>
     <div>
         <p class="notifications-text">Read Notifications</p>
@@ -49,6 +49,7 @@
             </tbody>
         </table>
     </div>
+    -->
 </div>
 
 </body>
