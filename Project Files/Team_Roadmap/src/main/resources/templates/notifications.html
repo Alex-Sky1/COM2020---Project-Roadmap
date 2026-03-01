@@ -7,7 +7,49 @@
 <body>
 <div class="header">
     <h1 class="header-text">Notifications</h1>
-    <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-img">
+    <div class="header-images">
+        <a th:href="@{/REPLACE}"><img th:src="@{images/home.png}" alt="Home" class="header-icons"></a>
+        <a th:href="@{/notifications}"><img th:src="@{images/bell.png}" alt="Bell" class="header-icons"></a>
+        <a th:href="@{/sign_in}"><img th:src="@{images/logout.png}" alt="Logout" class="header-icons"></a>
+        <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-logo">
+    </div>
 </div>
+
+<div style="margin: 1%; max-height: 70vh; overflow: auto">
+    <div style="margin-bottom: 2vh">
+        <p class="notifications-text">Unread Notifications</p>
+        <table class="notification-table" th:if="${not#lists.isEmpty(x)}">
+            <tbody>
+            <tr th:each="x : ${xs}">
+                <td th:text="${x}" style="width: 10vw">Ex Date</td>
+                <td th:text="${x}" style="width: 75vw">Ex Contents</td>
+                <td style="width: 10vw">
+                    <form th:action="@{/x}">
+                        <button class="button1" style="width:150px; padding: 10px 5px; margin:0">Read</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div>
+        <p class="notifications-text">Read Notifications</p>
+        <table class="notification-table" th:if="${not#lists.isEmpty(x)}">
+            <tbody>
+            <tr th:each="x : ${xs}">
+                <td th:text="${x}" style="width: 10vw">Ex Date</td>
+                <td th:text="${x}" style="width: 75vw">Ex Contents</td>
+                <td style="width: 10vw">
+                    <form th:action="@{/notifications.html}">
+                        <button class="button1" style="width:150px; padding: 10px 5px; margin:0">Unread</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </body>
 </html>
