@@ -8,10 +8,10 @@
 <div class="header">
     <h1 class="header-text">Dashboard</h1>
     <div class="header-images">
-        <a th:href="@{/dashboard_consumer}"><img th:src="@{images/home.png}" alt="Home" class="header-icons"></a>
-        <a th:href="@{/notifications}"><img th:src="@{images/bell.png}" alt="Bell" class="header-icons"></a>
-        <form th:action="@{/logout}" method="post"><input class="header-icons" type="image" th:src="@{images/logout.png}" alt="logout"></form>
-        <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-logo">
+        <form th:action="@{/dashboard_consumer}"><input class="header-icons" type="image" th:src="@{images/home.png}" src="/static/images/home.png" alt="Home"></form>
+        <form th:action="@{/notifications_consumer}"><input class="header-icons" type="image" th:src="@{images/bell.png}" src="/static/images/bell.png" alt="Bell"></form>
+        <form th:action="@{/logout}" method="post"><input class="header-icons" type="image" th:src="@{images/logout.png}" src="/static/images/logout.png" alt="logout"></form>
+        <img th:src="@{images/roadmap_logo.png}" src="/static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-logo">
     </div>
 </div>
 <div class="box1-parent">
