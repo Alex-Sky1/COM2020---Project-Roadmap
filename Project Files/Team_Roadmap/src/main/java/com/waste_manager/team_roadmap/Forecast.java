@@ -93,7 +93,7 @@ public class Forecast {
         LocalDateTime searchDate = date; // The search date is the date used to provide the seasonal naive
         int returnInt = 0; // The return integer is the number of bundles that were reserved and picked up
 
-        while (!(bundleList.get(0).getTimeStamp().isAfter(searchDate))) {
+        while (!(filteredBundleList.get(0).getTimeStamp().isAfter(searchDate))) {
 
             ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
 
@@ -118,8 +118,49 @@ public class Forecast {
         }
         return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
     }
+    public int movingavg(LocalDateTime date){
+        return movingavg(date,24);
+    }
+    public int movingavg(LocalDateTime date,int hours) {
+        ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
+        ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
+
+        LocalDateTime searchDate = date.minusHours(1);
+
+        int returnInt = 0;
+        int counter = 0;
+
+        while (counter < hours) {
+
+            ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
+            if (!dayReservationList.isEmpty()) {
+
+
+                for (Reservation reservation : dayReservationList) {
+
+                    if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
+
+                        if (!(reservation.getNoShow())) {
+                            returnInt += 1;
+                        }
+                    }
+                }
+            }
+            counter++;
+            searchDate = searchDate.minusHours(1);
+
+        }
+        if (counter == 0){
+            return -1;
+        }
+        return returnInt/counter;
+    }
 
     public float MAE() {
+        return MAE("seasonalNaive",0);
+    }
+
+    public float MAE(String baseline,int hours) {
 
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
@@ -134,13 +175,11 @@ public class Forecast {
         int returnInt = 0;
 
 
-        while(searchDate.getDayOfMonth() != hold.getDayOfMonth()){
+        while(searchDate.isBefore(hold)){
 
             LocalDateTime check = searchDate;
 
-            while(check.getHour() != 0){
-                check = check.minusHours(1);
-            }
+            check = check.toLocalDate().atStartOfDay();
 
             for(int i = 0;i < 24;i++) {
                 ArrayList<Reservation> dayReservationList = filterReservationListDate(check.toLocalDate(), filteredReservationList);
@@ -159,10 +198,19 @@ public class Forecast {
                     }
                 }
 
-
-                int naive = seasonalNaive(check);
-                if(naive == -1){naive = 0;}
-                mae += Math.abs(returnInt - naive);
+                if (baseline.equals("seasonalNaive")) {
+                    int naive = seasonalNaive(check);
+                    if (naive == -1) {
+                        naive = 0;
+                    }
+                    mae += Math.abs(returnInt - naive);
+                } else if (baseline.equals("movingavg")) {
+                    int moving = movingavg(check,hours);
+                    if (moving == -1) {
+                        moving = 0;
+                    }
+                    mae += Math.abs(returnInt - moving);
+                }
                 System.out.println(mae);
                 returnInt = 0;
                 number += 1;
@@ -173,8 +221,6 @@ public class Forecast {
         if(number == 0) {
             return 1;
         }
-        System.out.println(mae);
-        System.out.println(number);
         mae = mae / number;
         return mae;
     }
