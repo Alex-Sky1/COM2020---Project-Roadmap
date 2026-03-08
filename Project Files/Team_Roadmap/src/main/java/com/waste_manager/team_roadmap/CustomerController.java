@@ -268,7 +268,7 @@ public class CustomerController {
         Bundle b1 = b.get();
 
         //save report to database
-        IssueReport issueReport = new IssueReport(postingID, c.getCustomerID(), type, description, false, null);
+        IssueReport issueReport = new IssueReport(b1, c, type, description, false, null);
         irr.save(issueReport);
         return "report_issue_consumer";
     }

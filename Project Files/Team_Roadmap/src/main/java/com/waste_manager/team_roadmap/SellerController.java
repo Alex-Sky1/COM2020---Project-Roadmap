@@ -388,13 +388,31 @@ public class SellerController {
         String currentUsername = auth.getName();
         Seller s = sr.findByDName(currentUsername).get(0);
 
-        //find all issues that have seller id of seller
-        List<IssueReport> allIssueReports = irr.findBySellerID(s.getSellerID());
+        //find all issue reports
+        List<IssueReport> allIssueReports = irr.findAll();
+
+        //find all bundles from seller
+        List<Bundle> allSellerBundles = br.findBySellerID(s.getSellerID());
+
+        //find all issue reports that are linked to that seller
+        //based on whether their bundle is linked to an issue report
+        ArrayList<IssueReport> allSellerIssueReports = new ArrayList<>();
+
+        for(int i = 0; i<allIssueReports.size(); i++)
+        {
+            for(int j = 0; j<allSellerBundles.size();j++)
+            {
+                if(allIssueReports.get(i).getBundle() == allSellerBundles.get(j))
+                {
+                    allSellerIssueReports.add(allIssueReports.get(i));
+                }
+            }
+        }
 
         //List of unresolved issues
         ArrayList<IssueReport> unresolvedIssueReports = new ArrayList<>();
         ArrayList<IssueReport> resolvedIssueReports = new ArrayList<>();
-        for(IssueReport issueReport : allIssueReports){
+        for(IssueReport issueReport : allSellerIssueReports){
             if(!issueReport.getResolved()) {
                 unresolvedIssueReports.add(issueReport);
             }
