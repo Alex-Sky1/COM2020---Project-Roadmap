@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/styling.css" th:href="@{/styling.css}">
+    <title>Manage Issues</title>
+</head>
+<body>
+    <div class="header">
+        <h1 class="header-text">Browse Bundles</h1>
+        <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-img">
+    </div>
+        <table class="bundle-table" th:if="${not#lists.isEmpty(bundle-issues)}" style="column-width: 200px; max-width: 43vw; overflow: auto">
+            <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Pickup Window</th>
+                <th>Contents</th>
+                <th>Allergens</th>
+                <th>Collected</th>
+                <th>Customer Complaint</th>
+                <th>Response</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bundle-issue : ${bundle-issues}">
+                <td th:text="${bundle-issues.customer.dName}">Ex Customer</td>
+                <td th:text="${bundle-issues.bundle.price}">Ex Price</td>
+                <td th:text="${bundle-issues.bundle.category}">Ex category</td>
+                <td th:text="${bundle-issues.bundle.getPickUpWindowAsString()}">Pickup Window</td>
+                <td th:text="${bundle-issues.bundle.getContentsAsString()}" style="overflow: auto; max-width: 100px">Ex contents</td>
+                <td th:text="${bundle-issues.bundle.getAllergensAsString()}" style="overflow: auto; max-width: 100px">Ex allergens</td>
+                <td th:text="${bundle-issues.collected}">Collected</td>
+                <td th:text="${bundle-issues.issue.complaint}">Complaint</td>
+                <td>
+                    <form>
+                        <textarea placeholder="Enter response here:" required rows="6" cols="10"></textarea>
+                        <button type="submit">Submit Response</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</body>
+</html>
