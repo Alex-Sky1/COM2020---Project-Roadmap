@@ -75,13 +75,6 @@ public class TeamRoadmapApplication extends SpringBootServletInitializer {
         return "dashboard_consumer";
     }
 
-
-    @GetMapping("/report_issue_consumer")
-    @DependsOn("temp_load_database")
-    public String report_issue_consumer() {
-        return "report_issue_consumer";
-    }
-
     @GetMapping("/dashboard_seller")
     @DependsOn("temp_load_database")
     public String dashboard_seller() {
@@ -99,9 +92,6 @@ public class TeamRoadmapApplication extends SpringBootServletInitializer {
     public String edit_bundle_seller() {
         return "edit_bundle_seller";
     }
-
-
-
 
 
 }
