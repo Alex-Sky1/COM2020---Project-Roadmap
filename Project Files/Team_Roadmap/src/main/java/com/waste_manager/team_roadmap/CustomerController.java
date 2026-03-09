@@ -246,7 +246,7 @@ public class CustomerController {
         Customer c = cr.findByDName(currentUsername).get(0);
 
         //find all issues that have the correct customer id
-        List<IssueReport> allIssueReports = irr.findByCustomerId(c.getCustomerID());
+        List<IssueReport> allIssueReports = irr.findByCustomerID(c.getCustomerID());
 
         //add issue reports to the web page
         model.addAttribute("allIssueReports", allIssueReports);
