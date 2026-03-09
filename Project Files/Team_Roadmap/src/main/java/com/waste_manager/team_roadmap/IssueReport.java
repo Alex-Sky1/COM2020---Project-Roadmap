@@ -37,7 +37,6 @@ public class IssueReport {
 
     }
 
-
     public long getIssueID() {return issueID;}
     public void setIssueID(int issueID){this.issueID = issueID;}
 
