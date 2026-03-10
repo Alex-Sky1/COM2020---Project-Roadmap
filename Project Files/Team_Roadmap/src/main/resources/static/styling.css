@@ -111,6 +111,39 @@ hr {
     width: 150px;
 }
 
+/* Allows a pound sign to always be put before an input */
+.input-pound-white {
+    position: relative;
+}
+.input-pound-white input {
+    padding-left:18px;
+}
+.input-pound-white:before {
+    position: absolute;
+    top: 0;
+    content:"\00A3";
+    left: 5px;
+    color: #dbe9ee;
+    padding-top: 6%;
+}
+
+.input-pound-blue {
+    position: relative;
+}
+.input-pound-blue input {
+    padding-left:18px;
+}
+.input-pound-blue:before {
+    position: absolute;
+    top: 0;
+    content:"\00A3";
+    left: 5px;
+    color: #166088;
+    font-weight: bold;
+    padding-top: 4%;
+    font-size: large;
+}
+
 /* Grid with 2 columns useful for button layouts */
 .grid-2-columns {
     display: grid;
@@ -118,6 +151,14 @@ hr {
     margin: 2%;
     column-gap: 5%;
     row-gap: 3%;
+}
+
+.grid-filters {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin: 2%;
+    column-gap: 10%;
+    row-gap: 2%;
 }
 
 /* Format for p or label to accompany a text input */
@@ -129,6 +170,18 @@ hr {
     width: 150px;
     padding: 2%;
     display: block;
+}
+
+.label2 {
+    background-color: #c0d6df;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    height: 30px;
+    width: 150px;
+    padding: 2%;
+    display: block;
+    border: #166088 solid;
 }
 
 /* Table for the consumer analytics page - dark blue with borders */

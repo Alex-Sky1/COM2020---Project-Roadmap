@@ -20,13 +20,23 @@
         <div class="grid-2-columns" style="margin: 30px">
             <input style="display: none" id="hidden_items" name="hidden_items" type="text">
             <label class="label1" for="category">Food Category</label>
-            <input class="text-input2" type="text" id="category" name="category">
+            <select name="category" id="category" class="text-input2">
+                <option value="meats">Fish & Meat</option>
+                <option value="bakery ">Bakery </option>
+                <option value="snacks">Snacks</option>
+                <option value="dairy">Dairy</option>
+                <option value="plants">Fruit, Vegetables & Legumes</option>
+                <option value="groceries">Groceries</option>
+                <option value="other">Other</option>
+            </select>
             <label class="label1" for="price">Price</label>
-            <input class="text-input2" type="text" placeholder="GBP" id="price" name="price">
+            <span class="input-pound-blue">
+                <input class="text-input2" type="number" id="price" name="price" min="0" step="0.01">
+            </span>
             <label class="label1" for="bundle_numbers">Number of Bundles</label>
             <input class="text-input2" type="text" id="bundle_numbers" name="bundle_numbers">
             <label class = label1 for="discount">Discount</label>
-            <input class="text-input2" type="text" placeholder="%" id="discount" name="discount">
+            <input class="text-input2" type="number" placeholder="%" id="discount" name="discount" max="100" min="0">
             <label class="label1" for="pickup">Pickup Window</label>
             <select class="text-input2" id="pickup" name="pickup">
                 <option value="00:00-01:00">00:00-01:00</option>
