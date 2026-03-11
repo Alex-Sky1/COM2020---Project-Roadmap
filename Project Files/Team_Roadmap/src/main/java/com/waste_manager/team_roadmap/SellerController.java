@@ -438,6 +438,7 @@ public class SellerController {
         //save new details for issue report
         issueReport1.setSellerResponse(sellerResponse);
         issueReport1.setResolved(true);
+        //save them into the repository
         irr.save(issueReport1);
         return "manage_issues_seller";
     }
