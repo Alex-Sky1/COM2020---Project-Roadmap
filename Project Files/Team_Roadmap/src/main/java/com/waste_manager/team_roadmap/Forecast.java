@@ -3,9 +3,11 @@ package com.waste_manager.team_roadmap;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 
 public class Forecast {
 
@@ -79,8 +81,18 @@ public class Forecast {
     }
 
 
+    public int prediction(){
+        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+        double[][] x = data();
+        double[] y = y();
 
-    public int seasonalNaive() {return seasonalNaive(this.forecastDate.minusDays(7));}
+        regression.newSampleData(y, x);
+        double[] beta = regression.estimateRegressionParameters();
+
+    }
+
+
+    public int seasonalNaive() {return seasonalNaive(this.forecastDate);}
 
 
     public int seasonalNaive(LocalDateTime date) {
@@ -118,8 +130,8 @@ public class Forecast {
         }
         return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
     }
-    public int movingavg(LocalDateTime date){
-        return movingavg(date,24);
+    public int movingavg(){
+        return movingavg(this.forecastDate,24);
     }
     public int movingavg(LocalDateTime date,int hours) {
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
@@ -223,6 +235,46 @@ public class Forecast {
         }
         mae = mae / number;
         return mae;
+    }
+
+    //weights
+
+
+
+    public double[][] data(){
+        int rows = bundleList.size();
+        int cols = 7; // number of fields you want to include in String[][]
+
+        double[][] bundleArray = new double[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            Bundle b = bundleList.get(i);
+            bundleArray[i][0] = b.getTimeStamp().getDayOfWeek().getValue();
+            bundleArray[i][1] = b.getPickUpWindow();
+            bundleArray[i][2] = b.getSeller().getSellerID();
+            bundleArray[i][3] = b.getCategory();
+            bundleArray[i][4] = b.getWeatherFlag;
+            bundleArray[i][5] = b.getPrice();
+            bundleArray[i][6] = b.getDiscount();
+        }
+        return bundleArray;
+    }
+
+    public double[] y(){
+        int rows = bundleList.size();
+
+        double[] a = new double[rows];
+
+        for (int i = 0; i < rows; i++) {
+            Bundle b = bundleList.get(i);
+            if(b.getReserved()){
+                a[i] = 1;
+            }
+            else{
+                a[i] = 0;
+            }
+        }
+
     }
 
     // Getters and Setters

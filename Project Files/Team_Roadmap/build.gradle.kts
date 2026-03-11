@@ -35,6 +35,7 @@ dependencies {
     implementation("org.springframework.security:spring-security-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation ("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+    implementation("org.apache.commons:commons-math3:3.6.1")
     //    Adding opencsv for now
 //    implementation("com.opencsv:opencsv:5.7.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
