@@ -4,6 +4,9 @@ import general
 
 from general import *
 
+
+## CAN DO
+
 DNAMES = ["Foods", "and Co.", "General Store"]
 USED_STORE_NAMES = [""]
 
