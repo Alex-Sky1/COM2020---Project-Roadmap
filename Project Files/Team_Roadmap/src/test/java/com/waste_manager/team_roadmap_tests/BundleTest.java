@@ -159,4 +159,10 @@ public class BundleTest {
         testBundle.setExpired(false);
         assertFalse(testBundle.getExpired());
     }
+
+    @Test
+    public void addBundle() {
+
+
+    }
 }

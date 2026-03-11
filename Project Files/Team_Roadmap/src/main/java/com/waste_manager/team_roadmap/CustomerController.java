@@ -246,7 +246,7 @@ public class CustomerController {
         Customer c = cr.findByDName(currentUsername).get(0);
 
         //find all issues that have the correct customer id
-        List<IssueReport> allIssueReports = irr.findByCustomerId(c.getCustomerID());
+        List<IssueReport> allIssueReports = irr.findByCustomerID(c.getCustomerID());
 
         //add issue reports to the web page
         model.addAttribute("allIssueReports", allIssueReports);
@@ -268,7 +268,7 @@ public class CustomerController {
         Bundle b1 = b.get();
 
         //save report to database
-        IssueReport issueReport = new IssueReport(postingID, c.getCustomerID(), type, description, false, null);
+        IssueReport issueReport = new IssueReport(b1, c, type, description, false, null);
         irr.save(issueReport);
         return "report_issue_consumer";
     }
