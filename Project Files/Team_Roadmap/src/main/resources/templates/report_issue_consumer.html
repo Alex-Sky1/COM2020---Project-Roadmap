@@ -10,7 +10,7 @@
     <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-img">
 </div>
 <div class="box1">
-    <table>
+    <table th:if="${not#lists.isEmpty(bundle)}">
         <thead>
         <tr>
             <th>Seller</th>
@@ -35,8 +35,12 @@
 </div>
 <div class="box1">
     <label class="label1">List Issue Below</label>
-    <form>
-        <label for="Issue"></label><textarea
+    <form th:action="@{/report_issue_consumer}" method="post" autocomplete="off">
+        <input type="hidden" name="reservationID" th:value="${reservationID}">
+
+        <label for="Issue"></label>
+        <textarea
+                name="description"
                 id="Issue"
                 placeholder="Enter the details of your complaint here"
                 maxlength="600"
@@ -44,7 +48,7 @@
                 cols="70"
                 required
                 ></textarea>
-        <select required name="Choose Issue">
+        <select required name="type" id="type">
             <option>Didn't arrive</option>
             <option>Took too long</option>
             <option>Food was cold</option>
@@ -53,8 +57,5 @@
         <button type="submit">Submit your complaint.</button>
     </form>
 </div>
-
-
-
 </body>
 </html>

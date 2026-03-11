@@ -380,8 +380,8 @@ public class SellerController {
         return "view_analytics_seller";
     }
 
-    @GetMapping("/view_issues_seller")
-    public String viewIssuesSeller(Model model)
+    @GetMapping("/manage_issues_seller")
+    public String manageIssuesSeller(Model model)
     {
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -408,7 +408,6 @@ public class SellerController {
                 }
             }
         }
-
         //List of unresolved issues
         ArrayList<IssueReport> unresolvedIssueReports = new ArrayList<>();
         ArrayList<IssueReport> resolvedIssueReports = new ArrayList<>();
@@ -423,26 +422,23 @@ public class SellerController {
         //add all issue reports to the web page
         model.addAttribute("unresolvedIssueReports", unresolvedIssueReports);
         model.addAttribute("resolvedIssueReports", resolvedIssueReports);
-        return "view_issues_seller";
+        return "manage_issues_seller";
     }
 
-    @PostMapping("/issue_report_response")
-    public String issueReportResponse(@RequestParam("issueID") int issueID,
-                                      @RequestParam("sellerResponse") String sellerResponse) {
-        //get current seller
+    @PostMapping("/manage_issues_seller")
+    public String manageIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
+                                     @RequestParam("issueID") int issueID){
+        // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Seller s = sr.findByDName(currentUsername).get(0);
-
-        //get the issue report from the database
+        //find issue report from repository
         Optional<IssueReport> issueReport = irr.findById(issueID);
-        IssueReport ir1 = issueReport.get();
-        ir1.setSellerResponse(sellerResponse);
-        ir1.setResolved(true);
-
-        //save to database
-        irr.save(ir1);
-
-        return "issue_report_response";
+        IssueReport issueReport1 = issueReport.get();
+        //save new details for issue report
+        issueReport1.setSellerResponse(sellerResponse);
+        issueReport1.setResolved(true);
+        irr.save(issueReport1);
+        return "manage_issues_seller";
     }
 }

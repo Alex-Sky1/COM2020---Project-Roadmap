@@ -253,8 +253,20 @@ public class CustomerController {
         return "view_issues_consumer";
     }
 
+    @GetMapping("/report_issue_consumer")
+    public String openReportIssuePageConsumer(@RequestParam("reservationID") int reservationID, Model model) {
+        //get bundle from web page
+        Optional<Reservation> reservation = rr.findById(reservationID);
+        Reservation res = reservation.get();
+
+        model.addAttribute("reservation", res);
+        model.addAttribute("reservationID", reservationID);
+
+        return "report_issue_consumer";
+    }
+
     @PostMapping("/report_issue_consumer")
-    public String reportIssue(@RequestParam("postingID") int postingID,
+    public String reportIssue(@RequestParam("reservationID") int reservationID,
                               @RequestParam("type") String type,
                               @RequestParam("description") String description)
     {
@@ -264,12 +276,12 @@ public class CustomerController {
         Customer c = cr.findByDName(currentUsername).get(0);
 
         //get bundle from web page
-        Optional<Bundle> b = br.findById(postingID);
-        Bundle b1 = b.get();
+        Reservation reservation = rr.findById(reservationID).get();
+        Bundle bundle = reservation.getBundle();
 
         //save report to database
-        IssueReport issueReport = new IssueReport(b1, c, type, description, false, null);
+        IssueReport issueReport = new IssueReport(bundle, c, type, description, false, null);
         irr.save(issueReport);
-        return "report_issue_consumer";
+        return "redirect:manage_bundles_consumer";
     }
 }
