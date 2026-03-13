@@ -251,8 +251,8 @@ public class Forecast {
             bundleArray[i][0] = b.getTimeStamp().getDayOfWeek().getValue();
             bundleArray[i][1] = b.getPickUpWindow();
             bundleArray[i][2] = b.getSeller().getSellerID();
-            bundleArray[i][3] = b.getCategory();
-            bundleArray[i][4] = b.getWeatherFlag();
+            bundleArray[i][3] = numberCat(b.getCategory());
+            bundleArray[i][4] = numberweather(b.getWeatherFlag());
             bundleArray[i][5] = b.getPrice();
             bundleArray[i][6] = b.getDiscount();
         }
@@ -280,18 +280,36 @@ public class Forecast {
 
 
     public int numberCat(String category){
-        int hold = 0;
         switch (category){
-            case
+            case "placeholder1":
+                return 1;
+            case "placeholder2":
+                return 2;
+            case "placeholder3":
+                return 3;
+            case "placeholder4":
+                return 4;
+            case "placeholder5":
+                return 5;
+            default:
+                return 6;
 
         }
     }
 
 
     public int numberweather(String weatherFlag){
-        int hold = 0;
         switch (weatherFlag){
-            case
+            case "sunny":
+                return 1;
+            case "raining":
+                return 2;
+            case "snowing":
+                return 3;
+            case "cloudy":
+                return 4;
+            default:
+                return 5;
         }
     }
 
