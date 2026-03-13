@@ -3,7 +3,6 @@ package com.waste_manager.team_roadmap;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -88,6 +87,7 @@ public class Forecast {
 
         regression.newSampleData(y, x);
         double[] beta = regression.estimateRegressionParameters();
+        double[] predBundle = []
 
     }
 
@@ -237,9 +237,8 @@ public class Forecast {
         return mae;
     }
 
-    //weights
 
-
+    //sort out data
 
     public double[][] data(){
         int rows = bundleList.size();
@@ -253,7 +252,7 @@ public class Forecast {
             bundleArray[i][1] = b.getPickUpWindow();
             bundleArray[i][2] = b.getSeller().getSellerID();
             bundleArray[i][3] = b.getCategory();
-            bundleArray[i][4] = b.getWeatherFlag;
+            bundleArray[i][4] = b.getWeatherFlag();
             bundleArray[i][5] = b.getPrice();
             bundleArray[i][6] = b.getDiscount();
         }
@@ -275,7 +274,27 @@ public class Forecast {
             }
         }
 
+        return a;
+
     }
+
+
+    public int numberCat(String category){
+        int hold = 0;
+        switch (category){
+            case
+
+        }
+    }
+
+
+    public int numberweather(String weatherFlag){
+        int hold = 0;
+        switch (weatherFlag){
+            case
+        }
+    }
+
 
     // Getters and Setters
 
