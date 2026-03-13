@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
+import weka.core.*;
 
 public class Forecast {
+
 
     private LocalDateTime forecastDate;
     private int sellerID;
@@ -16,6 +18,7 @@ public class Forecast {
     private String weatherFlag;
     private ArrayList<Bundle> bundleList;
     private ArrayList<Reservation> reservationList;
+    private Bundle preditBundle;
     private float confidence;
     private String rationale;
 
@@ -29,6 +32,18 @@ public class Forecast {
         this.category = thisCategory;
         this.bundleList = thisBundleList;
         this.reservationList = thisReservationList;
+    }
+
+    public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag, String thisCategory,
+                    ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList, Bundle thisPreditBundle) {
+
+        this.forecastDate = thisForecastDate;
+        this.sellerID = thisSellerID;
+        this.weatherFlag = thisWeatherFlag;
+        this.category = thisCategory;
+        this.bundleList = thisBundleList;
+        this.reservationList = thisReservationList;
+        this.preditBundle = thisPreditBundle;
     }
 
     // Return bundles that are from a specific seller
@@ -87,8 +102,21 @@ public class Forecast {
 
         regression.newSampleData(y, x);
         double[] beta = regression.estimateRegressionParameters();
-        double[] predBundle = []
+        double[] predBundle = new double[7];
+        predBundle[0] = this.preditBundle.getTimeStamp().getDayOfWeek().getValue();
+        predBundle[1] = this.preditBundle.getPickUpWindow();
+        predBundle[2] = this.preditBundle.getSeller().getSellerID();
+        predBundle[3] = numberCat(this.preditBundle.getCategory());
+        predBundle[4] = numberweather(this.preditBundle.getWeatherFlag());
+        predBundle[5] = this.preditBundle.getPrice();
+        predBundle[6] = this.preditBundle.getDiscount();
 
+        double predicted = beta[0];
+        for(int i = 0 ; i < predBundle.length ; i++){
+            predicted += beta[i + 1] * predBundle[i];
+        }
+
+        return Math.toIntExact(Math.round(predicted));
     }
 
 
@@ -259,6 +287,13 @@ public class Forecast {
         return bundleArray;
     }
 
+
+    public Instances data(){
+
+        ArrayList<Attribute> attributes = new ArrayList<>();
+
+    }
+
     public double[] y(){
         int rows = bundleList.size();
 
@@ -281,18 +316,20 @@ public class Forecast {
 
     public int numberCat(String category){
         switch (category){
-            case "placeholder1":
+            case "Fish & Meat":
                 return 1;
-            case "placeholder2":
+            case "Bakery":
                 return 2;
-            case "placeholder3":
+            case "Snacks":
                 return 3;
-            case "placeholder4":
+            case "Dairy":
                 return 4;
-            case "placeholder5":
+            case "Fruit, Vegetables & Legumes":
                 return 5;
-            default:
+            case "Groceries":
                 return 6;
+            default:
+                return 7;
 
         }
     }
@@ -302,14 +339,12 @@ public class Forecast {
         switch (weatherFlag){
             case "sunny":
                 return 1;
-            case "raining":
+            case "rainy":
                 return 2;
-            case "snowing":
-                return 3;
             case "cloudy":
-                return 4;
+                return 3;
             default:
-                return 5;
+                return 4;
         }
     }
 

@@ -25,12 +25,11 @@ public class Reservation {
     private Boolean noShow;
     @Column(nullable = false)
     private Boolean collected;
-    @Column(nullable = false)
-    private String weatherFlag;
+
 
     public Reservation(){}
     public Reservation(Bundle bundle, Customer customer, Seller seller, LocalDateTime thisTimeStamp,
-                       String thisClaimCode, boolean thisNoShow, boolean thisCollected, String thisWeatherFlag){
+                       String thisClaimCode, boolean thisNoShow, boolean thisCollected){
         this.bundle = bundle;
         this.customer = customer;
         this.seller = seller;
@@ -38,7 +37,7 @@ public class Reservation {
         this.claimCode = thisClaimCode;
         this.noShow = thisNoShow;
         this.collected = thisCollected;
-        this.weatherFlag = thisWeatherFlag;
+
     }
 
 
@@ -68,7 +67,4 @@ public class Reservation {
 
     public Boolean getCollected() {return collected;}
     public void setCollected(Boolean collected) {this.collected = collected;}
-
-    public String getWeatherFlag() {return weatherFlag;}
-    public void setWeatherFlag(String weatherFlag) {this.weatherFlag = weatherFlag;}
 }

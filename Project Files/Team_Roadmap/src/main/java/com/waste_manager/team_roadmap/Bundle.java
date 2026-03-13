@@ -30,11 +30,13 @@ public class Bundle implements Serializable {
     private boolean reserved;
     @Column(nullable = false)
     private boolean expired;
+    @Column(nullable = false)
+    private String weatherFlag;
 
     public Bundle() {}
     public Bundle(Seller thisSeller, String thisCategory, ArrayList<String> thisContents,
                   ArrayList<String> thisAllergens, LocalDateTime thisTimeStamp, float thisPrice, int thisDiscount, int thisPickUpWindow,
-                  boolean thisReserved, boolean thisExpired){
+                  boolean thisReserved, boolean thisExpired, String thisWeatherFlag){
 
         this.seller = thisSeller;
         this.category = thisCategory;
@@ -46,6 +48,7 @@ public class Bundle implements Serializable {
         this.pickUpWindow = thisPickUpWindow;
         this.reserved = thisReserved;
         this.expired = thisExpired;
+        this.weatherFlag = thisWeatherFlag
     }
 
     // Getters and setters
@@ -151,5 +154,8 @@ public class Bundle implements Serializable {
     public void setDiscount(int discount){
         this.discount = discount;
     }
+
+    public String getWeatherFlag() {return weatherFlag;}
+    public void setWeatherFlag(String weatherFlag) {this.weatherFlag = weatherFlag;}
 
 }
