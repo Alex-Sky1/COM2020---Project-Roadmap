@@ -48,11 +48,11 @@
             </tbody>
         </table>
     </div>
-    <div class="box1" style="width: 30%; min-width: 100px; margin: 10px; height: 69vh">
+    <div class="box1" style="width: 30%; min-width: 100px; margin: 10px; height: 69vh; overflow: auto">
         <h2 style="text-align: center">Filter</h2>
         <hr style="margin-bottom: 3%">
         <div class="grid-filters">
-            <form th:action="@{/browse_bundles_consumer}" method="post">
+            <form th:action="@{/browse_bundles_consumer}" method="get">
                 <label for="category" class="label2">Category:</label>
                 <select name="category" id="category" class="text-input1">
                     <option value="Unselected" style="text-align: center">- -  Unselected  - -</option>
@@ -68,16 +68,50 @@
                 <input class="text-input1" type="text" id="postcode" name="postcode" autocapitalize="characters" maxlength="8" minlength="5">
                 <label for="price" class="label2">Price:</label>
                 <div style="display: flex">
-                    <select name="priceselector" id="priceselector" class="text-input1" style="margin-right: 10px; width: 140px">
+                    <select name="price_selector" id="price_selector" class="text-input1" style="margin-right: 10px; width: 120px">
                         <option value="more">More Than</option>
                         <option value="less">Less Than</option>
                         <option value="equal">Equal To</option>
                     </select>
                     <span class="input-pound-white">
-                        <input class="text-input1" id="price" name="price" type="number" step=".01" min="0" style="width: 90px; height: 80%">
+                        <input class="text-input1" id="price" name="price" type="number" step=".01" min="0" style="width: 80px; height: 80%">
                     </span>
                 </div>
-                <p style="grid-column: span 2; font-weight: bold; font-size: medium; margin-bottom: 1%">Exclude Allergens</p>
+                <label for="time" class="label2">Pickup Window:</label>
+                <div style="display: flex">
+                    <select name="time_selector" id="time_selector" class="text-input1" style="margin-right: 10px; width: 90px">
+                        <option value="more">After</option>
+                        <option value="less">Before</option>
+                        <option value="equal">Exactly</option>
+                    </select>
+                    <select class="text-input1" id="time" name="time" style="width: 135px;">
+                        <option value="00:00-01:00">00:00-01:00</option>
+                        <option value="01:00-02:00">01:00-02:00</option>
+                        <option value="02:00-03:00">02:00-03:00</option>
+                        <option value="03:00-04:00">03:00-04:00</option>
+                        <option value="04:00-05:00">04:00-05:00</option>
+                        <option value="05:00-06:00">05:00-06:00</option>
+                        <option value="06:00-07:00">06:00-07:00</option>
+                        <option value="07:00-08:00">07:00-08:00</option>
+                        <option value="08:00-09:00">08:00-09:00</option>
+                        <option value="09:00-10:00">09:00-10:00</option>
+                        <option value="10:00-11:00">10:00-11:00</option>
+                        <option value="11:00-12:00">11:00-12:00</option>
+                        <option value="12:00-13:00">12:00-13:00</option>
+                        <option value="13:00-14:00">13:00-14:00</option>
+                        <option value="14:00-15:00">14:00-15:00</option>
+                        <option value="15:00-16:00">15:00-16:00</option>
+                        <option value="16:00-17:00">16:00-17:00</option>
+                        <option value="17:00-18:00">17:00-18:00</option>
+                        <option value="18:00-19:00">18:00-19:00</option>
+                        <option value="19:00-20:00">19:00-20:00</option>
+                        <option value="20:00-21:00">20:00-21:00</option>
+                        <option value="21:00-22:00">21:00-22:00</option>
+                        <option value="22:00-23:00">22:00-23:00</option>
+                        <option value="23:00-00:00">23:00-00:00</option>
+                    </select>
+                </div>
+                <p class="label2" style="grid-column: span 2; justify-self:center; font-weight: bold; font-size: medium; margin-bottom: 1%; height: 25px">Exclude Allergens</p>
                 <div>
                     <input type="checkbox" id="celery" name="celery" value="celery">
                     <label for="celery" style="font-size: medium; font-weight: bold">Celery</label>
@@ -134,6 +168,7 @@
                     <input type="checkbox" id="nuts" name="nuts" value="nuts">
                     <label for="nuts" style="font-size: medium; font-weight: bold">Tree Nuts</label>
                 </div>
+                <button type="submit" class="button1" style="grid-column: span 2" name="apply">Apply Filters</button><br>
             </form>
         </div>
     </div>

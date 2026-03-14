@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -142,19 +143,64 @@ public class CustomerController {
     }
 
     @GetMapping("/browse_bundles_consumer")
-    public String browseBundlesConsumer(Model model) {
+    public String browseBundlesConsumer(Model model, @RequestParam(value="category", required = false) String category,
+                                        @RequestParam(value = "postcode", required = false) String postcode,
+                                        @RequestParam(value = "price_selector", required = false) String priceselector,
+                                        @RequestParam(value="price", required = false) String price,
+                                        @RequestParam(value = "time_selector", required = false) String timeSelector,
+                                        @RequestParam(value = "time", required = false) String time,
+                                        @RequestParam(value="celery", required = false) String celery,
+                                        @RequestParam(value = "gluten", required = false) String gluten,
+                                        @RequestParam(value = "crustaceans", required = false) String crustaceans,
+                                        @RequestParam(value="eggs", required = false) String eggs,
+                                        @RequestParam(value="fish", required = false) String fish,
+                                        @RequestParam(value="lupin", required = false) String lupin,
+                                        @RequestParam(value="milk", required = false) String milk,
+                                        @RequestParam(value="molluscs", required = false) String molluscs,
+                                        @RequestParam(value="mustard", required = false) String mustard,
+                                        @RequestParam(value="peanuts", required = false) String peanuts,
+                                        @RequestParam(value="sesame", required = false) String sesame,
+                                        @RequestParam(value="soybeans", required = false) String soybeans,
+                                        @RequestParam(value="sulphur", required = false) String sulphur,
+                                        @RequestParam(value="nuts", required = false) String nuts) {
+
+
         //find all bundles that have not expired and have not already been reserved
         List<Bundle> allBundles = br.findByReservedAndExpired(false, false);
         ArrayList<Bundle> bundles = new ArrayList<>();
-        //find if any bundles have gone past expiry
+        //find if any bundles have gone past expiry;
         for (Bundle bundle : allBundles) {
-            if(bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+            if (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
                 br.setBundleExpired(bundle.getPostingID());
                 bundle.setExpired(true);
-            }
-            else{
-                bundles.add(bundle);
-            }
+            // Check filters
+            } else if ((category == null || category.equals("Unselected") || bundle.getCategory().equals(category)) &&
+                (postcode == null || Objects.equals(postcode, "") || bundle.getSeller().getPostcode().equals(postcode)) &&
+                (celery == null || !bundle.getAllergens().contains(celery)) &&
+                (gluten == null || !bundle.getAllergens().contains(gluten)) &&
+                (crustaceans == null || !bundle.getAllergens().contains(crustaceans)) &&
+                (eggs == null || !bundle.getAllergens().contains(eggs)) &&
+                (fish == null || !bundle.getAllergens().contains(fish)) &&
+                (lupin == null || !bundle.getAllergens().contains(lupin)) &&
+                (milk == null || !bundle.getAllergens().contains(milk)) &&
+                (molluscs == null || !bundle.getAllergens().contains(molluscs)) &&
+                (mustard == null || !bundle.getAllergens().contains(mustard)) &&
+                (peanuts == null || !bundle.getAllergens().contains(peanuts)) &&
+                (sesame == null || !bundle.getAllergens().contains(sesame)) &&
+                (soybeans == null || !bundle.getAllergens().contains(soybeans)) &&
+                (sulphur == null || !bundle.getAllergens().contains(sulphur)) &&
+                (nuts == null || !bundle.getAllergens().contains(nuts)) &&
+                ((priceselector == null || price == null || Objects.equals(price, "") ||
+                    (priceselector.equals("more") && Float.parseFloat(price) < bundle.getPrice()) ||
+                    (priceselector.equals("equals") && Float.parseFloat(price) == bundle.getPrice()) ||
+                    (priceselector.equals("less") && Float.parseFloat(price) > bundle.getPrice()))) &&
+                (time == null ||
+                    (timeSelector.equals("more") && Integer.parseInt(time.substring(0, 2)) < bundle.getPickUpWindow()) ||
+                    (timeSelector.equals("less") && Integer.parseInt(time.substring(0, 2)) > bundle.getPickUpWindow()) ||
+                    (timeSelector.equals("equal") && Integer.parseInt(time.substring(0, 2)) == bundle.getPickUpWindow())))
+                {
+                    bundles.add(bundle);
+                }
         }
         //add bundles to web page
         model.addAttribute("allBundles", bundles);
