@@ -56,6 +56,7 @@ public class CustomerController {
             System.out.println("user name already exists");
             model.addAttribute("error", "Username already exists");
         }
+        //check they have accepted the terms and conditions
         else if(tosAccept==null){
             System.out.println("please accept the terms and conditions");
             model.addAttribute("error", "Please accept the terms and conditions");
@@ -63,9 +64,17 @@ public class CustomerController {
         }else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>(), true);
-            cr.save(c1);
-            System.out.println("sign up successful");
-            return "sign_in";
+            if(!c1.validateEmail(email)){
+                model.addAttribute("error", "Invalid email");
+            }
+            else if(!c1.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }
+            else {
+                cr.save(c1);
+                System.out.println("sign up successful");
+                return "sign_in";
+            }
         }
         return "sign_up_consumer";
     }

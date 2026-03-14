@@ -56,21 +56,29 @@ public class SellerController {
         }
 
         // Check that no other seller or customer is using that username
-
         else if (!s.isEmpty() || !c.isEmpty()) {
             System.out.println("Username already exists");
             model.addAttribute("error", "Username already exists");
         }
-
+        //check if they accepted terms and conditions
         else if(tosAccept==null) {
             System.out.println("please accept the terms and conditions");
             model.addAttribute("error", "Please accept the terms and conditions");
         }else {
             //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1, true);
-            System.out.println("success");
-            sr.save(s1);
-            return "sign_in";
+            //check if email and password are valid
+            if(!s1.validateEmail(email)){
+                model.addAttribute("error", "Invalid email");
+            }
+            else if(!s1.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }
+            else {
+                System.out.println("success");
+                sr.save(s1);
+                return "sign_in";
+            }
         }
         return "sign_up_seller";
     }
@@ -157,9 +165,12 @@ public class SellerController {
                 sr.updateDNameById(business, sellerId);
             }
         }
+
         // Check passwords match if password is being changed
         if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
-            sr.updatePasswordById(pwd1, sellerId);
+            if(seller.validatePassword(pwd1)){
+                sr.updatePasswordById(pwd1, sellerId);
+            }
         }
         // Update first name
         if(!fname.isEmpty()){
@@ -183,7 +194,9 @@ public class SellerController {
         }
         // Update email address
         if(!email.isEmpty()){
-            sr.updateEmailById(email, sellerId);
+            if(seller.validateEmail(email)) {
+                sr.updateEmailById(email, sellerId);
+            }
         }
         // Update phone number
         if(!phone.isEmpty()){

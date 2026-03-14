@@ -55,6 +55,17 @@ public class Seller implements Serializable {
 
     }
 
+    //Password validation - regex from owasp
+    public boolean validatePassword(String password) {
+        String regexPassword = "[^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$]]";
+        return password.matches(regexPassword);
+    }
+    //Email validation - regex from owasp
+    public boolean validateEmail(String email) {
+        String regexEmail = "[^[a-zA-Z0-9_+&*-]+(?:.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+.)+[a-zA-Z]{2,}$]]>";
+        return email.matches(regexEmail);
+    }
+
     public int getSellerID() {return ID;}
     public void setSellerID(int sellerID) {this.ID = sellerID;}
 
