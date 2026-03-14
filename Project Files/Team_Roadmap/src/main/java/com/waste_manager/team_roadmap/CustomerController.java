@@ -39,36 +39,46 @@ public class CustomerController {
                          @RequestParam("postcode") String pcode, @RequestParam("county") String county,
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
                          @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2,
-                         @RequestParam(value = "accept", required = false) String tosAccept) {
+                         @RequestParam(value = "accept", required = false) String tosAccept, Model model) {
 
-
+        List<Customer> c = cr.findByDName(dname);
+        List<Seller> s = sr.findByDName(dname);
         //check Passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
-            return "sign_up_consumer";
+            model.addAttribute("error", "Passwords don't match");
         }
         //if any field is empty don't allow sign up
-        if(fname.isEmpty() || sname.isEmpty() || dname.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
-            System.out.println("Please fill all the fields");
-            return "sign_up_consumer";
+        else if(fname.isEmpty() || sname.isEmpty() || dname.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
+            System.out.println("Please fill in all the fields");
+            model.addAttribute("error", "Please fill in all the fields");
         }
         //check that no other seller or customer is using that username
-        List<Customer> c = cr.findByDName(dname);
-        List<Seller> s = sr.findByDName(dname);
-        if (!s.isEmpty() || !c.isEmpty()) {
+        else if (!s.isEmpty() || !c.isEmpty()) {
             System.out.println("user name already exists");
-            return "sign_up_consumer";
+            model.addAttribute("error", "Username already exists");
         }
-        if(tosAccept==null){
+        //check they have accepted the terms and conditions
+        else if(tosAccept==null){
             System.out.println("please accept the terms and conditions");
-            return "sign_up_consumer";
+            model.addAttribute("error", "Please accept the terms and conditions");
+
         }else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>(), true);
-            cr.save(c1);
-            System.out.println("sign up successful");
-            return "sign_in";
+            if(!c1.validateEmail(email)){
+                model.addAttribute("error", "Invalid email");
+            }
+            else if(!c1.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }
+            else {
+                cr.save(c1);
+                System.out.println("sign up successful");
+                return "sign_in";
+            }
         }
+        return "sign_up_consumer";
     }
 
     @PostMapping("/edit_profile_consumer")
@@ -76,7 +86,8 @@ public class CustomerController {
                                     @RequestParam(value = "dname", required = false) String dname, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2) {
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2,
+                                      Model model) {
 
         List<Seller> s = sr.findByDName(dname);
         List<Customer> c = cr.findByDName(dname);
@@ -90,6 +101,7 @@ public class CustomerController {
         if (!dname.isEmpty()) {
             if (!s.isEmpty() || !c.isEmpty()) {
                 System.out.println("user name already exists");
+                model.addAttribute("error", "User name already exists");
             } else {
                 cr.updateDNameById(dname, customerId);
             }

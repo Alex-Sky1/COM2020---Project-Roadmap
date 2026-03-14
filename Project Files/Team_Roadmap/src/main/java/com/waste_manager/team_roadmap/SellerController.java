@@ -39,40 +39,50 @@ public class SellerController {
                          @RequestParam("postcode") String pcode, @RequestParam("county") String county,
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
                          @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2,
-                         @RequestParam(value = "accept", required = false) String tosAccept) {
+                         @RequestParam(value = "accept", required = false) String tosAccept, Model model) {
 
+
+        List<Seller> s = sr.findByDName(business);
+        List<Customer> c = cr.findByDName(business);
 
         // Check that passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
-            return "sign_up_seller";
+            model.addAttribute("error", "Passwords don't match");
         }
 
         // If any field is empty don't allow sign up
-        if(fname.isEmpty() || sname.isEmpty() || business.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
+        else if(fname.isEmpty() || sname.isEmpty() || business.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
             System.out.println("Please fill all the fields");
-            return "sign_up_seller";
+            model.addAttribute("error", "Please fill in all the fields");
         }
 
         // Check that no other seller or customer is using that username
-        List<Seller> s = sr.findByDName(business);
-        List<Customer> c = cr.findByDName(business);
-
-        if (!s.isEmpty() || !c.isEmpty()) {
-            System.out.println("user name already exists");
-            return "sign_up_seller";
+        else if (!s.isEmpty() || !c.isEmpty()) {
+            System.out.println("Username already exists");
+            model.addAttribute("error", "Username already exists");
         }
-
-        if(tosAccept==null) {
+        //check if they accepted terms and conditions
+        else if(tosAccept==null) {
             System.out.println("please accept the terms and conditions");
-            return "sign_up_seller";
+            model.addAttribute("error", "Please accept the terms and conditions");
         }else {
             //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1, true);
-            System.out.println("success");
-            sr.save(s1);
-            return "sign_in";
+            //check if email and password are valid
+            if(!s1.validateEmail(email)){
+                model.addAttribute("error", "Invalid email");
+            }
+            else if(!s1.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }
+            else {
+                System.out.println("success");
+                sr.save(s1);
+                return "sign_in";
+            }
         }
+        return "sign_up_seller";
     }
 
     @PostMapping("/post_bundle_seller")
@@ -161,9 +171,12 @@ public class SellerController {
                 sr.updateDNameById(business, sellerId);
             }
         }
+
         // Check passwords match if password is being changed
         if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
-            sr.updatePasswordById(pwd1, sellerId);
+            if(seller.validatePassword(pwd1)){
+                sr.updatePasswordById(pwd1, sellerId);
+            }
         }
         // Update first name
         if(!fname.isEmpty()){
@@ -187,7 +200,9 @@ public class SellerController {
         }
         // Update email address
         if(!email.isEmpty()){
-            sr.updateEmailById(email, sellerId);
+            if(seller.validateEmail(email)) {
+                sr.updateEmailById(email, sellerId);
+            }
         }
         // Update phone number
         if(!phone.isEmpty()){

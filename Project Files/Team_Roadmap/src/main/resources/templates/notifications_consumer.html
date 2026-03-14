@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/styling.css" th:href="@{/styling.css}">
+    <title>Notifications</title>
+</head>
+<body>
+<div class="header">
+    <h1 class="header-text">Notifications</h1>
+    <div class="header-images">
+        <form th:action="@{/dashboard_consumer}"><input class="header-icons" type="image" th:src="@{images/home.png}" src="/static/images/home.png" alt="Home"></form>
+        <form th:action="@{/notifications}"><input class="header-icons" type="image" th:src="@{images/bell.png}" src="/static/images/bell.png" alt="Bell"></form>
+        <form th:action="@{/logout}" method="post"><input class="header-icons" type="image" th:src="@{images/logout.png}" src="/static/images/logout.png" alt="logout"></form>
+        <img th:src="@{images/roadmap_logo.png}" src="/static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-logo">
+    </div>
+</div>
+
+<div style="margin: 1%; max-height: 70vh; overflow: auto">
+    <div style="margin-bottom: 2vh">
+        <p class="notifications-text">Notifications</p>
+        <table class="notification-table" th:if="${not#lists.isEmpty(notifications)}">
+            <tbody>
+            <tr th:each="notification : ${notifications}">
+                <td th:text="${notification}" style="width: 80vw"></td>
+                <td style="width: 10vw">
+                    <form th:action="@{/x}">
+                        <button class="button1" style="width:150px; padding: 10px 5px; margin:0">Read</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

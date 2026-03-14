@@ -21,7 +21,7 @@ hr {
     background: #166088;
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    align-items: center;
     border: 1px solid black;
 }
 .header-text {
@@ -29,18 +29,31 @@ hr {
     font-size: 30px;
     font-family: "Nirmala UI", sans-serif;
     padding-left: 30px;
-    display: flex;
-    float: left;
 }
-.header-img {
-    display: flex;
-    float: right;
+.header-logo {
     border-radius: 10px;
-    overflow: hidden;
-    margin: 15px;
     width: 10%;
-    height: 10%;
+    height: auto;
     min-width: 150px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.header-icons {
+    padding: 1%;
+    border-radius: 15%;
+    background-color: #c0d6df;
+    height: 6vh;
+    margin: 3%;
+    cursor: pointer;
+}
+
+.header-images {
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
 }
 
 /* Dark blue button with light text, rounded corners */
@@ -148,7 +161,7 @@ hr {
     padding: 2%;
 }
 
-/* Grid for displaying bundles for reservations */
+/* Table for displaying bundles for reservations */
 .bundle-table {
     border-collapse: collapse;
     color: #166088;
@@ -164,4 +177,27 @@ hr {
     text-align: center;
     border: solid #166088;
     width: 100px;
+}
+
+/* Table for notifications */
+.notification-table {
+    border-collapse: collapse;
+    color: #166088;
+    background-color: #dbe9ee;
+    font-size: 16px;
+    font-weight: bold;
+    place-items: center;
+    padding: 1%;
+}
+
+.notification-table th, td {
+    padding: 10px;
+    text-align: center;
+    border: solid #166088;
+}
+
+.notifications-text {
+    color: #166088;
+    font-size: large;
+    font-weight: bold;
 }
