@@ -97,6 +97,10 @@ public class SellerController {
         String currentUsername = auth.getName();
         Seller s = sr.findByDName(currentUsername).get(0);
 
+        String[] WeatherFlags = {"Sunny", "Rainy", "Cloudy"};
+        Random rand = new Random();
+        String weatherFlag = WeatherFlags[rand.nextInt(0,3)];
+
         // Check if any allergens have been selected
         ArrayList<String> allergens = new ArrayList<>();
         if(celery!= null) allergens.add(celery);
@@ -125,7 +129,7 @@ public class SellerController {
 
             Bundle bundle = new Bundle
                     (s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price),
-                    Integer.parseInt(discount), pickupHr, false, false);
+                    Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
             br.save(bundle);
         }
         return "post_bundle_seller";

@@ -48,7 +48,7 @@ public class Bundle implements Serializable {
         this.pickUpWindow = thisPickUpWindow;
         this.reserved = thisReserved;
         this.expired = thisExpired;
-        this.weatherFlag = thisWeatherFlag
+        this.weatherFlag = thisWeatherFlag;
     }
 
     // Getters and setters
