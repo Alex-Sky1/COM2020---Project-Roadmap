@@ -48,8 +48,94 @@
             </tbody>
         </table>
     </div>
-    <div class="box1" style="width: 30%; min-width: 100px; margin: 10px; max-height: 70vh">
+    <div class="box1" style="width: 30%; min-width: 100px; margin: 10px; height: 69vh">
         <h2 style="text-align: center">Filter</h2>
+        <hr style="margin-bottom: 3%">
+        <div class="grid-filters">
+            <form th:action="@{/browse_bundles_consumer}" method="post">
+                <label for="category" class="label2">Category:</label>
+                <select name="category" id="category" class="text-input1">
+                    <option value="Unselected" style="text-align: center">- -  Unselected  - -</option>
+                    <option value="meats">Fish & Meat</option>
+                    <option value="bakery ">Bakery </option>
+                    <option value="snacks">Snacks</option>
+                    <option value="dairy">Dairy</option>
+                    <option value="plants">Fruit, Vegetables & Legumes</option>
+                    <option value="groceries">Groceries</option>
+                    <option value="other">Other</option>
+                </select>
+                <label for="postcode" class="label2">Postcode:</label>
+                <input class="text-input1" type="text" id="postcode" name="postcode" autocapitalize="characters" maxlength="8" minlength="5">
+                <label for="price" class="label2">Price:</label>
+                <div style="display: flex">
+                    <select name="priceselector" id="priceselector" class="text-input1" style="margin-right: 10px; width: 140px">
+                        <option value="more">More Than</option>
+                        <option value="less">Less Than</option>
+                        <option value="equal">Equal To</option>
+                    </select>
+                    <span class="input-pound-white">
+                        <input class="text-input1" id="price" name="price" type="number" step=".01" min="0" style="width: 90px; height: 80%">
+                    </span>
+                </div>
+                <p style="grid-column: span 2; font-weight: bold; font-size: medium; margin-bottom: 1%">Exclude Allergens</p>
+                <div>
+                    <input type="checkbox" id="celery" name="celery" value="celery">
+                    <label for="celery" style="font-size: medium; font-weight: bold">Celery</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="gluten" name="gluten" value="gluten">
+                    <label for="gluten" style="font-size: medium; font-weight: bold">Cereals containing Gluten</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="crustaceans" name="crustaceans" value="crustaceans">
+                    <label for="crustaceans" style="font-size: medium; font-weight: bold">Crustaceans</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="eggs" name="eggs" value="eggs">
+                    <label for="eggs" style="font-size: medium; font-weight: bold; margin: 0">Eggs</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="fish" name="fish" value="fish">
+                    <label for="fish" style="font-size: medium; font-weight: bold">Fish</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="lupin" name="lupin" value="lupin">
+                    <label for="lupin" style="font-size: medium; font-weight: bold">Lupin</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="milk" name="milk" value="milk">
+                    <label for="milk" style="font-size: medium; font-weight: bold">Milk</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="molluscs" name="molluscs" value="molluscs">
+                    <label for="molluscs" style="font-size: medium; font-weight: bold">Molluscs</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="mustard" name="mustard" value="mustard">
+                    <label for="mustard" style="font-size: medium; font-weight: bold">Mustard</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+                    <label for="peanuts" style="font-size: medium; font-weight: bold">Peanuts</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="sesame" name="sesame" value="sesame">
+                    <label for="sesame" style="font-size: medium; font-weight: bold">Sesame</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="soybeans" name="soybeans" value="soybeans">
+                    <label for="soybeans" style="font-size: medium; font-weight: bold">Soybeans</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="sulphur" name="sulphur" value="sulphur">
+                    <label for="sulphur" style="font-size: medium; font-weight: bold">Sulphur Dioxide / Sulphides</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="nuts" name="nuts" value="nuts">
+                    <label for="nuts" style="font-size: medium; font-weight: bold">Tree Nuts</label>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <form th:action="@{/dashboard_consumer}">

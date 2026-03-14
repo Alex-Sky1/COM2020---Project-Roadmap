@@ -14,14 +14,16 @@ public interface ReservationRepository extends Repository<Reservation, Long> {
     Reservation save(Reservation reservation);
     List<Reservation> findAll();
 
+    // find by queries
     Optional<Reservation> findById(long id);
     List<Reservation> findByCustomerID(long customer_id);
     List<Reservation> findBySellerID(long seller_id);
     List<Reservation> findByBundleID(long bundle_id);
+    List<Reservation> findByCollected(boolean collected);
+    List<Reservation> findByNoShow(boolean noShow);
 
     @Query("select r.bundle from Reservation r where r.ID = :ID")
     List<Bundle> getCustomerReservedBundles(@Param("ID") long customer_id);
-
 
     @Transactional
     @Modifying
@@ -32,4 +34,11 @@ public interface ReservationRepository extends Repository<Reservation, Long> {
     @Modifying
     @Query("update Reservation r set r.noShow = :noShow where r.ID = :ID")
     void setReservationNoShow(@Param("noShow") boolean newNoShow, @Param("ID") long id);
+
+
+    // count queries
+    long countByCustomerID(long customer_id);
+    long countBySellerID(long seller_id);
+    long countByCollected(boolean collected);
+    long countByNoShow(boolean noShow);
 }

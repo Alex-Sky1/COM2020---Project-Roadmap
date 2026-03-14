@@ -33,4 +33,9 @@ public interface BundleRepository extends Repository<Bundle, Long> {
     @Modifying
     @Query("update Bundle b set b.expired = true where b.ID = :ID")
     void setBundleExpired(@Param("ID") long id);
+
+    // count queries
+    long countBySellerID(long seller_id);
+    long countByReserved(boolean reserved);
+    long countByExpired(boolean expired);
 }
