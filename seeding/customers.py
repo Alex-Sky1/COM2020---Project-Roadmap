@@ -4,7 +4,8 @@ import general
 
 from general import *
 
-
+## 8 Badges
+## Have fun
 
 FNAMES = ["Alex", "Thomas", "Isla", "Rosie", "Kayleigh", "Alice", "Christian"]
 SNAMES = ["Pinington", "McArthur", "Wabsontio", "Bleems"]

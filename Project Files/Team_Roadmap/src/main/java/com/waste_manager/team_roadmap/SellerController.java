@@ -23,12 +23,14 @@ public class SellerController {
     private final CustomerRepository cr;
     private final BundleRepository br;
     private final ReservationRepository rr;
+    private final IssueReportRepository irr;
 
-    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
+    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
         this.sr = sellerRepository;
         this.cr = customerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
+        this.irr = issueReportRepository;
     }
 
     @PostMapping("/sign_up_seller")
@@ -376,5 +378,67 @@ public class SellerController {
         model.addAttribute("pricingEffectiveness", "-");
         model.addAttribute("operationalInsights", "-");
         return "view_analytics_seller";
+    }
+
+    @GetMapping("/manage_issues_seller")
+    public String manageIssuesSeller(Model model)
+    {
+        // Get current logged in seller
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).get(0);
+
+        //find all issue reports
+        List<IssueReport> allIssueReports = irr.findAll();
+
+        //find all bundles from seller
+        List<Bundle> allSellerBundles = br.findBySellerID(s.getSellerID());
+
+        //find all issue reports that are linked to that seller
+        //based on whether their bundle is linked to an issue report
+        ArrayList<IssueReport> allSellerIssueReports = new ArrayList<>();
+        for(int i = 0; i<allIssueReports.size(); i++)
+        {
+            for(int j = 0; j<allSellerBundles.size();j++)
+            {
+                if(allIssueReports.get(i).getBundle() == allSellerBundles.get(j))
+                {
+                    allSellerIssueReports.add(allIssueReports.get(i));
+                }
+            }
+        }
+        //List of unresolved issues
+        ArrayList<IssueReport> unresolvedIssueReports = new ArrayList<>();
+        ArrayList<IssueReport> resolvedIssueReports = new ArrayList<>();
+        for(IssueReport issueReport : allSellerIssueReports) {
+            if(!issueReport.getResolved()) {
+                unresolvedIssueReports.add(issueReport);
+            }
+            else {
+                resolvedIssueReports.add(issueReport);
+            }
+        }
+        //add all issue reports to the web page
+        model.addAttribute("unresolvedIssueReports", unresolvedIssueReports);
+        model.addAttribute("resolvedIssueReports", resolvedIssueReports);
+        return "manage_issues_seller";
+    }
+
+    @PostMapping("/manage_issues_seller")
+    public String manageIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
+                                     @RequestParam("issueID") int issueID){
+        // Get current logged in seller
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).get(0);
+        //find issue report from repository
+        Optional<IssueReport> issueReport = irr.findById(issueID);
+        IssueReport issueReport1 = issueReport.get();
+        //save new details for issue report
+        issueReport1.setSellerResponse(sellerResponse);
+        issueReport1.setResolved(true);
+        //save them into the repository
+        irr.save(issueReport1);
+        return "manage_issues_seller";
     }
 }
