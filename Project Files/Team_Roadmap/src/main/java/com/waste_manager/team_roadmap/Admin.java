@@ -1,18 +1,21 @@
 package com.waste_manager.team_roadmap;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
-
+    @Column(nullable = false)
     private String dName;
+    @Column(nullable = false)
     private String password;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "seller_id", referencedColumnName = "ID")
     private Seller sellerView;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "customer_id", referencedColumnName = "ID")
     private Customer customerView;
 
     Admin() {}
