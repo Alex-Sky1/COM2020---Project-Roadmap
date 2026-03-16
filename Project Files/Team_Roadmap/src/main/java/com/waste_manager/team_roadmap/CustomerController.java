@@ -25,13 +25,15 @@ public class CustomerController {
     private final BundleRepository br;
     private final ReservationRepository rr;
     private final IssueReportRepository irr;
+    private final AdminRepository ar;
 
-    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
+    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository, AdminRepository adminRepository) {
         this.cr = customerRepository;
         this.sr = sellerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
         this.irr = issueReportRepository;
+        this.ar = adminRepository;
     }
 
     @PostMapping("/sign_up_consumer")
@@ -44,6 +46,7 @@ public class CustomerController {
 
         List<Customer> c = cr.findByDName(dname);
         List<Seller> s = sr.findByDName(dname);
+        Optional<Admin> a = ar.findBydName(dname);
         //check Passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
@@ -54,8 +57,8 @@ public class CustomerController {
             System.out.println("Please fill in all the fields");
             model.addAttribute("error", "Please fill in all the fields");
         }
-        //check that no other seller or customer is using that username
-        else if (!s.isEmpty() || !c.isEmpty()) {
+        //check that no other seller or customer or admin is using that username
+        else if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
             System.out.println("user name already exists");
             model.addAttribute("error", "Username already exists");
         }
@@ -92,15 +95,16 @@ public class CustomerController {
 
         List<Seller> s = sr.findByDName(dname);
         List<Customer> c = cr.findByDName(dname);
+        Optional<Admin> a = ar.findBydName(dname);
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Customer customer = cr.findByDName(currentUsername).get(0);
+        Customer customer = getCustomerProfile(auth);
+
         long customerId = customer.getCustomerID();
 
-        //if username is already being used don't allow
+        //check no other seller or customer or admin is using that username
         if (!dname.isEmpty()) {
-            if (!s.isEmpty() || !c.isEmpty()) {
+            if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
                 System.out.println("user name already exists");
                 model.addAttribute("error", "User name already exists");
             } else {
@@ -214,8 +218,7 @@ public class CustomerController {
         Bundle b1 = b.get();
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Customer customer = cr.findByDName(currentUsername).get(0);
+        Customer customer = getCustomerProfile(auth);
 
         //generate claim code for reservation
         String claimCode = customer.generateClaimCode();
@@ -232,8 +235,8 @@ public class CustomerController {
     public String listReservedBundles(Model model) {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Customer c = cr.findByDName(currentUsername).get(0);
+        Customer c = getCustomerProfile(auth);
+
         //get all reservations the user has and list on webpage
         List<Reservation> reservations = rr.findByCustomerID(c.getCustomerID());
         if (!reservations.isEmpty()) {
@@ -253,8 +256,7 @@ public class CustomerController {
     public String viewAnalyticsConsumer(Model model) {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Customer c = cr.findByDName(currentUsername).get(0);
+        Customer c = getCustomerProfile(auth);
 
         //get total number of collected bundles for the user
         int num_collected = 0;
@@ -300,8 +302,7 @@ public class CustomerController {
     public String viewIssuesConsumer(Model model) {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Customer c = cr.findByDName(currentUsername).get(0);
+        Customer c = getCustomerProfile(auth);
 
         //find all issues that have the correct customer id
         List<IssueReport> allIssueReports = irr.findByCustomerID(c.getCustomerID());
@@ -330,8 +331,7 @@ public class CustomerController {
     {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Customer c = cr.findByDName(currentUsername).get(0);
+        Customer c = getCustomerProfile(auth);
 
         //get bundle from web page
         Reservation reservation = rr.findById(reservationID).get();
@@ -341,5 +341,13 @@ public class CustomerController {
         IssueReport issueReport = new IssueReport(bundle, c, type, description, false, null);
         irr.save(issueReport);
         return "redirect:manage_bundles_consumer";
+    }
+    public Customer getCustomerProfile(Authentication auth){
+        String currentUsername = auth.getName();
+        if(auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ar.getAdmin().getCustomerView();
+        }else {
+            return cr.findByDName(currentUsername).get(0);
+        }
     }
 }

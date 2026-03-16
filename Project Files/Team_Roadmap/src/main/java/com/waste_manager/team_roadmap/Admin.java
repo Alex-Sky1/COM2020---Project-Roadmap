@@ -3,6 +3,7 @@ package com.waste_manager.team_roadmap;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+@Entity
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +19,8 @@ public class Admin {
     @JoinColumn(name = "customer_id", referencedColumnName = "ID")
     private Customer customerView;
 
-    Admin() {}
+    public Admin() {}
+
     public Admin(String dName, String password, Seller sellerView, Customer customerView) {
         this.dName = dName;
         this.password = password;
