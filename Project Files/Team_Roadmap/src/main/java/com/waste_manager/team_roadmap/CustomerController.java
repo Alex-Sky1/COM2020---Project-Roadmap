@@ -67,10 +67,7 @@ public class CustomerController {
         }else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>(), true);
-            if(!c1.validateEmail(email)){
-                model.addAttribute("error", "Invalid email");
-            }
-            else if(!c1.validatePassword(pwd1)) {
+            if(!c1.validatePassword(pwd1)) {
                 model.addAttribute("error", "Invalid password");
             }
             else {
@@ -140,11 +137,7 @@ public class CustomerController {
         }
         //update email address
         if (!email.isEmpty()) {
-            if(!customer.validateEmail(email)){
-                model.addAttribute("error", "Invalid email");
-            }else {
-                cr.updateEmailById(email, customerId);
-            }
+            cr.updateEmailById(email, customerId);
         }
         //update phone number
         if (!phone.isEmpty()) {

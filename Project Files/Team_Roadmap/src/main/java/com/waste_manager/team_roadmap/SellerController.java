@@ -69,11 +69,8 @@ public class SellerController {
         }else {
             //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1, true);
-            //check if email and password are valid
-            if(!s1.validateEmail(email)){
-                model.addAttribute("error", "Invalid email");
-            }
-            else if(!s1.validatePassword(pwd1)) {
+            //check if password fits requirements
+            if(!s1.validatePassword(pwd1)) {
                 model.addAttribute("error", "Invalid password");
             }
             else {
@@ -203,11 +200,7 @@ public class SellerController {
         }
         // Update email address
         if (!email.isEmpty()) {
-            if(!seller.validateEmail(email)){
-                model.addAttribute("error", "Invalid email");
-            }else {
-                cr.updateEmailById(email, sellerId);
-            }
+            cr.updateEmailById(email, sellerId);
         }
         // Update phone number
         if(!phone.isEmpty()){
