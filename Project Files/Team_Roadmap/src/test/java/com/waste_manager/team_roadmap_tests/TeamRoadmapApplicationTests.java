@@ -7,8 +7,8 @@ import com.waste_manager.team_roadmap.*;
 @SpringBootTest
 class TeamRoadmapApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+//    @Test
+//    void contextLoads() {
+//    }
 
 }

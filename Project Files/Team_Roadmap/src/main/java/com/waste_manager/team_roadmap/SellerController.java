@@ -23,12 +23,14 @@ public class SellerController {
     private final CustomerRepository cr;
     private final BundleRepository br;
     private final ReservationRepository rr;
+    private final IssueReportRepository irr;
 
-    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
+    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
         this.sr = sellerRepository;
         this.cr = customerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
+        this.irr = issueReportRepository;
     }
 
     @PostMapping("/sign_up_seller")
@@ -37,40 +39,50 @@ public class SellerController {
                          @RequestParam("postcode") String pcode, @RequestParam("county") String county,
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
                          @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2,
-                         @RequestParam(value = "accept", required = false) String tosAccept) {
+                         @RequestParam(value = "accept", required = false) String tosAccept, Model model) {
 
+
+        List<Seller> s = sr.findByDName(business);
+        List<Customer> c = cr.findByDName(business);
 
         // Check that passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
-            return "sign_up_seller";
+            model.addAttribute("error", "Passwords don't match");
         }
 
         // If any field is empty don't allow sign up
-        if(fname.isEmpty() || sname.isEmpty() || business.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
+        else if(fname.isEmpty() || sname.isEmpty() || business.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
             System.out.println("Please fill all the fields");
-            return "sign_up_seller";
+            model.addAttribute("error", "Please fill in all the fields");
         }
 
         // Check that no other seller or customer is using that username
-        List<Seller> s = sr.findByDName(business);
-        List<Customer> c = cr.findByDName(business);
-
-        if (!s.isEmpty() || !c.isEmpty()) {
-            System.out.println("user name already exists");
-            return "sign_up_seller";
+        else if (!s.isEmpty() || !c.isEmpty()) {
+            System.out.println("Username already exists");
+            model.addAttribute("error", "Username already exists");
         }
-
-        if(tosAccept==null) {
+        //check if they accepted terms and conditions
+        else if(tosAccept==null) {
             System.out.println("please accept the terms and conditions");
-            return "sign_up_seller";
+            model.addAttribute("error", "Please accept the terms and conditions");
         }else {
             //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1, true);
-            System.out.println("success");
-            sr.save(s1);
-            return "sign_in";
+            //check if email and password are valid
+            if(!s1.validateEmail(email)){
+                model.addAttribute("error", "Invalid email");
+            }
+            else if(!s1.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }
+            else {
+                System.out.println("success");
+                sr.save(s1);
+                return "sign_in";
+            }
         }
+        return "sign_up_seller";
     }
 
     @PostMapping("/post_bundle_seller")
@@ -96,6 +108,10 @@ public class SellerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Seller s = sr.findByDName(currentUsername).get(0);
+
+        String[] WeatherFlags = {"Sunny", "Rainy", "Cloudy"};
+        Random rand = new Random();
+        String weatherFlag = WeatherFlags[rand.nextInt(0,3)];
 
         // Check if any allergens have been selected
         ArrayList<String> allergens = new ArrayList<>();
@@ -125,7 +141,7 @@ public class SellerController {
 
             Bundle bundle = new Bundle
                     (s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price),
-                    Integer.parseInt(discount), pickupHr, false, false);
+                    Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
             br.save(bundle);
         }
         return "post_bundle_seller";
@@ -155,9 +171,12 @@ public class SellerController {
                 sr.updateDNameById(business, sellerId);
             }
         }
+
         // Check passwords match if password is being changed
         if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
-            sr.updatePasswordById(pwd1, sellerId);
+            if(seller.validatePassword(pwd1)){
+                sr.updatePasswordById(pwd1, sellerId);
+            }
         }
         // Update first name
         if(!fname.isEmpty()){
@@ -181,7 +200,9 @@ public class SellerController {
         }
         // Update email address
         if(!email.isEmpty()){
-            sr.updateEmailById(email, sellerId);
+            if(seller.validateEmail(email)) {
+                sr.updateEmailById(email, sellerId);
+            }
         }
         // Update phone number
         if(!phone.isEmpty()){
@@ -376,5 +397,67 @@ public class SellerController {
         model.addAttribute("pricingEffectiveness", "-");
         model.addAttribute("operationalInsights", "-");
         return "view_analytics_seller";
+    }
+
+    @GetMapping("/manage_issues_seller")
+    public String manageIssuesSeller(Model model)
+    {
+        // Get current logged in seller
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).get(0);
+
+        //find all issue reports
+        List<IssueReport> allIssueReports = irr.findAll();
+
+        //find all bundles from seller
+        List<Bundle> allSellerBundles = br.findBySellerID(s.getSellerID());
+
+        //find all issue reports that are linked to that seller
+        //based on whether their bundle is linked to an issue report
+        ArrayList<IssueReport> allSellerIssueReports = new ArrayList<>();
+        for(int i = 0; i<allIssueReports.size(); i++)
+        {
+            for(int j = 0; j<allSellerBundles.size();j++)
+            {
+                if(allIssueReports.get(i).getBundle() == allSellerBundles.get(j))
+                {
+                    allSellerIssueReports.add(allIssueReports.get(i));
+                }
+            }
+        }
+        //List of unresolved issues
+        ArrayList<IssueReport> unresolvedIssueReports = new ArrayList<>();
+        ArrayList<IssueReport> resolvedIssueReports = new ArrayList<>();
+        for(IssueReport issueReport : allSellerIssueReports) {
+            if(!issueReport.getResolved()) {
+                unresolvedIssueReports.add(issueReport);
+            }
+            else {
+                resolvedIssueReports.add(issueReport);
+            }
+        }
+        //add all issue reports to the web page
+        model.addAttribute("unresolvedIssueReports", unresolvedIssueReports);
+        model.addAttribute("resolvedIssueReports", resolvedIssueReports);
+        return "manage_issues_seller";
+    }
+
+    @PostMapping("/manage_issues_seller")
+    public String manageIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
+                                     @RequestParam("issueID") int issueID){
+        // Get current logged in seller
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Seller s = sr.findByDName(currentUsername).get(0);
+        //find issue report from repository
+        Optional<IssueReport> issueReport = irr.findById(issueID);
+        IssueReport issueReport1 = issueReport.get();
+        //save new details for issue report
+        issueReport1.setSellerResponse(sellerResponse);
+        issueReport1.setResolved(true);
+        //save them into the repository
+        irr.save(issueReport1);
+        return "manage_issues_seller";
     }
 }
