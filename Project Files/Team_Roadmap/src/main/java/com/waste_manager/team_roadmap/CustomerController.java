@@ -293,7 +293,9 @@ public class CustomerController {
         int no_badges = 0;
         for(int i = 0; i<badges.length; i++)
         {
-            if(badges[i]) { no_badges++; }
+            if(badges[i]) {
+                no_badges++;
+            }
         }
 
         //add analytics to web page
