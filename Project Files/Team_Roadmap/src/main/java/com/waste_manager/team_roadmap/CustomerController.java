@@ -161,7 +161,7 @@ public class CustomerController {
         //generate claim code for reservation
         String claimCode = customer.generateClaimCode();
         //make and save reservation
-        Reservation r = new Reservation(b1, customer, b1.getSeller(), LocalDateTime.now(), claimCode, false, false, "someWeather");
+        Reservation r = new Reservation(b1, customer, b1.getSeller(), LocalDateTime.now(), claimCode, false, false);
         rr.save(r);
         //update bundle to reserved
         br.setBundleReserved(true, b1.getPostingID());
