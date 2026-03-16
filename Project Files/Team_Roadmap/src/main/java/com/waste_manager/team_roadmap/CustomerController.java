@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -195,7 +196,7 @@ public class CustomerController {
     }
 
     @GetMapping("/view_analytics_consumer")
-    public String viewAnanalyticsConsumer(Model model) {
+    public String viewAnalyticsConsumer(Model model) {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
@@ -208,13 +209,12 @@ public class CustomerController {
             if(r.getCollected() ){num_collected++;}
         }
 
-
+        //checks the user's streak
         if(!customerReservations.isEmpty() && c.getStreakLastUpdate()!=null) {
             //get current time stamp
             LocalDateTime now = LocalDateTime.now();
             //get timestamp of last time streak was updated
             LocalDateTime LastStreakUpdate = c.getStreakLastUpdate();
-
             //get the years as numbers of timestamps
             int year1 = LastStreakUpdate.getYear();
             int year2 = now.getYear();
@@ -232,15 +232,76 @@ public class CustomerController {
                 cr.updateStreakById(0, c.getCustomerID());
             }
         }
+
+        //gets number of categories and sellers purchased from
+        //only if reservation was collected
+        List<String> categories = new ArrayList<>();
+        List<Seller> sellers = new ArrayList<>();
+        for(Reservation r : customerReservations){
+            if(r.getCollected()) {
+                categories.add(r.getBundle().getCategory());
+                sellers.add(r.getBundle().getSeller());
+            }
+        }
+        //gets unique categories
+        List<String> uniqueCategories = new ArrayList<>();
+        for(String category : categories){
+            if(!uniqueCategories.contains(category)){uniqueCategories.add(category);}
+        }
+        int num_categories = uniqueCategories.size();
+        //gets unique sellers
+        List<Seller> uniqueSellers = new ArrayList<>();
+        for(Seller s : sellers){
+            if(!uniqueSellers.contains(s)){uniqueSellers.add(s);}
+        }
+        int num_sellers = uniqueSellers.size();
+
+        //gets amount of co2 saved
+        double co2_saved = 4.2*num_collected;
+
+        //badges array: [1 meal saved, 5 meals saved, 10 meals saved,
+        //              1 category, 3 categories, 5 categories,
+        //              1 seller, 5 sellers, 10 sellers,
+        //              20 co2 saved, 50 co2 saved, 100 co2 saved]
+        boolean[] badges = new boolean[15];
+
+        //set badges for number of meals saved
+        if(num_collected==0){ badges[0] = false; badges[1] = false; badges[2] = false;}
+        else if(num_collected>=1 && num_collected<5){ badges[0] = true; badges[1] = false; badges[2] = false;}
+        else if(num_collected>=5 && num_collected<10){ badges[0] = true; badges[1] = true; badges[2] = false;}
+        else{ badges[0] = true; badges[1] = true; badges[2] = true;}
+
+        //set badges for number of categories
+        if(num_categories==0){ badges[3] = false; badges[4] = false; badges[5] = false;}
+        else if(num_categories>=1 && num_categories<3){ badges[3] = true; badges[4] = false; badges[5] = false;}
+        else if(num_categories>=3 && num_categories<5){ badges[3] = true; badges[4] = true; badges[5] = false;}
+        else { badges[3] = true; badges[4] = true; badges[5] = true;}
+
+        //set badges for seller purchased from
+        if(num_sellers==0){ badges[6] = false; badges[7] = false; badges[8] = false;}
+        else if(num_sellers>=1 && num_sellers<5){ badges[6] = true; badges[7] = false; badges[8] = false;}
+        else if(num_sellers>=5 && num_sellers<10){ badges[6] = true; badges[7] = true; badges[8] = false;}
+        else { badges[6] = true; badges[7] = true; badges[8] = true;}
+
+        //sets badges for amount of co2 saved
+        if(co2_saved<20){ badges[9] = false; badges[10] = false; badges[11] = false;}
+        else if(co2_saved>=20 && co2_saved<50){ badges[9] = true; badges[10] = false; badges[11] = false;}
+        else if(co2_saved>=50 && co2_saved<100){ badges[9] = true; badges[10] = true; badges[11] = false;}
+        else { badges[9] = true; badges[10] = true; badges[11] = true;}
+
+        //counts how many badges they have collected
+        int no_badges = 0;
+        for(int i = 0; i<badges.length; i++)
+        {
+            if(badges[i]) { no_badges++; }
+        }
+
         //add analytics to web page
         model.addAttribute("streak", c.getStreak());
         model.addAttribute("collected", num_collected);
-        model.addAttribute("co2_save", 4.2*num_collected);
-        model.addAttribute("no_badges", 0);
+        model.addAttribute("co2_save", co2_saved);
+        model.addAttribute("no_badges", no_badges);
+        model.addAttribute("badges", badges);
         return "view_analytics_consumer";
     }
-
-
-
-
 }
