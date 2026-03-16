@@ -391,11 +391,37 @@ public class SellerController {
         String sellThrough = collected + " : " + expired + " : " + noShow;
         model.addAttribute("sellThrough", sellThrough);
 
+        //get all reservations made of seller bundles
+        List<Reservation> sellerReservations = rr.findBySellerID(s.getSellerID());
         // Calculate waste proxy
-        model.addAttribute("wasteProxy", collected*1);
+        double waste_proxy = 0;
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()){
+                if(reservation.getBundle().getCategory().equals("meats")) {
+                    waste_proxy += (4.2 * 1.5);
+                } else if (reservation.getBundle().getCategory().equals("bakery")) {
+                    waste_proxy += (4.2 * 0.8);
+                } else if (reservation.getBundle().getCategory().equals("snacks")) {
+                    waste_proxy += (4.2 * 0.6);
+                } else if (reservation.getBundle().getCategory().equals("dairy")) {
+                    waste_proxy += (4.2 * 1);
+                } else if (reservation.getBundle().getCategory().equals("plants")) {
+                    waste_proxy += (4.2 * 0.5);
+                } else if (reservation.getBundle().getCategory().equals("groceries")) {
+                    waste_proxy += (4.2 * 1.2);
+                } else {
+                    waste_proxy += (4.2 * 2);
+                }
+            }
+        }
+        model.addAttribute("wasteProxy", waste_proxy);
 
+        //calculate pricing effectiveness
         model.addAttribute("pricingEffectiveness", "-");
+
+        //calculate operational insights
         model.addAttribute("operationalInsights", "-");
+
         return "view_analytics_seller";
     }
 
