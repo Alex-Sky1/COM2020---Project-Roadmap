@@ -203,10 +203,12 @@ public class CustomerController {
         Customer c = cr.findByDName(currentUsername).get(0);
 
         //get total number of collected bundles for the user
+        //and list of all bundles collected
         int num_collected = 0;
+        List<Reservation> collectedReservations = new ArrayList<Reservation>();
         List<Reservation> customerReservations = rr.findByCustomerID(c.getCustomerID());
         for (Reservation r : customerReservations) {
-            if(r.getCollected() ){num_collected++;}
+            if(r.getCollected() ){num_collected++; collectedReservations.add(r); }
         }
 
         //checks the user's streak
@@ -237,33 +239,58 @@ public class CustomerController {
         //only if reservation was collected
         List<String> categories = new ArrayList<>();
         List<Seller> sellers = new ArrayList<>();
-        for(Reservation r : customerReservations){
-            if(r.getCollected()) {
-                categories.add(r.getBundle().getCategory());
-                sellers.add(r.getBundle().getSeller());
-            }
+        for(Reservation r : collectedReservations){
+            categories.add(r.getBundle().getCategory());
+            sellers.add(r.getBundle().getSeller());
         }
+
         //gets unique categories
         List<String> uniqueCategories = new ArrayList<>();
         for(String category : categories){
             if(!uniqueCategories.contains(category)){uniqueCategories.add(category);}
         }
+        //number of unique categories
         int num_categories = uniqueCategories.size();
         //gets unique sellers
         List<Seller> uniqueSellers = new ArrayList<>();
         for(Seller s : sellers){
             if(!uniqueSellers.contains(s)){uniqueSellers.add(s);}
         }
+        //number of unique sellers
         int num_sellers = uniqueSellers.size();
 
         //gets amount of co2 saved
-        double co2_saved = 4.2*num_collected;
+        //fish and meat: 1.5kg
+        //bakery: 0.8kg
+        //snacks:0.6kg
+        //dairy: 1kg
+        //fruit vegetables and legumes: 0.5kg
+        //groceries: 1.2kg
+        //other: 2kg
+        double co2_saved = 0;
+        for (Reservation collectedReservation : collectedReservations) {
+            if (collectedReservation.getBundle().getCategory().equals("meats")) {
+                co2_saved += (4.2 * 1.5);
+            } else if (collectedReservation.getBundle().getCategory().equals("bakery")) {
+                co2_saved += (4.2 * 0.8);
+            } else if (collectedReservation.getBundle().getCategory().equals("snacks")) {
+                co2_saved += (4.2 * 0.6);
+            } else if (collectedReservation.getBundle().getCategory().equals("dairy")) {
+                co2_saved += (4.2 * 1);
+            } else if (collectedReservation.getBundle().getCategory().equals("plants")) {
+                co2_saved += (4.2 * 0.5);
+            } else if (collectedReservation.getBundle().getCategory().equals("groceries")) {
+                co2_saved += (4.2 * 1.2);
+            } else {
+                co2_saved += (4.2 * 2);
+            }
+        }
 
         //badges array: [1 meal saved, 5 meals saved, 10 meals saved,
         //              1 category, 3 categories, 5 categories,
         //              1 seller, 5 sellers, 10 sellers,
         //              20 co2 saved, 50 co2 saved, 100 co2 saved]
-        boolean[] badges = new boolean[15];
+        boolean[] badges = new boolean[12];
 
         //set badges for number of meals saved
         if(num_collected==0){ badges[0] = false; badges[1] = false; badges[2] = false;}
