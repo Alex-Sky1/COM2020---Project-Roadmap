@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.persistence.*;
+import java.util.regex.Pattern;
 
 @Entity
 public class Customer implements Serializable {
@@ -68,6 +69,16 @@ public class Customer implements Serializable {
             builder.append(options.charAt(rand.nextInt(62)));
         }
         return builder.toString();
+    }
+    //Password validation - regex from owasp
+    public boolean validatePassword(String password) {
+        String regexPassword = "[^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$]]";
+        return password.matches(regexPassword);
+    }
+    //Email validation - regex from owasp
+    public boolean validateEmail(String email) {
+        String regexEmail = "[^[a-zA-Z0-9_+&*-]+(?:.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+.)+[a-zA-Z]{2,}$]]>";
+        return email.matches(regexEmail);
     }
 
     public Long getCustomerID(){return ID;}

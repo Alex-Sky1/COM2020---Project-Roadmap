@@ -14,5 +14,53 @@
         <img th:src="@{images/roadmap_logo.png}" src="/static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-logo">
     </div>
 </div>
+<div class="box1">
+    <table th:if="${not#lists.isEmpty(bundle)}">
+        <thead>
+        <tr>
+            <th>Seller</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Contents</th>
+            <th>Allergens</th>
+            <th>Pickup Window</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bundle">
+            <td th:text="${bundle.seller.dName}">Ex Seller</td>
+            <td th:text="${bundle.price}">Ex Price</td>
+            <td th:text="${bundle.category}">Ex category</td>
+            <td th:text="${bundle.getContentsAsString()}" style="overflow: auto; max-width: 140px">Ex contents</td>
+            <td th:text="${bundle.getAllergensAsString()}" style="overflow: auto; max-width: 140px">Ex allergens</td>
+            <td th:text="${bundle.getPickUpWindowAsString()}">Pickup Window</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="box1">
+    <label class="label1">List Issue Below</label>
+    <form th:action="@{/report_issue_consumer}" method="post" autocomplete="off">
+        <input type="hidden" name="reservationID" th:value="${reservationID}">
+
+        <label for="Issue"></label>
+        <textarea
+                name="description"
+                id="Issue"
+                placeholder="Enter the details of your complaint here"
+                maxlength="600"
+                rows="6"
+                cols="70"
+                required
+                ></textarea>
+        <select required name="type" id="type">
+            <option>Didn't arrive</option>
+            <option>Took too long</option>
+            <option>Food was cold</option>
+            <option>Not as described</option>
+        </select>
+        <button type="submit">Submit your complaint.</button>
+    </form>
+</div>
 </body>
 </html>

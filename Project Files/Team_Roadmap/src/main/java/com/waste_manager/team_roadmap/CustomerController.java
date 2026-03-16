@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -23,12 +24,14 @@ public class CustomerController {
     private final SellerRepository sr;
     private final BundleRepository br;
     private final ReservationRepository rr;
+    private final IssueReportRepository irr;
 
-    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
+    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
         this.cr = customerRepository;
         this.sr = sellerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
+        this.irr = issueReportRepository;
     }
 
     @PostMapping("/sign_up_consumer")
@@ -56,6 +59,7 @@ public class CustomerController {
             System.out.println("user name already exists");
             model.addAttribute("error", "Username already exists");
         }
+        //check they have accepted the terms and conditions
         else if(tosAccept==null){
             System.out.println("please accept the terms and conditions");
             model.addAttribute("error", "Please accept the terms and conditions");
@@ -63,9 +67,17 @@ public class CustomerController {
         }else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>(), true);
-            cr.save(c1);
-            System.out.println("sign up successful");
-            return "sign_in";
+            if(!c1.validateEmail(email)){
+                model.addAttribute("error", "Invalid email");
+            }
+            else if(!c1.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }
+            else {
+                cr.save(c1);
+                System.out.println("sign up successful");
+                return "sign_in";
+            }
         }
         return "sign_up_consumer";
     }
@@ -97,7 +109,14 @@ public class CustomerController {
         }
         //check passwords match
         if (!pwd1.isEmpty() && pwd1.equals(pwd2)) {
-            cr.updatePasswordById(pwd1, customerId);
+            if(!customer.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }else {
+                cr.updatePasswordById(pwd1, customerId);
+            }
+        }
+        else{
+            model.addAttribute("error", "Passwords don't match");
         }
         //update first name
         if (!fname.isEmpty()) {
@@ -121,7 +140,11 @@ public class CustomerController {
         }
         //update email address
         if (!email.isEmpty()) {
-            cr.updateEmailById(email, customerId);
+            if(!customer.validateEmail(email)){
+                model.addAttribute("error", "Invalid email");
+            }else {
+                cr.updateEmailById(email, customerId);
+            }
         }
         //update phone number
         if (!phone.isEmpty()) {
@@ -131,19 +154,64 @@ public class CustomerController {
     }
 
     @GetMapping("/browse_bundles_consumer")
-    public String browseBundlesConsumer(Model model) {
+    public String browseBundlesConsumer(Model model, @RequestParam(value="category", required = false) String category,
+                                        @RequestParam(value = "postcode", required = false) String postcode,
+                                        @RequestParam(value = "price_selector", required = false) String priceselector,
+                                        @RequestParam(value="price", required = false) String price,
+                                        @RequestParam(value = "time_selector", required = false) String timeSelector,
+                                        @RequestParam(value = "time", required = false) String time,
+                                        @RequestParam(value="celery", required = false) String celery,
+                                        @RequestParam(value = "gluten", required = false) String gluten,
+                                        @RequestParam(value = "crustaceans", required = false) String crustaceans,
+                                        @RequestParam(value="eggs", required = false) String eggs,
+                                        @RequestParam(value="fish", required = false) String fish,
+                                        @RequestParam(value="lupin", required = false) String lupin,
+                                        @RequestParam(value="milk", required = false) String milk,
+                                        @RequestParam(value="molluscs", required = false) String molluscs,
+                                        @RequestParam(value="mustard", required = false) String mustard,
+                                        @RequestParam(value="peanuts", required = false) String peanuts,
+                                        @RequestParam(value="sesame", required = false) String sesame,
+                                        @RequestParam(value="soybeans", required = false) String soybeans,
+                                        @RequestParam(value="sulphur", required = false) String sulphur,
+                                        @RequestParam(value="nuts", required = false) String nuts) {
+
+
         //find all bundles that have not expired and have not already been reserved
         List<Bundle> allBundles = br.findByReservedAndExpired(false, false);
         ArrayList<Bundle> bundles = new ArrayList<>();
-        //find if any bundles have gone past expiry
+        //find if any bundles have gone past expiry;
         for (Bundle bundle : allBundles) {
-            if(bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+            if (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
                 br.setBundleExpired(bundle.getPostingID());
                 bundle.setExpired(true);
-            }
-            else{
-                bundles.add(bundle);
-            }
+            // Check filters
+            } else if ((category == null || category.equals("Unselected") || bundle.getCategory().equals(category)) &&
+                (postcode == null || Objects.equals(postcode, "") || bundle.getSeller().getPostcode().equals(postcode)) &&
+                (celery == null || !bundle.getAllergens().contains(celery)) &&
+                (gluten == null || !bundle.getAllergens().contains(gluten)) &&
+                (crustaceans == null || !bundle.getAllergens().contains(crustaceans)) &&
+                (eggs == null || !bundle.getAllergens().contains(eggs)) &&
+                (fish == null || !bundle.getAllergens().contains(fish)) &&
+                (lupin == null || !bundle.getAllergens().contains(lupin)) &&
+                (milk == null || !bundle.getAllergens().contains(milk)) &&
+                (molluscs == null || !bundle.getAllergens().contains(molluscs)) &&
+                (mustard == null || !bundle.getAllergens().contains(mustard)) &&
+                (peanuts == null || !bundle.getAllergens().contains(peanuts)) &&
+                (sesame == null || !bundle.getAllergens().contains(sesame)) &&
+                (soybeans == null || !bundle.getAllergens().contains(soybeans)) &&
+                (sulphur == null || !bundle.getAllergens().contains(sulphur)) &&
+                (nuts == null || !bundle.getAllergens().contains(nuts)) &&
+                ((priceselector == null || price == null || Objects.equals(price, "") ||
+                    (priceselector.equals("more") && Float.parseFloat(price) < bundle.getPrice()) ||
+                    (priceselector.equals("equals") && Float.parseFloat(price) == bundle.getPrice()) ||
+                    (priceselector.equals("less") && Float.parseFloat(price) > bundle.getPrice()))) &&
+                (time == null ||
+                    (timeSelector.equals("more") && Integer.parseInt(time.substring(0, 2)) < bundle.getPickUpWindow()) ||
+                    (timeSelector.equals("less") && Integer.parseInt(time.substring(0, 2)) > bundle.getPickUpWindow()) ||
+                    (timeSelector.equals("equal") && Integer.parseInt(time.substring(0, 2)) == bundle.getPickUpWindow())))
+                {
+                    bundles.add(bundle);
+                }
         }
         //add bundles to web page
         model.addAttribute("allBundles", bundles);
@@ -163,7 +231,7 @@ public class CustomerController {
         //generate claim code for reservation
         String claimCode = customer.generateClaimCode();
         //make and save reservation
-        Reservation r = new Reservation(b1, customer, b1.getSeller(), LocalDateTime.now(), claimCode, false, false, "someWeather");
+        Reservation r = new Reservation(b1, customer, b1.getSeller(), LocalDateTime.now(), claimCode, false, false);
         rr.save(r);
         //update bundle to reserved
         br.setBundleReserved(true, b1.getPostingID());
@@ -192,13 +260,8 @@ public class CustomerController {
         return "manage_bundles_consumer";
     }
 
-    @PostMapping("/report_issue_consumer")
-    public String reportIssue(){
-        return "report_issue_consumer";
-    }
-
     @GetMapping("/view_analytics_consumer")
-    public String viewAnanalyticsConsumer(Model model) {
+    public String viewAnalyticsConsumer(Model model) {
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
@@ -243,30 +306,51 @@ public class CustomerController {
         return "view_analytics_consumer";
     }
 
-    @GetMapping("/notifications")
-    public String viewNotifications(Model model) {
+    //when customer selects 'view issues' button on dashboard
+    @GetMapping("/view_issues_consumer")
+    public String viewIssuesConsumer(Model model) {
+        //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = auth.getName();
         Customer c = cr.findByDName(currentUsername).get(0);
-        ArrayList<String> notifications = new ArrayList<>();
-        List<Reservation> customerReservations = rr.findByCustomerID(c.getCustomerID());
-        for (Reservation r : customerReservations) {
-            System.out.println("hi");
-            if (!r.getCollected()) {
-                int pickuphr = r.getBundle().getPickUpWindow();
-                if(LocalDateTime.now().getHour() ==  pickuphr-1 || LocalDateTime.now().getHour() ==  pickuphr){
-                    String notif = "Bundle due to be collected at " + r.getBundle().getPickUpWindowAsString();
-                    notifications.add(notif);
-                }
-            }
-        }
-        System.out.println(notifications.size());
-        model.addAttribute("notifications", notifications);
 
-        return "notifications";
+        //find all issues that have the correct customer id
+        List<IssueReport> allIssueReports = irr.findByCustomerID(c.getCustomerID());
+
+        //add issue reports to the web page
+        model.addAttribute("allIssueReports", allIssueReports);
+        return "view_issues_consumer";
     }
 
+    @GetMapping("/report_issue_consumer")
+    public String openReportIssuePageConsumer(@RequestParam("reservationID") int reservationID, Model model) {
+        //get bundle from web page
+        Optional<Reservation> reservation = rr.findById(reservationID);
+        Reservation res = reservation.get();
 
+        model.addAttribute("reservation", res);
+        model.addAttribute("reservationID", reservationID);
 
+        return "report_issue_consumer";
+    }
 
+    @PostMapping("/report_issue_consumer")
+    public String reportIssue(@RequestParam("reservationID") int reservationID,
+                              @RequestParam("type") String type,
+                              @RequestParam("description") String description)
+    {
+        //get current user
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Customer c = cr.findByDName(currentUsername).get(0);
+
+        //get bundle from web page
+        Reservation reservation = rr.findById(reservationID).get();
+        Bundle bundle = reservation.getBundle();
+
+        //save report to database
+        IssueReport issueReport = new IssueReport(bundle, c, type, description, false, null);
+        irr.save(issueReport);
+        return "redirect:manage_bundles_consumer";
+    }
 }

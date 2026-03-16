@@ -6,8 +6,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
+import weka.core.*;
 
 public class Forecast {
+
 
     private LocalDateTime forecastDate;
     private int sellerID;
@@ -15,6 +18,7 @@ public class Forecast {
     private String weatherFlag;
     private ArrayList<Bundle> bundleList;
     private ArrayList<Reservation> reservationList;
+    private Bundle preditBundle;
     private float confidence;
     private String rationale;
 
@@ -28,6 +32,18 @@ public class Forecast {
         this.category = thisCategory;
         this.bundleList = thisBundleList;
         this.reservationList = thisReservationList;
+    }
+
+    public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag, String thisCategory,
+                    ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList, Bundle thisPreditBundle) {
+
+        this.forecastDate = thisForecastDate;
+        this.sellerID = thisSellerID;
+        this.weatherFlag = thisWeatherFlag;
+        this.category = thisCategory;
+        this.bundleList = thisBundleList;
+        this.reservationList = thisReservationList;
+        this.preditBundle = thisPreditBundle;
     }
 
     // Return bundles that are from a specific seller
@@ -79,8 +95,32 @@ public class Forecast {
     }
 
 
+    public int prediction(){
+        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+        double[][] x = data();
+        double[] y = y();
 
-    public int seasonalNaive() {return seasonalNaive(this.forecastDate.minusDays(7));}
+        regression.newSampleData(y, x);
+        double[] beta = regression.estimateRegressionParameters();
+        double[] predBundle = new double[7];
+        predBundle[0] = this.preditBundle.getTimeStamp().getDayOfWeek().getValue();
+        predBundle[1] = this.preditBundle.getPickUpWindow();
+        predBundle[2] = this.preditBundle.getSeller().getSellerID();
+        predBundle[3] = numberCat(this.preditBundle.getCategory());
+        predBundle[4] = numberweather(this.preditBundle.getWeatherFlag());
+        predBundle[5] = this.preditBundle.getPrice();
+        predBundle[6] = this.preditBundle.getDiscount();
+
+        double predicted = beta[0];
+        for(int i = 0 ; i < predBundle.length ; i++){
+            predicted += beta[i + 1] * predBundle[i];
+        }
+
+        return Math.toIntExact(Math.round(predicted));
+    }
+
+
+    public int seasonalNaive() {return seasonalNaive(this.forecastDate);}
 
 
     public int seasonalNaive(LocalDateTime date) {
@@ -93,7 +133,7 @@ public class Forecast {
         LocalDateTime searchDate = date; // The search date is the date used to provide the seasonal naive
         int returnInt = 0; // The return integer is the number of bundles that were reserved and picked up
 
-        while (!(bundleList.get(0).getTimeStamp().isAfter(searchDate))) {
+        while (!(filteredBundleList.get(0).getTimeStamp().isAfter(searchDate))) {
 
             ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
 
@@ -118,8 +158,49 @@ public class Forecast {
         }
         return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
     }
+    public int movingavg(){
+        return movingavg(this.forecastDate,24);
+    }
+    public int movingavg(LocalDateTime date,int hours) {
+        ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
+        ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
+
+        LocalDateTime searchDate = date.minusHours(1);
+
+        int returnInt = 0;
+        int counter = 0;
+
+        while (counter < hours) {
+
+            ArrayList<Reservation> dayReservationList = filterReservationListDate(searchDate.toLocalDate(), filteredReservationList);
+            if (!dayReservationList.isEmpty()) {
+
+
+                for (Reservation reservation : dayReservationList) {
+
+                    if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
+
+                        if (!(reservation.getNoShow())) {
+                            returnInt += 1;
+                        }
+                    }
+                }
+            }
+            counter++;
+            searchDate = searchDate.minusHours(1);
+
+        }
+        if (counter == 0){
+            return -1;
+        }
+        return returnInt/counter;
+    }
 
     public float MAE() {
+        return MAE("seasonalNaive",0);
+    }
+
+    public float MAE(String baseline,int hours) {
 
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
@@ -134,13 +215,11 @@ public class Forecast {
         int returnInt = 0;
 
 
-        while(searchDate.getDayOfMonth() != hold.getDayOfMonth()){
+        while(searchDate.isBefore(hold)){
 
             LocalDateTime check = searchDate;
 
-            while(check.getHour() != 0){
-                check = check.minusHours(1);
-            }
+            check = check.toLocalDate().atStartOfDay();
 
             for(int i = 0;i < 24;i++) {
                 ArrayList<Reservation> dayReservationList = filterReservationListDate(check.toLocalDate(), filteredReservationList);
@@ -159,10 +238,19 @@ public class Forecast {
                     }
                 }
 
-
-                int naive = seasonalNaive(check);
-                if(naive == -1){naive = 0;}
-                mae += Math.abs(returnInt - naive);
+                if (baseline.equals("seasonalNaive")) {
+                    int naive = seasonalNaive(check);
+                    if (naive == -1) {
+                        naive = 0;
+                    }
+                    mae += Math.abs(returnInt - naive);
+                } else if (baseline.equals("movingavg")) {
+                    int moving = movingavg(check,hours);
+                    if (moving == -1) {
+                        moving = 0;
+                    }
+                    mae += Math.abs(returnInt - moving);
+                }
                 System.out.println(mae);
                 returnInt = 0;
                 number += 1;
@@ -173,11 +261,93 @@ public class Forecast {
         if(number == 0) {
             return 1;
         }
-        System.out.println(mae);
-        System.out.println(number);
         mae = mae / number;
         return mae;
     }
+
+
+    //sort out data
+
+    public double[][] data(){
+        int rows = bundleList.size();
+        int cols = 7; // number of fields you want to include in String[][]
+
+        double[][] bundleArray = new double[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            Bundle b = bundleList.get(i);
+            bundleArray[i][0] = b.getTimeStamp().getDayOfWeek().getValue();
+            bundleArray[i][1] = b.getPickUpWindow();
+            bundleArray[i][2] = b.getSeller().getSellerID();
+            bundleArray[i][3] = numberCat(b.getCategory());
+            bundleArray[i][4] = numberweather(b.getWeatherFlag());
+            bundleArray[i][5] = b.getPrice();
+            bundleArray[i][6] = b.getDiscount();
+        }
+        return bundleArray;
+    }
+
+
+    public Instances data(){
+
+        ArrayList<Attribute> attributes = new ArrayList<>();
+
+    }
+
+    public double[] y(){
+        int rows = bundleList.size();
+
+        double[] a = new double[rows];
+
+        for (int i = 0; i < rows; i++) {
+            Bundle b = bundleList.get(i);
+            if(b.getReserved()){
+                a[i] = 1;
+            }
+            else{
+                a[i] = 0;
+            }
+        }
+
+        return a;
+
+    }
+
+
+    public int numberCat(String category){
+        switch (category){
+            case "Fish & Meat":
+                return 1;
+            case "Bakery":
+                return 2;
+            case "Snacks":
+                return 3;
+            case "Dairy":
+                return 4;
+            case "Fruit, Vegetables & Legumes":
+                return 5;
+            case "Groceries":
+                return 6;
+            default:
+                return 7;
+
+        }
+    }
+
+
+    public int numberweather(String weatherFlag){
+        switch (weatherFlag){
+            case "sunny":
+                return 1;
+            case "rainy":
+                return 2;
+            case "cloudy":
+                return 3;
+            default:
+                return 4;
+        }
+    }
+
 
     // Getters and Setters
 
