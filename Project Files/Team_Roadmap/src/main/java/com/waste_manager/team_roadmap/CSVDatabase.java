@@ -174,7 +174,8 @@ public class CSVDatabase {
                     Integer.parseInt(bundle_info.get(6)),
                     Integer.parseInt(bundle_info.get(7)),
                     Boolean.parseBoolean(bundle_info.get(8)),
-                    Boolean.parseBoolean(bundle_info.get(9))
+                    Boolean.parseBoolean(bundle_info.get(9)),
+                    bundle_info.get(10) // weather flag
             ));
 
         }
@@ -204,8 +205,7 @@ public class CSVDatabase {
                     LocalDateTime.parse(reservation_info.get(3)),
                     reservation_info.get(4),
                     Boolean.parseBoolean(reservation_info.get(5)),
-                    Boolean.parseBoolean(reservation_info.get(6)),
-                    reservation_info.get(7)
+                    Boolean.parseBoolean(reservation_info.get(6))
             ));
         }
 
@@ -275,7 +275,7 @@ public class CSVDatabase {
         for (Bundle bundle : bundleRepository.findAll()) {
             System.out.println("Beans");
             bundle_writer.printf(
-                    "%d&%s&%s&%s&%s&%f&%d&%d&%b&%b\n",
+                    "%d&%s&%s&%s&%s&%f&%d&%d&%b&%b%s\n",
                     bundle.getSeller().getSellerID(),
                     bundle.getCategory(),
                     bundle.getContents().toString(),
@@ -285,7 +285,8 @@ public class CSVDatabase {
                     bundle.getDiscount(),
                     bundle.getPickUpWindow(),
                     bundle.getReserved(),
-                    bundle.getExpired()
+                    bundle.getExpired(),
+                    bundle.getWeatherFlag()
             );
         }
         bundle_writer.close();
@@ -297,15 +298,15 @@ public class CSVDatabase {
         for (Reservation reservation : reservationRepository.findAll()) {
             System.out.println("Wine");
             reservation_writer.printf(
-                    "%d&%d&%d&%s&%s&%b&%b&%s\n",
+                    "%d&%d&%d&%s&%s&%b&%b&\n",
                     reservation.getBundle().getPostingID(),
                     reservation.getCustomer().getCustomerID(),
                     reservation.getSeller().getSellerID(),
                     reservation.getTimeStamp().toString(),
                     reservation.getClaimCode(),
                     reservation.getNoShow(),
-                    reservation.getCollected(),
-                    reservation.getWeatherFlag()
+                    reservation.getCollected()
+//                    reservation.getWeatherFlag()
             );
         }
         reservation_writer.close();
