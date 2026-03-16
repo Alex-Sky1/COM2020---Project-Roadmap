@@ -109,7 +109,14 @@ public class CustomerController {
         }
         //check passwords match
         if (!pwd1.isEmpty() && pwd1.equals(pwd2)) {
-            cr.updatePasswordById(pwd1, customerId);
+            if(!customer.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }else {
+                cr.updatePasswordById(pwd1, customerId);
+            }
+        }
+        else{
+            model.addAttribute("error", "Passwords don't match");
         }
         //update first name
         if (!fname.isEmpty()) {
@@ -133,7 +140,11 @@ public class CustomerController {
         }
         //update email address
         if (!email.isEmpty()) {
-            cr.updateEmailById(email, customerId);
+            if(!customer.validateEmail(email)){
+                model.addAttribute("error", "Invalid email");
+            }else {
+                cr.updateEmailById(email, customerId);
+            }
         }
         //update phone number
         if (!phone.isEmpty()) {
