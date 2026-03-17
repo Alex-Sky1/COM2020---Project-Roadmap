@@ -249,6 +249,15 @@ public class CustomerController {
         return "manage_bundles_consumer";
     }
 
+    @PostMapping("/manage_bundles_consumer")
+    String deleteReservation(@RequestParam("reservationID") int reservationID) {
+        Reservation reservation = rr.findById(reservationID).get();
+        br.setBundleReserved(false, reservation.getBundle().getPostingID());
+        rr.deleteReservationByID(reservationID);
+
+        return "redirect:/manage_bundles_consumer";
+    }
+
     @GetMapping("/view_analytics_consumer")
     public String viewAnalyticsConsumer(Model model) {
         //get current user

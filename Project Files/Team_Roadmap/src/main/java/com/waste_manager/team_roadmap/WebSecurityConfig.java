@@ -30,7 +30,7 @@ public class WebSecurityConfig {
                 .requestMatchers(permitSeller).hasAnyRole("SELLER", "ADMIN") //set pages seller can access
                 .requestMatchers(permitCustomer).hasAnyRole("CUSTOMER", "ADMIN") //set pages customer can access
                 .requestMatchers(permitAdmin).hasAnyRole("ADMIN")
-                .anyRequest().authenticated()).formLogin((form)->form.loginPage("/sign_in").permitAll().successHandler(successHandler)).logout(LogoutConfigurer::permitAll); //login using /signup page and allow logout
+                .anyRequest().authenticated()).formLogin((form)->form.loginPage("/sign_in").permitAll().successHandler(successHandler).failureUrl("/login_error")).logout(LogoutConfigurer::permitAll); //login using /signup page and allow logout
         return http.build();
     }
 }

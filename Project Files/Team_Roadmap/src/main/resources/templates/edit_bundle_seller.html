@@ -20,54 +20,53 @@
     </div>
 </div>
 <div class="box1-parent">
-    <form th:action="@{/post_bundle_seller}" method="post">
+    <form th:action="@{/edit_bundle_seller}" method="post">
 
         <div class="grid-2-columns" style="margin: 30px">
-            <input style="display: none" id="hidden_items" name="hidden_items" type="text">
+            <input style="display: none" id="hidden_items" name="hidden_items" th:value="${bundle.getContentsAsString()}" type="text">
+            <input style="display: none" id="PostingID" name="PostingID" th:value="${bundle.postingID}">
             <label class="label1" for="category">Food Category</label>
             <select name="category" id="category" class="text-input2">
-                <option value="meats">Fish & Meat</option>
-                <option value="bakery ">Bakery </option>
-                <option value="snacks">Snacks</option>
-                <option value="dairy">Dairy</option>
-                <option value="plants">Fruit, Vegetables & Legumes</option>
-                <option value="groceries">Groceries</option>
-                <option value="other">Other</option>
+                <option value="Fish & Meat" th:selected="${bundle.category.equals('Fish & Meat')}">Fish & Meat</option>
+                <option value="Bakery" th:selected="${bundle.category.equals('Bakery')}" >Bakery</option>
+                <option value="Snacks" th:selected="${bundle.category.equals('Snacks')}" >Snacks</option>
+                <option value="Dairy" th:selected="${bundle.category.equals('Dairy')}">Dairy</option>
+                <option value="Fruit, Vegetables & Legumes" th:selected="${bundle.category.equals('Fruit, Vegetables & Legumes')}" >Fruit, Vegetables & Legumes</option>
+                <option value="Groceries" th:selected="${bundle.category.equals('Groceries')}">Groceries</option>
+                <option value="Other" th:selected="${bundle.category.equals('Other')}">Other</option>
             </select>
             <label class="label1" for="price">Price</label>
             <span class="input-pound-blue">
-                <input class="text-input2" type="number" id="price" name="price" min="0" step="0.01">
+                <input class="text-input2" th:value="${bundle.price}" type="number" id="price" name="price" min="0" step="0.01">
             </span>
-            <label class="label1" for="bundle_numbers">Number of Bundles</label>
-            <input class="text-input2" type="text" id="bundle_numbers" name="bundle_numbers">
             <label class = label1 for="discount">Discount</label>
-            <input class="text-input2" type="number" placeholder="%" id="discount" name="discount" max="100" min="0">
+            <input class="text-input2" th:value="${bundle.discount}" type="number" placeholder="%" id="discount" name="discount" max="100" min="0">
             <label class="label1" for="pickup">Pickup Window</label>
             <select class="text-input2" id="pickup" name="pickup">
-                <option value="00:00-01:00">00:00-01:00</option>
-                <option value="01:00-02:00">01:00-02:00</option>
-                <option value="02:00-03:00">02:00-03:00</option>
-                <option value="03:00-04:00">03:00-04:00</option>
-                <option value="04:00-05:00">04:00-05:00</option>
-                <option value="05:00-06:00">05:00-06:00</option>
-                <option value="06:00-07:00">06:00-07:00</option>
-                <option value="07:00-08:00">07:00-08:00</option>
-                <option value="08:00-09:00">08:00-09:00</option>
-                <option value="09:00-10:00">09:00-10:00</option>
-                <option value="10:00-11:00">10:00-11:00</option>
-                <option value="11:00-12:00">11:00-12:00</option>
-                <option value="12:00-13:00">12:00-13:00</option>
-                <option value="13:00-14:00">13:00-14:00</option>
-                <option value="14:00-15:00">14:00-15:00</option>
-                <option value="15:00-16:00">15:00-16:00</option>
-                <option value="16:00-17:00">16:00-17:00</option>
-                <option value="17:00-18:00">17:00-18:00</option>
-                <option value="18:00-19:00">18:00-19:00</option>
-                <option value="19:00-20:00">19:00-20:00</option>
-                <option value="20:00-21:00">20:00-21:00</option>
-                <option value="21:00-22:00">21:00-22:00</option>
-                <option value="22:00-23:00">22:00-23:00</option>
-                <option value="23:00-00:00">23:00-00:00</option>
+                <option value="00:00-01:00" th:selected="${bundle.getPickUpWindowAsString().equals('00:00-01:00')}">00:00-01:00</option>
+                <option value="01:00-02:00" th:selected="${bundle.getPickUpWindowAsString().equals('01:00-02:00')}">01:00-02:00</option>
+                <option value="02:00-03:00" th:selected="${bundle.getPickUpWindowAsString().equals('02:00-03:00')}">02:00-03:00</option>
+                <option value="03:00-04:00" th:selected="${bundle.getPickUpWindowAsString().equals('03:00-04:00')}">03:00-04:00</option>
+                <option value="04:00-05:00" th:selected="${bundle.getPickUpWindowAsString().equals('04:00-05:00')}">04:00-05:00</option>
+                <option value="05:00-06:00" th:selected="${bundle.getPickUpWindowAsString().equals('05:00-06:00')}">05:00-06:00</option>
+                <option value="06:00-07:00" th:selected="${bundle.getPickUpWindowAsString().equals('06:00-07:00')}">06:00-07:00</option>
+                <option value="07:00-08:00" th:selected="${bundle.getPickUpWindowAsString().equals('07:00-08:00')}">07:00-08:00</option>
+                <option value="08:00-09:00" th:selected="${bundle.getPickUpWindowAsString().equals('08:00-09:00')}">08:00-09:00</option>
+                <option value="09:00-10:00" th:selected="${bundle.getPickUpWindowAsString().equals('09:00-10:00')}">09:00-10:00</option>
+                <option value="10:00-11:00" th:selected="${bundle.getPickUpWindowAsString().equals('10:00-11:00')}">10:00-11:00</option>
+                <option value="11:00-12:00" th:selected="${bundle.getPickUpWindowAsString().equals('11:00-12:00')}">11:00-12:00</option>
+                <option value="12:00-13:00" th:selected="${bundle.getPickUpWindowAsString().equals('12:00-13:00')}">12:00-13:00</option>
+                <option value="13:00-14:00" th:selected="${bundle.getPickUpWindowAsString().equals('13:00-14:00')}">13:00-14:00</option>
+                <option value="14:00-15:00" th:selected="${bundle.getPickUpWindowAsString().equals('14:00-15:00')}">14:00-15:00</option>
+                <option value="15:00-16:00" th:selected="${bundle.getPickUpWindowAsString().equals('15:00-16:00')}">15:00-16:00</option>
+                <option value="16:00-17:00" th:selected="${bundle.getPickUpWindowAsString().equals('16:00-17:00')}">16:00-17:00</option>
+                <option value="17:00-18:00" th:selected="${bundle.getPickUpWindowAsString().equals('17:00-18:00')}">17:00-18:00</option>
+                <option value="18:00-19:00" th:selected="${bundle.getPickUpWindowAsString().equals('18:00-19:00')}">18:00-19:00</option>
+                <option value="19:00-20:00" th:selected="${bundle.getPickUpWindowAsString().equals('19:00-20:00')}">19:00-20:00</option>
+                <option value="20:00-21:00" th:selected="${bundle.getPickUpWindowAsString().equals('20:00-21:00')}">20:00-21:00</option>
+                <option value="21:00-22:00" th:selected="${bundle.getPickUpWindowAsString().equals('21:00-22:00')}">21:00-22:00</option>
+                <option value="22:00-23:00" th:selected="${bundle.getPickUpWindowAsString().equals('22:00-23:00')}">22:00-23:00</option>
+                <option value="23:00-00:00" th:selected="${bundle.getPickUpWindowAsString().equals('23:00-00:00')}">23:00-00:00</option>
             </select>
             <button type="submit" class="button2" style="grid-column: span 2" name="post">Edit Bundle</button>
         </div>
@@ -75,33 +74,33 @@
         <div class="box1" style="width: 25%; min-width: 300px; margin: 30px">
             <h2>Allergens</h2>
             <hr>
-            <input type="checkbox" id="celery" name="celery" value="celery">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('celery')}" id="celery" name="celery" value="celery">
             <label for="celery">Celery</label><br>
-            <input type="checkbox" id="gluten" name="gluten" value="gluten">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('gluten')}" id="gluten" name="gluten" value="gluten">
             <label for="gluten">Cereals containing Gluten</label><br>
-            <input type="checkbox" id="crustaceans" name="crustaceans" value="crustaceans">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('crustaceans')}" id="crustaceans" name="crustaceans" value="crustaceans">
             <label for="crustaceans">Crustaceans</label><br>
-            <input type="checkbox" id="eggs" name="eggs" value="eggs">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('eggs')}" id="eggs" name="eggs" value="eggs">
             <label for="eggs">Eggs</label><br>
-            <input type="checkbox" id="fish" name="fish" value="fish">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('fish')}" id="fish" name="fish" value="fish">
             <label for="fish">Fish</label><br>
-            <input type="checkbox" id="lupin" name="lupin" value="lupin">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('lupin')}" id="lupin" name="lupin" value="lupin">
             <label for="lupin">Lupin</label><br>
-            <input type="checkbox" id="milk" name="milk" value="milk">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('milk')}" id="milk" name="milk" value="milk">
             <label for="milk">Milk</label><br>
-            <input type="checkbox" id="molluscs" name="molluscs" value="molluscs">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('molluscs')}" id="molluscs" name="molluscs" value="molluscs">
             <label for="molluscs">Molluscs</label><br>
-            <input type="checkbox" id="mustard" name="mustard" value="mustard">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('mustard')}" id="mustard" name="mustard" value="mustard">
             <label for="mustard">Mustard</label><br>
-            <input type="checkbox" id="peanuts" name="peanuts" value="peanuts">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('peanuts')}" id="peanuts" name="peanuts" value="peanuts">
             <label for="peanuts">Peanuts</label><br>
-            <input type="checkbox" id="sesame" name="sesame" value="sesame">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('sesame')}" id="sesame" name="sesame" value="sesame">
             <label for="sesame">Sesame</label><br>
-            <input type="checkbox" id="soybeans" name="soybeans" value="soybeans">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('soybeans')}" id="soybeans" name="soybeans" value="soybeans">
             <label for="soybeans">Soybeans</label><br>
-            <input type="checkbox" id="sulphur" name="sulphur" value="sulphur">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('sulphur')}" id="sulphur" name="sulphur" value="sulphur">
             <label for="sulphur">Sulphur Dioxide / Sulphides</label><br>
-            <input type="checkbox" id="nuts" name="nuts" value="nuts">
+            <input type="checkbox" th:checked="${bundle.allergens.contains('nuts')}" id="nuts" name="nuts" value="nuts">
             <label for="nuts">Tree Nuts</label><br>
         </div>
 
@@ -110,7 +109,12 @@
                 <h2>Contents</h2>
                 <hr>
                 <div style="font-size: 15px">
-                    <ul id="items_list"></ul>
+                    <ul id="items_list">
+                        <li style="margin:10px 0" th:each="content:${bundle.contents}" th:if="${not#strings.isEmpty(content)}" th:value="${content}">
+                            <span th:text="${content}" ></span>
+                            <button style="float:right;" type="button" onclick="removeItem(this.parentElement)">✖</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <label for="item"></label>
