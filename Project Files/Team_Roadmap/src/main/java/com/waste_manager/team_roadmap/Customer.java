@@ -72,7 +72,7 @@ public class Customer implements Serializable {
     }
     //Password validation
     public boolean validatePassword(String password) {
-        String regexPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
+        String regexPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!£$%^&*()_+{}~:@<>?|¬=#;,./]).{8,}$";
         return password.matches(regexPassword);
     }
 
