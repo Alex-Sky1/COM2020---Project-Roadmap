@@ -12,19 +12,22 @@ import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instances;
 import weka.core.stopwords.Null;
+import weka.filters.supervised.attribute.NominalToBinary;
 
 public class Forecast {
 
 
     private static LinearRegression model;
-    private Instances data;
+    private static LinearRegression model2;
+    private static Instances table;
+    private static Instances table2;
+
     private LocalDateTime forecastDate;
     private int sellerID;
     private String category;
     private String weatherFlag;
     private ArrayList<Bundle> bundleList;
     private ArrayList<Reservation> reservationList;
-    private Bundle preditBundle;
     private float confidence;
     private String rationale;
 
@@ -40,17 +43,7 @@ public class Forecast {
         this.reservationList = thisReservationList;
     }
 
-    public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag, String thisCategory,
-                    ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList, Bundle thisPreditBundle) {
 
-        this.forecastDate = thisForecastDate;
-        this.sellerID = thisSellerID;
-        this.weatherFlag = thisWeatherFlag;
-        this.category = thisCategory;
-        this.bundleList = thisBundleList;
-        this.reservationList = thisReservationList;
-        this.preditBundle = thisPreditBundle;
-    }
 
     // Return bundles that are from a specific seller
     public ArrayList<Bundle> bundleFromSelectSeller() {
@@ -125,9 +118,42 @@ public class Forecast {
 //        return Math.toIntExact(Math.round(predicted));
 //    }
 
+    //https://weka.sourceforge.io/doc.dev/
+    //https://gist.github.com/knbknb/c7f75d8eaa5b50a7b6786ca5f0fedbfb
+    public double prediction(Bundle bun,String type) {
 
-    public int prediction() {
 
+        if (type == "reservations") {
+            return workAround(bun, table, model);
+
+        }
+        else if (type == "noshow"){
+            double hold = workAround(bun, table, model);
+            return workAround(bun, table2, model2)/hold;
+        }
+
+        return 0;
+    }
+
+    private double workAround(Bundle bun, Instances table, LinearRegression model) {
+        double[] dat = new double[table.numAttributes()];
+        dat[0] = bun.getTimeStamp().getDayOfWeek().getValue();
+        dat[1] = bun.getPickUpWindow();
+        dat[2] = bun.getSeller().getSellerID();
+        dat[3] = numberCat(bun.getCategory());
+        dat[4] = numberweather(bun.getWeatherFlag());
+        dat[5] = bun.getPrice();
+        dat[6] = bun.getDiscount();
+
+        double[] coef = model.coefficients();
+
+        double hold = 0.0;
+        for (int i =0; i < dat.length;i++){
+            hold += dat[i] * coef[i];
+        }
+
+
+        return (Math.round(hold));
     }
 
 
@@ -313,8 +339,8 @@ public class Forecast {
         attributes.add(new Attribute("weather"));
         attributes.add(new Attribute("price"));
         attributes.add(new Attribute("discount"));
-        if (type == "demand") {
-            attributes.add(new Attribute("demand"));
+        if (type == "reservations") {
+            attributes.add(new Attribute("reservations"));
         }
         else if (type == "noshow"){
             attributes.add(new Attribute("noshow"));
@@ -337,7 +363,7 @@ public class Forecast {
             newRow[4] = row.get(5);
             newRow[5] = row.get(6);
             newRow[6] = row.get(7);
-            if (type == "demand") {
+            if (type == "reservations") {
                 newRow[7] = row.get(9);
             }
             else if(type == "noshow"){
@@ -346,8 +372,12 @@ public class Forecast {
 
             data.add(new DenseInstance(1.0,newRow));
         }
-
-
+        if (type == "reservations") {
+            table = data;
+        }
+        else if (type == "noshow"){
+            table2 = data;
+        }
         return data;
 
     }
@@ -384,10 +414,10 @@ public class Forecast {
                         make.add(use[i][a]);
                     } else {
                         make.add(1.0);
-                        double[] demand_noShow;
-                        demand_noShow = backup(make.get(0),use[i]);
-                        make.add(demand_noShow[0]);
-                        make.add(demand_noShow[1]);
+                        double[] reservations_noShow;
+                        reservations_noShow = backup(make.get(0),use[i]);
+                        make.add(reservations_noShow[0]);
+                        make.add(reservations_noShow[1]);
                         break;
                     }
                 }
@@ -412,53 +442,48 @@ public class Forecast {
 
     public double[] backup(double id,double[] use) {
         int hold = 0;
-        int count = 0;
-        double[] demand_noShow = new double[2];
-        demand_noShow[0] = 0.0;
-        demand_noShow[1] = 0.0;
+        double[] reservations_noShow = new double[2];
+        reservations_noShow[0] = 0.0;
+        reservations_noShow[1] = 0.0;
 
 
         while(hold < reservationList.size()){
             if (reservationList.get(hold).getBundle().getPostingID() == id){
                 if(reservationList.get(hold).getCollected()){
-                    demand_noShow[0] = demand_noShow[0] +1.0;
+                    reservations_noShow[0] = reservations_noShow[0] +1.0;
                 }
                 if(reservationList.get(hold).getNoShow()){
-                    demand_noShow[1] = demand_noShow[1] +1.0;
+                    reservations_noShow[1] = reservations_noShow[1] +1.0;
                 }
             }
         }
-        return demand_noShow;
+        return reservations_noShow;
 
     }
 
-    public double[] y(){
-        int rows = bundleList.size();
 
-        double[] a = new double[rows];
+public void trainModel(String type) throws Exception {
 
-        for (int i = 0; i < rows; i++) {
-            Bundle b = bundleList.get(i);
-            if(b.getReserved()){
-                a[i] = 1;
+        if (model == null ){
+            if (type == "reservations") {
+                Instances data = build_data("reservations");
+                model = new LinearRegression();
+                model.buildClassifier(data);
             }
-            else{
-                a[i] = 0;
+        if (model2 == null){
+            if (type == "noshow") {
+                Instances data = build_data("noshow");
+                model2 = new LinearRegression();
+                model2.buildClassifier(data);
+                }
             }
         }
+}
 
-        return a;
 
-    }
-
-public void trainModelDemand() throws Exception {
-
-        if (model == null){
-            data = build_data("Demand");
-            model = new LinearRegression();
-            model.buildClassifier(data);
-
-        }
+public void onStartUp() throws Exception {
+    trainModel("reservations");
+    trainModel("noshow");
 }
 
 
@@ -478,7 +503,7 @@ public void trainModelDemand() throws Exception {
             case "Groceries":
                 return 6;
             default:
-                return 7;
+                return 0;
 
         }
     }
@@ -493,7 +518,7 @@ public void trainModelDemand() throws Exception {
             case "cloudy":
                 return 3;
             default:
-                return 4;
+                return 0;
         }
     }
 
