@@ -399,8 +399,8 @@ public class SellerController {
         return "view_analytics_seller";
     }
 
-    @GetMapping("/manage_issues_seller")
-    public String manageIssuesSeller(Model model)
+    @GetMapping("/view_issues_seller")
+    public String viewIssuesSeller(Model model)
     {
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -440,11 +440,11 @@ public class SellerController {
         //add all issue reports to the web page
         model.addAttribute("unresolvedIssueReports", unresolvedIssueReports);
         model.addAttribute("resolvedIssueReports", resolvedIssueReports);
-        return "manage_issues_seller";
+        return "view_issues_seller";
     }
 
-    @PostMapping("/manage_issues_seller")
-    public String manageIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
+    @PostMapping("/view_issues_seller")
+    public String viewIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
                                      @RequestParam("issueID") int issueID){
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -458,6 +458,6 @@ public class SellerController {
         issueReport1.setResolved(true);
         //save them into the repository
         irr.save(issueReport1);
-        return "manage_issues_seller";
+        return "view_issues_seller";
     }
 }

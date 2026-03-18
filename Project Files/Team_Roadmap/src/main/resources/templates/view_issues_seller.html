@@ -6,41 +6,79 @@
 </head>
 <body>
     <div class="header">
-        <h1 class="header-text">Browse Bundles</h1>
+        <h1 class="header-text">View Issue Reports</h1>
         <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-img">
     </div>
-        <table class="bundle-table" th:if="${not#lists.isEmpty(bundle-issues)}" style="column-width: 200px; max-width: 43vw; overflow: auto">
-            <thead>
-            <tr>
-                <th>Customer Name</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Pickup Window</th>
-                <th>Contents</th>
-                <th>Allergens</th>
-                <th>Collected</th>
-                <th>Customer Complaint</th>
-                <th>Response</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="bundle-issue : ${bundle-issues}">
-                <td th:text="${bundle-issues.customer.dName}">Ex Customer</td>
-                <td th:text="${bundle-issues.bundle.price}">Ex Price</td>
-                <td th:text="${bundle-issues.bundle.category}">Ex category</td>
-                <td th:text="${bundle-issues.bundle.getPickUpWindowAsString()}">Pickup Window</td>
-                <td th:text="${bundle-issues.bundle.getContentsAsString()}" style="overflow: auto; max-width: 100px">Ex contents</td>
-                <td th:text="${bundle-issues.bundle.getAllergensAsString()}" style="overflow: auto; max-width: 100px">Ex allergens</td>
-                <td th:text="${bundle-issues.collected}">Collected</td>
-                <td th:text="${bundle-issues.issue.complaint}">Complaint</td>
-                <td>
-                    <form>
-                        <textarea placeholder="Enter response here:" required rows="6" cols="10"></textarea>
-                        <button type="submit">Submit Response</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="box1-parent">
+            <div class="box1" style="width: 45vw; margin: 5px; max-height: 70vh; padding: 20px 5px; overflow: auto; justify-content: center">
+                <h3 style="margin: 1%">Unresolved Issues</h3>
+                <table class="bundle-table" th:if="${not#lists.isEmpty(unresolvedIssueReports)}" style="column-width: 200px; max-width: 43vw; overflow: auto">
+                    <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Pickup Window</th>
+                        <th>Contents</th>
+                        <th>Allergens</th>
+                        <th>Issue Type</th>
+                        <th>Customer Complaint</th>
+                        <th>Response</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="unresolvedIssueReport : ${unresolvedIssueReports}">
+                        <td th:text="${unresolvedIssueReport.customer.dName}">Ex Customer</td>
+                        <td th:text="${unresolvedIssueReport.bundle.price}">Ex Price</td>
+                        <td th:text="${unresolvedIssueReport.bundle.category}">Ex Category</td>
+                        <td th:text="${unresolvedIssueReport.bundle.getPickUpWindowAsString()}">Pickup Window</td>
+                        <td th:text="${unresolvedIssueReport.bundle.getContentsAsString()}" style="overflow: auto; max-width: 100px">Ex Contents</td>
+                        <td th:text="${unresolvedIssueReport.bundle.getAllergensAsString()}" style="overflow: auto; max-width: 100px">Ex Allergens</td>
+                        <td th:text="${unresolvedIssueReport.type}">Ex Issue Type</td>
+                        <td th:text="${unresolvedIssueReport.description}">Ex Complaint</td>
+                        <td>
+                            <form th:action="@{/view_issues_seller}" method="post" autocomplete="off">
+                                <textarea placeholder="Enter response here:" required rows="6" cols="10"></textarea>
+                                <input type="hidden" name="sellerResponse" th:value="${unresolvedIssueReport.sellerResponse}">
+                                <input type="hidden" name="issueID" th:value="${unresolvedIssueReport.issueID}">
+                                <button type="submit">Submit Response</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+    <div>
+        <div class="box1" style="width: 45vw; margin: 5px; max-height: 70vh; padding: 20px 5px; overflow: auto; justify-content: center">
+            <h3 style="margin: 1%">Resolved Issues</h3>
+            <table class="bundle-table" th:if="${not#lists.isEmpty(resolvedIssueReports)}" style="column-width: 200px; max-width: 40vw; overflow: auto">
+                <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Pickup Window</th>
+                    <th>Contents</th>
+                    <th>Allergens</th>
+                    <th>Issue Type</th>
+                    <th>Customer Complaint</th>
+                    <th>Response</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="resolvedIssueReport : ${resolvedIssueReports}">
+                    <td th:text="${resolvedIssueReport.customer.dName}">Ex Customer</td>
+                    <td th:text="${resolvedIssueReport.bundle.price}">Ex Price</td>
+                    <td th:text="${resolvedIssueReport.bundle.category}">Ex Category</td>
+                    <td th:text="${resolvedIssueReport.bundle.getPickUpWindowAsString()}">Ex Pickup Window</td>
+                    <td th:text="${resolvedIssueReport.bundle.getContentsAsString()}" style="overflow: auto; max-width: 100px">Ex Contents</td>
+                    <td th:text="${resolvedIssueReport.bundle.getAllergensAsString()}" style="overflow: auto; max-width: 100px">Ex Allergens</td>
+                    <td th:text="${resolvedIssueReport.type}">Issue Type</td>
+                    <td th:text="${resolvedIssueReport.description}">Complaint</td>
+                    <td th:text="${resolvedIssueReport.sellerResponse}">Response</td>
+            </table>
+        </div>
+        </div>
+    </div>
 </body>
 </html>
