@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 
@@ -24,14 +24,12 @@ public class CustomerController {
     private final SellerRepository sr;
     private final BundleRepository br;
     private final ReservationRepository rr;
-    private final IssueReportRepository irr;
 
-    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
+    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository) {
         this.cr = customerRepository;
         this.sr = sellerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
-        this.irr = issueReportRepository;
     }
 
     @PostMapping("/sign_up_consumer")
@@ -40,30 +38,29 @@ public class CustomerController {
                          @RequestParam("postcode") String pcode, @RequestParam("county") String county,
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
                          @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2,
-                         @RequestParam(value = "accept", required = false) String tosAccept, Model model) {
+                         @RequestParam(value = "accept", required = false) String tosAccept) {
 
-        List<Customer> c = cr.findByDName(dname);
-        List<Seller> s = sr.findByDName(dname);
+
         //check Passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
-            model.addAttribute("error", "Passwords don't match");
+            return "sign_up_consumer";
         }
         //if any field is empty don't allow sign up
-        else if(fname.isEmpty() || sname.isEmpty() || dname.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
-            System.out.println("Please fill in all the fields");
-            model.addAttribute("error", "Please fill in all the fields");
+        if(fname.isEmpty() || sname.isEmpty() || dname.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
+            System.out.println("Please fill all the fields");
+            return "sign_up_consumer";
         }
         //check that no other seller or customer is using that username
-        else if (!s.isEmpty() || !c.isEmpty()) {
+        List<Customer> c = cr.findByDName(dname);
+        List<Seller> s = sr.findByDName(dname);
+        if (!s.isEmpty() || !c.isEmpty()) {
             System.out.println("user name already exists");
-            model.addAttribute("error", "Username already exists");
+            return "sign_up_consumer";
         }
-        //check they have accepted the terms and conditions
-        else if(tosAccept==null){
+        if(tosAccept==null){
             System.out.println("please accept the terms and conditions");
-            model.addAttribute("error", "Please accept the terms and conditions");
-
+            return "sign_up_consumer";
         }else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>(), true);
@@ -76,7 +73,6 @@ public class CustomerController {
                 return "sign_in";
             }
         }
-        return "sign_up_consumer";
     }
 
     @PostMapping("/edit_profile_consumer")
@@ -84,8 +80,7 @@ public class CustomerController {
                                     @RequestParam(value = "dname", required = false) String dname, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2,
-                                      Model model) {
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2) {
 
         List<Seller> s = sr.findByDName(dname);
         List<Customer> c = cr.findByDName(dname);
@@ -99,7 +94,6 @@ public class CustomerController {
         if (!dname.isEmpty()) {
             if (!s.isEmpty() || !c.isEmpty()) {
                 System.out.println("user name already exists");
-                model.addAttribute("error", "User name already exists");
             } else {
                 cr.updateDNameById(dname, customerId);
             }
@@ -147,64 +141,19 @@ public class CustomerController {
     }
 
     @GetMapping("/browse_bundles_consumer")
-    public String browseBundlesConsumer(Model model, @RequestParam(value="category", required = false) String category,
-                                        @RequestParam(value = "postcode", required = false) String postcode,
-                                        @RequestParam(value = "price_selector", required = false) String priceselector,
-                                        @RequestParam(value="price", required = false) String price,
-                                        @RequestParam(value = "time_selector", required = false) String timeSelector,
-                                        @RequestParam(value = "time", required = false) String time,
-                                        @RequestParam(value="celery", required = false) String celery,
-                                        @RequestParam(value = "gluten", required = false) String gluten,
-                                        @RequestParam(value = "crustaceans", required = false) String crustaceans,
-                                        @RequestParam(value="eggs", required = false) String eggs,
-                                        @RequestParam(value="fish", required = false) String fish,
-                                        @RequestParam(value="lupin", required = false) String lupin,
-                                        @RequestParam(value="milk", required = false) String milk,
-                                        @RequestParam(value="molluscs", required = false) String molluscs,
-                                        @RequestParam(value="mustard", required = false) String mustard,
-                                        @RequestParam(value="peanuts", required = false) String peanuts,
-                                        @RequestParam(value="sesame", required = false) String sesame,
-                                        @RequestParam(value="soybeans", required = false) String soybeans,
-                                        @RequestParam(value="sulphur", required = false) String sulphur,
-                                        @RequestParam(value="nuts", required = false) String nuts) {
-
-
+    public String browseBundlesConsumer(Model model) {
         //find all bundles that have not expired and have not already been reserved
         List<Bundle> allBundles = br.findByReservedAndExpired(false, false);
         ArrayList<Bundle> bundles = new ArrayList<>();
-        //find if any bundles have gone past expiry;
+        //find if any bundles have gone past expiry
         for (Bundle bundle : allBundles) {
-            if (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+            if(bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
                 br.setBundleExpired(bundle.getPostingID());
                 bundle.setExpired(true);
-            // Check filters
-            } else if ((category == null || category.equals("Unselected") || bundle.getCategory().equals(category)) &&
-                (postcode == null || Objects.equals(postcode, "") || bundle.getSeller().getPostcode().equals(postcode)) &&
-                (celery == null || !bundle.getAllergens().contains(celery)) &&
-                (gluten == null || !bundle.getAllergens().contains(gluten)) &&
-                (crustaceans == null || !bundle.getAllergens().contains(crustaceans)) &&
-                (eggs == null || !bundle.getAllergens().contains(eggs)) &&
-                (fish == null || !bundle.getAllergens().contains(fish)) &&
-                (lupin == null || !bundle.getAllergens().contains(lupin)) &&
-                (milk == null || !bundle.getAllergens().contains(milk)) &&
-                (molluscs == null || !bundle.getAllergens().contains(molluscs)) &&
-                (mustard == null || !bundle.getAllergens().contains(mustard)) &&
-                (peanuts == null || !bundle.getAllergens().contains(peanuts)) &&
-                (sesame == null || !bundle.getAllergens().contains(sesame)) &&
-                (soybeans == null || !bundle.getAllergens().contains(soybeans)) &&
-                (sulphur == null || !bundle.getAllergens().contains(sulphur)) &&
-                (nuts == null || !bundle.getAllergens().contains(nuts)) &&
-                ((priceselector == null || price == null || Objects.equals(price, "") ||
-                    (priceselector.equals("more") && Float.parseFloat(price) < bundle.getPrice()) ||
-                    (priceselector.equals("equals") && Float.parseFloat(price) == bundle.getPrice()) ||
-                    (priceselector.equals("less") && Float.parseFloat(price) > bundle.getPrice()))) &&
-                (time == null ||
-                    (timeSelector.equals("more") && Integer.parseInt(time.substring(0, 2)) < bundle.getPickUpWindow()) ||
-                    (timeSelector.equals("less") && Integer.parseInt(time.substring(0, 2)) > bundle.getPickUpWindow()) ||
-                    (timeSelector.equals("equal") && Integer.parseInt(time.substring(0, 2)) == bundle.getPickUpWindow())))
-                {
-                    bundles.add(bundle);
-                }
+            }
+            else{
+                bundles.add(bundle);
+            }
         }
         //add bundles to web page
         model.addAttribute("allBundles", bundles);
@@ -253,6 +202,11 @@ public class CustomerController {
         return "manage_bundles_consumer";
     }
 
+    @PostMapping("/report_issue_consumer")
+    public String reportIssue(){
+        return "report_issue_consumer";
+    }
+
     @GetMapping("/view_analytics_consumer")
     public String viewAnalyticsConsumer(Model model) {
         //get current user
@@ -261,19 +215,20 @@ public class CustomerController {
         Customer c = cr.findByDName(currentUsername).get(0);
 
         //get total number of collected bundles for the user
+        //and list of all bundles collected
         int num_collected = 0;
+        List<Reservation> collectedReservations = new ArrayList<Reservation>();
         List<Reservation> customerReservations = rr.findByCustomerID(c.getCustomerID());
         for (Reservation r : customerReservations) {
-            if(r.getCollected() ){num_collected++;}
+            if(r.getCollected() ){num_collected++; collectedReservations.add(r); }
         }
 
-
+        //checks the user's streak
         if(!customerReservations.isEmpty() && c.getStreakLastUpdate()!=null) {
             //get current time stamp
             LocalDateTime now = LocalDateTime.now();
             //get timestamp of last time streak was updated
             LocalDateTime LastStreakUpdate = c.getStreakLastUpdate();
-
             //get the years as numbers of timestamps
             int year1 = LastStreakUpdate.getYear();
             int year2 = now.getYear();
@@ -291,59 +246,103 @@ public class CustomerController {
                 cr.updateStreakById(0, c.getCustomerID());
             }
         }
+
+        //gets number of categories and sellers purchased from
+        //only if reservation was collected
+        List<String> categories = new ArrayList<>();
+        List<Seller> sellers = new ArrayList<>();
+        for(Reservation r : collectedReservations){
+            categories.add(r.getBundle().getCategory());
+            sellers.add(r.getBundle().getSeller());
+        }
+
+        //gets unique categories
+        List<String> uniqueCategories = new ArrayList<>();
+        for(String category : categories){
+            if(!uniqueCategories.contains(category)){uniqueCategories.add(category);}
+        }
+        //number of unique categories
+        int num_categories = uniqueCategories.size();
+        //gets unique sellers
+        List<Seller> uniqueSellers = new ArrayList<>();
+        for(Seller s : sellers){
+            if(!uniqueSellers.contains(s)){uniqueSellers.add(s);}
+        }
+        //number of unique sellers
+        int num_sellers = uniqueSellers.size();
+
+        //gets amount of co2 saved
+        //fish and meat: 1.5kg
+        //bakery: 0.8kg
+        //snacks:0.6kg
+        //dairy: 1kg
+        //fruit vegetables and legumes: 0.5kg
+        //groceries: 1.2kg
+        //other: 2kg
+        double co2_saved = 0;
+        for (Reservation collectedReservation : collectedReservations) {
+            if (collectedReservation.getBundle().getCategory().equals("meats")) {
+                co2_saved += (4.2 * 1.5);
+            } else if (collectedReservation.getBundle().getCategory().equals("bakery")) {
+                co2_saved += (4.2 * 0.8);
+            } else if (collectedReservation.getBundle().getCategory().equals("snacks")) {
+                co2_saved += (4.2 * 0.6);
+            } else if (collectedReservation.getBundle().getCategory().equals("dairy")) {
+                co2_saved += (4.2 * 1);
+            } else if (collectedReservation.getBundle().getCategory().equals("plants")) {
+                co2_saved += (4.2 * 0.5);
+            } else if (collectedReservation.getBundle().getCategory().equals("groceries")) {
+                co2_saved += (4.2 * 1.2);
+            } else {
+                co2_saved += (4.2 * 2);
+            }
+        }
+
+        //badges array: [1 meal saved, 5 meals saved, 10 meals saved,
+        //              1 category, 3 categories, 5 categories,
+        //              1 seller, 5 sellers, 10 sellers,
+        //              20 co2 saved, 50 co2 saved, 100 co2 saved]
+        boolean[] badges = new boolean[12];
+
+        //set badges for number of meals saved
+        if(num_collected==0){ badges[0] = false; badges[1] = false; badges[2] = false;}
+        else if(num_collected>=1 && num_collected<5){ badges[0] = true; badges[1] = false; badges[2] = false;}
+        else if(num_collected>=5 && num_collected<10){ badges[0] = true; badges[1] = true; badges[2] = false;}
+        else{ badges[0] = true; badges[1] = true; badges[2] = true;}
+
+        //set badges for number of categories
+        if(num_categories==0){ badges[3] = false; badges[4] = false; badges[5] = false;}
+        else if(num_categories>=1 && num_categories<3){ badges[3] = true; badges[4] = false; badges[5] = false;}
+        else if(num_categories>=3 && num_categories<5){ badges[3] = true; badges[4] = true; badges[5] = false;}
+        else { badges[3] = true; badges[4] = true; badges[5] = true;}
+
+        //set badges for seller purchased from
+        if(num_sellers==0){ badges[6] = false; badges[7] = false; badges[8] = false;}
+        else if(num_sellers>=1 && num_sellers<5){ badges[6] = true; badges[7] = false; badges[8] = false;}
+        else if(num_sellers>=5 && num_sellers<10){ badges[6] = true; badges[7] = true; badges[8] = false;}
+        else { badges[6] = true; badges[7] = true; badges[8] = true;}
+
+        //sets badges for amount of co2 saved
+        if(co2_saved<20){ badges[9] = false; badges[10] = false; badges[11] = false;}
+        else if(co2_saved>=20 && co2_saved<50){ badges[9] = true; badges[10] = false; badges[11] = false;}
+        else if(co2_saved>=50 && co2_saved<100){ badges[9] = true; badges[10] = true; badges[11] = false;}
+        else { badges[9] = true; badges[10] = true; badges[11] = true;}
+
+        //counts how many badges they have collected
+        int no_badges = 0;
+        for(int i = 0; i<badges.length; i++)
+        {
+            if(badges[i]) {
+                no_badges++;
+            }
+        }
+
         //add analytics to web page
         model.addAttribute("streak", c.getStreak());
         model.addAttribute("collected", num_collected);
-        model.addAttribute("co2_save", 4.2*num_collected);
-        model.addAttribute("no_badges", 0);
+        model.addAttribute("co2_save", co2_saved);
+        model.addAttribute("no_badges", no_badges);
+        model.addAttribute("badges", badges);
         return "view_analytics_consumer";
-    }
-
-    //when customer selects 'view issues' button on dashboard
-    @GetMapping("/view_issues_consumer")
-    public String viewIssuesConsumer(Model model) {
-        //get current user
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Customer c = cr.findByDName(currentUsername).get(0);
-
-        //find all issues that have the correct customer id
-        List<IssueReport> allIssueReports = irr.findByCustomerID(c.getCustomerID());
-
-        //add issue reports to the web page
-        model.addAttribute("allIssueReports", allIssueReports);
-        return "view_issues_consumer";
-    }
-
-    @GetMapping("/report_issue_consumer")
-    public String openReportIssuePageConsumer(@RequestParam("reservationID") int reservationID, Model model) {
-        //get bundle from web page
-        Optional<Reservation> reservation = rr.findById(reservationID);
-        Reservation res = reservation.get();
-
-        model.addAttribute("reservation", res);
-        model.addAttribute("reservationID", reservationID);
-
-        return "report_issue_consumer";
-    }
-
-    @PostMapping("/report_issue_consumer")
-    public String reportIssue(@RequestParam("reservationID") int reservationID,
-                              @RequestParam("type") String type,
-                              @RequestParam("description") String description)
-    {
-        //get current user
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Customer c = cr.findByDName(currentUsername).get(0);
-
-        //get bundle from web page
-        Reservation reservation = rr.findById(reservationID).get();
-        Bundle bundle = reservation.getBundle();
-
-        //save report to database
-        IssueReport issueReport = new IssueReport(bundle, c, type, description, false, null);
-        irr.save(issueReport);
-        return "redirect:manage_bundles_consumer";
     }
 }
