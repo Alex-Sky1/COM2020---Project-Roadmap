@@ -174,7 +174,8 @@ public class CSVDatabase {
                     Integer.parseInt(bundle_info.get(6)),
                     Integer.parseInt(bundle_info.get(7)),
                     Boolean.parseBoolean(bundle_info.get(8)),
-                    Boolean.parseBoolean(bundle_info.get(9))
+                    Boolean.parseBoolean(bundle_info.get(9)),
+                    bundle_info.get(10)
             ));
 
         }
@@ -204,8 +205,7 @@ public class CSVDatabase {
                     LocalDateTime.parse(reservation_info.get(3)),
                     reservation_info.get(4),
                     Boolean.parseBoolean(reservation_info.get(5)),
-                    Boolean.parseBoolean(reservation_info.get(6)),
-                    reservation_info.get(7)
+                    Boolean.parseBoolean(reservation_info.get(6))
             ));
         }
 
@@ -285,7 +285,8 @@ public class CSVDatabase {
                     bundle.getDiscount(),
                     bundle.getPickUpWindow(),
                     bundle.getReserved(),
-                    bundle.getExpired()
+                    bundle.getExpired(),
+                    bundle.getWeatherFlag()
             );
         }
         bundle_writer.close();
@@ -304,8 +305,7 @@ public class CSVDatabase {
                     reservation.getTimeStamp().toString(),
                     reservation.getClaimCode(),
                     reservation.getNoShow(),
-                    reservation.getCollected(),
-                    reservation.getWeatherFlag()
+                    reservation.getCollected()
             );
         }
         reservation_writer.close();
