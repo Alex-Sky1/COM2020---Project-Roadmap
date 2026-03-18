@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../static/styling.css" th:href="@{/styling.css}">
-    <title>Forecasting</title>
+    <title>Notifications</title>
 </head>
 <body>
 <div class="header">
-    <h1 class="header-text">Forecasting</h1>
+    <h1 class="header-text">Notifications</h1>
     <div class="header-images">
         <form th:action="@{/dashboard_seller}"><input class="header-icons" type="image" th:src="@{images/home.png}" src="/static/images/home.png" alt="Home"></form>
         <form th:action="@{/notifications_seller}"><input class="header-icons" type="image" th:src="@{images/bell.png}" src="/static/images/bell.png" alt="Bell"></form>
@@ -14,18 +14,23 @@
         <img th:src="@{images/roadmap_logo.png}" src="/static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-logo">
     </div>
 </div>
-<div class="box1-parent">
-    <div class="box1" style="width: 38%">
-        <h2>Forecasting</h2>
-        <p>Baseline MAE set for checking current data and for Category1</p>
-        <p th:text="${mae}"></p>
-    </div>
-    <div class="box1" style="width: 38%">
-        <h2>Explanation</h2>
+
+<div style="margin: 1%; max-height: 70vh; overflow: auto">
+    <div style="margin-bottom: 2vh">
+        <p class="notifications-text">Notifications</p>
+        <table class="notification-table" th:if="${not#lists.isEmpty(notifications)}">
+            <tbody>
+            <tr th:each="notification : ${notifications}">
+                <td th:text="${notification}" style="width: 80vw"></td>
+                <td style="width: 10vw">
+                    <form th:action="@{/x}">
+                        <button class="button1" style="width:150px; padding: 10px 5px; margin:0">Read</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-<form th:action="@{/dashboard_seller}">
-    <button class="button1" style="width:220px; margin: 5px 20px">Return to Dashboard</button>
-</form>
 </body>
 </html>

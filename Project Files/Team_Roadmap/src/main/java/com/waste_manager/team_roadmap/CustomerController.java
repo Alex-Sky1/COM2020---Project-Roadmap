@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -39,36 +40,46 @@ public class CustomerController {
                          @RequestParam("postcode") String pcode, @RequestParam("county") String county,
                          @RequestParam("email") String email, @RequestParam("phone") String phone,
                          @RequestParam("password1") String pwd1, @RequestParam("password2") String pwd2,
-                         @RequestParam(value = "accept", required = false) String tosAccept) {
+                         @RequestParam(value = "accept", required = false) String tosAccept, Model model) {
 
-
+        List<Customer> c = cr.findByDName(dname);
+        List<Seller> s = sr.findByDName(dname);
         //check Passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
-            return "sign_up_consumer";
+            model.addAttribute("error", "Passwords don't match");
         }
         //if any field is empty don't allow sign up
-        if(fname.isEmpty() || sname.isEmpty() || dname.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
-            System.out.println("Please fill all the fields");
-            return "sign_up_consumer";
+        else if(fname.isEmpty() || sname.isEmpty() || dname.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
+            System.out.println("Please fill in all the fields");
+            model.addAttribute("error", "Please fill in all the fields");
         }
         //check that no other seller or customer is using that username
-        List<Customer> c = cr.findByDName(dname);
-        List<Seller> s = sr.findByDName(dname);
-        if (!s.isEmpty() || !c.isEmpty()) {
+        else if (!s.isEmpty() || !c.isEmpty()) {
             System.out.println("user name already exists");
-            return "sign_up_consumer";
+            model.addAttribute("error", "Username already exists");
         }
-        if(tosAccept==null){
+        //check they have accepted the terms and conditions
+        else if(tosAccept==null){
             System.out.println("please accept the terms and conditions");
-            return "sign_up_consumer";
+            model.addAttribute("error", "Please accept the terms and conditions");
+
         }else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>(), true);
-            cr.save(c1);
-            System.out.println("sign up successful");
-            return "sign_in";
+            if(!c1.validateEmail(email)){
+                model.addAttribute("error", "Invalid email");
+            }
+            else if(!c1.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }
+            else {
+                cr.save(c1);
+                System.out.println("sign up successful");
+                return "sign_in";
+            }
         }
+        return "sign_up_consumer";
     }
 
     @PostMapping("/edit_profile_consumer")
@@ -76,7 +87,8 @@ public class CustomerController {
                                     @RequestParam(value = "dname", required = false) String dname, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2) {
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2,
+                                      Model model) {
 
         List<Seller> s = sr.findByDName(dname);
         List<Customer> c = cr.findByDName(dname);
@@ -90,6 +102,7 @@ public class CustomerController {
         if (!dname.isEmpty()) {
             if (!s.isEmpty() || !c.isEmpty()) {
                 System.out.println("user name already exists");
+                model.addAttribute("error", "User name already exists");
             } else {
                 cr.updateDNameById(dname, customerId);
             }
@@ -130,19 +143,64 @@ public class CustomerController {
     }
 
     @GetMapping("/browse_bundles_consumer")
-    public String browseBundlesConsumer(Model model) {
+    public String browseBundlesConsumer(Model model, @RequestParam(value="category", required = false) String category,
+                                        @RequestParam(value = "postcode", required = false) String postcode,
+                                        @RequestParam(value = "price_selector", required = false) String priceselector,
+                                        @RequestParam(value="price", required = false) String price,
+                                        @RequestParam(value = "time_selector", required = false) String timeSelector,
+                                        @RequestParam(value = "time", required = false) String time,
+                                        @RequestParam(value="celery", required = false) String celery,
+                                        @RequestParam(value = "gluten", required = false) String gluten,
+                                        @RequestParam(value = "crustaceans", required = false) String crustaceans,
+                                        @RequestParam(value="eggs", required = false) String eggs,
+                                        @RequestParam(value="fish", required = false) String fish,
+                                        @RequestParam(value="lupin", required = false) String lupin,
+                                        @RequestParam(value="milk", required = false) String milk,
+                                        @RequestParam(value="molluscs", required = false) String molluscs,
+                                        @RequestParam(value="mustard", required = false) String mustard,
+                                        @RequestParam(value="peanuts", required = false) String peanuts,
+                                        @RequestParam(value="sesame", required = false) String sesame,
+                                        @RequestParam(value="soybeans", required = false) String soybeans,
+                                        @RequestParam(value="sulphur", required = false) String sulphur,
+                                        @RequestParam(value="nuts", required = false) String nuts) {
+
+
         //find all bundles that have not expired and have not already been reserved
         List<Bundle> allBundles = br.findByReservedAndExpired(false, false);
         ArrayList<Bundle> bundles = new ArrayList<>();
-        //find if any bundles have gone past expiry
+        //find if any bundles have gone past expiry;
         for (Bundle bundle : allBundles) {
-            if(bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+            if (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
                 br.setBundleExpired(bundle.getPostingID());
                 bundle.setExpired(true);
-            }
-            else{
-                bundles.add(bundle);
-            }
+            // Check filters
+            } else if ((category == null || category.equals("Unselected") || bundle.getCategory().equals(category)) &&
+                (postcode == null || Objects.equals(postcode, "") || bundle.getSeller().getPostcode().equals(postcode)) &&
+                (celery == null || !bundle.getAllergens().contains(celery)) &&
+                (gluten == null || !bundle.getAllergens().contains(gluten)) &&
+                (crustaceans == null || !bundle.getAllergens().contains(crustaceans)) &&
+                (eggs == null || !bundle.getAllergens().contains(eggs)) &&
+                (fish == null || !bundle.getAllergens().contains(fish)) &&
+                (lupin == null || !bundle.getAllergens().contains(lupin)) &&
+                (milk == null || !bundle.getAllergens().contains(milk)) &&
+                (molluscs == null || !bundle.getAllergens().contains(molluscs)) &&
+                (mustard == null || !bundle.getAllergens().contains(mustard)) &&
+                (peanuts == null || !bundle.getAllergens().contains(peanuts)) &&
+                (sesame == null || !bundle.getAllergens().contains(sesame)) &&
+                (soybeans == null || !bundle.getAllergens().contains(soybeans)) &&
+                (sulphur == null || !bundle.getAllergens().contains(sulphur)) &&
+                (nuts == null || !bundle.getAllergens().contains(nuts)) &&
+                ((priceselector == null || price == null || Objects.equals(price, "") ||
+                    (priceselector.equals("more") && Float.parseFloat(price) < bundle.getPrice()) ||
+                    (priceselector.equals("equals") && Float.parseFloat(price) == bundle.getPrice()) ||
+                    (priceselector.equals("less") && Float.parseFloat(price) > bundle.getPrice()))) &&
+                (time == null ||
+                    (timeSelector.equals("more") && Integer.parseInt(time.substring(0, 2)) < bundle.getPickUpWindow()) ||
+                    (timeSelector.equals("less") && Integer.parseInt(time.substring(0, 2)) > bundle.getPickUpWindow()) ||
+                    (timeSelector.equals("equal") && Integer.parseInt(time.substring(0, 2)) == bundle.getPickUpWindow())))
+                {
+                    bundles.add(bundle);
+                }
         }
         //add bundles to web page
         model.addAttribute("allBundles", bundles);
@@ -162,7 +220,7 @@ public class CustomerController {
         //generate claim code for reservation
         String claimCode = customer.generateClaimCode();
         //make and save reservation
-        Reservation r = new Reservation(b1, customer, b1.getSeller(), LocalDateTime.now(), claimCode, false, false, "someWeather");
+        Reservation r = new Reservation(b1, customer, b1.getSeller(), LocalDateTime.now(), claimCode, false, false);
         rr.save(r);
         //update bundle to reserved
         br.setBundleReserved(true, b1.getPostingID());
@@ -253,8 +311,20 @@ public class CustomerController {
         return "view_issues_consumer";
     }
 
+    @GetMapping("/report_issue_consumer")
+    public String openReportIssuePageConsumer(@RequestParam("reservationID") int reservationID, Model model) {
+        //get bundle from web page
+        Optional<Reservation> reservation = rr.findById(reservationID);
+        Reservation res = reservation.get();
+
+        model.addAttribute("reservation", res);
+        model.addAttribute("reservationID", reservationID);
+
+        return "report_issue_consumer";
+    }
+
     @PostMapping("/report_issue_consumer")
-    public String reportIssue(@RequestParam("postingID") int postingID,
+    public String reportIssue(@RequestParam("reservationID") int reservationID,
                               @RequestParam("type") String type,
                               @RequestParam("description") String description)
     {
@@ -264,12 +334,12 @@ public class CustomerController {
         Customer c = cr.findByDName(currentUsername).get(0);
 
         //get bundle from web page
-        Optional<Bundle> b = br.findById(postingID);
-        Bundle b1 = b.get();
+        Reservation reservation = rr.findById(reservationID).get();
+        Bundle bundle = reservation.getBundle();
 
         //save report to database
-        IssueReport issueReport = new IssueReport(b1, c, type, description, false, null);
+        IssueReport issueReport = new IssueReport(bundle, c, type, description, false, null);
         irr.save(issueReport);
-        return "report_issue_consumer";
+        return "redirect:manage_bundles_consumer";
     }
 }

@@ -15,9 +15,16 @@ public class CustomUserDetailService implements UserDetailsService {
     private CustomerRepository customerRepository;
     @Autowired
     private SellerRepository sellerRepository;
+    @Autowired
+    private AdminRepository adminRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        List<Admin> aList = adminRepository.findByDName(username);
+        if(!aList.isEmpty()){
+            Admin a = aList.get(0);
+            return User.withUsername(username).password(a.getPassword()).roles("ADMIN").build();
+        }
         //if user is found in customer DB assign role customer and build user
         List<Customer> cList = customerRepository.findByDName(username);
         if(!cList.isEmpty()){
