@@ -206,7 +206,6 @@ public class CSVDatabase {
                     reservation_info.get(4),
                     Boolean.parseBoolean(reservation_info.get(5)),
                     Boolean.parseBoolean(reservation_info.get(6))
-                    Boolean.parseBoolean(reservation_info.get(6))
             ));
         }
 
@@ -286,8 +285,6 @@ public class CSVDatabase {
                     bundle.getDiscount(),
                     bundle.getPickUpWindow(),
                     bundle.getReserved(),
-                    bundle.getExpired(),
-                    bundle.getWeatherFlag()
                     bundle.getExpired(),
                     bundle.getWeatherFlag()
             );
