@@ -201,6 +201,7 @@ public class SellerController {
         // Update email address
         if(!email.isEmpty()){
             sr.updateEmailById(email, sellerId);
+            sr.updateEmailById(email, sellerId);
         }
         // Update phone number
         if(!phone.isEmpty()){
@@ -248,6 +249,11 @@ public class SellerController {
         return "manage_bundles_seller";
     }
 
+    @PostMapping("/manage_bundles_seller")
+    public String deleteBundle(@RequestParam(value = "PostingID") String postingID){
+        br.deleteBundleByID(Integer.parseInt(postingID));
+        return "redirect:/manage_bundles_seller";
+    }
 
     @GetMapping("/manage_reservations_seller")
     public String manage_reservations_seller(Model model) {
@@ -321,9 +327,62 @@ public class SellerController {
         return "redirect:/manage_reservations_seller";
     }
 
+    @GetMapping("/edit_bundle_seller")
+    public String edit_bundle_seller(@RequestParam("PostingID") String ID, Model model){
+        //get bundle and add to web page to fill in current details
+        Bundle bundle = br.findById(Long.parseLong(ID)).get();
+        model.addAttribute("bundle", bundle);
+        return "/edit_bundle_seller";
+    }
     @PostMapping("/edit_bundle_seller")
-    public String editBundle(){
-        return "edit_bundle_seller";
+    public String editBundle(@RequestParam("PostingID") String ID,
+                             @RequestParam("category") String category, @RequestParam("price") String price,
+                             @RequestParam("pickup") String pickup, @RequestParam("discount") String discount,
+                             @RequestParam("hidden_items")String contents,
+                             @RequestParam(value="celery", required = false) String celery,
+                             @RequestParam(value = "gluten", required = false) String gluten,
+                             @RequestParam(value = "crustaceans", required = false) String crustaceans,
+                             @RequestParam(value="eggs", required = false) String eggs,
+                             @RequestParam(value="fish", required = false) String fish,
+                             @RequestParam(value="lupin", required = false) String lupin,
+                             @RequestParam(value="milk", required = false) String milk,
+                             @RequestParam(value="molluscs", required = false) String molluscs,
+                             @RequestParam(value="mustard", required = false) String mustard,
+                             @RequestParam(value="peanuts", required = false) String peanuts,
+                             @RequestParam(value="sesame", required = false) String sesame,
+                             @RequestParam(value="soybeans", required = false) String soybeans,
+                             @RequestParam(value="sulphur", required = false) String sulphur,
+                             @RequestParam(value="nuts", required = false) String nuts){
+
+        Bundle bundle = br.findById(Integer.parseInt(ID)).get();
+        //set bundle changes from web page
+        bundle.setCategory(category);
+        bundle.setPrice(Float.parseFloat(price));
+        bundle.setContents(new ArrayList<>(Arrays.asList(contents.split(","))));
+        bundle.setPickUpWindow(Integer.parseInt(pickup.substring(0,2)));
+        bundle.setDiscount(Integer.parseInt(discount));
+        bundle.setExpired(false);
+
+        ArrayList<String> allergens = new ArrayList<>();
+        if(celery!= null) allergens.add(celery);
+        if(gluten!= null) allergens.add(gluten);
+        if(crustaceans != null) allergens.add(crustaceans);
+        if(eggs != null) allergens.add(eggs);
+        if(fish != null) allergens.add(fish);
+        if(lupin != null) allergens.add(lupin);
+        if(milk != null) allergens.add(milk);
+        if(molluscs != null) allergens.add(molluscs);
+        if(mustard != null) allergens.add(mustard);
+        if(peanuts != null) allergens.add(peanuts);
+        if(sesame != null) allergens.add(sesame);
+        if(soybeans != null) allergens.add(soybeans);
+        if(sulphur != null) allergens.add(sulphur);
+        if(nuts != null) allergens.add(nuts);
+        bundle.setAllergens(allergens);
+
+        br.save(bundle);
+
+        return "redirect:/manage_bundles_seller";
     }
 
     @GetMapping("/forecasting_seller")
@@ -338,6 +397,7 @@ public class SellerController {
 
         return "forecasting_seller";
     }
+
     @PostMapping("/forecasting_seller")
     public String forecastingSeller(){
         return "forecasting_seller";

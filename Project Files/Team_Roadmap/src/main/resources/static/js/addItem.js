@@ -1,5 +1,5 @@
 // array to store the items in the bundle
-let items = [];
+let items = document.getElementById('hidden_items').value ? document.getElementById('hidden_items').value.split(",") : [];
 
 // define the input text box and the place to put the items
 const inputField = document.getElementById('item');
@@ -61,4 +61,16 @@ function addListItem() {
     // clear the input fields
     inputField.value = '';
     quantityInput.value = 1;
+}
+
+function removeItem(li) {
+    // remove the item from the array
+    // if there are multiple items of the same name, it doesn't matter which one is removed
+    let index = items.indexOf(li.getElementsByTagName('span')[0].textContent.trim());
+    // only splice array when item is found
+    if (index > -1) {
+        items.splice(index, 1);
+    }
+    hiddenItems.setAttribute('value', items.toString())
+    li.remove()
 }
