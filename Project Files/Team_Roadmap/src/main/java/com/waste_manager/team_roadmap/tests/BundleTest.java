@@ -1,16 +1,16 @@
-package com.waste_manager.team_roadmap_tests;
+package com.waste_manager.team_roadmap.tests;
 
 
+import com.waste_manager.team_roadmap.Bundle;
+import com.waste_manager.team_roadmap.Seller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import com.waste_manager.team_roadmap.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class BundleTest {
@@ -28,7 +28,7 @@ public class BundleTest {
 
         testBundle = new Bundle(testSeller, "Deserts",new ArrayList<>(List.of("pancakes", "cake", "brownies")),
                                 new ArrayList<>(List.of("gluten", "dairy", "peanuts")), testTime, 11.50f, 10,
-                12, false, false);
+                12, false, false, "rainy");
     }
 
     @Test
@@ -161,8 +161,12 @@ public class BundleTest {
     }
 
     @Test
-    public void addBundle() {
+    public void getWeatherFlag() {assertEquals("rainy", testBundle.getWeatherFlag());}
 
+    @Test
+    public void testSetWeatherFlag() {
 
+        testBundle.setWeatherFlag("sunny");
+        assertEquals("sunny", testBundle.getWeatherFlag());
     }
 }

@@ -1,19 +1,12 @@
-package com.waste_manager.team_roadmap_tests;
+package com.waste_manager.team_roadmap.tests;
 
 import com.waste_manager.team_roadmap.CustomerController;
-import com.waste_manager.team_roadmap.TeamRoadmapApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ContextConfiguration(classes = TeamRoadmapApplication.class)
 @WebMvcTest(CustomerController.class)
 public class CustomerControllerTest {
 

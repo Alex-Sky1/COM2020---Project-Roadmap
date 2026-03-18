@@ -1,4 +1,4 @@
-package com.waste_manager.team_roadmap_tests;
+package com.waste_manager.team_roadmap.tests;
 
 import com.waste_manager.team_roadmap.LoginController;
 import com.waste_manager.team_roadmap.TeamRoadmapApplication;
@@ -8,7 +8,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 
-@ContextConfiguration(classes = TeamRoadmapApplication.class)
+
 @WebMvcTest(LoginController.class)
 public class LoginControllerTest {
 

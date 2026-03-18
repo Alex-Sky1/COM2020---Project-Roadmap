@@ -41,14 +41,14 @@ dependencies {
 //    implementation("com.opencsv:opencsv:5.7.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
-    testImplementation("org.springframework.boot:spring-boot-starter-jdbc-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-restclient-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-session-jdbc-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webclient-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-thymeleaf-test")
-    testImplementation("org.junit.platform:junit-platform-suite:1.12.0")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc-test")
+    implementation("org.springframework.boot:spring-boot-starter-restclient-test")
+    implementation("org.springframework.boot:spring-boot-starter-session-jdbc-test")
+    implementation("org.springframework.boot:spring-boot-starter-webclient-test")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf-test")
+    implementation("org.junit.platform:junit-platform-suite:1.12.0")
+    implementation("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {

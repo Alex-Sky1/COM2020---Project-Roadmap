@@ -1,15 +1,17 @@
-package com.waste_manager.team_roadmap_tests;
+package com.waste_manager.team_roadmap.tests;
 
+import com.waste_manager.team_roadmap.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.waste_manager.team_roadmap.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ForecastTest {
 
@@ -21,6 +23,7 @@ public class ForecastTest {
     static ArrayList<String> testAllergies;
     static ArrayList<Bundle> testBundles;
     static ArrayList<Reservation> testReservations;
+    static ArrayList<String> testWeatherFlags;
 
 
     // Ran once before any of the tests
@@ -38,17 +41,18 @@ public class ForecastTest {
 
         testItems = new ArrayList<>(List.of("chocolate", "pancakes", "brownies", "cake", "biscuit", "pavlova", "toffee", "ice cream"));
         testAllergies = new ArrayList<>(List.of("dairy", "gluten", "nuts", "fish", "eggs"));
+        testWeatherFlags = new ArrayList<>(List.of("rainy", "sunny", "snowy", "overcast"));
 
         for (int i = 0; i < 4; i++) {
 
             Collections.shuffle(testItems); Collections.shuffle(testAllergies);
             Bundle testBundle = new Bundle(testSeller, "puddings", testItems.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)),
                                             testAllergies.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)), testTime, 7.50f, 10, 12,
-                                    true, false);
+                                    true, false, testWeatherFlags.get(i));
             testBundles.add(testBundle);
 
             Reservation testReservation = new Reservation(testBundle, testCustomer, testSeller, testTime, "AAAAAA",
-                    false, true, "rainy");
+                    false, true);
             testReservations.add(testReservation);
         }
 
@@ -139,7 +143,7 @@ public class ForecastTest {
 
         Bundle testBundle = new Bundle(testSeller, "puddings", testItems.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)),
                 testAllergies.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)), testTime, 7.50f, 10, 12,
-                true, false);
+                true, false, "overcast");
 
         testBundles.add(testBundle);
         testForecast.setBundleList(testBundles);
@@ -155,9 +159,9 @@ public class ForecastTest {
 
         Bundle testBundle = new Bundle(testSeller, "puddings", testItems.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)),
                 testAllergies.stream().limit(5).collect(Collectors.toCollection(ArrayList::new)), testTime, 7.50f, 10, 12,
-                true, false);
+                true, false, "rainy");
         Reservation testReservation = new Reservation(testBundle, testCustomer, testSeller, testTime, "AAAAAA",
-                false, true, "rainy");
+                false, true);
 
         testReservations.add(testReservation);
         testForecast.setReservationList(testReservations);
