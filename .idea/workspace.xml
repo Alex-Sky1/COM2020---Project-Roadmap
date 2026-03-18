@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="admin repository exists now">
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="more admin repository functionaility and weather flags moved">
+      <change afterPath="$PROJECT_DIR$/seeding/name_gen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/AdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/AdminRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomUserDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CustomUserDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Forecast.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Forecast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seeding/bundles.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeding/bundles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seeding/customers.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeding/customers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seeding/general.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seeding/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeding/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seeding/reservations.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeding/reservations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seeding/sellers.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeding/sellers.py" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -572,7 +575,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773590827977</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="more admin repository functionaility and weather flags moved">
+      <option name="closed" value="true" />
+      <created>1773665350015</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1773665350015</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -599,7 +610,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="temp commit" />
     <MESSAGE value="continue to expand database functionality" />
     <MESSAGE value="standardised field names" />
     <MESSAGE value="updated db queries" />
@@ -624,7 +634,8 @@
     <MESSAGE value="csv writing working" />
     <MESSAGE value="added count queries to bundle and reservation repo" />
     <MESSAGE value="admin repository exists now" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin repository exists now" />
+    <MESSAGE value="more admin repository functionaility and weather flags moved" />
+    <option name="LAST_COMMIT_MESSAGE" value="more admin repository functionaility and weather flags moved" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -632,17 +643,11 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerRepository.java</url>
           <line>19</line>
-          <properties class="com.waste_manager.team_roadmap.SellerRepository">
+          <properties class="com.waste_manager.team_roadmap.SellerRepository" method="findById">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-field">
-          <url>file://$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/Customer.java</url>
-          <line>27</line>
-          <properties field="email" class="com.waste_manager.team_roadmap.Customer" />
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,8 +1,6 @@
 import csv
 import random as r
-import general
 
-from general import *
 
 
 
@@ -22,7 +20,6 @@ def seed_reservations(customers, bundles, count):
             "1245", # claim code
             False, # no show
             True, # Collected
-            "rain" # weather flag
         ])
 
         print(f"Seeded Reservation {bundle_id+1}")
