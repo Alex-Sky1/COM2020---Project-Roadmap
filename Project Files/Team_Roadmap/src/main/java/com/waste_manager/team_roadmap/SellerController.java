@@ -1,13 +1,10 @@
 package com.waste_manager.team_roadmap;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -24,13 +21,15 @@ public class SellerController {
     private final BundleRepository br;
     private final ReservationRepository rr;
     private final IssueReportRepository irr;
+    private final AdminRepository ar;
 
-    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
+    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository, AdminRepository adminRepository) {
         this.sr = sellerRepository;
         this.cr = customerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
         this.irr = issueReportRepository;
+        this.ar = adminRepository;
     }
 
     @PostMapping("/sign_up_seller")
@@ -44,7 +43,7 @@ public class SellerController {
 
         List<Seller> s = sr.findByDName(business);
         List<Customer> c = cr.findByDName(business);
-
+        Optional<Admin> a = ar.findBydName(business);
         // Check that passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
@@ -57,8 +56,8 @@ public class SellerController {
             model.addAttribute("error", "Please fill in all the fields");
         }
 
-        // Check that no other seller or customer is using that username
-        else if (!s.isEmpty() || !c.isEmpty()) {
+        // Check that no other seller or customer or admin is using that username
+        else if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
             System.out.println("Username already exists");
             model.addAttribute("error", "Username already exists");
         }
@@ -103,8 +102,7 @@ public class SellerController {
 
         // Get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         String[] WeatherFlags = {"Sunny", "Rainy", "Cloudy"};
         Random rand = new Random();
@@ -150,19 +148,21 @@ public class SellerController {
                                     @RequestParam(value = "business", required = false) String business, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2, Model model){
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2){
+
         List<Seller> s = sr.findByDName(business);
         List<Customer> c = cr.findByDName(business);
+        Optional<Admin> a = ar.findBydName(business);
 
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller seller = sr.findByDName(currentUsername).get(0);
+        Seller seller = getSellerProfile(auth);
+
         int sellerId= seller.getSellerID();
 
         // Check if business (username) field is not empty and not being used by anyone else
         if(!business.isEmpty()){
-            if (!s.isEmpty() || !c.isEmpty()) {
+            if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
                 System.out.println("user name already exists");
                 model.addAttribute("error", "Username already exists");
             } else {
@@ -199,8 +199,8 @@ public class SellerController {
             sr.updateCountyById(county, sellerId);
         }
         // Update email address
-        if (!email.isEmpty()) {
-            cr.updateEmailById(email, sellerId);
+        if(!email.isEmpty()){
+            sr.updateEmailById(email, sellerId);
         }
         // Update phone number
         if(!phone.isEmpty()){
@@ -215,8 +215,7 @@ public class SellerController {
 
         // Get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         // Add all reservations to web page
         List<Reservation> reservations = rr.findBySellerID(s.getSellerID());
@@ -254,8 +253,8 @@ public class SellerController {
     public String manage_reservations_seller(Model model) {
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
+
         // Add all reservations to web page
         List<Reservation> allReservations = rr.findBySellerID(s.getSellerID());
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -331,8 +330,7 @@ public class SellerController {
     public String forecasting_seller(Model model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), "rain", "Category1", new ArrayList<>(br.findAll()), new ArrayList<>(rr.findAll()));
         float mae = forecast.MAE();
@@ -350,8 +348,7 @@ public class SellerController {
 
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         // Calculate no show : collected : expired
         int noShow = 0;
@@ -402,8 +399,7 @@ public class SellerController {
     {
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         //find all issue reports
         List<IssueReport> allIssueReports = irr.findAll();
@@ -446,8 +442,8 @@ public class SellerController {
                                      @RequestParam("issueID") int issueID){
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
+
         //find issue report from repository
         Optional<IssueReport> issueReport = irr.findById(issueID);
         IssueReport issueReport1 = issueReport.get();
@@ -457,5 +453,15 @@ public class SellerController {
         //save them into the repository
         irr.save(issueReport1);
         return "manage_issues_seller";
+    }
+
+
+    public Seller getSellerProfile(Authentication auth){
+        String currentUsername = auth.getName();
+        if(auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ar.getAdmin().getSellerView();
+        }else {
+            return sr.findByDName(currentUsername).get(0);
+        }
     }
 }
