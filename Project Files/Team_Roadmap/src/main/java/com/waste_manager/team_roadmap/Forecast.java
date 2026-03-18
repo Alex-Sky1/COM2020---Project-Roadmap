@@ -288,11 +288,11 @@ public class Forecast {
     }
 
 
-    public Instances data(){
-
-        ArrayList<Attribute> attributes = new ArrayList<>();
-
-    }
+//    public Instances data(){
+//
+//        ArrayList<Attribute> attributes = new ArrayList<>();
+//
+//    }
 
     public double[] y(){
         int rows = bundleList.size();
