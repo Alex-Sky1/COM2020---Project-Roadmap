@@ -14,12 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureRestTestClient
 class TeamRoadmapApplicationTests {
 
-<<<<<<< Updated upstream
-//    @Test
-//    void contextLoads() {
-//    }
-
-=======
     @LocalServerPort
     private int port;
 
@@ -41,5 +35,4 @@ class TeamRoadmapApplicationTests {
         assertThat(sellerController).isNotNull();
         assertThat(loginController).isNotNull();
     }
->>>>>>> Stashed changes
 }
