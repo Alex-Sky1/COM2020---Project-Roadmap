@@ -14,30 +14,35 @@
         <img th:src="@{images/roadmap_logo.png}" src="/static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-logo">
     </div>
 </div>
-<div class="analytics-table" style="padding: 1%">
-    <div>My Streak</div>
-    <div>Bundles Collected</div>
-    <div>CO2e Saved</div>
-    <div>Badges Collected</div>
-    <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${streak}"></div>
-    <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${collected}"></div>
-    <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${co2_save}"></div>
-    <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${no_badges}"></div>
+<div class="box1">
+    <label for="anTable">Analytics Table:</label>
+    <div class="analytics-table" id="anTable" style="padding: 1%">
+        <div>My Streak</div>
+        <div>Bundles Collected</div>
+        <div>CO2e Saved</div>
+        <div>Badges Collected</div>
+        <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${streak}">-1</div>
+        <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${collected}">-1</div>
+        <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${co2_save}">-1</div>
+        <div style="font-size: 8vmax; background-color: #4a6fa5" th:text="${no_badges}">-1</div>
+    </div>
 </div>
-<div>
-    <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
-    <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
-    <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
-    <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
-    <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
-    <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
-    <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
+
+<div class="box1">
+    <label for="badgeTable">Badge Table:</label>
+    <div class="badges-table" id="badgeTable">
+        <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
+        <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
+        <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
+        <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
+        <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
+        <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
+        <img th:src="@{images/Star.png}" alt="Star" style="width: 10%; height: auto; padding: 2%">
+    </div>
+
 </div>
 <form th:action="@{/dashboard_consumer}">
     <button class="button1" style="width:250px; margin-left: 5%">Return To Dashboard</button>
 </form>
-<div class="box1" style="margin: 0 1%; height: 2%; padding: 5px 2%; float: right">
-    <p>description of badge:</p>
-</div>
 </body>
 </html>

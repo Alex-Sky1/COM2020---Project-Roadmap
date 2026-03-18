@@ -204,6 +204,22 @@ hr {
     background-color: #c0d6df;
 }
 
+.badges-table {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    background-color: #c0d6df;
+}
+
+.badges-table div {
+    background-color: #166088;
+    border: 1px solid black;
+    font-size: 3vmax;
+    font-weight: bold;
+    text-align: center;
+    color: #dbe9ee;
+    padding: 2%;
+}
+
 .analytics-table div {
     background-color: #166088;
     border: 1px solid black;
