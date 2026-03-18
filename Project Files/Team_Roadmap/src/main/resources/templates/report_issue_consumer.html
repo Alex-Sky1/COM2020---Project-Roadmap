@@ -15,7 +15,8 @@
     </div>
 </div>
 <div class="box1">
-    <table th:if="${not#lists.isEmpty(bundle)}">
+    <label for="bundleTable">Problem Bundle</label>
+    <table id="bundleTable" th:if="${not#lists.isEmpty(bundle)}">
         <thead>
         <tr>
             <th>Seller</th>
@@ -39,11 +40,10 @@
     </table>
 </div>
 <div class="box1">
-    <label class="label1">List Issue Below</label>
     <form th:action="@{/report_issue_consumer}" method="post" autocomplete="off">
         <input type="hidden" name="reservationID" th:value="${reservationID}">
 
-        <label for="Issue"></label>
+        <label for="Issue">Complaint:</label>
         <textarea
                 name="description"
                 id="Issue"
@@ -53,14 +53,18 @@
                 cols="70"
                 required
                 ></textarea>
+        <label for="type">Issue Type:</label>
         <select required name="type" id="type">
             <option>Didn't arrive</option>
             <option>Took too long</option>
             <option>Food was cold</option>
             <option>Not as described</option>
         </select>
-        <button type="submit">Submit your complaint.</button>
+        <button type="submit" class="button1">Submit your complaint.</button>
     </form>
 </div>
+<form th:action="@{/dashboard_consumer}">
+    <button class="button1" style="width:250px; margin-left: 5%">Return To Dashboard</button>
+</form>
 </body>
 </html>
