@@ -43,7 +43,7 @@ public class SellerController {
 
         List<Seller> s = sr.findByDName(business);
         List<Customer> c = cr.findByDName(business);
-        Optional<Admin> a = ar.findBydName(business);
+        Optional<Admin> a = ar.findByDName(business);
         // Check that passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
@@ -148,11 +148,11 @@ public class SellerController {
                                     @RequestParam(value = "business", required = false) String business, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2){
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2, Model model){
 
         List<Seller> s = sr.findByDName(business);
         List<Customer> c = cr.findByDName(business);
-        Optional<Admin> a = ar.findBydName(business);
+        Optional<Admin> a = ar.findByDName(business);
 
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
