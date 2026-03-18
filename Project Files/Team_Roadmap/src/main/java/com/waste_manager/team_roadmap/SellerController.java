@@ -430,12 +430,8 @@ public class SellerController {
         ArrayList<IssueReport> unresolvedIssueReports = new ArrayList<>();
         ArrayList<IssueReport> resolvedIssueReports = new ArrayList<>();
         for(IssueReport issueReport : allSellerIssueReports) {
-            if(!issueReport.getResolved()) {
-                unresolvedIssueReports.add(issueReport);
-            }
-            else {
-                resolvedIssueReports.add(issueReport);
-            }
+            if(!issueReport.getResolved()) { unresolvedIssueReports.add(issueReport); }
+            else { resolvedIssueReports.add(issueReport); }
         }
         //add all issue reports to the web page
         model.addAttribute("unresolvedIssueReports", unresolvedIssueReports);
