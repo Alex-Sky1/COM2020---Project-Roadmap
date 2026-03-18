@@ -1,13 +1,10 @@
 package com.waste_manager.team_roadmap;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -24,13 +21,15 @@ public class SellerController {
     private final BundleRepository br;
     private final ReservationRepository rr;
     private final IssueReportRepository irr;
+    private final AdminRepository ar;
 
-    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
+    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository, AdminRepository adminRepository) {
         this.sr = sellerRepository;
         this.cr = customerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
         this.irr = issueReportRepository;
+        this.ar = adminRepository;
     }
 
     @PostMapping("/sign_up_seller")
@@ -44,7 +43,7 @@ public class SellerController {
 
         List<Seller> s = sr.findByDName(business);
         List<Customer> c = cr.findByDName(business);
-
+        Optional<Admin> a = ar.findByDName(business);
         // Check that passwords match
         if(!pwd1.equals(pwd2)){
             System.out.println("passwords don't match");
@@ -57,8 +56,8 @@ public class SellerController {
             model.addAttribute("error", "Please fill in all the fields");
         }
 
-        // Check that no other seller or customer is using that username
-        else if (!s.isEmpty() || !c.isEmpty()) {
+        // Check that no other seller or customer or admin is using that username
+        else if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
             System.out.println("Username already exists");
             model.addAttribute("error", "Username already exists");
         }
@@ -69,11 +68,8 @@ public class SellerController {
         }else {
             //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1, true);
-            //check if email and password are valid
-            if(!s1.validateEmail(email)){
-                model.addAttribute("error", "Invalid email");
-            }
-            else if(!s1.validatePassword(pwd1)) {
+            //check if password fits requirements
+            if(!s1.validatePassword(pwd1)) {
                 model.addAttribute("error", "Invalid password");
             }
             else {
@@ -106,8 +102,7 @@ public class SellerController {
 
         // Get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         String[] WeatherFlags = {"Sunny", "Rainy", "Cloudy"};
         Random rand = new Random();
@@ -153,20 +148,23 @@ public class SellerController {
                                     @RequestParam(value = "business", required = false) String business, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2){
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2, Model model){
+
         List<Seller> s = sr.findByDName(business);
         List<Customer> c = cr.findByDName(business);
+        Optional<Admin> a = ar.findByDName(business);
 
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller seller = sr.findByDName(currentUsername).get(0);
+        Seller seller = getSellerProfile(auth);
+
         int sellerId= seller.getSellerID();
 
         // Check if business (username) field is not empty and not being used by anyone else
         if(!business.isEmpty()){
-            if (!s.isEmpty() || !c.isEmpty()) {
+            if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
                 System.out.println("user name already exists");
+                model.addAttribute("error", "Username already exists");
             } else {
                 sr.updateDNameById(business, sellerId);
             }
@@ -174,8 +172,10 @@ public class SellerController {
 
         // Check passwords match if password is being changed
         if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
-            if(seller.validatePassword(pwd1)){
-                sr.updatePasswordById(pwd1, sellerId);
+            if(!seller.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }else {
+                cr.updatePasswordById(pwd1, sellerId);
             }
         }
         // Update first name
@@ -200,9 +200,8 @@ public class SellerController {
         }
         // Update email address
         if(!email.isEmpty()){
-            if(seller.validateEmail(email)) {
-                sr.updateEmailById(email, sellerId);
-            }
+            sr.updateEmailById(email, sellerId);
+            sr.updateEmailById(email, sellerId);
         }
         // Update phone number
         if(!phone.isEmpty()){
@@ -217,8 +216,7 @@ public class SellerController {
 
         // Get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         // Add all reservations to web page
         List<Reservation> reservations = rr.findBySellerID(s.getSellerID());
@@ -251,13 +249,18 @@ public class SellerController {
         return "manage_bundles_seller";
     }
 
+    @PostMapping("/manage_bundles_seller")
+    public String deleteBundle(@RequestParam(value = "PostingID") String postingID){
+        br.deleteBundleByID(Integer.parseInt(postingID));
+        return "redirect:/manage_bundles_seller";
+    }
 
     @GetMapping("/manage_reservations_seller")
     public String manage_reservations_seller(Model model) {
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
+
         // Add all reservations to web page
         List<Reservation> allReservations = rr.findBySellerID(s.getSellerID());
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -324,17 +327,69 @@ public class SellerController {
         return "redirect:/manage_reservations_seller";
     }
 
+    @GetMapping("/edit_bundle_seller")
+    public String edit_bundle_seller(@RequestParam("PostingID") String ID, Model model){
+        //get bundle and add to web page to fill in current details
+        Bundle bundle = br.findById(Long.parseLong(ID)).get();
+        model.addAttribute("bundle", bundle);
+        return "/edit_bundle_seller";
+    }
     @PostMapping("/edit_bundle_seller")
-    public String editBundle(){
-        return "edit_bundle_seller";
+    public String editBundle(@RequestParam("PostingID") String ID,
+                             @RequestParam("category") String category, @RequestParam("price") String price,
+                             @RequestParam("pickup") String pickup, @RequestParam("discount") String discount,
+                             @RequestParam("hidden_items")String contents,
+                             @RequestParam(value="celery", required = false) String celery,
+                             @RequestParam(value = "gluten", required = false) String gluten,
+                             @RequestParam(value = "crustaceans", required = false) String crustaceans,
+                             @RequestParam(value="eggs", required = false) String eggs,
+                             @RequestParam(value="fish", required = false) String fish,
+                             @RequestParam(value="lupin", required = false) String lupin,
+                             @RequestParam(value="milk", required = false) String milk,
+                             @RequestParam(value="molluscs", required = false) String molluscs,
+                             @RequestParam(value="mustard", required = false) String mustard,
+                             @RequestParam(value="peanuts", required = false) String peanuts,
+                             @RequestParam(value="sesame", required = false) String sesame,
+                             @RequestParam(value="soybeans", required = false) String soybeans,
+                             @RequestParam(value="sulphur", required = false) String sulphur,
+                             @RequestParam(value="nuts", required = false) String nuts){
+
+        Bundle bundle = br.findById(Integer.parseInt(ID)).get();
+        //set bundle changes from web page
+        bundle.setCategory(category);
+        bundle.setPrice(Float.parseFloat(price));
+        bundle.setContents(new ArrayList<>(Arrays.asList(contents.split(","))));
+        bundle.setPickUpWindow(Integer.parseInt(pickup.substring(0,2)));
+        bundle.setDiscount(Integer.parseInt(discount));
+        bundle.setExpired(false);
+
+        ArrayList<String> allergens = new ArrayList<>();
+        if(celery!= null) allergens.add(celery);
+        if(gluten!= null) allergens.add(gluten);
+        if(crustaceans != null) allergens.add(crustaceans);
+        if(eggs != null) allergens.add(eggs);
+        if(fish != null) allergens.add(fish);
+        if(lupin != null) allergens.add(lupin);
+        if(milk != null) allergens.add(milk);
+        if(molluscs != null) allergens.add(molluscs);
+        if(mustard != null) allergens.add(mustard);
+        if(peanuts != null) allergens.add(peanuts);
+        if(sesame != null) allergens.add(sesame);
+        if(soybeans != null) allergens.add(soybeans);
+        if(sulphur != null) allergens.add(sulphur);
+        if(nuts != null) allergens.add(nuts);
+        bundle.setAllergens(allergens);
+
+        br.save(bundle);
+
+        return "redirect:/manage_bundles_seller";
     }
 
     @GetMapping("/forecasting_seller")
     public String forecasting_seller(Model model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), "rain", "Category1", new ArrayList<>(br.findAll()), new ArrayList<>(rr.findAll()));
         float mae = forecast.MAE();
@@ -342,6 +397,7 @@ public class SellerController {
 
         return "forecasting_seller";
     }
+
     @PostMapping("/forecasting_seller")
     public String forecastingSeller(){
         return "forecasting_seller";
@@ -352,8 +408,7 @@ public class SellerController {
 
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         // Calculate no show : collected : expired
         int noShow = 0;
@@ -391,11 +446,37 @@ public class SellerController {
         String sellThrough = collected + " : " + expired + " : " + noShow;
         model.addAttribute("sellThrough", sellThrough);
 
+        //get all reservations made of seller bundles
+        List<Reservation> sellerReservations = rr.findBySellerID(s.getSellerID());
         // Calculate waste proxy
-        model.addAttribute("wasteProxy", collected*1);
+        double waste_proxy = 0;
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()){
+                if(reservation.getBundle().getCategory().equals("meats")) {
+                    waste_proxy += (4.2 * 1.5);
+                } else if (reservation.getBundle().getCategory().equals("bakery")) {
+                    waste_proxy += (4.2 * 0.8);
+                } else if (reservation.getBundle().getCategory().equals("snacks")) {
+                    waste_proxy += (4.2 * 0.6);
+                } else if (reservation.getBundle().getCategory().equals("dairy")) {
+                    waste_proxy += (4.2 * 1);
+                } else if (reservation.getBundle().getCategory().equals("plants")) {
+                    waste_proxy += (4.2 * 0.5);
+                } else if (reservation.getBundle().getCategory().equals("groceries")) {
+                    waste_proxy += (4.2 * 1.2);
+                } else {
+                    waste_proxy += (4.2 * 2);
+                }
+            }
+        }
+        model.addAttribute("wasteProxy", waste_proxy);
 
+        //calculate pricing effectiveness
         model.addAttribute("pricingEffectiveness", "-");
+
+        //calculate operational insights
         model.addAttribute("operationalInsights", "-");
+
         return "view_analytics_seller";
     }
 
@@ -404,8 +485,7 @@ public class SellerController {
     {
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         //find all issue reports
         List<IssueReport> allIssueReports = irr.findAll();
@@ -444,8 +524,8 @@ public class SellerController {
                                      @RequestParam("issueID") int issueID){
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
+
         //find issue report from repository
         Optional<IssueReport> issueReport = irr.findById(issueID);
         IssueReport issueReport1 = issueReport.get();
@@ -455,5 +535,15 @@ public class SellerController {
         //save them into the repository
         irr.save(issueReport1);
         return "view_issues_seller";
+    }
+
+
+    public Seller getSellerProfile(Authentication auth){
+        String currentUsername = auth.getName();
+        if(auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ar.getAdmin().getSellerView();
+        }else {
+            return sr.findByDName(currentUsername).get(0);
+        }
     }
 }

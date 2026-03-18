@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
@@ -20,9 +21,9 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<Admin> aList = adminRepository.findByDName(username);
-        if(!aList.isEmpty()){
-            Admin a = aList.get(0);
+        Optional<Admin> aOptional = adminRepository.findByDName(username);
+        if(aOptional.isPresent()){
+            Admin a = aOptional.get();
             return User.withUsername(username).password(a.getPassword()).roles("ADMIN").build();
         }
         //if user is found in customer DB assign role customer and build user
