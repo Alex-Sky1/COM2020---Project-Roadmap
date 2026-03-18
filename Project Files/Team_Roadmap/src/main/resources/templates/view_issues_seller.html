@@ -6,9 +6,10 @@
 </head>
 <body>
     <div class="header">
-        <h1 class="header-text">Browse Bundles</h1>
+        <h1 class="header-text">View Issues</h1>
         <img th:src="@{images/roadmap_logo.png}" alt="Team Roadmap Logo" class="header-img">
     </div>
+    <div class="box1" style="width:80%">
         <table class="bundle-table" th:if="${not#lists.isEmpty(bundle-issues)}" style="column-width: 200px; max-width: 43vw; overflow: auto">
             <thead>
             <tr>
@@ -42,5 +43,10 @@
             </tr>
             </tbody>
         </table>
+    </div>
+
+    <form th:action="@{/dashboard_consumer}">
+        <button class="button1" style="width:220px; margin: 5px 20px">Return to Dashboard</button>
+    </form>
 </body>
 </html>
