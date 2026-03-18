@@ -67,10 +67,7 @@ public class CustomerController {
         }else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>(), true);
-            if(!c1.validateEmail(email)){
-                model.addAttribute("error", "Invalid email");
-            }
-            else if(!c1.validatePassword(pwd1)) {
+            if(!c1.validatePassword(pwd1)) {
                 model.addAttribute("error", "Invalid password");
             }
             else {
@@ -109,7 +106,14 @@ public class CustomerController {
         }
         //check passwords match
         if (!pwd1.isEmpty() && pwd1.equals(pwd2)) {
-            cr.updatePasswordById(pwd1, customerId);
+            if(!customer.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }else {
+                cr.updatePasswordById(pwd1, customerId);
+            }
+        }
+        else{
+            model.addAttribute("error", "Passwords don't match");
         }
         //update first name
         if (!fname.isEmpty()) {

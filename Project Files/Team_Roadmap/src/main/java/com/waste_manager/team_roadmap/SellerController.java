@@ -69,11 +69,8 @@ public class SellerController {
         }else {
             //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1, true);
-            //check if email and password are valid
-            if(!s1.validateEmail(email)){
-                model.addAttribute("error", "Invalid email");
-            }
-            else if(!s1.validatePassword(pwd1)) {
+            //check if password fits requirements
+            if(!s1.validatePassword(pwd1)) {
                 model.addAttribute("error", "Invalid password");
             }
             else {
@@ -153,7 +150,7 @@ public class SellerController {
                                     @RequestParam(value = "business", required = false) String business, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2){
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2, Model model){
         List<Seller> s = sr.findByDName(business);
         List<Customer> c = cr.findByDName(business);
 
@@ -167,6 +164,7 @@ public class SellerController {
         if(!business.isEmpty()){
             if (!s.isEmpty() || !c.isEmpty()) {
                 System.out.println("user name already exists");
+                model.addAttribute("error", "Username already exists");
             } else {
                 sr.updateDNameById(business, sellerId);
             }
@@ -174,8 +172,10 @@ public class SellerController {
 
         // Check passwords match if password is being changed
         if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
-            if(seller.validatePassword(pwd1)){
-                sr.updatePasswordById(pwd1, sellerId);
+            if(!seller.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }else {
+                cr.updatePasswordById(pwd1, sellerId);
             }
         }
         // Update first name
@@ -199,10 +199,8 @@ public class SellerController {
             sr.updateCountyById(county, sellerId);
         }
         // Update email address
-        if(!email.isEmpty()){
-            if(seller.validateEmail(email)) {
-                sr.updateEmailById(email, sellerId);
-            }
+        if (!email.isEmpty()) {
+            cr.updateEmailById(email, sellerId);
         }
         // Update phone number
         if(!phone.isEmpty()){
