@@ -1,7 +1,11 @@
 package com.waste_manager.team_roadmap;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,14 +26,16 @@ public class SellerController {
     private final ReservationRepository rr;
     private final IssueReportRepository irr;
     private final AdminRepository ar;
+    private final CustomUserDetailService cuds;
 
-    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository, AdminRepository adminRepository) {
+    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository, AdminRepository adminRepository, CustomUserDetailService customUserDetailService) {
         this.sr = sellerRepository;
         this.cr = customerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
         this.irr = issueReportRepository;
         this.ar = adminRepository;
+        this.cuds = customUserDetailService;
     }
 
     @PostMapping("/sign_up_seller")
@@ -41,29 +47,25 @@ public class SellerController {
                          @RequestParam(value = "accept", required = false) String tosAccept, Model model) {
 
 
-        List<Seller> s = sr.findByDName(business);
-        List<Customer> c = cr.findByDName(business);
-        Optional<Admin> a = ar.findByDName(business);
+        List<Seller> s = sr.findBydName(business);
+        List<Customer> c = cr.findBydName(business);
+        Optional<Admin> a = ar.findBydName(business);
         // Check that passwords match
         if(!pwd1.equals(pwd2)){
-            System.out.println("passwords don't match");
             model.addAttribute("error", "Passwords don't match");
         }
 
         // If any field is empty don't allow sign up
         else if(fname.isEmpty() || sname.isEmpty() || business.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
-            System.out.println("Please fill all the fields");
             model.addAttribute("error", "Please fill in all the fields");
         }
 
         // Check that no other seller or customer or admin is using that username
         else if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
-            System.out.println("Username already exists");
             model.addAttribute("error", "Username already exists");
         }
         //check if they accepted terms and conditions
         else if(tosAccept==null) {
-            System.out.println("please accept the terms and conditions");
             model.addAttribute("error", "Please accept the terms and conditions");
         }else {
             //create and save new seller
@@ -73,7 +75,6 @@ public class SellerController {
                 model.addAttribute("error", "Invalid password");
             }
             else {
-                System.out.println("success");
                 sr.save(s1);
                 return "sign_in";
             }
@@ -148,11 +149,12 @@ public class SellerController {
                                     @RequestParam(value = "business", required = false) String business, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2, Model model){
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2,
+                                    Model model, HttpServletRequest request) {
 
-        List<Seller> s = sr.findByDName(business);
-        List<Customer> c = cr.findByDName(business);
-        Optional<Admin> a = ar.findByDName(business);
+        List<Seller> s = sr.findBydName(business);
+        List<Customer> c = cr.findBydName(business);
+        Optional<Admin> a = ar.findBydName(business);
 
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -163,50 +165,62 @@ public class SellerController {
         // Check if business (username) field is not empty and not being used by anyone else
         if(!business.isEmpty()){
             if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
-                System.out.println("user name already exists");
                 model.addAttribute("error", "Username already exists");
             } else {
-                sr.updateDNameById(business, sellerId);
+                seller.setdName(business);
+                sr.save(seller);
+
+                //update authorization detail and add to session
+                UserDetails newUser = cuds.loadUserByUsername(business);
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(newUser, newUser.getPassword(), newUser.getAuthorities());
+                token.setDetails(auth.getDetails());
+                SecurityContextHolder.getContext().setAuthentication(token);
+
+                request.getSession(false).setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
             }
         }
 
-        // Check passwords match if password is being changed
+        // Check passwords match if password is being changed and is a valid password
         if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
             if(!seller.validatePassword(pwd1)) {
                 model.addAttribute("error", "Invalid password");
             }else {
-                cr.updatePasswordById(pwd1, sellerId);
+                seller.setPassword(pwd1);
             }
+        }else if (!pwd1.equals(pwd2)){
+            model.addAttribute("error", "Passwords don't match");
         }
         // Update first name
         if(!fname.isEmpty()){
-            sr.updateFNameById(fname, sellerId);
+            seller.setfName(fname);
         }
         // Update surname
         if(!sname.isEmpty()){
-            sr.updateSNameById(sname, sellerId);
+            seller.setsName(sname);
         }
         // Update address
         if(!al1.isEmpty()){
-            sr.updateAddressById(al1, sellerId);
+            seller.setAddress(al1);
         }
         // Update postcode
         if(!pcode.isEmpty()){
-            sr.updatePostcodeById(pcode, sellerId);
+            seller.setPostcode(pcode);
         }
         // Update county
         if(!county.isEmpty()){
-            sr.updateCountyById(county, sellerId);
+            seller.setCounty(county);
         }
         // Update email address
         if(!email.isEmpty()){
-            sr.updateEmailById(email, sellerId);
-            sr.updateEmailById(email, sellerId);
+            seller.setEmail(email);
         }
         // Update phone number
         if(!phone.isEmpty()){
-            sr.updatePhoneById(phone, sellerId);
+            seller.setPhone(phone);
         }
+
+        sr.save(seller);
+
         return "edit_profile_seller";
     }
 
@@ -543,7 +557,7 @@ public class SellerController {
         if(auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             return ar.getAdmin().getSellerView();
         }else {
-            return sr.findByDName(currentUsername).get(0);
+            return sr.findBydName(currentUsername).get(0);
         }
     }
 }
