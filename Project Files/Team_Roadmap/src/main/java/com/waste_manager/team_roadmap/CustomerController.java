@@ -1,7 +1,11 @@
 package com.waste_manager.team_roadmap;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -12,7 +16,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,8 @@ import java.util.Optional;
 @Controller
 public class CustomerController {
 
+
+    private final CustomUserDetailService cuds;
     private final CustomerRepository cr;
     private final SellerRepository sr;
     private final BundleRepository br;
@@ -27,13 +32,14 @@ public class CustomerController {
     private final IssueReportRepository irr;
     private final AdminRepository ar;
 
-    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository, AdminRepository adminRepository) {
+    public CustomerController(CustomerRepository customerRepository, SellerRepository sellerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository, AdminRepository adminRepository, CustomUserDetailService customUserDetailService) {
         this.cr = customerRepository;
         this.sr = sellerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
         this.irr = issueReportRepository;
         this.ar = adminRepository;
+        this.cuds = customUserDetailService;
     }
 
     @PostMapping("/sign_up_consumer")
@@ -45,38 +51,37 @@ public class CustomerController {
                          @RequestParam(value = "accept", required = false) String tosAccept, Model model) {
 
 
-        List<Customer> c = cr.findByDName(dname);
-        List<Seller> s = sr.findByDName(dname);
-        Optional<Admin> a = ar.findByDName(dname);
+        List<Customer> c = cr.findBydName(dname);
+        List<Seller> s = sr.findBydName(dname);
+        Optional<Admin> a = ar.findBydName(dname);
         //check Passwords match
         if (!pwd1.equals(pwd2)) {
-            System.out.println("passwords don't match");
+            model.addAttribute("error", "Passwords don't match");
             return "sign_up_consumer";
         }
         //if any field is empty don't allow sign up
         if (fname.isEmpty() || sname.isEmpty() || dname.isEmpty() || al1.isEmpty() || pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()) {
-            System.out.println("Please fill all the fields");
+            model.addAttribute("error", "Please fill in all the fields");
             return "sign_up_consumer";
         }
         //check that no other seller or customer or admin is using that username
         else if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
-            System.out.println("user name already exists");
+            model.addAttribute("error", "Username already exists");
             return "sign_up_consumer";
         }
         if (tosAccept == null) {
-            System.out.println("please accept the terms and conditions");
+            model.addAttribute("error", "Please accept the terms and conditions");
             return "sign_up_consumer";
         } else {
             //create and save new customer
             Customer c1 = new Customer(fname, sname, dname, al1, pcode, county, email, phone, pwd1, 0, new ArrayList<Boolean>(), true);
             if (!c1.validatePassword(pwd1)) {
                 model.addAttribute("error", "Invalid password");
-                return "sign_up_consumer";
             } else {
                 cr.save(c1);
-                System.out.println("sign up successful");
                 return "sign_in";
             }
+            return "sign_up_consumer";
 
         }
     }
@@ -86,11 +91,12 @@ public class CustomerController {
                                     @RequestParam(value = "dname", required = false) String dname, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2, Model model) {
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2,
+                                      Model model, HttpServletRequest request) {
 
-        List<Seller> s = sr.findByDName(dname);
-        List<Customer> c = cr.findByDName(dname);
-        Optional<Admin> a = ar.findByDName(dname);
+        List<Seller> s = sr.findBydName(dname);
+        List<Customer> c = cr.findBydName(dname);
+        Optional<Admin> a = ar.findBydName(dname);
         //get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = getCustomerProfile(auth);
@@ -100,50 +106,61 @@ public class CustomerController {
         //check no other seller or customer or admin is using that username
         if (!dname.isEmpty()) {
             if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
-                System.out.println("user name already exists");
+                model.addAttribute("error", "Username already exists");
             } else {
-                cr.updateDNameById(dname, customerId);
+                customer.setdName(dname);
+                cr.save(customer);
+
+                //update authorization detail and add to session
+                UserDetails newUser = cuds.loadUserByUsername(dname);
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(newUser, newUser.getPassword(), newUser.getAuthorities());
+                token.setDetails(auth.getDetails());
+                SecurityContextHolder.getContext().setAuthentication(token);
+
+                request.getSession(false).setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
             }
         }
-        //check passwords match
+        //check passwords match and are valid
         if (!pwd1.isEmpty() && pwd1.equals(pwd2)) {
             if(!customer.validatePassword(pwd1)) {
                 model.addAttribute("error", "Invalid password");
             }else {
-                cr.updatePasswordById(pwd1, customerId);
+                customer.setPassword(pwd1);
             }
-        }
-        else{
+        } else if (!pwd1.equals(pwd2)){
             model.addAttribute("error", "Passwords don't match");
         }
         //update first name
         if (!fname.isEmpty()) {
-            cr.updateFNameById(fname, customerId);
+            customer.setfName(fname);
         }
         //update surname
         if (!sname.isEmpty()) {
-            cr.updateSNameById(sname, customerId);
+            customer.setsName(sname);
         }
         //update address
         if (!al1.isEmpty()) {
-            cr.updateAddressById(al1, customerId);
+            customer.setAddress(al1);
         }
         //update postcode
         if (!pcode.isEmpty()) {
-            cr.updatePostcodeById(pcode, customerId);
+            customer.setPostcode(pcode);
         }
         //update county
         if (!county.isEmpty()) {
-            cr.updateCountyById(county, customerId);
+            customer.setCounty(county);
         }
         //update email address
         if (!email.isEmpty()) {
-            cr.updateEmailById(email, customerId);
+            customer.setEmail(email);
         }
         //update phone number
         if (!phone.isEmpty()) {
-            cr.updatePhoneById(phone, customerId);
+            customer.setPhone(phone);
         }
+
+        cr.save(customer);
+
         return "edit_profile_consumer";
     }
 
@@ -400,12 +417,34 @@ public class CustomerController {
         irr.save(issueReport);
         return "redirect:manage_bundles_consumer";
     }
+
+    @GetMapping("/notifications_consumer")
+    public String viewNotifications(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Customer c = cr.findBydName(currentUsername).get(0);
+        ArrayList<String> notifications = new ArrayList<>();
+        List<Reservation> customerReservations = rr.findByCustomerID(c.getCustomerID());
+        for (Reservation r : customerReservations) {
+            if (!r.getCollected()) {
+                int pickuphr = r.getBundle().getPickUpWindow();
+                if(LocalDateTime.now().getHour() ==  pickuphr-1 || LocalDateTime.now().getHour() ==  pickuphr){
+                    String notif = "Bundle due to be collected at " + r.getBundle().getPickUpWindowAsString();
+                    notifications.add(notif);
+                }
+            }
+        }
+        model.addAttribute("notifications", notifications);
+
+        return "notifications_consumer";
+    }
+
     public Customer getCustomerProfile(Authentication auth){
         String currentUsername = auth.getName();
         if(auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             return ar.getAdmin().getCustomerView();
         }else {
-            return cr.findByDName(currentUsername).get(0);
+            return cr.findBydName(currentUsername).get(0);
         }
     }
 }
