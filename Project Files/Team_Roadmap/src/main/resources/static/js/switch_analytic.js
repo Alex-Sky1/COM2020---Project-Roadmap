@@ -8,6 +8,7 @@ const title = document.getElementById('title');
 const sell_through_text = document.getElementById('sell_through_text');
 const waste_proxy_text = document.getElementById('waste_proxy_text');
 const pricing_effectiveness_text = document.getElementById('pricing_effectiveness_text');
+const pricing_effectiveness_table = document.getElementById('pricing_effectiveness_table')
 const operational_insights_text = document.getElementById('operational_insights_text');
 
 
@@ -20,6 +21,7 @@ function change_sell_through() {
     sell_through_text.style.display = 'block';
     waste_proxy_text.style.display = 'none';
     pricing_effectiveness_text.style.display = 'none';
+    pricing_effectiveness_table.style.display = 'none';
     operational_insights_text.style.display = 'none';
 }
 
@@ -32,6 +34,7 @@ function change_waste_proxy() {
     sell_through_text.style.display = 'none';
     waste_proxy_text.style.display = 'block';
     pricing_effectiveness_text.style.display = 'none';
+    pricing_effectiveness_table.style.display = 'none';
     operational_insights_text.style.display = 'none';
 }
 
@@ -44,6 +47,7 @@ function change_pricing_effectiveness() {
     sell_through_text.style.display = 'none';
     waste_proxy_text.style.display = 'none';
     pricing_effectiveness_text.style.display = 'block';
+    pricing_effectiveness_table.style.display = 'block';
     operational_insights_text.style.display = 'none';
 }
 
@@ -56,5 +60,6 @@ function change_operational_insights() {
     sell_through_text.style.display = 'none';
     waste_proxy_text.style.display = 'none';
     pricing_effectiveness_text.style.display = 'none';
+    pricing_effectiveness_table.style.display = 'none';
     operational_insights_text.style.display = 'block';
 }

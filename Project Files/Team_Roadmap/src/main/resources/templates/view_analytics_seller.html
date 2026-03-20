@@ -25,6 +25,57 @@
     <p th:text="${sellThrough}" id="sell_through_text" style="display: block">Sell Through</p>
     <p th:text="${wasteProxy}" id="waste_proxy_text" style="display: none">Waste Proxy</p>
     <p th:text="${pricingEffectiveness}" id="pricing_effectiveness_text" style="display: none">Pricing Effectiveness</p>
+    <table id="pricing_effectiveness_table" style="display: none; border-collapse: collapse; color: #166088; background-color: #dbe9ee; padding: 1%;">
+        <thead>
+            <tr>
+                <th>Discount Level</th>
+                <th>Sell Through</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0%-10%</td>
+                <td th:text="${pricingEffectivenessArray[0]}"></td>
+            </tr>
+            <tr>
+                <td>10%-20%</td>
+                <td th:text="${pricingEffectivenessArray[1]}"></td>
+            </tr>
+            <tr>
+                <td>20%-30%</td>
+                <td th:text="${pricingEffectivenessArray[2]}"></td>
+            </tr>
+            <tr>
+                <td>30%-40%</td>
+                <td th:text="${pricingEffectivenessArray[3]}"></td>
+            </tr>
+            <tr>
+                <td>40%-50%</td>
+                <td th:text="${pricingEffectivenessArray[4]}"></td>
+            </tr>
+            <tr>
+                <td>50%-60%</td>
+                <td th:text="${pricingEffectivenessArray[5]}"></td>
+            </tr>
+            <tr>
+                <td>60%-70%</td>
+                <td th:text="${pricingEffectivenessArray[6]}"></td>
+            </tr>
+            <tr>
+                <td>70%-80%</td>
+                <td th:text="${pricingEffectivenessArray[7]}"></td>
+            </tr>
+            <tr>
+                <td>80%-90%</td>
+                <td th:text="${pricingEffectivenessArray[8]}"></td>
+            </tr>
+            <tr>
+                <td>90%-100%</td>
+                <td th:text="${pricingEffectivenessArray[9]}"></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
     <p th:text="${operationalInsights}" id="operational_insights_text" style="display: none">Operational Insights</p>
 </div>
 <form th:action="@{/dashboard_seller}">
