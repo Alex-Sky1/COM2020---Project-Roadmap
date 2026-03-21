@@ -17,10 +17,10 @@ import weka.filters.supervised.attribute.NominalToBinary;
 public class Forecast {
 
 
-    private static LinearRegression model;
-    private static LinearRegression model2;
-    private static Instances table;
-    private static Instances table2;
+    private LinearRegression model;
+    private LinearRegression model2;
+    private Instances table;
+    private Instances table2;
 
     private LocalDateTime forecastDate;
     private int sellerID;
@@ -123,7 +123,8 @@ public class Forecast {
 
     //https://weka.sourceforge.io/doc.dev/
     //https://gist.github.com/knbknb/c7f75d8eaa5b50a7b6786ca5f0fedbfb
-    public double prediction(Bundle bun,String type) {
+    public double prediction(Bundle bun,String type) throws Exception {
+        onStartUp();
 
 
         if (type == "reservations") {
@@ -132,6 +133,7 @@ public class Forecast {
         }
         else if (type == "noshow"){
             double hold = workAround(bun, model);
+
             return workAround(bun, model2)/hold;
         }
 
@@ -153,6 +155,9 @@ public class Forecast {
         double hold = 0.0;
         for (int i =0; i < dat.length;i++){
             hold += dat[i] * coef[i];
+            System.out.println(hold);
+            System.out.println(dat[i]);
+            System.out.println(coef[i]);
         }
 
 
@@ -274,7 +279,6 @@ public class Forecast {
 
                             if (!(reservation.getNoShow())) {
                                 returnInt += 1;
-                                System.out.println(returnInt);
                             }
                         }
                     }
@@ -293,7 +297,7 @@ public class Forecast {
                     }
                     mae += Math.abs(returnInt - moving);
                 }
-                System.out.println(mae);
+
                 returnInt = 0;
                 number += 1;
                 check = check.plusHours(1);
@@ -467,19 +471,18 @@ public class Forecast {
 
 public void trainModel(String type) throws Exception {
 
-        if (model == null ){
             if (type == "reservations") {
                 Instances data = build_data("reservations");
+                System.out.println("Number of instances: " + data.numInstances());
                 model = new LinearRegression();
                 model.buildClassifier(data);
             }
-        if (model2 == null){
             if (type == "noshow") {
                 Instances data = build_data("noshow");
                 model2 = new LinearRegression();
                 model2.buildClassifier(data);
-                }
-            }
+
+
         }
 }
 

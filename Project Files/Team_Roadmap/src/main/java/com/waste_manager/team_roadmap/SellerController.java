@@ -401,7 +401,7 @@ public class SellerController {
     }
 
     @GetMapping("/forecasting_seller")
-    public String forecasting_seller(Model model) {
+    public String forecasting_seller(Model model) throws Exception {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Seller s = getSellerProfile(auth);
