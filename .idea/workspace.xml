@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="Consumer Report Issue Labeling">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="seeded data should be all working now">
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabase.java" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,44 +93,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Gradle.Build Team_Roadmap.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.BundleTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.BundleTest.testGetAllergens.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.BundleTest.testGetAllergensAsString.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CustomerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ForecastTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ForecastTest.testBundleFromSelectSeller.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ForecastTest.testSeasonalNaive.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.IssueReportTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ReservationTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SellerTest.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.TeamRoadmapApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/thomashindle/Documents/Uni/year2/group_software_development_project/test 18.48.07&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Gradle.Build Team_Roadmap.executor": "Run",
+    "Gradle.BundleTest.executor": "Run",
+    "Gradle.BundleTest.testGetAllergens.executor": "Run",
+    "Gradle.BundleTest.testGetAllergensAsString.executor": "Run",
+    "Gradle.CustomerTest.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.ForecastTest.executor": "Run",
+    "Gradle.ForecastTest.testBundleFromSelectSeller.executor": "Run",
+    "Gradle.ForecastTest.testSeasonalNaive.executor": "Run",
+    "Gradle.IssueReportTest.executor": "Run",
+    "Gradle.ReservationTest.executor": "Run",
+    "Gradle.SellerTest.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.TeamRoadmapApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/thomashindle/Documents/Uni/year2/group_software_development_project/test 18.48.07",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -588,7 +591,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773831043339</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="seeded data should be all working now">
+      <option name="closed" value="true" />
+      <created>1774103287022</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1774103287022</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -615,7 +626,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="continue to expand database functionality" />
     <MESSAGE value="standardised field names" />
     <MESSAGE value="updated db queries" />
     <MESSAGE value="workspace xml commit :(" />
@@ -640,7 +650,8 @@
     <MESSAGE value="Report Issue Page Consumer" />
     <MESSAGE value="Consumer Issue Viewing" />
     <MESSAGE value="Consumer Report Issue Labeling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Consumer Report Issue Labeling" />
+    <MESSAGE value="seeded data should be all working now" />
+    <option name="LAST_COMMIT_MESSAGE" value="seeded data should be all working now" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -648,7 +659,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerRepository.java</url>
           <line>19</line>
-          <properties class="com.waste_manager.team_roadmap.SellerRepository" method="findById">
+          <properties class="com.waste_manager.team_roadmap.SellerRepository">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

@@ -7,6 +7,7 @@ import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -33,11 +34,16 @@ public class CSVDatabase {
     BundleRepository bundleRepository;
     @Autowired
     ReservationRepository reservationRepository;
+    @Autowired
+    IssueReportRepository issueReportRepository;
+    @Autowired
+    AdminRepository adminRepository;
 
     File sellerCSV;
     File customerCSV;
     File bundleCSV;
     File reservationCSV;
+    File issueCSV;
 
     private static List<String> getRecordFromLine(String line) {
         List<String> values = new ArrayList<String>();
@@ -63,6 +69,7 @@ public class CSVDatabase {
         customerCSV = new File(dataPath + "customers.csv");
         bundleCSV = new File(dataPath + "bundles.csv");
         reservationCSV = new File(dataPath + "reservation.csv");
+        issueCSV = new File(dataPath + "issues.csv");
     }
 
     @PostConstruct
@@ -73,6 +80,9 @@ public class CSVDatabase {
         // set up logging
         Log log = LogFactory.getLog(TeamRoadmapApplication.class);
 
+        // offsets
+        long sellerOffset;
+        long customerOffset;
 
         // load sellers
         log.info("Loading Sellers");
@@ -81,8 +91,22 @@ public class CSVDatabase {
         boolean newSellerFile = sellerCSV.createNewFile();
         if (newSellerFile) { // if file new then we read from static
             scanner = new Scanner(new InputStreamReader(new ClassPathResource("static/csv/sellers.csv").getInputStream()));
+            sellerOffset = 1;
+            sellerRepository.save(new Seller(
+                    "Admin",
+                    "NoLastName",
+                    "Admin",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "AdminPassword",
+                    true
+            ));
         } else { // otherwise read that file
             scanner = new Scanner(sellerCSV);
+            sellerOffset = 0;
         }
 
         while (scanner.hasNextLine()) {
@@ -109,8 +133,24 @@ public class CSVDatabase {
         boolean newCustomerFile = customerCSV.createNewFile();
         if (newCustomerFile) {
             scanner = new Scanner(new InputStreamReader(new ClassPathResource("static/csv/customers.csv").getInputStream()));
+            customerOffset = 1;
+            customerRepository.save(new Customer(
+                    "Admin",
+                    "NoLastName",
+                    "Admin",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "AdminPassword",
+                    0,
+                    new ArrayList<Boolean>(), // TODO: Fill this
+                    true
+            ));
         }else{
             scanner = new Scanner(customerCSV);
+            customerOffset = 0;
         }
 
         while (scanner.hasNextLine()) {
@@ -161,7 +201,7 @@ public class CSVDatabase {
             ArrayList<String> allergens = new ArrayList<>(Arrays.asList(sanitised_allergens.split(",")));
 
             // get relational components
-            Seller seller = sellerRepository.findById(Integer.parseInt(bundle_info.get(0))).get();
+            Seller seller = sellerRepository.findByID(Integer.parseInt(bundle_info.get(0)) + sellerOffset).get();
 
             // add to repo
             bundleRepository.save(new Bundle(
@@ -194,8 +234,8 @@ public class CSVDatabase {
 
             // get relational components
             Bundle bundle = bundleRepository.findById(Integer.parseInt(reservation_info.get(0))).get();
-            Customer customer = customerRepository.findById(Integer.parseInt(reservation_info.get(1))).get();
-            Seller seller = sellerRepository.findById(Integer.parseInt(reservation_info.get(2))).get();
+            Customer customer = customerRepository.findByID(Integer.parseInt(reservation_info.get(1)) + customerOffset).get();
+            Seller seller = sellerRepository.findByID(Integer.parseInt(reservation_info.get(2)) + sellerOffset).get();
 
             // add to repo
             reservationRepository.save(new Reservation(
@@ -211,6 +251,41 @@ public class CSVDatabase {
 
         log.info("Reservations Loaded");
 
+        // load issue reports
+        log.info("Loading Issue Reports");
+
+        if(issueCSV.createNewFile()) {
+            scanner = new Scanner(new InputStreamReader(new ClassPathResource("static/csv/issues.csv").getInputStream()));
+        }else{
+            scanner = new Scanner(issueCSV);
+        }
+        while (scanner.hasNextLine()) {
+            List<String> issue_info = getRecordFromLine(scanner.nextLine());
+
+            // get relational components
+            Bundle bundle = bundleRepository.findById(Integer.parseInt(issue_info.get(0))).get();
+            Customer customer = customerRepository.findByID(Integer.parseInt(issue_info.get(1)) + customerOffset).get();
+
+            // add to repo
+            issueReportRepository.save(new IssueReport(
+                    bundle,
+                    customer,
+                    issue_info.get(1),
+                    issue_info.get(2),
+                    Boolean.parseBoolean((issue_info.get(3))),
+                    issue_info.get(4)
+            ));
+        }
+
+        log.info("Issue Reports Loaded");
+
+
+        adminRepository.save(new Admin(
+                "Admin",
+                new BCryptPasswordEncoder().encode("AdminPassword"),
+                sellerRepository.findByID(1).get(),
+                customerRepository.findByID(1).get()
+        ));
     }
 
 
@@ -220,11 +295,11 @@ public class CSVDatabase {
         Log log = LogFactory.getLog(TeamRoadmapApplication.class);
 
         // get all file writers
-        System.out.println("Testing Testing 123");
         PrintWriter seller_writer = new PrintWriter(new FileOutputStream(sellerCSV));
         PrintWriter customer_writer = new PrintWriter(new FileOutputStream(customerCSV));
         PrintWriter bundle_writer = new PrintWriter(new FileOutputStream(bundleCSV));
         PrintWriter reservation_writer = new PrintWriter(new FileOutputStream(reservationCSV));
+        PrintWriter issue_writer = new PrintWriter(new FileOutputStream(issueCSV));
 
         // write all sellers
         log.info("writing sellers");
@@ -249,7 +324,6 @@ public class CSVDatabase {
         // write all customers
         log.info("writing customers");
         for (Customer customer : customerRepository.findAll()) {
-            System.out.println("Pain");
             customer_writer.printf(
                     "%s&%s&%s&%s&%s&%s&%s&%s&%s&%d&%s\n",
                     customer.getfName(),
@@ -273,9 +347,8 @@ public class CSVDatabase {
         // write all bundles
         log.info("writing bundles");
         for (Bundle bundle : bundleRepository.findAll()) {
-            System.out.println("Beans");
             bundle_writer.printf(
-                    "%d&%s&%s&%s&%s&%f&%d&%d&%b&%b%s\n",
+                    "%d&%s&%s&%s&%s&%f&%d&%d&%b&%b&%s\n",
                     bundle.getSeller().getSellerID(),
                     bundle.getCategory(),
                     bundle.getContents().toString(),
@@ -296,9 +369,8 @@ public class CSVDatabase {
         // write all reservations
         log.info("writing reservations");
         for (Reservation reservation : reservationRepository.findAll()) {
-            System.out.println("Wine");
             reservation_writer.printf(
-                    "%d&%d&%d&%s&%s&%b&%b&\n",
+                    "%d&%d&%d&%s&%s&%b&%b\n",
                     reservation.getBundle().getPostingID(),
                     reservation.getCustomer().getCustomerID(),
                     reservation.getSeller().getSellerID(),
@@ -306,11 +378,27 @@ public class CSVDatabase {
                     reservation.getClaimCode(),
                     reservation.getNoShow(),
                     reservation.getCollected()
-//                    reservation.getWeatherFlag()
             );
         }
         reservation_writer.close();
         log.info("reservations written");
+
+        // write all reservations
+        log.info("writing issue reports");
+        for (IssueReport issue : issueReportRepository.findAll()) {
+            issue_writer.printf(
+                    "%d&%d&%s&%s&%b&%s\n",
+                    issue.getBundle().getPostingID(),
+                    issue.getCustomer().getCustomerID(),
+                    issue.getType(),
+                    issue.getDescription(),
+                    issue.getResolved(),
+                    issue.getSellerResponse()
+            );
+        }
+        issue_writer.close();
+        log.info("issue reports written");
+
 
 
         log.info("finished writing database to csv files");
