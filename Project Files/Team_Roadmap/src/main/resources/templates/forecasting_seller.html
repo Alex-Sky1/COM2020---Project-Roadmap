@@ -14,18 +14,46 @@
         <img th:src="@{images/roadmap_logo.png}" src="/static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-logo">
     </div>
 </div>
-<div class="box1-parent">
-    <div class="box1" style="width: 38%">
-        <h2>Forecasting</h2>
-        <p>Baseline MAE set for checking current data and for Category1</p>
-        <p th:text="${mae}"></p>
-    </div>
-    <div class="box1" style="width: 38%">
-        <h2>Explanation</h2>
-    </div>
+<div>
+    <button type="button" class="button1" id="forecast_button" onclick="change_forecast()" style="width: 20%; padding: 2%; margin: 1% 2%; border: 10px solid cornflowerblue">Forecast</button>
+    <button type="button" class="button1" id="recommendation_button" onclick="change_recommendation()" style="width: 20%; padding: 2%; margin: 1% 2%">Recommendation</button>
 </div>
+<div class="box1" style="width: 90vw">
+    <h2 id="title">Today's Bundle Postings</h2>
+    <table class="bundle-table" id="forecast_table" th:if="${not#lists.isEmpty(bundles)}" style="display: block">
+        <thead>
+        <tr>
+            <th>Category</th>
+            <th>Contents</th>
+            <th>Allergens</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Pickup Window</th>
+            <th>Weather Flag</th>
+            <th>Probability No Show</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bundle, iterStat : ${bundles}">
+            <td th:text="${bundle.category}">Ex Category</td>
+            <td th:text="${bundle.getContentsAsString()}" style="overflow: auto; max-width: 100px">Ex contents</td>
+            <td th:text="${bundle.getAllergensAsString()}" style="overflow: auto; max-width: 100px">Ex allergens</td>
+            <td th:text="${bundle.price}" style="overflow: auto; max-width: 100px">Ex Price</td>
+            <td th:text="${bundle.discount}" style="overflow: auto; max-width: 100px">Ex Discount</td>
+            <td th:text="${bundle.getPickUpWindowAsString()}" style="overflow: auto; max-width: 100px">Ex Pickup Window</td>
+            <td th:text="${bundle.weatherFlag}" style="overflow: auto; max-width: 100px">Ex Weather Flag</td>
+            <td th:text="${probNoShow[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex ProbNoShow</td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:text="${Confidence}" id="confidence_text" style="display: block">Confidence</p>
+    <p th:text="${Rationale}" id="rationale_text" style="display: block">Rationale</p>
+    <p th:text="${Recommendation}" id="recommendation_text" style="display: none">Recommendation</p>
+</div>
+
 <form th:action="@{/dashboard_seller}">
     <button class="button1" style="width:220px; margin: 5px 20px">Return to Dashboard</button>
 </form>
 </body>
+<script type="text/javascript" th:src="@{/js/switch_forecast.js}"></script>
 </html>

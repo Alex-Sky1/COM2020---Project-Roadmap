@@ -1,6 +1,7 @@
 package com.waste_manager.team_roadmap;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.cglib.core.Local;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -405,10 +406,24 @@ public class SellerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Seller s = getSellerProfile(auth);
 
-        Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), "rain", "Category1", new ArrayList<>(br.findAll()), new ArrayList<>(rr.findAll()));
-        float mae = forecast.MAE();
-        model.addAttribute("mae", mae);
+        List<Bundle> allBundles = br.findBySellerID(s.getSellerID());
+        List<Reservation>  allReservations = rr.findBySellerID(s.getSellerID());
+        ArrayList<Bundle> bundles = new ArrayList<>();
+        ArrayList<Double> probNoShow = new ArrayList<>();
 
+        for( Bundle bundle : allBundles ) {
+            if(bundle.getTimeStamp().getDayOfYear() == LocalDate.now().getDayOfYear() && bundle.getTimeStamp().getYear() == LocalDate.now().getYear()) {
+                Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), bundle.getWeatherFlag(), bundle.getCategory(), new ArrayList<>(allBundles), new ArrayList<>(allReservations));
+                bundles.add(bundle);
+                probNoShow.add(forecast.prediction(bundle, "noshow"));
+            }
+        }
+
+        model.addAttribute("bundles", bundles);
+        model.addAttribute("probNoShow", probNoShow.toArray());
+        model.addAttribute("Confidence", "Confidence: Some Confidence");
+        model.addAttribute("Rationale", "Rationale: Some Rationale");
+        model.addAttribute("Recommendation", "Some Recommendation");
         return "forecasting_seller";
     }
 
