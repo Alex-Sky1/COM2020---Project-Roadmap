@@ -11,7 +11,7 @@ public interface AdminRepository extends Repository<Admin, Long> {
     @Query("select a from Admin a where a.id = 1")
     Admin getAdmin();
 
-    Optional<Admin> findByDName(String dName);
+    Optional<Admin> findBydName(String dName);
 
     // TODO: Getters and setters
 

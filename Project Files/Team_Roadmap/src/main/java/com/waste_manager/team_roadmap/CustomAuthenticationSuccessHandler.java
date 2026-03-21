@@ -14,7 +14,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, Authentication authentication) throws IOException {
 
         // If role is seller send to seller dashboard, otherwise send to consumer dashboard
-        if(authentication.getAuthorities().iterator().next().getAuthority().equals("ROLE_SELLER")) {
+        if(authentication.getAuthorities().iterator().next().getAuthority().equals("ROLE_ADMIN")){
+            response.sendRedirect("/dashboard_admin");
+        }
+        else if(authentication.getAuthorities().iterator().next().getAuthority().equals("ROLE_SELLER")) {
             response.sendRedirect("/dashboard_seller");
         } else {
             response.sendRedirect("/dashboard_consumer");

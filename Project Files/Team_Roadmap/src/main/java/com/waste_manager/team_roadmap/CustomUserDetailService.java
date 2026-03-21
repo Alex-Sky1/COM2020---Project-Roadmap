@@ -21,19 +21,19 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Admin> aOptional = adminRepository.findByDName(username);
+        Optional<Admin> aOptional = adminRepository.findBydName(username);
         if(aOptional.isPresent()){
             Admin a = aOptional.get();
             return User.withUsername(username).password(a.getPassword()).roles("ADMIN").build();
         }
         //if user is found in customer DB assign role customer and build user
-        List<Customer> cList = customerRepository.findByDName(username);
+        List<Customer> cList = customerRepository.findBydName(username);
         if(!cList.isEmpty()){
             Customer c = cList.get(0);
             return User.withUsername(c.getdName()).password(c.getPassword()).authorities("ROLE_CUSTOMER").build();
         }
         //if user is found in seller DB assign role Seller and build user
-        List<Seller> sList = sellerRepository.findByDName(username);
+        List<Seller> sList = sellerRepository.findBydName(username);
         if(!sList.isEmpty()){
             Seller s = sList.get(0);
             return User.withUsername(s.getdName()).password(s.getPassword()).authorities("ROLE_SELLER").build();
