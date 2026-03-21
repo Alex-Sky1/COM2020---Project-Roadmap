@@ -307,19 +307,19 @@ public class CustomerController {
         //other: 2kg
         double co2_saved = 0;
         for (Reservation collectedReservation : collectedReservations) {
-            if (collectedReservation.getBundle().getCategory().equals("meats")) {
+            if (collectedReservation.getBundle().getCategory().equals("Fish & Meat")) {
                 co2_saved += (4.2 * 1.5);
-            } else if (collectedReservation.getBundle().getCategory().equals("bakery")) {
+            } else if (collectedReservation.getBundle().getCategory().equals("Bakery")) {
                 co2_saved += (4.2 * 0.8);
-            } else if (collectedReservation.getBundle().getCategory().equals("snacks")) {
+            } else if (collectedReservation.getBundle().getCategory().equals("Snacks")) {
                 co2_saved += (4.2 * 0.6);
-            } else if (collectedReservation.getBundle().getCategory().equals("dairy")) {
+            } else if (collectedReservation.getBundle().getCategory().equals("Dairy")) {
                 co2_saved += (4.2 * 1);
-            } else if (collectedReservation.getBundle().getCategory().equals("plants")) {
+            } else if (collectedReservation.getBundle().getCategory().equals("Fruit, Vegetables & Legumes")) {
                 co2_saved += (4.2 * 0.5);
-            } else if (collectedReservation.getBundle().getCategory().equals("groceries")) {
+            } else if (collectedReservation.getBundle().getCategory().equals("Groceries")) {
                 co2_saved += (4.2 * 1.2);
-            } else {
+            } else if (collectedReservation.getBundle().getCategory().equals("Other")){
                 co2_saved += (4.2 * 2);
             }
         }

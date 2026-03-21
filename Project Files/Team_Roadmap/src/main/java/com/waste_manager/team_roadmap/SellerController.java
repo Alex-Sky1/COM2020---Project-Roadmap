@@ -466,19 +466,19 @@ public class SellerController {
         double waste_proxy = 0;
         for(Reservation reservation : sellerReservations) {
             if(reservation.getCollected()){
-                if(reservation.getBundle().getCategory().equals("meats")) {
+                if(reservation.getBundle().getCategory().equals("Fish & Meat")) {
                     waste_proxy += (4.2 * 1.5);
-                } else if (reservation.getBundle().getCategory().equals("bakery")) {
+                } else if (reservation.getBundle().getCategory().equals("Bakery")) {
                     waste_proxy += (4.2 * 0.8);
-                } else if (reservation.getBundle().getCategory().equals("snacks")) {
+                } else if (reservation.getBundle().getCategory().equals("Snacks")) {
                     waste_proxy += (4.2 * 0.6);
-                } else if (reservation.getBundle().getCategory().equals("dairy")) {
+                } else if (reservation.getBundle().getCategory().equals("Dairy")) {
                     waste_proxy += (4.2 * 1);
-                } else if (reservation.getBundle().getCategory().equals("plants")) {
+                } else if (reservation.getBundle().getCategory().equals("Fruit, Vegetables & Legumes")) {
                     waste_proxy += (4.2 * 0.5);
-                } else if (reservation.getBundle().getCategory().equals("groceries")) {
+                } else if (reservation.getBundle().getCategory().equals("Groceries")) {
                     waste_proxy += (4.2 * 1.2);
-                } else {
+                } else if (reservation.getBundle().getCategory().equals("Other")) {
                     waste_proxy += (4.2 * 2);
                 }
             }
