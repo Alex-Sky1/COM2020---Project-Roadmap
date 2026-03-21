@@ -17,8 +17,8 @@ import weka.filters.supervised.attribute.NominalToBinary;
 public class Forecast {
 
 
-    private LinearRegression model;
-    private LinearRegression model2;
+    private static LinearRegression model;
+    private static LinearRegression model2;
     private Instances table;
     private Instances table2;
 
@@ -124,7 +124,6 @@ public class Forecast {
     //https://weka.sourceforge.io/doc.dev/
     //https://gist.github.com/knbknb/c7f75d8eaa5b50a7b6786ca5f0fedbfb
     public double prediction(Bundle bun,String type) throws Exception {
-        onStartUp();
 
 
         if (type == "reservations") {
@@ -154,10 +153,8 @@ public class Forecast {
 
         double hold = 0.0;
         for (int i =0; i < dat.length;i++){
-            hold += dat[i] * coef[i];
+            hold += (dat[i] * coef[i]);
             System.out.println(hold);
-            System.out.println(dat[i]);
-            System.out.println(coef[i]);
         }
 
 
@@ -361,6 +358,7 @@ public class Forecast {
 
         for(ArrayList<Double> row : hold){
 
+
             double[] newRow = new double[data.numAttributes()];
 
             newRow[0] = row.get(1);
@@ -428,10 +426,11 @@ public class Forecast {
                         break;
                     }
                 }
+
                 grouped.add(make);
             }
             if (count == 7) {
-                grouped.get(hold).set(7, grouped.get(hold).get(7) + 1);
+                grouped.get(hold).set(8, grouped.get(hold).get(8) + 1);
 
             }
 
@@ -463,6 +462,7 @@ public class Forecast {
                     reservations_noShow[1] = reservations_noShow[1] +1.0;
                 }
             }
+            hold++;
         }
         return reservations_noShow;
 
@@ -471,18 +471,21 @@ public class Forecast {
 
 public void trainModel(String type) throws Exception {
 
+        if (model == null) {
             if (type == "reservations") {
                 Instances data = build_data("reservations");
                 System.out.println("Number of instances: " + data.numInstances());
                 model = new LinearRegression();
                 model.buildClassifier(data);
             }
+        }
+        if (model2 == null) {
             if (type == "noshow") {
                 Instances data = build_data("noshow");
                 model2 = new LinearRegression();
                 model2.buildClassifier(data);
 
-
+            }
         }
 }
 
