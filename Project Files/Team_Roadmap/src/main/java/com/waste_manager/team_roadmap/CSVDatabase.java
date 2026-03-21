@@ -7,6 +7,7 @@ import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -35,6 +36,8 @@ public class CSVDatabase {
     ReservationRepository reservationRepository;
     @Autowired
     IssueReportRepository issueReportRepository;
+    @Autowired
+    AdminRepository adminRepository;
 
     File sellerCSV;
     File customerCSV;
@@ -77,6 +80,9 @@ public class CSVDatabase {
         // set up logging
         Log log = LogFactory.getLog(TeamRoadmapApplication.class);
 
+        // offsets
+        long sellerOffset;
+        long customerOffset;
 
         // load sellers
         log.info("Loading Sellers");
@@ -85,8 +91,22 @@ public class CSVDatabase {
         boolean newSellerFile = sellerCSV.createNewFile();
         if (newSellerFile) { // if file new then we read from static
             scanner = new Scanner(new InputStreamReader(new ClassPathResource("static/csv/sellers.csv").getInputStream()));
+            sellerOffset = 1;
+            sellerRepository.save(new Seller(
+                    "Admin",
+                    "NoLastName",
+                    "Admin",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "AdminPassword",
+                    true
+            ));
         } else { // otherwise read that file
             scanner = new Scanner(sellerCSV);
+            sellerOffset = 0;
         }
 
         while (scanner.hasNextLine()) {
@@ -113,8 +133,24 @@ public class CSVDatabase {
         boolean newCustomerFile = customerCSV.createNewFile();
         if (newCustomerFile) {
             scanner = new Scanner(new InputStreamReader(new ClassPathResource("static/csv/customers.csv").getInputStream()));
+            customerOffset = 1;
+            customerRepository.save(new Customer(
+                    "Admin",
+                    "NoLastName",
+                    "Admin",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "AdminPassword",
+                    0,
+                    new ArrayList<Boolean>(), // TODO: Fill this
+                    true
+            ));
         }else{
             scanner = new Scanner(customerCSV);
+            customerOffset = 0;
         }
 
         while (scanner.hasNextLine()) {
@@ -165,7 +201,7 @@ public class CSVDatabase {
             ArrayList<String> allergens = new ArrayList<>(Arrays.asList(sanitised_allergens.split(",")));
 
             // get relational components
-            Seller seller = sellerRepository.findByID(Integer.parseInt(bundle_info.get(0))).get();
+            Seller seller = sellerRepository.findByID(Integer.parseInt(bundle_info.get(0)) + sellerOffset).get();
 
             // add to repo
             bundleRepository.save(new Bundle(
@@ -198,8 +234,8 @@ public class CSVDatabase {
 
             // get relational components
             Bundle bundle = bundleRepository.findById(Integer.parseInt(reservation_info.get(0))).get();
-            Customer customer = customerRepository.findByID(Integer.parseInt(reservation_info.get(1))).get();
-            Seller seller = sellerRepository.findByID(Integer.parseInt(reservation_info.get(2))).get();
+            Customer customer = customerRepository.findByID(Integer.parseInt(reservation_info.get(1)) + customerOffset).get();
+            Seller seller = sellerRepository.findByID(Integer.parseInt(reservation_info.get(2)) + sellerOffset).get();
 
             // add to repo
             reservationRepository.save(new Reservation(
@@ -228,7 +264,7 @@ public class CSVDatabase {
 
             // get relational components
             Bundle bundle = bundleRepository.findById(Integer.parseInt(issue_info.get(0))).get();
-            Customer customer = customerRepository.findByID(Integer.parseInt(issue_info.get(1))).get();
+            Customer customer = customerRepository.findByID(Integer.parseInt(issue_info.get(1)) + customerOffset).get();
 
             // add to repo
             issueReportRepository.save(new IssueReport(
@@ -243,6 +279,13 @@ public class CSVDatabase {
 
         log.info("Issue Reports Loaded");
 
+
+        adminRepository.save(new Admin(
+                "Admin",
+                new BCryptPasswordEncoder().encode("AdminPassword"),
+                sellerRepository.findByID(1).get(),
+                customerRepository.findByID(1).get()
+        ));
     }
 
 
