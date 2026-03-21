@@ -59,8 +59,22 @@ def random_date_time_and_weather():
 
 
 def get_reservation_time(bundle_post_time, bundle_pickup_window):
-    pass
+    date = bundle_post_time.split("T")
+    parts = date[0].split("-")
 
+
+    hour = bundle_pickup_window
+    minute = r.randint(0, 59)
+    second = r.randint(0, 59)
+
+    return format_date_time(datetime(
+        int(parts[0]),
+        int(parts[1]),
+        int(parts[2]),
+        hour,
+        minute,
+        second
+    ))
 
 if __name__ == "__main__":
     print(YEARS)

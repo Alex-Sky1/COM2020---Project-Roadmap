@@ -21,7 +21,7 @@ def random_phone_number():
 ## requirements
 ## one lower, one upper, one special, one digit, min 8
 def check_password(password):
-    if (len(password) >= 8) and (any(c.islower() for c in password)) and (any(c.isupper() for c in password)) and (any(c.isdigit() for c in password)) and (any(not c.isalnum() for c in password)):
+    if ("&" not in password) and (len(password) >= 8) and (any(c.islower() for c in password)) and (any(c.isupper() for c in password)) and (any(c.isdigit() for c in password)) and (any(not c.isalnum() for c in password)):
         return True
     return False
 

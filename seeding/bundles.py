@@ -70,17 +70,17 @@ def seed_bundles(sellers, count_per_seller):
 
            
             info.append([
-                seller_id + 1,
-                cat,
-                foods,
-                allergens,
-                date_time,
-                price,
-                round(max(price / 2, r.randint(5, 20))), #discount
-                pickup_window,
-                False, # reserverd
-                False, # expired
-                weather
+                seller_id + 1, ## 0
+                cat, ## 1
+                foods, ## 2
+                allergens, ## 3
+                date_time, ## 4
+                price, ## 5
+                round(max(price / 2, r.randint(5, 20))), #discount ## 6
+                pickup_window, ## 7
+                False, # reserverd ## 8
+                True, # expired ## 9
+                weather ## 10
             ])
 
             print(f"Seeded Bundle {x+1}")
