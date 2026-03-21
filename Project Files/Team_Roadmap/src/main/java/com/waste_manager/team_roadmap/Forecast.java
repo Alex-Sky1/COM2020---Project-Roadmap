@@ -127,19 +127,19 @@ public class Forecast {
 
 
         if (type == "reservations") {
-            return workAround(bun, table, model);
+            return workAround(bun, model);
 
         }
         else if (type == "noshow"){
-            double hold = workAround(bun, table, model);
-            return workAround(bun, table2, model2)/hold;
+            double hold = workAround(bun, model);
+            return workAround(bun, model2)/hold;
         }
 
         return 0;
     }
 
-    private double workAround(Bundle bun, Instances table, LinearRegression model) {
-        double[] dat = new double[table.numAttributes()];
+    private double workAround(Bundle bun, LinearRegression model) {
+        double[] dat = new double[8];
         dat[0] = bun.getTimeStamp().getDayOfWeek().getValue();
         dat[1] = bun.getPickUpWindow();
         dat[2] = bun.getSeller().getSellerID();
