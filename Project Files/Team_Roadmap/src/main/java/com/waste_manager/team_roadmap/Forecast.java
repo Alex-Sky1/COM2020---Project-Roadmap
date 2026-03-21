@@ -43,7 +43,10 @@ public class Forecast {
         this.reservationList = thisReservationList;
     }
 
-
+    public Forecast(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
+        this.bundleList = thisBundleList;
+        this.reservationList = thisReservationList;
+    }
 
     // Return bundles that are from a specific seller
     public ArrayList<Bundle> bundleFromSelectSeller() {
@@ -309,7 +312,7 @@ public class Forecast {
 
     public double[][] data() {
         int rows = bundleList.size();
-        int cols = 7;
+        int cols = 8;
 
         double[][] bundleArray = new double[rows][cols];
 
