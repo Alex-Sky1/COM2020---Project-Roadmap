@@ -10,7 +10,7 @@ MONTHS = {
     2025: list(range(1, 13)),
     2026: list(range(1, 3))
 }
-DAYS = dict.fromkeys(list(range(1, 12)), 31)
+DAYS = dict.fromkeys(list(range(1, 13)), 31)
 DAYS.update(dict.fromkeys([9, 4, 6, 11], 30))
 DAYS[2] = 28
 
@@ -33,27 +33,33 @@ def format_date_time(date_time):
     return str(date_time).replace(" ", "T")
 
 
-def date_time_to_index(date_time: datetime):
+def date_time_to_index(date_time: datetime, pickup_window: int):
     year_index = date_time.year - START_DATE[0]
     month_index = date_time.month - 1
     day_index = date_time.day - 1
-    hour_index = int(date_time.hour) // 8
     ## this is not "good" or "fully fills every number" but it will be unique per block
-    return hour_index + (day_index + (month_index + (year_index) * 12) * 31) * 3
+    return pickup_window + (day_index + (month_index + (year_index) * 12) * 31) * 23
 
 WEATHERS = ["Sunny", "Cloudy", "Rainy"]
-## who cares only one weather every 8 hours
-## TODO: PICKUP TIME FOR WEATHER NOT POSTING TIME
+
+PICKUP_MIN = 0
+PICKUP_MAX = 23
+
+
 DATE_TIME_WEATHERS = {}
 
 def random_date_time_and_weather():
     time = random_date_time()
-    time_index = date_time_to_index(time)
+    pickup_window = r.randint(PICKUP_MIN, PICKUP_MAX)
+    time_index = date_time_to_index(time, pickup_window)
 
     if time_index not in DATE_TIME_WEATHERS:
         DATE_TIME_WEATHERS[time_index] = r.choice(WEATHERS)
-    return format_date_time(time), DATE_TIME_WEATHERS[time_index]
+    return format_date_time(time), DATE_TIME_WEATHERS[time_index], pickup_window
 
+
+def get_reservation_time(bundle_post_time, bundle_pickup_window):
+    pass
 
 
 if __name__ == "__main__":

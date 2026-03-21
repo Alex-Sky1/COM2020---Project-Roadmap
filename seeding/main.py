@@ -31,16 +31,18 @@ def main():
     print("---------------------Seeded Sellers----------------------\n\n")
 
     print("---------------------Seeding Customers-------------------")
-    customer_info = customers.seed_customers(50)
+    customer_info = customers.seed_customers(10)
     # customers.print_customer_info(customer_info)
     print("---------------------Seeded Customers--------------------\n\n")
 
     print("---------------------Seeding Bundles---------------------")
-    bundle_info = bundles.seed_bundles(seller_info, 10)
+    bundle_info = bundles.seed_bundles(seller_info, 25)
+    # bundles.print_bundle_info(bundle_info)
     print("---------------------Seeded Bundles----------------------\n\n")
 
     print("---------------------Seeding Reservations----------------")
     reservation_info = reservations.seed_reservations(customer_info, bundle_info, 25)
+    reservations.print_reservation_info(reservation_info)
     print("---------------------Seeded Reservations-----------------\n\n")
 
     # write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/sellers.csv", seller_info)
