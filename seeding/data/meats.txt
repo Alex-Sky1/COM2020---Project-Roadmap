@@ -1,0 +1,27 @@
+Beef
+Mutton
+Lamb
+Chicken
+Turkey
+Duck
+Goose
+Quail
+Pigeon
+Rabbit
+Fish
+Prawns
+Shrimp
+Crab
+Lobster
+Squid
+Octopus
+Venison
+Wild Boar
+Frog Legs
+Liver
+Kidney
+Heart
+Brain
+Tongue
+Tripe
+Intestines
