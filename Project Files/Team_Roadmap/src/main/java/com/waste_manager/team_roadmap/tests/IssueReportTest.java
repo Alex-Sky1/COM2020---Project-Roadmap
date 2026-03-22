@@ -1,13 +1,17 @@
-package com.waste_manager.team_roadmap_tests;
+package com.waste_manager.team_roadmap.tests;
 
+import com.waste_manager.team_roadmap.Bundle;
+import com.waste_manager.team_roadmap.Customer;
+import com.waste_manager.team_roadmap.IssueReport;
+import com.waste_manager.team_roadmap.Seller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import com.waste_manager.team_roadmap.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class IssueReportTest {
@@ -29,7 +33,7 @@ public class IssueReportTest {
                 "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)), true);
         testBundle = new Bundle(testSeller, "puddings", new ArrayList<>(List.of("Cake", "Brownie")),
                 new ArrayList<>(List.of("Cake", "Brownie")), testTime, 7.50f, 10, 12,
-                true, false);
+                true, false, "sunny");
 
         testIssueReport = new IssueReport(testBundle, testCustomer, "complaint", "Undelivered Food",
                                         false, "");
@@ -52,7 +56,7 @@ public class IssueReportTest {
     public void testSetBundle() {
         Bundle newTestBundle = new Bundle(testSeller, "puddings", new ArrayList<>(List.of("Cake", "Brownie")),
                 new ArrayList<>(List.of("Cake", "Brownie", "chocolate")), testTime, 7.50f, 10, 12,
-                true, false);
+                true, false, "sunny");
         testIssueReport.setBundle(newTestBundle);
         assertEquals(newTestBundle, testIssueReport.getBundle());
     }
