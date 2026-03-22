@@ -68,22 +68,22 @@ def seed_bundles(sellers, count_per_seller):
             ## time and weather
             [date_time, weather, pickup_window] = random_date_time_and_weather()
 
-           
-            info.append([
-                seller_id + 1, ## 0
-                cat, ## 1
-                foods, ## 2
-                allergens, ## 3
-                date_time, ## 4
-                price, ## 5
-                round(max(price / 2, r.randint(5, 20))), #discount ## 6
-                pickup_window, ## 7
-                False, # reserverd ## 8
-                True, # expired ## 9
-                weather ## 10
-            ])
+            for j in range(r.randint(2, 20)):
+                info.append([
+                    seller_id + 1, ## 0
+                    cat, ## 1
+                    foods, ## 2
+                    allergens, ## 3
+                    date_time, ## 4
+                    price, ## 5
+                    round(max(price / 2, r.randint(5, 20))), #discount ## 6
+                    pickup_window, ## 7
+                    False, # reserverd ## 8
+                    True, # expired ## 9
+                    weather ## 10
+                ])
 
-            print(f"Seeded Bundle {x+1}")
+                print(f"Seeded Bundle {x+1} copy {j-1}")
 
     r.shuffle(info)
 
