@@ -486,10 +486,287 @@ public class SellerController {
         model.addAttribute("wasteProxy", waste_proxy);
 
         //calculate pricing effectiveness
-        model.addAttribute("pricingEffectiveness", "-");
+        List<Reservation> sellerReservations = rr.findBySellerID(s.getSellerID());
+        List<Bundle> allBundles = br.findBySellerID(s.getSellerID());
+        int up_to_100_no_show = 0;
+        int up_to_100_collected = 0;
+        int up_to_100_expired = 0;
+        int up_to_90_no_show = 0;
+        int up_to_90_collected = 0;
+        int up_to_90_expired = 0;
+        int up_to_80_no_show = 0;
+        int up_to_80_collected = 0;
+        int up_to_80_expired = 0;
+        int up_to_70_no_show = 0;
+        int up_to_70_collected = 0;
+        int up_to_70_expired = 0;
+        int up_to_60_no_show = 0;
+        int up_to_60_collected = 0;
+        int up_to_60_expired = 0;
+        int up_to_50_no_show = 0;
+        int up_to_50_collected = 0;
+        int up_to_50_expired = 0;
+        int up_to_40_no_show = 0;
+        int up_to_40_collected = 0;
+        int up_to_40_expired = 0;
+        int up_to_30_no_show = 0;
+        int up_to_30_collected = 0;
+        int up_to_30_expired = 0;
+        int up_to_20_no_show = 0;
+        int up_to_20_collected = 0;
+        int up_to_20_expired = 0;
+        int up_to_10_no_show = 0;
+        int up_to_10_collected = 0;
+        int up_to_10_expired = 0;
+
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0.9) {
+                if(reservation.getNoShow()){
+                    up_to_100_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_100_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_100_no_show++;
+                    }
+                }
+            } else if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0.8) {
+                if(reservation.getNoShow()){
+                    up_to_90_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_90_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_90_no_show++;
+                    }
+                }
+            } else if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0.7) {
+                if(reservation.getNoShow()){
+                    up_to_80_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_80_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_80_no_show++;
+                    }
+                }
+            } else if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0.6) {
+                if(reservation.getNoShow()){
+                    up_to_70_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_70_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_70_no_show++;
+                    }
+                }
+            } else if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0.5) {
+                if(reservation.getNoShow()){
+                    up_to_60_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_60_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_60_no_show++;
+                    }
+                }
+            } else if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0.4) {
+                if(reservation.getNoShow()){
+                    up_to_50_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_50_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_50_no_show++;
+                    }
+                }
+            } else if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0.3) {
+                if(reservation.getNoShow()){
+                    up_to_40_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_40_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_40_no_show++;
+                    }
+                }
+            } else if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0.2) {
+                if(reservation.getNoShow()){
+                    up_to_30_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_30_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_30_no_show++;
+                    }
+                }
+            } else if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0.1) {
+                if(reservation.getNoShow()){
+                    up_to_20_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_20_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_20_no_show++;
+                    }
+                }
+            } else if(reservation.getBundle().getDiscount() >= reservation.getBundle().getPrice() * 0) {
+                if(reservation.getNoShow()){
+                    up_to_10_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_10_collected++;
+                } else{
+                    if(reservation.getBundle().getPickUpWindow() < LocalTime.now().getHour() || reservation.getBundle().getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
+                        rr.setReservationNoShow(true, reservation.getReservationID());
+                        reservation.setNoShow(true);
+                        up_to_10_no_show++;
+                    }
+                }
+            }
+        }
+        for(Bundle bundle : allBundles) {
+            if(bundle.getDiscount() >= bundle.getPrice() * 0.9) {
+                if(bundle.getExpired()){
+                    up_to_100_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_100_expired++;
+                }
+            } else if(bundle.getDiscount() >= bundle.getPrice() * 0.8) {
+                if(bundle.getExpired()){
+                    up_to_90_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_90_expired++;
+                }
+            } else if(bundle.getDiscount() >= bundle.getPrice() * 0.7) {
+                if(bundle.getExpired()){
+                    up_to_80_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_80_expired++;
+                }
+            } else if(bundle.getDiscount() >= bundle.getPrice() * 0.6) {
+                if(bundle.getExpired()){
+                    up_to_70_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_70_expired++;
+                }
+            } else if(bundle.getDiscount() >= bundle.getPrice() * 0.5) {
+                if(bundle.getExpired()){
+                    up_to_60_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_60_expired++;
+                }
+            } else if(bundle.getDiscount() >= bundle.getPrice() * 0.4) {
+                if(bundle.getExpired()){
+                    up_to_50_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_50_expired++;
+                }
+            } else if(bundle.getDiscount() >= bundle.getPrice() * 0.3) {
+                if(bundle.getExpired()){
+                    up_to_40_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_40_expired++;
+                }
+            } else if(bundle.getDiscount() >= bundle.getPrice() * 0.2) {
+                if(bundle.getExpired()){
+                    up_to_30_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_30_expired++;
+                }
+            } else if(bundle.getDiscount() >= bundle.getPrice() * 0.1) {
+                if(bundle.getExpired()){
+                    up_to_20_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_20_expired++;
+                }
+            } else if(bundle.getDiscount() >= bundle.getPrice() * 0) {
+                if(bundle.getExpired()){
+                    up_to_10_expired++;
+                } else if (!bundle.getReserved() && (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now()))) {
+                    br.setBundleExpired(bundle.getPostingID());
+                    bundle.setExpired(true);
+                    up_to_10_expired++;
+                }
+            }
+        }
+        
+        String up_to_10 = up_to_10_no_show + " : " + up_to_10_collected + " : " + up_to_10_expired;
+        String up_to_20 = up_to_20_no_show + " : " + up_to_20_collected + " : " + up_to_20_expired;
+        String up_to_30 = up_to_30_no_show + " : " + up_to_30_collected + " : " + up_to_30_expired;
+        String up_to_40 = up_to_40_no_show + " : " + up_to_40_collected + " : " + up_to_40_expired;
+        String up_to_50 = up_to_50_no_show + " : " + up_to_50_collected + " : " + up_to_50_expired;
+        String up_to_60 = up_to_60_no_show + " : " + up_to_60_collected + " : " + up_to_60_expired;
+        String up_to_70 = up_to_70_no_show + " : " + up_to_70_collected + " : " + up_to_70_expired;
+        String up_to_80 = up_to_80_no_show + " : " + up_to_80_collected + " : " + up_to_80_expired;
+        String up_to_90 = up_to_90_no_show + " : " + up_to_90_collected + " : " + up_to_90_expired;
+        String up_to_10 = up_to_100_no_show + " : " + up_to_100_collected + " : " + up_to_100_expired;
+        String[] pricingEffectivenessArray = {up_to_10, up_to_20, up_to_30, up_to_40, up_to_50, up_to_60, up_to_70, up_to_80, up_to_90, up_to_100};
+
+        model.addAttribute("pricingEffectiveness", pricingEffectivenessArray);
 
         //calculate operational insights
-        model.addAttribute("operationalInsights", "-");
+        List<Reservation> sellerReservations = rr.findBySellerID(s.getSellerID());
+        Map<String, Integer> lookup = new HashMap<String, Integer>();
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()) {
+                if(lookup.keySet().contains(reservation.getCategory())) {
+                    lookup.put(reservation.getCategory(), lookup.get(reservation.getCategory()) + 1);
+                } else{
+                    lookup.put(reservation.getCategory(), 1);
+                }
+            }
+        }
+        Map<Integer, Integer> window = new HashMap<Integer, Integer>();
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()) {
+                if(window.keySet().contains(reservation.getBundle().getPickUpWindow())) {
+                    window.put(reservation.getBundle().getPickUpWindow(), window.get(reservation.getBundle().getPickUpWindow()) + 1);
+                } else {
+                    window.put(reservation.getBundle().getPickUpWindow(), 1)
+                }
+            }
+        }
+        
+        Map<String, Integer> sorted_categories = sortByComparator(lookup, DESC);
+        Map<Integer, Integer> sorted_windows = sortByComparator(window, DESC);
+
+        model.addAttribute("operationalInsights", sorted_categories, sorted_windows);
 
         return "view_analytics_seller";
     }
