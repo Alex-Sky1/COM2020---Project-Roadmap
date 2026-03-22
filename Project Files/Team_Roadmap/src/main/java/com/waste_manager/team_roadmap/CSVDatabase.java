@@ -24,7 +24,7 @@ public class CSVDatabase {
 
     @Autowired
     private ResourceLoader resourceLoader;
-    private static final String DELIMITER = "&";
+    private static final String DELIMITER = "~";
 
     @Autowired
     SellerRepository sellerRepository;
@@ -305,7 +305,7 @@ public class CSVDatabase {
         log.info("writing sellers");
         for (Seller seller : sellerRepository.findAll()) {
             seller_writer.printf(
-                    "%s&%s&%s&%s&%s&%s&%s&%s&%s\n",
+                    "%s~%s~%s~%s~%s~%s~%s~%s~%s\n",
                     seller.getfName(),
                     seller.getsName(),
                     seller.getdName(),
@@ -325,7 +325,7 @@ public class CSVDatabase {
         log.info("writing customers");
         for (Customer customer : customerRepository.findAll()) {
             customer_writer.printf(
-                    "%s&%s&%s&%s&%s&%s&%s&%s&%s&%d&%s\n",
+                    "%s~%s~%s~%s~%s~%s~%s~%s~%s~%d~%s\n",
                     customer.getfName(),
                     customer.getsName(),
                     customer.getdName(),
@@ -348,7 +348,7 @@ public class CSVDatabase {
         log.info("writing bundles");
         for (Bundle bundle : bundleRepository.findAll()) {
             bundle_writer.printf(
-                    "%d&%s&%s&%s&%s&%f&%d&%d&%b&%b&%s\n",
+                    "%d~%s~%s~%s~%s~%f~%d~%d~%b~%b~%s\n",
                     bundle.getSeller().getSellerID(),
                     bundle.getCategory(),
                     bundle.getContents().toString(),
@@ -370,7 +370,7 @@ public class CSVDatabase {
         log.info("writing reservations");
         for (Reservation reservation : reservationRepository.findAll()) {
             reservation_writer.printf(
-                    "%d&%d&%d&%s&%s&%b&%b\n",
+                    "%d~%d~%d~%s~%s~%b~%b\n",
                     reservation.getBundle().getPostingID(),
                     reservation.getCustomer().getCustomerID(),
                     reservation.getSeller().getSellerID(),
@@ -387,7 +387,7 @@ public class CSVDatabase {
         log.info("writing issue reports");
         for (IssueReport issue : issueReportRepository.findAll()) {
             issue_writer.printf(
-                    "%d&%d&%s&%s&%b&%s\n",
+                    "%d~%d~%s~%s~%b~%s\n",
                     issue.getBundle().getPostingID(),
                     issue.getCustomer().getCustomerID(),
                     issue.getType(),

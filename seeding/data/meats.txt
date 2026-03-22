@@ -8,7 +8,10 @@ Goose
 Quail
 Pigeon
 Rabbit
-Fish
+Cod
+Salmon
+Tuna
+Hake
 Prawns
 Shrimp
 Crab
