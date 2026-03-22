@@ -758,15 +758,17 @@ public class SellerController {
                 if(window.keySet().contains(reservation.getBundle().getPickUpWindow())) {
                     window.put(reservation.getBundle().getPickUpWindow(), window.get(reservation.getBundle().getPickUpWindow()) + 1);
                 } else {
-                    window.put(reservation.getBundle().getPickUpWindow(), 1)
+                    window.put(reservation.getBundle().getPickUpWindow(), 1);
                 }
             }
         }
         
-        Map<String, Integer> sorted_categories = sortByComparator(lookup, DESC);
-        Map<Integer, Integer> sorted_windows = sortByComparator(window, DESC);
-
-        model.addAttribute("operationalInsights", sorted_categories, sorted_windows);
+        List<Map.Entry<String, Integer>> sortedCategories = new ArrayList<>(lookup.entrySet()); 
+        sortedCategories.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+        List<Map.Entry<Integer, Integer>> sortedWindow = new ArrayList<>(window.entrySet());
+        sortedWindow.sort((e1,e2) -> e2.getValue().compareTo(e1.getValue()));
+        
+        model.addAttribute("operationalInsights", sortedCategories, sortedWindows);
 
         return "view_analytics_seller";
     }
