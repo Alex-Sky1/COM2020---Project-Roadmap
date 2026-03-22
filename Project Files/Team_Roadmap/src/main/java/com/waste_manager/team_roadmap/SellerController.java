@@ -516,10 +516,193 @@ public class SellerController {
         model.addAttribute("wasteProxy", waste_proxy);
 
         //calculate pricing effectiveness
-        model.addAttribute("pricingEffectiveness", "-");
+
+        int up_to_100_no_show = 0;
+        int up_to_100_collected = 0;
+        int up_to_100_expired = 0;
+        int up_to_90_no_show = 0;
+        int up_to_90_collected = 0;
+        int up_to_90_expired = 0;
+        int up_to_80_no_show = 0;
+        int up_to_80_collected = 0;
+        int up_to_80_expired = 0;
+        int up_to_70_no_show = 0;
+        int up_to_70_collected = 0;
+        int up_to_70_expired = 0;
+        int up_to_60_no_show = 0;
+        int up_to_60_collected = 0;
+        int up_to_60_expired = 0;
+        int up_to_50_no_show = 0;
+        int up_to_50_collected = 0;
+        int up_to_50_expired = 0;
+        int up_to_40_no_show = 0;
+        int up_to_40_collected = 0;
+        int up_to_40_expired = 0;
+        int up_to_30_no_show = 0;
+        int up_to_30_collected = 0;
+        int up_to_30_expired = 0;
+        int up_to_20_no_show = 0;
+        int up_to_20_collected = 0;
+        int up_to_20_expired = 0;
+        int up_to_10_no_show = 0;
+        int up_to_10_collected = 0;
+        int up_to_10_expired = 0;
+
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getBundle().getDiscount() >= 90) {
+                if(reservation.getNoShow()){
+                    up_to_100_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_100_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 80) {
+                if(reservation.getNoShow()){
+                    up_to_90_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_90_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 70) {
+                if(reservation.getNoShow()){
+                    up_to_80_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_80_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 60) {
+                if(reservation.getNoShow()){
+                    up_to_70_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_70_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 50) {
+                if(reservation.getNoShow()){
+                    up_to_60_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_60_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 40) {
+                if(reservation.getNoShow()){
+                    up_to_50_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_50_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 30) {
+                if(reservation.getNoShow()){
+                    up_to_40_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_40_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 20) {
+                if(reservation.getNoShow()){
+                    up_to_30_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_30_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 10) {
+                if(reservation.getNoShow()){
+                    up_to_20_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_20_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 0) {
+                if(reservation.getNoShow()){
+                    up_to_10_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_10_collected++;
+                }
+            }
+        }
+        for(Bundle bundle : allBundles) {
+            if(bundle.getDiscount() >=  90) {
+                if(bundle.getExpired()){
+                    up_to_100_expired++;
+                }
+            } else if(bundle.getDiscount() >= 80) {
+                if(bundle.getExpired()){
+                    up_to_90_expired++;
+                }
+            } else if(bundle.getDiscount() >= 70) {
+                if(bundle.getExpired()){
+                    up_to_80_expired++;
+                }
+            } else if(bundle.getDiscount() >= 60) {
+                if(bundle.getExpired()){
+                    up_to_70_expired++;
+                }
+            } else if(bundle.getDiscount() >= 50) {
+                if(bundle.getExpired()){
+                    up_to_60_expired++;
+                }
+            } else if(bundle.getDiscount() >= 40) {
+                if(bundle.getExpired()){
+                    up_to_50_expired++;
+                }
+            } else if(bundle.getDiscount() >= 30) {
+                if(bundle.getExpired()){
+                    up_to_40_expired++;
+                }
+            } else if(bundle.getDiscount() >= 20) {
+                if(bundle.getExpired()){
+                    up_to_30_expired++;
+                }
+            } else if(bundle.getDiscount() >= 10) {
+                if(bundle.getExpired()){
+                    up_to_20_expired++;
+                }
+            } else if(bundle.getDiscount() >= 0) {
+                if(bundle.getExpired()){
+                    up_to_10_expired++;
+                }
+            }
+        }
+
+        String up_to_10 = up_to_10_collected + " : " + up_to_10_expired + " : " + up_to_10_no_show;
+        String up_to_20 = up_to_20_collected + " : " + up_to_20_expired + " : " + up_to_20_no_show;
+        String up_to_30 = up_to_30_collected + " : " + up_to_30_expired + " : " + up_to_30_no_show;
+        String up_to_40 = up_to_40_collected + " : " + up_to_40_expired + " : " + up_to_40_no_show;
+        String up_to_50 = up_to_50_collected + " : " + up_to_50_expired + " : " + up_to_50_no_show;
+        String up_to_60 = up_to_60_collected + " : " + up_to_60_expired + " : " + up_to_60_no_show;
+        String up_to_70 = up_to_70_collected + " : " + up_to_70_expired + " : " + up_to_70_no_show;
+        String up_to_80 = up_to_80_collected + " : " + up_to_80_expired + " : " + up_to_80_no_show;
+        String up_to_90 = up_to_90_collected + " : " + up_to_90_expired + " : " + up_to_90_no_show;
+        String up_to_100 = up_to_100_collected + " : " + up_to_100_expired + " : " + up_to_100_no_show;
+        String[] pricingEffectivenessArray = {up_to_10, up_to_20, up_to_30, up_to_40, up_to_50, up_to_60, up_to_70, up_to_80, up_to_90, up_to_100};
+
+        model.addAttribute("pricingEffectivenessArray", pricingEffectivenessArray);
 
         //calculate operational insights
-        model.addAttribute("operationalInsights", "-");
+
+        Map<String, Integer> lookup = new HashMap<String, Integer>();
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()) {
+                if(lookup.keySet().contains(reservation.getBundle().getCategory())) {
+                    lookup.put(reservation.getBundle().getCategory(), lookup.get(reservation.getBundle().getCategory()) + 1);
+                } else{
+                    lookup.put(reservation.getBundle().getCategory(), 1);
+                }
+            }
+        }
+
+        Map<String, Integer> window = new HashMap<String, Integer>();
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()) {
+                if(window.keySet().contains(reservation.getBundle().getPickUpWindowAsString())) {
+                    window.put(reservation.getBundle().getPickUpWindowAsString(), window.get(reservation.getBundle().getPickUpWindowAsString()) + 1);
+                } else {
+                    window.put(reservation.getBundle().getPickUpWindowAsString(), 1);
+                }
+            }
+        }
+        
+        List<Map.Entry<String, Integer>> sortedCategories = new ArrayList<>(lookup.entrySet()); 
+        sortedCategories.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+        List<Map.Entry<String, Integer>> sortedWindows = new ArrayList<>(window.entrySet());
+        sortedWindows.sort((e1,e2) -> e2.getValue().compareTo(e1.getValue()));
+
+
+        model.addAttribute("operationalInsightsWindows", sortedWindows);
+        model.addAttribute("opeationalInsightsCategories", sortedCategories);
+
+
 
         return "view_analytics_seller";
     }
