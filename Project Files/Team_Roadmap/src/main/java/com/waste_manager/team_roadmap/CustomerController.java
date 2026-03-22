@@ -189,6 +189,13 @@ public class CustomerController {
         //find all bundles that have not expired and have not already been reserved
         List<Bundle> allBundles = br.findByReservedAndExpired(false, false);
         ArrayList<Bundle> bundles = new ArrayList<>();
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = getCustomerProfile(auth);
+
+        Admin admin=ar.getAdmin();
+
+
         //find if any bundles have gone past expiry;
         for (Bundle bundle : allBundles) {
             if (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
@@ -220,7 +227,14 @@ public class CustomerController {
                             (timeSelector.equals("less") && Integer.parseInt(time.substring(0, 2)) > bundle.getPickUpWindow()) ||
                             (timeSelector.equals("equal") && Integer.parseInt(time.substring(0, 2)) == bundle.getPickUpWindow())))
             {
-                bundles.add(bundle);
+                //admin bundles can only be seen by admin
+                if(admin.getCustomerView().getdName() == customer.getdName()) {
+                    if(bundle.getSeller().getdName().equals(admin.getSellerView().getdName())) {
+                        bundles.add(bundle);
+                    }
+                }else if(!bundle.getSeller().getdName().equals(admin.getSellerView().getdName())){
+                    bundles.add(bundle);
+                }
             }
         }
         //add bundles to web page

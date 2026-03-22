@@ -87,7 +87,9 @@ public class TeamRoadmapApplication extends SpringBootServletInitializer {
         return "post_bundle_seller";
     }
 
-
+    @GetMapping("/dashboard_admin")
+    @DependsOn("temp_load_database")
+    public String dashboard_admin() {return "dashboard_admin";}
 }
 
 

@@ -4,7 +4,7 @@ import sellers
 import customers
 import bundles
 import reservations
-import custom_csv_writer
+from custom_csv_writer import write_to_csv
 import issue_report_gen
 
 
@@ -15,15 +15,6 @@ import issue_report_gen
 ### DATETIME FORMAT: 2026-02-17T18:25:43.014748
 
 ### SOMETIMES THE BUNDLES RANDOMLY REPLACE 5 WITH TRUE, FIX THIS
-
-
-def write_to_csv(filename, info):
-    with open(filename, "w", newline="") as csvfile:
-
-        writer = csv.writer(csvfile, delimiter="&", quotechar="\\", quoting=csv.QUOTE_MINIMAL)
-        for line in info:
-            writer.writerow(line)
-        csvfile.close()
 
 def main():
     print("---------------------Seeding Sellers---------------------")

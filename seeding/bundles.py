@@ -2,7 +2,15 @@ import csv
 import random as r
 from time_gen import random_date_time_and_weather
 
-CATEGORIES = ["bakery", "snacks", "dairy", "plants", "groceries", "other"]
+CATEGORIES = [
+    "Bakery",
+    "Fish & Meat",
+    "Snacks",
+    "Dairy",
+    "Fruit, Vegetables & Legumes",
+    "Groceries",
+    "Other"
+]
 
 FOODS = []
 
@@ -30,12 +38,13 @@ PICKUP_WINDOWS = ["00:00-01:00", "01:00-02:00", "02:00-03:00", "03:00-04:00", "0
 
 
 FOODS_FOR_CATEGORIES = {
-    "bakery": [3],
-    "snacks": [5],
-    "dairy": [0],
-    "plants": [1, 2],
-    "groceries": [0, 1, 2, 3, 4, 5],
-    "other": [6]
+    "Bakery": [3],
+    "Fish & Meat": [4],
+    "Snacks": [5],
+    "Dairy": [0],
+    "Fruit, Vegetables & Legumes": [1, 2],
+    "Groceries": [0, 1, 2, 3, 4, 5],
+    "Other": [6]
 }
 
             
@@ -68,7 +77,7 @@ def seed_bundles(sellers, count_per_seller):
             ## time and weather
             [date_time, weather, pickup_window] = random_date_time_and_weather()
 
-            for j in range(r.randint(2, 20)):
+            for i in range(r.randint(2, 20)):
                 info.append([
                     seller_id + 1, ## 0
                     cat, ## 1
@@ -83,7 +92,7 @@ def seed_bundles(sellers, count_per_seller):
                     weather ## 10
                 ])
 
-                print(f"Seeded Bundle {x+1} copy {j-1}")
+                print(f"Seeded Bundle {x+1} Copy {i-1}")
 
     r.shuffle(info)
 

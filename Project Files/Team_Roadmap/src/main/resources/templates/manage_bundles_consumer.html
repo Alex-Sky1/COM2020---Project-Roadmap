@@ -26,7 +26,9 @@
         <thead>
             <tr>
                 <th>Seller</th>
+                <th>Address</th>
                 <th>Price</th>
+                <th>Discount</th>
                 <th>Category</th>
                 <th>Contents</th>
                 <th>Allergens</th>
@@ -40,8 +42,10 @@
         </thead>
         <tbody>
             <tr th:each="reservation : ${reservations}">
-                <td th:text="${reservation.bundle.seller.dName}">Ex Seller</td>
+                <td th:text="${reservation.seller.dName}">Ex Seller</td>
+                <td th:text="${reservation.bundle.seller.address} + ${reservation.seller.postcode}">Ex Address</td>
                 <td th:text="${reservation.bundle.price}">Ex Price</td>
+                <td th:text="${reservation.bundle.discount}">Ex discount</td>
                 <td th:text="${reservation.bundle.category}">Ex category</td>
                 <td th:text="${reservation.bundle.getContentsAsString()}" style="overflow: auto; max-width: 140px">Ex contents</td>
                 <td th:text="${reservation.bundle.getAllergensAsString()}" style="overflow: auto; max-width: 140px">Ex allergens</td>

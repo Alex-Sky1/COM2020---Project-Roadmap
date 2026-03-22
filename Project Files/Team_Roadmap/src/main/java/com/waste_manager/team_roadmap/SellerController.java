@@ -134,11 +134,10 @@ public class SellerController {
         int pickupHr = Integer.parseInt(pickup.substring(0,2));
 
         // Make quantity amount of bundles and save to database
+        LocalDateTime now = LocalDateTime.now();
         for (int i = 0; i < Integer.parseInt(quantity); i++) {
-
-            Bundle bundle = new Bundle
-                    (s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price),
-                    Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
+            Bundle bundle = new Bundle(s, category, content, allergens, now, Float.parseFloat(price),
+                            Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
             br.save(bundle);
         }
         return "post_bundle_seller";
@@ -377,6 +376,7 @@ public class SellerController {
         bundle.setPickUpWindow(Integer.parseInt(pickup.substring(0,2)));
         bundle.setDiscount(Integer.parseInt(discount));
         bundle.setExpired(false);
+        bundle.setTimeStamp(LocalDateTime.now());
 
         ArrayList<String> allergens = new ArrayList<>();
         if(celery!= null) allergens.add(celery);
@@ -410,27 +410,42 @@ public class SellerController {
         List<Reservation>  allReservations = rr.findBySellerID(s.getSellerID());
         ArrayList<Bundle> bundles = new ArrayList<>();
         ArrayList<Double> probNoShow = new ArrayList<>();
+        ArrayList<Double> demands = new ArrayList<>();
+        ArrayList<String> confidences = new ArrayList<>();
+        ArrayList<String> rationales = new ArrayList<>();
 
         for( Bundle bundle : allBundles ) {
             if(bundle.getTimeStamp().getDayOfYear() == LocalDate.now().getDayOfYear() && bundle.getTimeStamp().getYear() == LocalDate.now().getYear()) {
-                Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), bundle.getWeatherFlag(), bundle.getCategory(), new ArrayList<>(allBundles), new ArrayList<>(allReservations));
-                bundles.add(bundle);
-                probNoShow.add(forecast.prediction(bundle, "noshow"));
+                boolean repeat = false;
+                for (Bundle innerbundle:bundles){
+                    if (innerbundle.getTimeStamp().equals(bundle.getTimeStamp())) {
+                        repeat = true;
+                        break;
+                    }
+                }
+                if(!repeat) {
+                    Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), bundle.getWeatherFlag(), bundle.getCategory(), new ArrayList<>(allBundles), new ArrayList<>(allReservations));
+                    bundles.add(bundle);
+                    probNoShow.add(forecast.prediction(bundle, "noshow"));
+                    demands.add(forecast.prediction(bundle, "reservations"));
+                    confidences.add("confidence");
+                    rationales.add("rationale");
+                }
+
             }
+        }
+        for(double demand: demands) {
+            System.out.println(demand);
         }
 
         model.addAttribute("bundles", bundles);
         model.addAttribute("probNoShow", probNoShow.toArray());
-        model.addAttribute("Confidence", "Confidence: Some Confidence");
-        model.addAttribute("Rationale", "Rationale: Some Rationale");
+        model.addAttribute("confidences", confidences);
+        model.addAttribute("rationales", rationales);
         model.addAttribute("Recommendation", "Some Recommendation");
         return "forecasting_seller";
     }
 
-    @PostMapping("/forecasting_seller")
-    public String forecastingSeller(){
-        return "forecasting_seller";
-    }
 
     @GetMapping("view_analytics_seller")
     public String viewAnalyticsSeller(Model model){
