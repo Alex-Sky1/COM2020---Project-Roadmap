@@ -432,8 +432,8 @@ public class SellerController {
 
         model.addAttribute("bundles", bundles);
         model.addAttribute("probNoShow", probNoShow.toArray());
-        model.addAttribute("confidences", "confidences");
-        model.addAttribute("rationales", "rationales");
+        model.addAttribute("confidences", confidences);
+        model.addAttribute("rationales", rationales);
         model.addAttribute("Recommendation", "Some Recommendation");
         return "forecasting_seller";
     }
