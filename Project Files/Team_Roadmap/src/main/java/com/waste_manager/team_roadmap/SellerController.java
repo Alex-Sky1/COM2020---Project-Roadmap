@@ -376,6 +376,7 @@ public class SellerController {
         bundle.setPickUpWindow(Integer.parseInt(pickup.substring(0,2)));
         bundle.setDiscount(Integer.parseInt(discount));
         bundle.setExpired(false);
+        bundle.setTimeStamp(LocalDateTime.now());
 
         ArrayList<String> allergens = new ArrayList<>();
         if(celery!= null) allergens.add(celery);
@@ -415,7 +416,14 @@ public class SellerController {
 
         for( Bundle bundle : allBundles ) {
             if(bundle.getTimeStamp().getDayOfYear() == LocalDate.now().getDayOfYear() && bundle.getTimeStamp().getYear() == LocalDate.now().getYear()) {
-                if(bundles.isEmpty() || !bundle.getTimeStamp().equals(bundles.get(bundles.size()-1).getTimeStamp())) {
+                boolean repeat = false;
+                for (Bundle innerbundle:bundles){
+                    if (innerbundle.getTimeStamp().equals(bundle.getTimeStamp())) {
+                        repeat = true;
+                        break;
+                    }
+                }
+                if(!repeat) {
                     Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), bundle.getWeatherFlag(), bundle.getCategory(), new ArrayList<>(allBundles), new ArrayList<>(allReservations));
                     bundles.add(bundle);
                     probNoShow.add(forecast.prediction(bundle, "noshow"));
