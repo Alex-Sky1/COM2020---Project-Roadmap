@@ -662,6 +662,36 @@ public void onStartUp() throws Exception {
 //        }
 //    }
 
+    public String createRecomendation(int pickupInt) throws Exception {
+
+        ArrayList<Bundle> bundles = bundleFromSelectSeller();
+        ArrayList<Bundle> duplicateBundles = new ArrayList<>();
+        StringBuilder returnString = new StringBuilder();
+
+        bundles.removeIf(b -> b.getPickUpWindow() != pickupInt);
+
+
+        for (int i = 0; i < bundles.size() - 2; i++) {
+
+            if (bundles.get(i).hasSameContent(bundles.get(i + 1))) {
+                duplicateBundles.add(bundles.get(i));
+            }
+        }
+
+        bundles.removeAll(duplicateBundles);
+
+        for (Bundle bundle : bundles) {
+
+            int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation") * (1 - prediction(bundle, "noshow")));
+            returnString.append("The recommended number of bundles to post for category").append(bundle.getCategory())
+                    .append(" at ").append(pickupInt).append(":00 is ")
+                    .append(recommendedNumber)
+                    .append(" instead of ").append(bundles.size() + duplicateBundles.size())
+                    .append("\n");
+        }
+
+        return returnString.toString();
+    }
 
     // Getters and Setters
 
