@@ -748,7 +748,7 @@ public class SellerController {
 
     @PostMapping("/view_issues_seller")
     public String viewIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
-                                     @RequestParam("issueID") int issueID){
+                                   @RequestParam("issueID") int issueID){
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Seller s = getSellerProfile(auth);
@@ -761,7 +761,7 @@ public class SellerController {
         issueReport1.setResolved(true);
         //save them into the repository
         irr.save(issueReport1);
-        return "view_issues_seller";
+        return "redirect:/view_issues_seller";
     }
 
 

@@ -42,8 +42,8 @@
                         <td th:text="${unresolvedIssueReport.description}">Ex Complaint</td>
                         <td>
                             <form th:action="@{/view_issues_seller}" method="post" autocomplete="off">
-                                <textarea placeholder="Enter response here:" required rows="6" cols="10"></textarea>
-                                <input type="hidden" name="sellerResponse" th:value="${unresolvedIssueReport.sellerResponse}">
+                                <textarea placeholder="Enter response here:" required rows="6" cols="10" name="sellerResponse"></textarea>
+<!--                                <input type="hidden" name="sellerResponse" th:value="${unresolvedIssueReport.sellerResponse}">-->
                                 <input type="hidden" name="issueID" th:value="${unresolvedIssueReport.issueID}">
                                 <button type="submit">Submit Response</button>
                             </form>

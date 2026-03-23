@@ -270,10 +270,10 @@ public class CSVDatabase {
             issueReportRepository.save(new IssueReport(
                     bundle,
                     customer,
-                    issue_info.get(1),
                     issue_info.get(2),
-                    Boolean.parseBoolean((issue_info.get(3))),
-                    issue_info.get(4)
+                    issue_info.get(3),
+                    Boolean.parseBoolean((issue_info.get(4))),
+                    issue_info.get(5)
             ));
         }
 
@@ -383,7 +383,7 @@ public class CSVDatabase {
         reservation_writer.close();
         log.info("reservations written");
 
-        // write all reservations
+        // write all issue reports
         log.info("writing issue reports");
         for (IssueReport issue : issueReportRepository.findAll()) {
             issue_writer.printf(

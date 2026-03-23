@@ -18,16 +18,16 @@
     <table class="bundle-table">
         <thead>
         <tr>
+            <th>Issue Type</th>
             <th>Your Complaint</th>
-            <th>Response</th>
-            <th>Date Resolved</th>
+            <th>Seller Response</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="issue : ${issues}">
-            <td th:text="${issue.complaint}">Ex Complaint</td>
-            <td th:text="${issue.response}">Ex Response</td>
-            <td th:text="${issue.getDateString}">Ex Date</td>
+        <tr th:each="issue : ${allIssueReports}">
+            <td th:text="${issue.type}">Ex Type</td>
+            <td th:text="${issue.description}">Ex Complaint</td>
+            <td th:text="${issue.sellerResponse}">Ex Seller Response</td>
         </tr>
         </tbody>
     </table>
