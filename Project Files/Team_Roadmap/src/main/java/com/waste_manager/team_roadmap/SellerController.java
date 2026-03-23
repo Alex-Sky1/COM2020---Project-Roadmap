@@ -426,8 +426,8 @@ public class SellerController {
                 if(!repeat) {
                     Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), bundle.getWeatherFlag(), bundle.getCategory(), new ArrayList<>(allBundles), new ArrayList<>(allReservations));
                     bundles.add(bundle);
-                    probNoShow.add(forecast.prediction(bundle, "noshow"));
-                    demands.add(forecast.prediction(bundle, "reservations"));
+                    probNoShow.add(forecast.prediction(bundle, "noshow",false));
+                    demands.add(forecast.prediction(bundle, "reservations",false));
                     confidences.add("confidence");
                     rationales.add("rationale");
                 }
@@ -748,7 +748,7 @@ public class SellerController {
 
     @PostMapping("/view_issues_seller")
     public String viewIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
-                                     @RequestParam("issueID") int issueID){
+                                   @RequestParam("issueID") int issueID){
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Seller s = getSellerProfile(auth);
@@ -761,7 +761,7 @@ public class SellerController {
         issueReport1.setResolved(true);
         //save them into the repository
         irr.save(issueReport1);
-        return "view_issues_seller";
+        return "redirect:/view_issues_seller";
     }
 
 
