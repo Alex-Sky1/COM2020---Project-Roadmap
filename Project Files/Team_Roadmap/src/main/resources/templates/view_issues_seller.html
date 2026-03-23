@@ -14,7 +14,7 @@
         </div>
     </div>
         <div class="box1-parent">
-            <div class="box1" style="width: 45vw; margin: 5px; max-height: 70vh; padding: 20px 5px; overflow: auto; justify-content: center">
+            <div class="box1" style="width: 45vw; margin: 5vh 0; max-height: 70vh; padding: 20px 5px; overflow: auto; justify-content: center">
                 <h3 style="margin: 1%">Unresolved Issues</h3>
                 <table class="bundle-table" th:if="${not#lists.isEmpty(unresolvedIssueReports)}" style="column-width: 200px; max-width: 43vw; overflow: auto">
                     <thead>
@@ -42,10 +42,10 @@
                         <td th:text="${unresolvedIssueReport.description}">Ex Complaint</td>
                         <td>
                             <form th:action="@{/view_issues_seller}" method="post" autocomplete="off">
-                                <textarea placeholder="Enter response here:" required rows="6" cols="10" name="sellerResponse"></textarea>
+                                <textarea placeholder="Enter response here:" required rows="6" cols="10" name="sellerResponse" style="border: solid #166088 3px"></textarea>
 <!--                                <input type="hidden" name="sellerResponse" th:value="${unresolvedIssueReport.sellerResponse}">-->
                                 <input type="hidden" name="issueID" th:value="${unresolvedIssueReport.issueID}">
-                                <button type="submit">Submit Response</button>
+                                <button type="submit" class="button1" style="width: 100px; height: 55px; padding: 0">Submit Response</button>
                             </form>
                         </td>
                     </tr>
@@ -53,7 +53,7 @@
                 </table>
             </div>
     <div>
-        <div class="box1" style="width: 45vw; margin: 5px; max-height: 70vh; padding: 20px 5px; overflow: auto; justify-content: center">
+        <div class="box1" style="width: 45vw; margin: 5vh 0; max-height: 70vh; padding: 20px 5px; overflow: auto; justify-content: center">
             <h3 style="margin: 1%">Resolved Issues</h3>
             <table class="bundle-table" th:if="${not#lists.isEmpty(resolvedIssueReports)}" style="column-width: 200px; max-width: 40vw; overflow: auto">
                 <thead>

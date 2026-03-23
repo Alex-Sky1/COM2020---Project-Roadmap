@@ -3,6 +3,12 @@
 <head>
     <link rel="stylesheet" href="../static/styling.css" th:href="@{/styling.css}">
     <title>View Analytics</title>
+
+    <style>
+        table th, td {
+            width: 15vw;
+        }
+    </style>
 </head>
 <body>
 <div class="header">
@@ -23,7 +29,7 @@
     <h1 id="title">Sell Through (Collected:Expired:No Show)</h1>
     <p th:text="${sellThrough}" id="sell_through_text" style="display: block">Sell Through</p>
     <p th:text="${wasteProxy}" id="waste_proxy_text" style="display: none">Waste Proxy</p>
-    <table id="pricing_effectiveness_table" style="display: none; border-collapse: collapse; color: #166088; background-color: #dbe9ee; padding: 1%; border: 3px solid; column-width: 10vw">
+    <table class="bundle-table" id="pricing_effectiveness_table" style="display: none; border-collapse: collapse; color: #166088; background-color: #dbe9ee; padding: 1%">
         <thead>
             <tr>
                 <th>Discount Level</th>
@@ -75,7 +81,7 @@
     </table>
 
     <div class="box1-parent">
-        <table id="insight_category_table" class="bundle-table" th:if="${not#lists.isEmpty(opeationalInsightsCategories)}" style="display: none; border: 5px solid; column-width: 10vw">
+        <table id="insight_category_table" class="bundle-table" th:if="${not#lists.isEmpty(opeationalInsightsCategories)}" style="display: none">
             <thead>
                 <tr>
                     <th>Category</th>
@@ -89,7 +95,7 @@
             </tr>
             </tbody>
         </table>
-        <table id="insight_window_table" class="bundle-table" th:if="${not#lists.isEmpty(operationalInsightsWindows)}" style="display: none; border: 3px solid; column-width: 10vw">
+        <table id="insight_window_table" class="bundle-table" th:if="${not#lists.isEmpty(operationalInsightsWindows)}" style="display: none">
             <thead>
                 <tr>
                     <th>Pickup Window</th>
