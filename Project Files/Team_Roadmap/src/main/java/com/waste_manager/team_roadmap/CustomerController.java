@@ -382,6 +382,8 @@ public class CustomerController {
             }
         }
 
+        co2_saved = Math.round(co2_saved);
+
         //badges array: [1 meal saved, 5 meals saved, 10 meals saved,
         //              1 category, 3 categories, 5 categories,
         //              1 seller, 5 sellers, 9 sellers,
