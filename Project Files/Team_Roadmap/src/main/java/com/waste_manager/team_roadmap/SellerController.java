@@ -1,13 +1,15 @@
 package com.waste_manager.team_roadmap;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.cglib.core.Local;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -24,13 +26,17 @@ public class SellerController {
     private final BundleRepository br;
     private final ReservationRepository rr;
     private final IssueReportRepository irr;
+    private final AdminRepository ar;
+    private final CustomUserDetailService cuds;
 
-    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository) {
+    public SellerController(SellerRepository sellerRepository, CustomerRepository customerRepository, BundleRepository bundleRepository, ReservationRepository reservationRepository, IssueReportRepository issueReportRepository, AdminRepository adminRepository, CustomUserDetailService customUserDetailService) {
         this.sr = sellerRepository;
         this.cr = customerRepository;
         this.br = bundleRepository;
         this.rr = reservationRepository;
         this.irr = issueReportRepository;
+        this.ar = adminRepository;
+        this.cuds = customUserDetailService;
     }
 
     @PostMapping("/sign_up_seller")
@@ -42,42 +48,34 @@ public class SellerController {
                          @RequestParam(value = "accept", required = false) String tosAccept, Model model) {
 
 
-        List<Seller> s = sr.findByDName(business);
-        List<Customer> c = cr.findByDName(business);
-
+        List<Seller> s = sr.findBydName(business);
+        List<Customer> c = cr.findBydName(business);
+        Optional<Admin> a = ar.findBydName(business);
         // Check that passwords match
         if(!pwd1.equals(pwd2)){
-            System.out.println("passwords don't match");
             model.addAttribute("error", "Passwords don't match");
         }
 
         // If any field is empty don't allow sign up
         else if(fname.isEmpty() || sname.isEmpty() || business.isEmpty() || al1.isEmpty() ||  pcode.isEmpty() || county.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd1.isEmpty()){
-            System.out.println("Please fill all the fields");
             model.addAttribute("error", "Please fill in all the fields");
         }
 
-        // Check that no other seller or customer is using that username
-        else if (!s.isEmpty() || !c.isEmpty()) {
-            System.out.println("Username already exists");
+        // Check that no other seller or customer or admin is using that username
+        else if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
             model.addAttribute("error", "Username already exists");
         }
         //check if they accepted terms and conditions
         else if(tosAccept==null) {
-            System.out.println("please accept the terms and conditions");
             model.addAttribute("error", "Please accept the terms and conditions");
         }else {
             //create and save new seller
             Seller s1 = new Seller(fname, sname, business, al1, pcode, county, email, phone, pwd1, true);
-            //check if email and password are valid
-            if(!s1.validateEmail(email)){
-                model.addAttribute("error", "Invalid email");
-            }
-            else if(!s1.validatePassword(pwd1)) {
+            //check if password fits requirements
+            if(!s1.validatePassword(pwd1)) {
                 model.addAttribute("error", "Invalid password");
             }
             else {
-                System.out.println("success");
                 sr.save(s1);
                 return "sign_in";
             }
@@ -106,8 +104,7 @@ public class SellerController {
 
         // Get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         String[] WeatherFlags = {"Sunny", "Rainy", "Cloudy"};
         Random rand = new Random();
@@ -137,11 +134,10 @@ public class SellerController {
         int pickupHr = Integer.parseInt(pickup.substring(0,2));
 
         // Make quantity amount of bundles and save to database
+        LocalDateTime now = LocalDateTime.now();
         for (int i = 0; i < Integer.parseInt(quantity); i++) {
-
-            Bundle bundle = new Bundle
-                    (s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price),
-                    Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
+            Bundle bundle = new Bundle(s, category, content, allergens, now, Float.parseFloat(price),
+                            Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
             br.save(bundle);
         }
         return "post_bundle_seller";
@@ -153,61 +149,78 @@ public class SellerController {
                                     @RequestParam(value = "business", required = false) String business, @RequestParam(value = "address_line_1", required = false) String al1,
                                     @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
                                     @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2){
-        List<Seller> s = sr.findByDName(business);
-        List<Customer> c = cr.findByDName(business);
+                                    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2,
+                                    Model model, HttpServletRequest request) {
+
+        List<Seller> s = sr.findBydName(business);
+        List<Customer> c = cr.findBydName(business);
+        Optional<Admin> a = ar.findBydName(business);
 
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller seller = sr.findByDName(currentUsername).get(0);
+        Seller seller = getSellerProfile(auth);
+
         int sellerId= seller.getSellerID();
 
         // Check if business (username) field is not empty and not being used by anyone else
         if(!business.isEmpty()){
-            if (!s.isEmpty() || !c.isEmpty()) {
-                System.out.println("user name already exists");
+            if (!s.isEmpty() || !c.isEmpty() || a.isPresent()) {
+                model.addAttribute("error", "Username already exists");
             } else {
-                sr.updateDNameById(business, sellerId);
+                seller.setdName(business);
+                sr.save(seller);
+
+                //update authorization detail and add to session
+                UserDetails newUser = cuds.loadUserByUsername(business);
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(newUser, newUser.getPassword(), newUser.getAuthorities());
+                token.setDetails(auth.getDetails());
+                SecurityContextHolder.getContext().setAuthentication(token);
+
+                request.getSession(false).setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
             }
         }
 
-        // Check passwords match if password is being changed
+        // Check passwords match if password is being changed and is a valid password
         if(!pwd1.isEmpty() && pwd1.equals(pwd2)){
-            if(seller.validatePassword(pwd1)){
-                sr.updatePasswordById(pwd1, sellerId);
+            if(!seller.validatePassword(pwd1)) {
+                model.addAttribute("error", "Invalid password");
+            }else {
+                seller.setPassword(pwd1);
             }
+        }else if (!pwd1.equals(pwd2)){
+            model.addAttribute("error", "Passwords don't match");
         }
         // Update first name
         if(!fname.isEmpty()){
-            sr.updateFNameById(fname, sellerId);
+            seller.setfName(fname);
         }
         // Update surname
         if(!sname.isEmpty()){
-            sr.updateSNameById(sname, sellerId);
+            seller.setsName(sname);
         }
         // Update address
         if(!al1.isEmpty()){
-            sr.updateAddressById(al1, sellerId);
+            seller.setAddress(al1);
         }
         // Update postcode
         if(!pcode.isEmpty()){
-            sr.updatePostcodeById(pcode, sellerId);
+            seller.setPostcode(pcode);
         }
         // Update county
         if(!county.isEmpty()){
-            sr.updateCountyById(county, sellerId);
+            seller.setCounty(county);
         }
         // Update email address
         if(!email.isEmpty()){
-            if(seller.validateEmail(email)) {
-                sr.updateEmailById(email, sellerId);
-            }
+            seller.setEmail(email);
         }
         // Update phone number
         if(!phone.isEmpty()){
-            sr.updatePhoneById(phone, sellerId);
+            seller.setPhone(phone);
         }
+
+        sr.save(seller);
+
         return "edit_profile_seller";
     }
 
@@ -217,8 +230,7 @@ public class SellerController {
 
         // Get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         // Add all reservations to web page
         List<Reservation> reservations = rr.findBySellerID(s.getSellerID());
@@ -251,13 +263,18 @@ public class SellerController {
         return "manage_bundles_seller";
     }
 
+    @PostMapping("/manage_bundles_seller")
+    public String deleteBundle(@RequestParam(value = "PostingID") String postingID){
+        br.deleteBundleByID(Integer.parseInt(postingID));
+        return "redirect:/manage_bundles_seller";
+    }
 
     @GetMapping("/manage_reservations_seller")
     public String manage_reservations_seller(Model model) {
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
+
         // Add all reservations to web page
         List<Reservation> allReservations = rr.findBySellerID(s.getSellerID());
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -324,36 +341,118 @@ public class SellerController {
         return "redirect:/manage_reservations_seller";
     }
 
+    @GetMapping("/edit_bundle_seller")
+    public String edit_bundle_seller(@RequestParam("PostingID") String ID, Model model){
+        //get bundle and add to web page to fill in current details
+        Bundle bundle = br.findById(Long.parseLong(ID)).get();
+        model.addAttribute("bundle", bundle);
+        return "/edit_bundle_seller";
+    }
     @PostMapping("/edit_bundle_seller")
-    public String editBundle(){
-        return "edit_bundle_seller";
+    public String editBundle(@RequestParam("PostingID") String ID,
+                             @RequestParam("category") String category, @RequestParam("price") String price,
+                             @RequestParam("pickup") String pickup, @RequestParam("discount") String discount,
+                             @RequestParam("hidden_items")String contents,
+                             @RequestParam(value="celery", required = false) String celery,
+                             @RequestParam(value = "gluten", required = false) String gluten,
+                             @RequestParam(value = "crustaceans", required = false) String crustaceans,
+                             @RequestParam(value="eggs", required = false) String eggs,
+                             @RequestParam(value="fish", required = false) String fish,
+                             @RequestParam(value="lupin", required = false) String lupin,
+                             @RequestParam(value="milk", required = false) String milk,
+                             @RequestParam(value="molluscs", required = false) String molluscs,
+                             @RequestParam(value="mustard", required = false) String mustard,
+                             @RequestParam(value="peanuts", required = false) String peanuts,
+                             @RequestParam(value="sesame", required = false) String sesame,
+                             @RequestParam(value="soybeans", required = false) String soybeans,
+                             @RequestParam(value="sulphur", required = false) String sulphur,
+                             @RequestParam(value="nuts", required = false) String nuts){
+
+        Bundle bundle = br.findById(Integer.parseInt(ID)).get();
+        //set bundle changes from web page
+        bundle.setCategory(category);
+        bundle.setPrice(Float.parseFloat(price));
+        bundle.setContents(new ArrayList<>(Arrays.asList(contents.split(","))));
+        bundle.setPickUpWindow(Integer.parseInt(pickup.substring(0,2)));
+        bundle.setDiscount(Integer.parseInt(discount));
+        bundle.setExpired(false);
+        bundle.setTimeStamp(LocalDateTime.now());
+
+        ArrayList<String> allergens = new ArrayList<>();
+        if(celery!= null) allergens.add(celery);
+        if(gluten!= null) allergens.add(gluten);
+        if(crustaceans != null) allergens.add(crustaceans);
+        if(eggs != null) allergens.add(eggs);
+        if(fish != null) allergens.add(fish);
+        if(lupin != null) allergens.add(lupin);
+        if(milk != null) allergens.add(milk);
+        if(molluscs != null) allergens.add(molluscs);
+        if(mustard != null) allergens.add(mustard);
+        if(peanuts != null) allergens.add(peanuts);
+        if(sesame != null) allergens.add(sesame);
+        if(soybeans != null) allergens.add(soybeans);
+        if(sulphur != null) allergens.add(sulphur);
+        if(nuts != null) allergens.add(nuts);
+        bundle.setAllergens(allergens);
+
+        br.save(bundle);
+
+        return "redirect:/manage_bundles_seller";
     }
 
     @GetMapping("/forecasting_seller")
-    public String forecasting_seller(Model model) {
+    public String forecasting_seller(Model model) throws Exception {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
-        Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), "rain", "Category1", new ArrayList<>(br.findAll()), new ArrayList<>(rr.findAll()));
-        float mae = forecast.MAE();
-        model.addAttribute("mae", mae);
+        List<Bundle> allBundles = br.findBySellerID(s.getSellerID());
+        List<Reservation>  allReservations = rr.findBySellerID(s.getSellerID());
+        ArrayList<Bundle> bundles = new ArrayList<>();
+        ArrayList<Double> probNoShow = new ArrayList<>();
+        ArrayList<Double> demands = new ArrayList<>();
+        ArrayList<String> confidences = new ArrayList<>();
+        ArrayList<String> rationales = new ArrayList<>();
 
+        for( Bundle bundle : allBundles ) {
+            if(bundle.getTimeStamp().getDayOfYear() == LocalDate.now().getDayOfYear() && bundle.getTimeStamp().getYear() == LocalDate.now().getYear()) {
+                boolean repeat = false;
+                for (Bundle innerbundle:bundles){
+                    if (innerbundle.getTimeStamp().equals(bundle.getTimeStamp())) {
+                        repeat = true;
+                        break;
+                    }
+                }
+                if(!repeat) {
+                    Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), bundle.getWeatherFlag(), bundle.getCategory(), new ArrayList<>(allBundles), new ArrayList<>(allReservations));
+                    bundles.add(bundle);
+                    probNoShow.add(forecast.prediction(bundle, "noshow"));
+                    demands.add(forecast.prediction(bundle, "reservations"));
+                    confidences.add("confidence");
+                    rationales.add("rationale");
+                }
+
+            }
+        }
+        for(double demand: demands) {
+            System.out.println(demand);
+        }
+
+        model.addAttribute("bundles", bundles);
+        model.addAttribute("probNoShow", probNoShow.toArray());
+        model.addAttribute("confidences", confidences);
+        model.addAttribute("rationales", rationales);
+        model.addAttribute("Recommendation", "Some Recommendation");
         return "forecasting_seller";
     }
-    @PostMapping("/forecasting_seller")
-    public String forecastingSeller(){
-        return "forecasting_seller";
-    }
+
 
     @GetMapping("view_analytics_seller")
     public String viewAnalyticsSeller(Model model){
 
         // Get current user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         // Calculate no show : collected : expired
         int noShow = 0;
@@ -391,21 +490,229 @@ public class SellerController {
         String sellThrough = collected + " : " + expired + " : " + noShow;
         model.addAttribute("sellThrough", sellThrough);
 
+        //get all reservations made of seller bundles
+        List<Reservation> sellerReservations = rr.findBySellerID(s.getSellerID());
         // Calculate waste proxy
-        model.addAttribute("wasteProxy", collected*1);
+        double waste_proxy = 0;
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()){
+                if(reservation.getBundle().getCategory().equals("Fish & Meat")) {
+                    waste_proxy += (4.2 * 1.5);
+                } else if (reservation.getBundle().getCategory().equals("Bakery")) {
+                    waste_proxy += (4.2 * 0.8);
+                } else if (reservation.getBundle().getCategory().equals("Snacks")) {
+                    waste_proxy += (4.2 * 0.6);
+                } else if (reservation.getBundle().getCategory().equals("Dairy")) {
+                    waste_proxy += (4.2 * 1);
+                } else if (reservation.getBundle().getCategory().equals("Fruit, Vegetables & Legumes")) {
+                    waste_proxy += (4.2 * 0.5);
+                } else if (reservation.getBundle().getCategory().equals("Groceries")) {
+                    waste_proxy += (4.2 * 1.2);
+                } else if (reservation.getBundle().getCategory().equals("Other")) {
+                    waste_proxy += (4.2 * 2);
+                }
+            }
+        }
+        model.addAttribute("wasteProxy", waste_proxy);
 
-        model.addAttribute("pricingEffectiveness", "-");
-        model.addAttribute("operationalInsights", "-");
+        //calculate pricing effectiveness
+
+        int up_to_100_no_show = 0;
+        int up_to_100_collected = 0;
+        int up_to_100_expired = 0;
+        int up_to_90_no_show = 0;
+        int up_to_90_collected = 0;
+        int up_to_90_expired = 0;
+        int up_to_80_no_show = 0;
+        int up_to_80_collected = 0;
+        int up_to_80_expired = 0;
+        int up_to_70_no_show = 0;
+        int up_to_70_collected = 0;
+        int up_to_70_expired = 0;
+        int up_to_60_no_show = 0;
+        int up_to_60_collected = 0;
+        int up_to_60_expired = 0;
+        int up_to_50_no_show = 0;
+        int up_to_50_collected = 0;
+        int up_to_50_expired = 0;
+        int up_to_40_no_show = 0;
+        int up_to_40_collected = 0;
+        int up_to_40_expired = 0;
+        int up_to_30_no_show = 0;
+        int up_to_30_collected = 0;
+        int up_to_30_expired = 0;
+        int up_to_20_no_show = 0;
+        int up_to_20_collected = 0;
+        int up_to_20_expired = 0;
+        int up_to_10_no_show = 0;
+        int up_to_10_collected = 0;
+        int up_to_10_expired = 0;
+
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getBundle().getDiscount() >= 90) {
+                if(reservation.getNoShow()){
+                    up_to_100_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_100_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 80) {
+                if(reservation.getNoShow()){
+                    up_to_90_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_90_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 70) {
+                if(reservation.getNoShow()){
+                    up_to_80_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_80_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 60) {
+                if(reservation.getNoShow()){
+                    up_to_70_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_70_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 50) {
+                if(reservation.getNoShow()){
+                    up_to_60_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_60_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 40) {
+                if(reservation.getNoShow()){
+                    up_to_50_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_50_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 30) {
+                if(reservation.getNoShow()){
+                    up_to_40_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_40_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 20) {
+                if(reservation.getNoShow()){
+                    up_to_30_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_30_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 10) {
+                if(reservation.getNoShow()){
+                    up_to_20_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_20_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 0) {
+                if(reservation.getNoShow()){
+                    up_to_10_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_10_collected++;
+                }
+            }
+        }
+        for(Bundle bundle : allBundles) {
+            if(bundle.getDiscount() >=  90) {
+                if(bundle.getExpired()){
+                    up_to_100_expired++;
+                }
+            } else if(bundle.getDiscount() >= 80) {
+                if(bundle.getExpired()){
+                    up_to_90_expired++;
+                }
+            } else if(bundle.getDiscount() >= 70) {
+                if(bundle.getExpired()){
+                    up_to_80_expired++;
+                }
+            } else if(bundle.getDiscount() >= 60) {
+                if(bundle.getExpired()){
+                    up_to_70_expired++;
+                }
+            } else if(bundle.getDiscount() >= 50) {
+                if(bundle.getExpired()){
+                    up_to_60_expired++;
+                }
+            } else if(bundle.getDiscount() >= 40) {
+                if(bundle.getExpired()){
+                    up_to_50_expired++;
+                }
+            } else if(bundle.getDiscount() >= 30) {
+                if(bundle.getExpired()){
+                    up_to_40_expired++;
+                }
+            } else if(bundle.getDiscount() >= 20) {
+                if(bundle.getExpired()){
+                    up_to_30_expired++;
+                }
+            } else if(bundle.getDiscount() >= 10) {
+                if(bundle.getExpired()){
+                    up_to_20_expired++;
+                }
+            } else if(bundle.getDiscount() >= 0) {
+                if(bundle.getExpired()){
+                    up_to_10_expired++;
+                }
+            }
+        }
+
+        String up_to_10 = up_to_10_collected + " : " + up_to_10_expired + " : " + up_to_10_no_show;
+        String up_to_20 = up_to_20_collected + " : " + up_to_20_expired + " : " + up_to_20_no_show;
+        String up_to_30 = up_to_30_collected + " : " + up_to_30_expired + " : " + up_to_30_no_show;
+        String up_to_40 = up_to_40_collected + " : " + up_to_40_expired + " : " + up_to_40_no_show;
+        String up_to_50 = up_to_50_collected + " : " + up_to_50_expired + " : " + up_to_50_no_show;
+        String up_to_60 = up_to_60_collected + " : " + up_to_60_expired + " : " + up_to_60_no_show;
+        String up_to_70 = up_to_70_collected + " : " + up_to_70_expired + " : " + up_to_70_no_show;
+        String up_to_80 = up_to_80_collected + " : " + up_to_80_expired + " : " + up_to_80_no_show;
+        String up_to_90 = up_to_90_collected + " : " + up_to_90_expired + " : " + up_to_90_no_show;
+        String up_to_100 = up_to_100_collected + " : " + up_to_100_expired + " : " + up_to_100_no_show;
+        String[] pricingEffectivenessArray = {up_to_10, up_to_20, up_to_30, up_to_40, up_to_50, up_to_60, up_to_70, up_to_80, up_to_90, up_to_100};
+
+        model.addAttribute("pricingEffectivenessArray", pricingEffectivenessArray);
+
+        //calculate operational insights
+
+        Map<String, Integer> lookup = new HashMap<String, Integer>();
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()) {
+                if(lookup.keySet().contains(reservation.getBundle().getCategory())) {
+                    lookup.put(reservation.getBundle().getCategory(), lookup.get(reservation.getBundle().getCategory()) + 1);
+                } else{
+                    lookup.put(reservation.getBundle().getCategory(), 1);
+                }
+            }
+        }
+
+        Map<String, Integer> window = new HashMap<String, Integer>();
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()) {
+                if(window.keySet().contains(reservation.getBundle().getPickUpWindowAsString())) {
+                    window.put(reservation.getBundle().getPickUpWindowAsString(), window.get(reservation.getBundle().getPickUpWindowAsString()) + 1);
+                } else {
+                    window.put(reservation.getBundle().getPickUpWindowAsString(), 1);
+                }
+            }
+        }
+        
+        List<Map.Entry<String, Integer>> sortedCategories = new ArrayList<>(lookup.entrySet()); 
+        sortedCategories.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+        List<Map.Entry<String, Integer>> sortedWindows = new ArrayList<>(window.entrySet());
+        sortedWindows.sort((e1,e2) -> e2.getValue().compareTo(e1.getValue()));
+
+
+        model.addAttribute("operationalInsightsWindows", sortedWindows);
+        model.addAttribute("opeationalInsightsCategories", sortedCategories);
+
+
+
         return "view_analytics_seller";
     }
 
-    @GetMapping("/manage_issues_seller")
-    public String manageIssuesSeller(Model model)
+    @GetMapping("/view_issues_seller")
+    public String viewIssuesSeller(Model model)
     {
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
 
         //find all issue reports
         List<IssueReport> allIssueReports = irr.findAll();
@@ -430,26 +737,22 @@ public class SellerController {
         ArrayList<IssueReport> unresolvedIssueReports = new ArrayList<>();
         ArrayList<IssueReport> resolvedIssueReports = new ArrayList<>();
         for(IssueReport issueReport : allSellerIssueReports) {
-            if(!issueReport.getResolved()) {
-                unresolvedIssueReports.add(issueReport);
-            }
-            else {
-                resolvedIssueReports.add(issueReport);
-            }
+            if(!issueReport.getResolved()) { unresolvedIssueReports.add(issueReport); }
+            else { resolvedIssueReports.add(issueReport); }
         }
         //add all issue reports to the web page
         model.addAttribute("unresolvedIssueReports", unresolvedIssueReports);
         model.addAttribute("resolvedIssueReports", resolvedIssueReports);
-        return "manage_issues_seller";
+        return "view_issues_seller";
     }
 
-    @PostMapping("/manage_issues_seller")
-    public String manageIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
+    @PostMapping("/view_issues_seller")
+    public String viewIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
                                      @RequestParam("issueID") int issueID){
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = auth.getName();
-        Seller s = sr.findByDName(currentUsername).get(0);
+        Seller s = getSellerProfile(auth);
+
         //find issue report from repository
         Optional<IssueReport> issueReport = irr.findById(issueID);
         IssueReport issueReport1 = issueReport.get();
@@ -458,6 +761,16 @@ public class SellerController {
         issueReport1.setResolved(true);
         //save them into the repository
         irr.save(issueReport1);
-        return "manage_issues_seller";
+        return "view_issues_seller";
+    }
+
+
+    public Seller getSellerProfile(Authentication auth){
+        String currentUsername = auth.getName();
+        if(auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ar.getAdmin().getSellerView();
+        }else {
+            return sr.findBydName(currentUsername).get(0);
+        }
     }
 }

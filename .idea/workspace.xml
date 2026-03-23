@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="Consumer Report Issue Labeling">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/static/styling.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/view_analytics_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/view_analytics_consumer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/view_issues_consumer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/resources/templates/view_issues_consumer.html" afterDir="false" />
+    <list default="true" id="1b09b28a-d18d-43cb-b3aa-110cb265215b" name="Changes" comment="seeded data should be all working now">
+      <change beforePath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/CSVDatabase.java" afterDir="false" />
     </list>
     <list id="3b8fa5e8-1dc4-4cb4-8b48-013e467d8e52" name="Changes by alexj" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +64,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Alex-Sky1/COM2020---Project-Roadmap.git&quot;,
-    &quot;accountId&quot;: &quot;9ba35089-1c58-4ef7-84a5-4222d5ce0ce1&quot;
+    &quot;accountId&quot;: &quot;7d41ce5e-3c0a-4225-94bb-a9a52a6ebd2d&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -121,7 +118,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.TeamRoadmapApplication.executor": "Run",
-    "git-widget-placeholder": "feature/issue-page",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/thomashindle/Documents/Uni/year2/group_software_development_project/test 18.48.07",
@@ -130,6 +127,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
@@ -591,7 +591,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773831043339</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="seeded data should be all working now">
+      <option name="closed" value="true" />
+      <created>1774103287022</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1774103287022</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -618,7 +626,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="continue to expand database functionality" />
     <MESSAGE value="standardised field names" />
     <MESSAGE value="updated db queries" />
     <MESSAGE value="workspace xml commit :(" />
@@ -643,7 +650,8 @@
     <MESSAGE value="Report Issue Page Consumer" />
     <MESSAGE value="Consumer Issue Viewing" />
     <MESSAGE value="Consumer Report Issue Labeling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Consumer Report Issue Labeling" />
+    <MESSAGE value="seeded data should be all working now" />
+    <option name="LAST_COMMIT_MESSAGE" value="seeded data should be all working now" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -651,7 +659,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Project Files/Team_Roadmap/src/main/java/com/waste_manager/team_roadmap/SellerRepository.java</url>
           <line>19</line>
-          <properties class="com.waste_manager.team_roadmap.SellerRepository" method="findById">
+          <properties class="com.waste_manager.team_roadmap.SellerRepository">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

@@ -20,6 +20,7 @@
             <thead>
                 <tr>
                     <th>Seller</th>
+                    <th>Postcode</th>
                     <th>Category</th>
                     <th>Contents</th>
                     <th>Allergens</th>
@@ -32,6 +33,7 @@
             <tbody>
                 <tr th:each="bundle : ${allBundles}">
                     <td th:text="${bundle.seller.dName}">Ex Seller</td>
+                    <td th:text="${bundle.seller.postcode}">Ex Postcode</td>
                     <td th:text="${bundle.category}">Ex Category</td>
                     <td th:text="${bundle.getContentsAsString()}" style="overflow: auto; max-width: 100px">Ex Contents</td>
                     <td th:text="${bundle.getAllergensAsString()}" style="overflow: auto; max-width: 100px">Ex Allergens</td>
@@ -56,13 +58,13 @@
                 <label for="category" class="label2">Category:</label>
                 <select name="category" id="category" class="text-input1">
                     <option value="Unselected" style="text-align: center">- -  Unselected  - -</option>
-                    <option value="meats">Fish & Meat</option>
-                    <option value="bakery ">Bakery </option>
-                    <option value="snacks">Snacks</option>
-                    <option value="dairy">Dairy</option>
-                    <option value="plants">Fruit, Vegetables & Legumes</option>
-                    <option value="groceries">Groceries</option>
-                    <option value="other">Other</option>
+                    <option value="Fish & Meat">Fish & Meat</option>
+                    <option value="Bakery">Bakery</option>
+                    <option value="Snacks">Snacks</option>
+                    <option value="Dairy">Dairy</option>
+                    <option value="Fruit, Vegetables & Legumes">Fruit, Vegetables & Legumes</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Other">Other</option>
                 </select>
                 <label for="postcode" class="label2">Postcode:</label>
                 <input class="text-input1" type="text" id="postcode" name="postcode" autocapitalize="characters" maxlength="8" minlength="5">

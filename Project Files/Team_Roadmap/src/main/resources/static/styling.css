@@ -157,6 +157,23 @@ hr {
     font-size: large;
 }
 
+/* 4 column table being used for badges*/
+.badges-table {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: #c0d6df;
+}
+
+.badges-table div {
+    background-color: #166088;
+    border: 1px solid black;
+    font-size: 3vmax;
+    font-weight: bold;
+    text-align: center;
+    color: #dbe9ee;
+    padding: 2%;
+}
+
 /* Grid with 2 columns useful for button layouts */
 .grid-2-columns {
     display: grid;
@@ -226,6 +243,7 @@ hr {
     font-size: 3vmax;
     font-weight: bold;
     text-align: center;
+    width: 20vw;
     color: #dbe9ee;
     padding: 2%;
 }

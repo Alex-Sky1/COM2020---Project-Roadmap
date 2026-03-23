@@ -1,0 +1,64 @@
+Ackee
+Apple
+Apricot
+Avocado
+Banana
+Bell pepper
+Blackberry
+Blackcurrant
+Blueberry
+Carolina reaper
+Cherry
+Coconut
+Crab apple
+Cranberry
+Cucumber
+Currant
+Custard Apple
+Date
+Dragonfruit
+Durian
+Elderberry
+Fig
+Gooseberry
+Grape
+Grapefruit
+Guava
+Jackfruit
+Jalapeño
+Kiwifruit
+Kumquat
+Lemon
+Lime
+Lingonberry
+Loganberry
+Lychee
+Mango
+Melon
+Cantaloupe
+Honeydew
+Watermelon
+Mulberry
+Nectarine
+Orange
+Blood orange
+Clementine
+Mandarine
+Tangerine
+Papaya
+Passionfruit
+Peach
+Pear
+Persimmon
+Pineapple
+Plantain
+Plum
+Pomegranate
+Quince
+Raisin
+Raspberry
+Redcurrant
+Salmonberry
+Star fruit
+Strawberry
+White currant

@@ -9,7 +9,6 @@
     <h1 class="header-text">View Analytics</h1>
     <div class="header-images">
         <form th:action="@{/dashboard_seller}"><input class="header-icons" type="image" th:src="@{images/home.png}" src="/static/images/home.png" alt="Home"></form>
-        <form th:action="@{/notifications_seller}"><input class="header-icons" type="image" th:src="@{images/bell.png}" src="/static/images/bell.png" alt="Bell"></form>
         <form th:action="@{/logout}" method="post"><input class="header-icons" type="image" th:src="@{images/logout.png}" src="/static/images/logout.png" alt="logout"></form>
         <img th:src="@{images/roadmap_logo.png}" src="/static/images/roadmap_logo.png" alt="Team Roadmap Logo" class="header-logo">
     </div>
@@ -24,8 +23,86 @@
     <h1 id="title">Sell Through (Collected:Expired:No Show)</h1>
     <p th:text="${sellThrough}" id="sell_through_text" style="display: block">Sell Through</p>
     <p th:text="${wasteProxy}" id="waste_proxy_text" style="display: none">Waste Proxy</p>
-    <p th:text="${pricingEffectiveness}" id="pricing_effectiveness_text" style="display: none">Pricing Effectiveness</p>
-    <p th:text="${operationalInsights}" id="operational_insights_text" style="display: none">Operational Insights</p>
+    <table id="pricing_effectiveness_table" style="display: none; border-collapse: collapse; color: #166088; background-color: #dbe9ee; padding: 1%;">
+        <thead>
+            <tr>
+                <th>Discount Level</th>
+                <th>Sell Through (Collected:Expired:No Show)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0%-10%</td>
+                <td th:text="${pricingEffectivenessArray[0]}"></td>
+            </tr>
+            <tr>
+                <td>10%-20%</td>
+                <td th:text="${pricingEffectivenessArray[1]}"></td>
+            </tr>
+            <tr>
+                <td>20%-30%</td>
+                <td th:text="${pricingEffectivenessArray[2]}"></td>
+            </tr>
+            <tr>
+                <td>30%-40%</td>
+                <td th:text="${pricingEffectivenessArray[3]}"></td>
+            </tr>
+            <tr>
+                <td>40%-50%</td>
+                <td th:text="${pricingEffectivenessArray[4]}"></td>
+            </tr>
+            <tr>
+                <td>50%-60%</td>
+                <td th:text="${pricingEffectivenessArray[5]}"></td>
+            </tr>
+            <tr>
+                <td>60%-70%</td>
+                <td th:text="${pricingEffectivenessArray[6]}"></td>
+            </tr>
+            <tr>
+                <td>70%-80%</td>
+                <td th:text="${pricingEffectivenessArray[7]}"></td>
+            </tr>
+            <tr>
+                <td>80%-90%</td>
+                <td th:text="${pricingEffectivenessArray[8]}"></td>
+            </tr>
+            <tr>
+                <td>90%-100%</td>
+                <td th:text="${pricingEffectivenessArray[9]}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table id="insight_category_table" class="bundle-table" th:if="${not#lists.isEmpty(opeationalInsightsCategories)}" style="display: none">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Numbers of Bundles Collected</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Category : ${opeationalInsightsCategories}" >
+            <td th:text="${Category.key}">Ex key</td>
+            <td th:text="${Category.value}">Ex value</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table id="insight_window_table" class="bundle-table" th:if="${not#lists.isEmpty(operationalInsightsWindows)}" style="display: none">
+        <thead>
+            <tr>
+                <th>Pickup Window</th>
+                <th>Numbers of Bundles Collected</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="Window : ${operationalInsightsWindows}" >
+                <td th:text="${Window.key}">Ex key</td>
+                <td th:text="${Window.value}">Ex value</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <form th:action="@{/dashboard_seller}">
     <button class="button1" style="width:250px; margin-left: 2%">Return To Dashboard</button>

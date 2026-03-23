@@ -25,7 +25,7 @@
                 <input class="text-input1" type="text" id="username" name="username">
                 <label for="password">Password</label>
                 <input class="text-input1" type="password" id="password" name="password">
-                <label th:text="${error}" style="color:red; font-size: 11px; font-weight: bold"></label>
+                <p th:text="${error}" style="color:red; font-size: 13px; font-weight: bold; grid-column: span 2; margin-bottom: 0; margin-top: 0; text-align: center"></p>
                 <button type="submit" class="button1" style="grid-column: span 2">Login</button>
             </form>
             <form th:action="@{/sign_up_consumer}">

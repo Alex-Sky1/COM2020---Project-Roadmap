@@ -17,8 +17,8 @@ public interface SellerRepository extends Repository<Seller, Long> {
     List<Seller> findAll();
 
     // Find By
-    Optional<Seller> findById(long id);
-    List<Seller> findByDName(String dName);
+    Optional<Seller> findByID(long id);
+    List<Seller> findBydName(String dName);
 
     // Update
     @Transactional

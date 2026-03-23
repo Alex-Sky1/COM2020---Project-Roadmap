@@ -18,8 +18,8 @@ public interface CustomerRepository extends Repository<Customer, Long> {
     List<Customer> findAll();
 
     // Find By
-    Optional<Customer> findById(long id);
-    List<Customer> findByDName(String dName);
+    Optional<Customer> findByID(long id);
+    List<Customer> findBydName(String dName);
     List<Customer> findByStreakGreaterThan(int streak);
 
     // update

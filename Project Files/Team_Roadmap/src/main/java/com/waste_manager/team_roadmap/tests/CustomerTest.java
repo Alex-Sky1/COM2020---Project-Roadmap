@@ -1,13 +1,15 @@
-package com.waste_manager.team_roadmap_tests;
+package com.waste_manager.team_roadmap.tests;
 
+import com.waste_manager.team_roadmap.Customer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.util.List;
-import com.waste_manager.team_roadmap.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CustomerTest {
 
