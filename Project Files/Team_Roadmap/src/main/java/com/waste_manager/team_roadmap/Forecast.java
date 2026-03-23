@@ -664,9 +664,9 @@ public void onStartUp() throws Exception {
 //        }
 //    }
 
-    public String createRecommendation(Bundle bundle) throws Exception {
-        return createRecommendation(bundle, false);
-    }
+public String createRecommendation(Bundle bundle) throws Exception {
+    return createRecommendation(bundle, false);
+}
 
     public String createRecommendation(Bundle bundle, boolean returnRecommend) throws Exception {
 
