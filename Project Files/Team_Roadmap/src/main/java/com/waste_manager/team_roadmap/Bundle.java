@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Bundle implements Serializable {
@@ -96,6 +97,22 @@ public class Bundle implements Serializable {
         }
         return startString + ":00-" + endString +":00";
     }
+
+    public boolean hasSameContent(Bundle other) {
+        if (other == null) return false;
+
+        return Objects.equals(seller, other.seller) &&
+                Objects.equals(category, other.category) &&
+                Objects.equals(contents, other.contents) &&
+                Objects.equals(allergens, other.allergens) &&
+                Float.compare(price, other.price) == 0 &&
+                Objects.equals(timeStamp, other.timeStamp) &&
+                discount == other.discount &&
+                pickUpWindow == other.pickUpWindow &&
+                expired == other.expired &&
+                Objects.equals(weatherFlag, other.weatherFlag);
+    }
+
     public int getPostingID(){
         return ID;
     }
