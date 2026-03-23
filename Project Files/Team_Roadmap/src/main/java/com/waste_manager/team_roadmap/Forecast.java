@@ -715,7 +715,7 @@ public void onStartUp() throws Exception {
             }
         }
 
-        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation") * (1 - prediction(bundle, "noshow")));
+        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation", false) * (1 - prediction(bundle, "noshow", false)));
 
         returnString.append("The recommended number of bundles to post is")
                 .append(recommendedNumber)
