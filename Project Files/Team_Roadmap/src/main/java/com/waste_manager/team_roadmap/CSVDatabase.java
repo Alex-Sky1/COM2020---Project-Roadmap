@@ -145,7 +145,7 @@ public class CSVDatabase {
                     "N/A",
                     "AdminPassword",
                     0,
-                    new ArrayList<Boolean>(), // TODO: Fill this
+                    new ArrayList<Boolean>(Arrays.asList(false, false, false, false, false, false, false, false, false, false, false, false)),
                     true
             ));
         }else{
