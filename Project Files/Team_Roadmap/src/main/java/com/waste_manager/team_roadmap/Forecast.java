@@ -109,12 +109,12 @@ public class Forecast {
 
     //https://weka.sourceforge.io/doc.dev/
     //https://gist.github.com/knbknb/c7f75d8eaa5b50a7b6786ca5f0fedbfb
-    public double prediction(Bundle bun,String type) throws Exception {
-            return workAround(bun, model,type);
+    public double prediction(Bundle bun,String type,boolean conf) throws Exception {
+            return workAround(bun, model,type,conf);
 
     }
 
-    private double workAround(Bundle bun, LinearRegression model,String type) throws Exception {
+    private double workAround(Bundle bun, LinearRegression model,String type,boolean conf) throws Exception {
         double[] dat = new double[8];
         dat[0] = bun.getTimeStamp().getDayOfWeek().getValue();
         dat[1] = bun.getPickUpWindow();
@@ -148,7 +148,23 @@ public class Forecast {
             normalized1.input(nominalTobinaryData);
             Instance normalizedData = normalized1.output();
 
-            return (Math.ceil(model.classifyInstance(normalizedData)));
+
+
+            if (conf) {
+                double hold = 0;
+                double[] confi = model.distributionForInstance(normalizedData);
+                for (double v : confi) {
+                    if (v > hold) {
+                        hold = v;
+                    }
+                }
+
+                return hold;
+
+            }
+            else{
+                return Math.max(0,(Math.ceil(model.classifyInstance(normalizedData))));
+            }
 
         }
         else if (type == "noshow"){
@@ -170,11 +186,30 @@ public class Forecast {
             normalized2.input(nominalTobinaryData);
             Instance normalizedData = normalized2.output();
 
-            return model2.classifyInstance(normalizedData);
+
+
+            if (conf) {
+                double hold = 0;
+                double[] confi = model2.distributionForInstance(normalizedData);
+                for (double v : confi) {
+                    if (v > hold) {
+                        hold = v;
+                    }
+                }
+
+                return hold;
+            }
+            else {
+                return model2.classifyInstance(normalizedData);
+            }
         }
+
+
 
         return (Math.ceil(model2.classifyInstance(newRow)));
     }
+
+
 
 
 
@@ -513,7 +548,6 @@ public void trainModel(String type) throws Exception {
             if (type == "reservations") {
                 Instances data = build_data("reservations");
                 data.randomize(new java.util.Random(1));
-                System.out.println("Number of instances: " + data.numInstances());
 
                 StringTonominal1 = new StringToNominal();
                 StringTonominal1.setAttributeRange("first-last");
@@ -543,7 +577,6 @@ public void trainModel(String type) throws Exception {
 
 
                 data.randomize(new java.util.Random(1));
-                System.out.println("Number of instances: " + data.numInstances());
 
                 StringTonominal2 = new StringToNominal();
                 StringTonominal2.setAttributeRange("first-last");
@@ -682,7 +715,7 @@ public void onStartUp() throws Exception {
 
         for (Bundle bundle : bundles) {
 
-            int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation") * (1 - prediction(bundle, "noshow")));
+            int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation",false) * (1 - prediction(bundle, "noshow",false)));
             returnString.append("The recommended number of bundles to post for category").append(bundle.getCategory())
                     .append(" at ").append(pickupInt).append(":00 is ")
                     .append(recommendedNumber)
