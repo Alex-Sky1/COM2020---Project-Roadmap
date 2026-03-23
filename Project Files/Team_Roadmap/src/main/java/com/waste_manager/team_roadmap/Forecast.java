@@ -584,6 +584,36 @@ public void onStartUp() throws Exception {
         }
     }
 
+    // Can you just turn it into a string that I can output? So you need to retrieve the number of bundles
+    // they have posted at a certain time and recommend a new amount or something like that I believe
+
+    public String createRecomendation(LocalDateTime postTime) throws Exception {
+
+        ArrayList<Bundle> bundles = bundleFromSelectSeller();
+        ArrayList<Bundle> duplicateBundles = new ArrayList<>();
+        StringBuilder returnString = new StringBuilder();
+
+        bundles.removeIf(b -> b.getTimeStamp().getHour() != postTime.getHour());
+
+
+        for (int i = 0; i < bundles.size() - 2; i++) {
+
+            if (bundles.get(i).hasSameContent(bundles.get(i + 1))) {
+                duplicateBundles.add(bundles.get(i));
+            }
+        }
+
+        bundles.removeAll(duplicateBundles);
+
+        for (Bundle bundle : bundles) {
+
+            int recommendedNumber = (int) prediction(bundle, "reservation");
+            returnString.append("The recommended number of bundles to post for category").append(bundle.getCategory())
+                    .append(" at this time is ").append(recommendedNumber).append("\n");
+        }
+
+        return returnString.toString();
+    }
 
     // Getters and Setters
 

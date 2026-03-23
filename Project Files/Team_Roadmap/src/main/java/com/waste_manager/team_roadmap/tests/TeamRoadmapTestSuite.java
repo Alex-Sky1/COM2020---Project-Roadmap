@@ -11,6 +11,7 @@ import org.junit.platform.suite.api.Suite;
         SellerTest.class,
         ReservationTest.class,
         ForecastTest.class,
-        LoginControllerTest.class
+        LoginControllerTest.class,
+        CustomerControllerTest.class
 })
 public class TeamRoadmapTestSuite {}
