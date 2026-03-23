@@ -45,21 +45,21 @@ def main():
 
     
 
-    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/sellers.csv", seller_info)
+    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/sellers_TESTING.csv", seller_info)
     print(f"Wrote {len(seller_info)} sellers to csv")
-    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/customers.csv", customer_info)
+    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/customers_TESTING.csv", customer_info)
     print(f"Wrote {len(customer_info)} customers to csv")
-    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/bundles.csv", bundle_info)
+    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/bundles_TESTING.csv", bundle_info)
     print(f"Wrote {len(bundle_info)} bundles to csv")
-    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/reservation.csv", reservation_info)
+    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/reservation_TESTING.csv", reservation_info)
     print(f"Wrote {len(reservation_info)} reservations to csv")
-    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/issues.csv", issue_info)
+    write_to_csv("../Project Files/Team_Roadmap/src/main/resources/static/csv/issues_TESTING.csv", issue_info)
     print(f"Wrote {len(issue_info)} issue reports to csv")
 
 main()
 
 
-f = open("../Project Files/Team_Roadmap/src/main/resources/static/csv/reservation.csv", "r")
+f = open("../Project Files/Team_Roadmap/src/main/resources/static/csv/reservation_TESTING.csv", "r")
 no_shows = 0
 for line in f.readlines():
     parts = line.split("~")
