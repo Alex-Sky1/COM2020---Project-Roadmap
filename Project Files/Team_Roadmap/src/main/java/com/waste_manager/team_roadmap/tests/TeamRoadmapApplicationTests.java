@@ -13,9 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TeamRoadmapApplicationTests {
 
-    @LocalServerPort
-    private int port;
-
     @Autowired
     private CustomerController customerController;
     @Autowired
