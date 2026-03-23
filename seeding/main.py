@@ -57,3 +57,14 @@ def main():
     print(f"Wrote {len(issue_info)} issue reports to csv")
 
 main()
+
+
+f = open("../Project Files/Team_Roadmap/src/main/resources/static/csv/reservation.csv", "r")
+no_shows = 0
+for line in f.readlines():
+    parts = line.split("~")
+    if parts[5] == "True":
+        no_shows += 1
+    # print(line)
+
+print(f"{no_shows} no shows")

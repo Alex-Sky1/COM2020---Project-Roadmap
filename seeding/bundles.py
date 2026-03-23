@@ -85,7 +85,7 @@ def seed_bundles(sellers, count_per_seller):
                     allergens, ## 3
                     date_time, ## 4
                     price, ## 5
-                    round(max(price / 2, r.randint(5, 20))), #discount ## 6
+                    r.randint(1, 99), #discount ## 6
                     pickup_window, ## 7
                     False, # reserverd ## 8
                     True, # expired ## 9
