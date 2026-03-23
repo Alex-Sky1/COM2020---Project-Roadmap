@@ -16,6 +16,8 @@ import weka.filters.unsupervised.attribute.Normalize;
 import weka.filters.unsupervised.attribute.NumericToNominal;
 import weka.filters.unsupervised.attribute.StringToNominal;
 
+import static java.lang.String.format;
+
 public class Forecast {
 
 
@@ -662,35 +664,57 @@ public void onStartUp() throws Exception {
 //        }
 //    }
 
-    public String createRecomendation(int pickupInt) throws Exception {
+    public String createRecommendation(Bundle bundle) throws Exception {
+        return createRecommendation(bundle, false);
+    }
+
+    public String createRecommendation(Bundle bundle, boolean returnRecommend) throws Exception {
 
         ArrayList<Bundle> bundles = bundleFromSelectSeller();
         ArrayList<Bundle> duplicateBundles = new ArrayList<>();
         StringBuilder returnString = new StringBuilder();
 
-        bundles.removeIf(b -> b.getPickUpWindow() != pickupInt);
 
+        for (int i = 0; i < bundles.size(); i++){
 
-        for (int i = 0; i < bundles.size() - 2; i++) {
-
-            if (bundles.get(i).hasSameContent(bundles.get(i + 1))) {
+            if (bundle.hasSameContent(bundles.get(i))) {
                 duplicateBundles.add(bundles.get(i));
             }
         }
 
-        bundles.removeAll(duplicateBundles);
+        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation") * (1 - prediction(bundle, "noshow")));
 
-        for (Bundle bundle : bundles) {
+        returnString.append("The recommended number of bundles to post is")
+                .append(recommendedNumber)
+                .append(" instead of ").append(duplicateBundles.size());
 
-            int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation") * (1 - prediction(bundle, "noshow")));
-            returnString.append("The recommended number of bundles to post for category").append(bundle.getCategory())
-                    .append(" at ").append(pickupInt).append(":00 is ")
-                    .append(recommendedNumber)
-                    .append(" instead of ").append(bundles.size() + duplicateBundles.size())
-                    .append("\n");
+        if (recommendedNumber == duplicateBundles.size()) {
+            return "The amount of bundles posted is the right amount";
         }
+        if (returnRecommend) {
+            return format("%d %d",  recommendedNumber, duplicateBundles.size());
+        }
+        else {
+            return returnString.toString();
+        }
+    }
 
-        return returnString.toString();
+    public String rationale(Bundle bundle) throws Exception {
+
+        String[] rationaleStringList = createRecommendation(bundle, true).split(" ");
+
+        int recommendedNumber = Integer.parseInt(rationaleStringList[0]);
+        int duplicateBundles = Integer.parseInt(rationaleStringList[1]);
+
+        if (recommendedNumber > duplicateBundles) {
+            return "Demand for bundles indicate more bundles would be sold. More food will be saved";
+        }
+        else if (recommendedNumber == duplicateBundles){
+            return "The amount of bundles posted is the right amount";
+        }
+        else {
+            return "The data indicates you are overposting bundles, and not all of them will sell";
+        }
     }
 
     // Getters and Setters
