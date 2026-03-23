@@ -23,7 +23,7 @@
     <h1 id="title">Sell Through (Collected:Expired:No Show)</h1>
     <p th:text="${sellThrough}" id="sell_through_text" style="display: block">Sell Through</p>
     <p th:text="${wasteProxy}" id="waste_proxy_text" style="display: none">Waste Proxy</p>
-    <table id="pricing_effectiveness_table" style="display: none; border-collapse: collapse; color: #166088; background-color: #dbe9ee; padding: 1%;">
+    <table id="pricing_effectiveness_table" style="display: none; border-collapse: collapse; color: #166088; background-color: #dbe9ee; padding: 1%; border: 3px solid; column-width: 10vw">
         <thead>
             <tr>
                 <th>Discount Level</th>
@@ -74,35 +74,37 @@
         </tbody>
     </table>
 
-    <table id="insight_category_table" class="bundle-table" th:if="${not#lists.isEmpty(opeationalInsightsCategories)}" style="display: none">
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>Numbers of Bundles Collected</th>
+    <div class="box1-parent">
+        <table id="insight_category_table" class="bundle-table" th:if="${not#lists.isEmpty(opeationalInsightsCategories)}" style="display: none; border: 5px solid; column-width: 10vw">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Numbers of Bundles Collected</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Category : ${opeationalInsightsCategories}" >
+                <td th:text="${Category.key}">Ex key</td>
+                <td th:text="${Category.value}">Ex value</td>
             </tr>
-        </thead>
-        <tbody>
-        <tr th:each="Category : ${opeationalInsightsCategories}" >
-            <td th:text="${Category.key}">Ex key</td>
-            <td th:text="${Category.value}">Ex value</td>
-        </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <table id="insight_window_table" class="bundle-table" th:if="${not#lists.isEmpty(operationalInsightsWindows)}" style="display: none; border: 3px solid; column-width: 10vw">
+            <thead>
+                <tr>
+                    <th>Pickup Window</th>
+                    <th>Numbers of Bundles Collected</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="Window : ${operationalInsightsWindows}" >
+                    <td th:text="${Window.key}">Ex key</td>
+                    <td th:text="${Window.value}">Ex value</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <table id="insight_window_table" class="bundle-table" th:if="${not#lists.isEmpty(operationalInsightsWindows)}" style="display: none">
-        <thead>
-            <tr>
-                <th>Pickup Window</th>
-                <th>Numbers of Bundles Collected</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="Window : ${operationalInsightsWindows}" >
-                <td th:text="${Window.key}">Ex key</td>
-                <td th:text="${Window.value}">Ex value</td>
-            </tr>
-        </tbody>
-    </table>
 </div>
 <form th:action="@{/dashboard_seller}">
     <button class="button1" style="width:250px; margin-left: 2%">Return To Dashboard</button>
