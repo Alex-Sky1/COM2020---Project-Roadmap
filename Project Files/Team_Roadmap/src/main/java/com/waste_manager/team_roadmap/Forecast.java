@@ -16,6 +16,8 @@ import weka.filters.unsupervised.attribute.Normalize;
 import weka.filters.unsupervised.attribute.NumericToNominal;
 import weka.filters.unsupervised.attribute.StringToNominal;
 
+import static java.lang.String.format;
+
 public class Forecast {
 
 
@@ -109,12 +111,12 @@ public class Forecast {
 
     //https://weka.sourceforge.io/doc.dev/
     //https://gist.github.com/knbknb/c7f75d8eaa5b50a7b6786ca5f0fedbfb
-    public double prediction(Bundle bun,String type,boolean conf) throws Exception {
-            return workAround(bun, model,type,conf);
+    public double prediction(Bundle bun,String type) throws Exception {
+            return workAround(bun, model,type);
 
     }
 
-    private double workAround(Bundle bun, LinearRegression model,String type,boolean conf) throws Exception {
+    private double workAround(Bundle bun, LinearRegression model,String type) throws Exception {
         double[] dat = new double[8];
         dat[0] = bun.getTimeStamp().getDayOfWeek().getValue();
         dat[1] = bun.getPickUpWindow();
@@ -148,23 +150,7 @@ public class Forecast {
             normalized1.input(nominalTobinaryData);
             Instance normalizedData = normalized1.output();
 
-
-
-            if (conf) {
-                double hold = 0;
-                double[] confi = model.distributionForInstance(normalizedData);
-                for (double v : confi) {
-                    if (v > hold) {
-                        hold = v;
-                    }
-                }
-
-                return hold;
-
-            }
-            else{
-                return Math.max(0,(Math.ceil(model.classifyInstance(normalizedData))));
-            }
+            return (Math.ceil(model.classifyInstance(normalizedData)));
 
         }
         else if (type == "noshow"){
@@ -186,30 +172,11 @@ public class Forecast {
             normalized2.input(nominalTobinaryData);
             Instance normalizedData = normalized2.output();
 
-
-
-            if (conf) {
-                double hold = 0;
-                double[] confi = model2.distributionForInstance(normalizedData);
-                for (double v : confi) {
-                    if (v > hold) {
-                        hold = v;
-                    }
-                }
-
-                return hold;
-            }
-            else {
-                return model2.classifyInstance(normalizedData);
-            }
+            return model2.classifyInstance(normalizedData);
         }
-
-
 
         return (Math.ceil(model2.classifyInstance(newRow)));
     }
-
-
 
 
 
@@ -548,6 +515,7 @@ public void trainModel(String type) throws Exception {
             if (type == "reservations") {
                 Instances data = build_data("reservations");
                 data.randomize(new java.util.Random(1));
+                System.out.println("Number of instances: " + data.numInstances());
 
                 StringTonominal1 = new StringToNominal();
                 StringTonominal1.setAttributeRange("first-last");
@@ -577,6 +545,7 @@ public void trainModel(String type) throws Exception {
 
 
                 data.randomize(new java.util.Random(1));
+                System.out.println("Number of instances: " + data.numInstances());
 
                 StringTonominal2 = new StringToNominal();
                 StringTonominal2.setAttributeRange("first-last");
@@ -695,35 +664,57 @@ public void onStartUp() throws Exception {
 //        }
 //    }
 
-    public String createRecomendation(int pickupInt) throws Exception {
+    public String createRecommendation(Bundle bundle) throws Exception {
+        return createRecommendation(bundle, false);
+    }
+
+    public String createRecommendation(Bundle bundle, boolean returnRecommend) throws Exception {
 
         ArrayList<Bundle> bundles = bundleFromSelectSeller();
         ArrayList<Bundle> duplicateBundles = new ArrayList<>();
         StringBuilder returnString = new StringBuilder();
 
-        bundles.removeIf(b -> b.getPickUpWindow() != pickupInt);
 
+        for (int i = 0; i < bundles.size(); i++){
 
-        for (int i = 0; i < bundles.size() - 2; i++) {
-
-            if (bundles.get(i).hasSameContent(bundles.get(i + 1))) {
+            if (bundle.hasSameContent(bundles.get(i))) {
                 duplicateBundles.add(bundles.get(i));
             }
         }
 
-        bundles.removeAll(duplicateBundles);
+        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation") * (1 - prediction(bundle, "noshow")));
 
-        for (Bundle bundle : bundles) {
+        returnString.append("The recommended number of bundles to post is")
+                .append(recommendedNumber)
+                .append(" instead of ").append(duplicateBundles.size());
 
-            int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation",false) * (1 - prediction(bundle, "noshow",false)));
-            returnString.append("The recommended number of bundles to post for category").append(bundle.getCategory())
-                    .append(" at ").append(pickupInt).append(":00 is ")
-                    .append(recommendedNumber)
-                    .append(" instead of ").append(bundles.size() + duplicateBundles.size())
-                    .append("\n");
+        if (recommendedNumber == duplicateBundles.size()) {
+            return "The amount of bundles posted is the right amount";
         }
+        if (returnRecommend) {
+            return format("%d %d",  recommendedNumber, duplicateBundles.size());
+        }
+        else {
+            return returnString.toString();
+        }
+    }
 
-        return returnString.toString();
+    public String rationale(Bundle bundle) throws Exception {
+
+        String[] rationaleStringList = createRecommendation(bundle, true).split(" ");
+
+        int recommendedNumber = Integer.parseInt(rationaleStringList[0]);
+        int duplicateBundles = Integer.parseInt(rationaleStringList[1]);
+
+        if (recommendedNumber > duplicateBundles) {
+            return "Demand for bundles indicate more bundles would be sold. More food will be saved";
+        }
+        else if (recommendedNumber == duplicateBundles){
+            return "The amount of bundles posted is the right amount";
+        }
+        else {
+            return "The data indicates you are overposting bundles, and not all of them will sell";
+        }
     }
 
     // Getters and Setters
