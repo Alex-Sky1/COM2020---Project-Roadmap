@@ -21,12 +21,7 @@
         <table class="notification-table" th:if="${not#lists.isEmpty(notifications)}">
             <tbody>
             <tr th:each="notification : ${notifications}">
-                <td th:text="${notification}" style="width: 80vw"></td>
-                <td style="width: 10vw">
-                    <form th:action="@{/x}">
-                        <button class="button1" style="width:150px; padding: 10px 5px; margin:0">Read</button>
-                    </form>
-                </td>
+                <td th:text="${notification}" style="width: 95vw"></td>
             </tr>
             </tbody>
         </table>
