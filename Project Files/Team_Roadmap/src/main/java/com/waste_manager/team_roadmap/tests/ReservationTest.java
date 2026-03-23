@@ -1,13 +1,18 @@
-package com.waste_manager.team_roadmap_tests;
+package com.waste_manager.team_roadmap.tests;
 
+import com.waste_manager.team_roadmap.Bundle;
+import com.waste_manager.team_roadmap.Customer;
+import com.waste_manager.team_roadmap.Reservation;
+import com.waste_manager.team_roadmap.Seller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import com.waste_manager.team_roadmap.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ReservationTest {
 
@@ -29,9 +34,9 @@ public class ReservationTest {
                 "rHood1334@ping,com", "07862 561843", "L1tt!e John", 1, new ArrayList<>(List.of(false, false, false, false, false)), true);
         testBundle = new Bundle(testSeller, "puddings", new ArrayList<>(List.of("chocolate", "pancakes", "brownies", "cake")),
                 new ArrayList<>(List.of("gluten", "dairy")), testTime, 7.50f, 10, 1700,
-                true, false);
+                true, false, "overcast");
         testReservation = new Reservation(testBundle, testCustomer, testSeller, testTime, "AAAAAA",
-                false, false, "rainy");
+                false, false);
 
         testReservation.setPickupTimeStamp(testTime);
     }
@@ -118,17 +123,5 @@ public class ReservationTest {
 
         testReservation.setCollected(true);
         assertSame(true, testReservation.getCollected());
-    }
-
-    // Verifies the weather flag of a reservation
-    @Test
-    public void testGetWeatherFlag() {assertSame("rainy", testReservation.getWeatherFlag());}
-
-    // Verifies changing the weather flag of a reservation
-    @Test
-    public void testSetWeatherFlag() {
-
-        testReservation.setWeatherFlag("Sunny");
-        assertSame("Sunny", testReservation.getWeatherFlag());
     }
 }

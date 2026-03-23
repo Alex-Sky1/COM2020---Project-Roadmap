@@ -134,11 +134,10 @@ public class SellerController {
         int pickupHr = Integer.parseInt(pickup.substring(0,2));
 
         // Make quantity amount of bundles and save to database
+        LocalDateTime now = LocalDateTime.now();
         for (int i = 0; i < Integer.parseInt(quantity); i++) {
-
-            Bundle bundle = new Bundle
-                    (s, category, content, allergens, LocalDateTime.now(), Float.parseFloat(price),
-                    Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
+            Bundle bundle = new Bundle(s, category, content, allergens, now, Float.parseFloat(price),
+                            Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
             br.save(bundle);
         }
         return "post_bundle_seller";
@@ -377,6 +376,7 @@ public class SellerController {
         bundle.setPickUpWindow(Integer.parseInt(pickup.substring(0,2)));
         bundle.setDiscount(Integer.parseInt(discount));
         bundle.setExpired(false);
+        bundle.setTimeStamp(LocalDateTime.now());
 
         ArrayList<String> allergens = new ArrayList<>();
         if(celery!= null) allergens.add(celery);
@@ -410,27 +410,42 @@ public class SellerController {
         List<Reservation>  allReservations = rr.findBySellerID(s.getSellerID());
         ArrayList<Bundle> bundles = new ArrayList<>();
         ArrayList<Double> probNoShow = new ArrayList<>();
+        ArrayList<Double> demands = new ArrayList<>();
+        ArrayList<String> confidences = new ArrayList<>();
+        ArrayList<String> rationales = new ArrayList<>();
 
         for( Bundle bundle : allBundles ) {
             if(bundle.getTimeStamp().getDayOfYear() == LocalDate.now().getDayOfYear() && bundle.getTimeStamp().getYear() == LocalDate.now().getYear()) {
-                Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), bundle.getWeatherFlag(), bundle.getCategory(), new ArrayList<>(allBundles), new ArrayList<>(allReservations));
-                bundles.add(bundle);
-                probNoShow.add(forecast.prediction(bundle, "noshow"));
+                boolean repeat = false;
+                for (Bundle innerbundle:bundles){
+                    if (innerbundle.getTimeStamp().equals(bundle.getTimeStamp())) {
+                        repeat = true;
+                        break;
+                    }
+                }
+                if(!repeat) {
+                    Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), bundle.getWeatherFlag(), bundle.getCategory(), new ArrayList<>(allBundles), new ArrayList<>(allReservations));
+                    bundles.add(bundle);
+                    probNoShow.add(forecast.prediction(bundle, "noshow"));
+                    demands.add(forecast.prediction(bundle, "reservations"));
+                    confidences.add("confidence");
+                    rationales.add("rationale");
+                }
+
             }
+        }
+        for(double demand: demands) {
+            System.out.println(demand);
         }
 
         model.addAttribute("bundles", bundles);
         model.addAttribute("probNoShow", probNoShow.toArray());
-        model.addAttribute("Confidence", "Confidence: Some Confidence");
-        model.addAttribute("Rationale", "Rationale: Some Rationale");
+        model.addAttribute("confidences", confidences);
+        model.addAttribute("rationales", rationales);
         model.addAttribute("Recommendation", "Some Recommendation");
         return "forecasting_seller";
     }
 
-    @PostMapping("/forecasting_seller")
-    public String forecastingSeller(){
-        return "forecasting_seller";
-    }
 
     @GetMapping("view_analytics_seller")
     public String viewAnalyticsSeller(Model model){
@@ -501,16 +516,199 @@ public class SellerController {
         model.addAttribute("wasteProxy", waste_proxy);
 
         //calculate pricing effectiveness
-        model.addAttribute("pricingEffectiveness", "-");
+
+        int up_to_100_no_show = 0;
+        int up_to_100_collected = 0;
+        int up_to_100_expired = 0;
+        int up_to_90_no_show = 0;
+        int up_to_90_collected = 0;
+        int up_to_90_expired = 0;
+        int up_to_80_no_show = 0;
+        int up_to_80_collected = 0;
+        int up_to_80_expired = 0;
+        int up_to_70_no_show = 0;
+        int up_to_70_collected = 0;
+        int up_to_70_expired = 0;
+        int up_to_60_no_show = 0;
+        int up_to_60_collected = 0;
+        int up_to_60_expired = 0;
+        int up_to_50_no_show = 0;
+        int up_to_50_collected = 0;
+        int up_to_50_expired = 0;
+        int up_to_40_no_show = 0;
+        int up_to_40_collected = 0;
+        int up_to_40_expired = 0;
+        int up_to_30_no_show = 0;
+        int up_to_30_collected = 0;
+        int up_to_30_expired = 0;
+        int up_to_20_no_show = 0;
+        int up_to_20_collected = 0;
+        int up_to_20_expired = 0;
+        int up_to_10_no_show = 0;
+        int up_to_10_collected = 0;
+        int up_to_10_expired = 0;
+
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getBundle().getDiscount() >= 90) {
+                if(reservation.getNoShow()){
+                    up_to_100_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_100_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 80) {
+                if(reservation.getNoShow()){
+                    up_to_90_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_90_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 70) {
+                if(reservation.getNoShow()){
+                    up_to_80_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_80_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 60) {
+                if(reservation.getNoShow()){
+                    up_to_70_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_70_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 50) {
+                if(reservation.getNoShow()){
+                    up_to_60_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_60_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 40) {
+                if(reservation.getNoShow()){
+                    up_to_50_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_50_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 30) {
+                if(reservation.getNoShow()){
+                    up_to_40_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_40_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 20) {
+                if(reservation.getNoShow()){
+                    up_to_30_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_30_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 10) {
+                if(reservation.getNoShow()){
+                    up_to_20_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_20_collected++;
+                }
+            } else if(reservation.getBundle().getDiscount() >= 0) {
+                if(reservation.getNoShow()){
+                    up_to_10_no_show++;
+                } else if(reservation.getCollected()){
+                    up_to_10_collected++;
+                }
+            }
+        }
+        for(Bundle bundle : allBundles) {
+            if(bundle.getDiscount() >=  90) {
+                if(bundle.getExpired()){
+                    up_to_100_expired++;
+                }
+            } else if(bundle.getDiscount() >= 80) {
+                if(bundle.getExpired()){
+                    up_to_90_expired++;
+                }
+            } else if(bundle.getDiscount() >= 70) {
+                if(bundle.getExpired()){
+                    up_to_80_expired++;
+                }
+            } else if(bundle.getDiscount() >= 60) {
+                if(bundle.getExpired()){
+                    up_to_70_expired++;
+                }
+            } else if(bundle.getDiscount() >= 50) {
+                if(bundle.getExpired()){
+                    up_to_60_expired++;
+                }
+            } else if(bundle.getDiscount() >= 40) {
+                if(bundle.getExpired()){
+                    up_to_50_expired++;
+                }
+            } else if(bundle.getDiscount() >= 30) {
+                if(bundle.getExpired()){
+                    up_to_40_expired++;
+                }
+            } else if(bundle.getDiscount() >= 20) {
+                if(bundle.getExpired()){
+                    up_to_30_expired++;
+                }
+            } else if(bundle.getDiscount() >= 10) {
+                if(bundle.getExpired()){
+                    up_to_20_expired++;
+                }
+            } else if(bundle.getDiscount() >= 0) {
+                if(bundle.getExpired()){
+                    up_to_10_expired++;
+                }
+            }
+        }
+
+        String up_to_10 = up_to_10_collected + " : " + up_to_10_expired + " : " + up_to_10_no_show;
+        String up_to_20 = up_to_20_collected + " : " + up_to_20_expired + " : " + up_to_20_no_show;
+        String up_to_30 = up_to_30_collected + " : " + up_to_30_expired + " : " + up_to_30_no_show;
+        String up_to_40 = up_to_40_collected + " : " + up_to_40_expired + " : " + up_to_40_no_show;
+        String up_to_50 = up_to_50_collected + " : " + up_to_50_expired + " : " + up_to_50_no_show;
+        String up_to_60 = up_to_60_collected + " : " + up_to_60_expired + " : " + up_to_60_no_show;
+        String up_to_70 = up_to_70_collected + " : " + up_to_70_expired + " : " + up_to_70_no_show;
+        String up_to_80 = up_to_80_collected + " : " + up_to_80_expired + " : " + up_to_80_no_show;
+        String up_to_90 = up_to_90_collected + " : " + up_to_90_expired + " : " + up_to_90_no_show;
+        String up_to_100 = up_to_100_collected + " : " + up_to_100_expired + " : " + up_to_100_no_show;
+        String[] pricingEffectivenessArray = {up_to_10, up_to_20, up_to_30, up_to_40, up_to_50, up_to_60, up_to_70, up_to_80, up_to_90, up_to_100};
+
+        model.addAttribute("pricingEffectivenessArray", pricingEffectivenessArray);
 
         //calculate operational insights
-        model.addAttribute("operationalInsights", "-");
+
+        Map<String, Integer> lookup = new HashMap<String, Integer>();
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()) {
+                if(lookup.keySet().contains(reservation.getBundle().getCategory())) {
+                    lookup.put(reservation.getBundle().getCategory(), lookup.get(reservation.getBundle().getCategory()) + 1);
+                } else{
+                    lookup.put(reservation.getBundle().getCategory(), 1);
+                }
+            }
+        }
+
+        Map<String, Integer> window = new HashMap<String, Integer>();
+        for(Reservation reservation : sellerReservations) {
+            if(reservation.getCollected()) {
+                if(window.keySet().contains(reservation.getBundle().getPickUpWindowAsString())) {
+                    window.put(reservation.getBundle().getPickUpWindowAsString(), window.get(reservation.getBundle().getPickUpWindowAsString()) + 1);
+                } else {
+                    window.put(reservation.getBundle().getPickUpWindowAsString(), 1);
+                }
+            }
+        }
+        
+        List<Map.Entry<String, Integer>> sortedCategories = new ArrayList<>(lookup.entrySet()); 
+        sortedCategories.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+        List<Map.Entry<String, Integer>> sortedWindows = new ArrayList<>(window.entrySet());
+        sortedWindows.sort((e1,e2) -> e2.getValue().compareTo(e1.getValue()));
+
+
+        model.addAttribute("operationalInsightsWindows", sortedWindows);
+        model.addAttribute("opeationalInsightsCategories", sortedCategories);
+
+
 
         return "view_analytics_seller";
     }
 
-    @GetMapping("/manage_issues_seller")
-    public String manageIssuesSeller(Model model)
+    @GetMapping("/view_issues_seller")
+    public String viewIssuesSeller(Model model)
     {
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -539,21 +737,17 @@ public class SellerController {
         ArrayList<IssueReport> unresolvedIssueReports = new ArrayList<>();
         ArrayList<IssueReport> resolvedIssueReports = new ArrayList<>();
         for(IssueReport issueReport : allSellerIssueReports) {
-            if(!issueReport.getResolved()) {
-                unresolvedIssueReports.add(issueReport);
-            }
-            else {
-                resolvedIssueReports.add(issueReport);
-            }
+            if(!issueReport.getResolved()) { unresolvedIssueReports.add(issueReport); }
+            else { resolvedIssueReports.add(issueReport); }
         }
         //add all issue reports to the web page
         model.addAttribute("unresolvedIssueReports", unresolvedIssueReports);
         model.addAttribute("resolvedIssueReports", resolvedIssueReports);
-        return "manage_issues_seller";
+        return "view_issues_seller";
     }
 
-    @PostMapping("/manage_issues_seller")
-    public String manageIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
+    @PostMapping("/view_issues_seller")
+    public String viewIssuesSeller(@RequestParam("sellerResponse") String sellerResponse,
                                      @RequestParam("issueID") int issueID){
         // Get current logged in seller
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -567,7 +761,7 @@ public class SellerController {
         issueReport1.setResolved(true);
         //save them into the repository
         irr.save(issueReport1);
-        return "manage_issues_seller";
+        return "view_issues_seller";
     }
 
 

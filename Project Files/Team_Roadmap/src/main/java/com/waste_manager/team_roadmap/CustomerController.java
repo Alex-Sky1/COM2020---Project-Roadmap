@@ -189,6 +189,13 @@ public class CustomerController {
         //find all bundles that have not expired and have not already been reserved
         List<Bundle> allBundles = br.findByReservedAndExpired(false, false);
         ArrayList<Bundle> bundles = new ArrayList<>();
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = getCustomerProfile(auth);
+
+        Admin admin=ar.getAdmin();
+
+
         //find if any bundles have gone past expiry;
         for (Bundle bundle : allBundles) {
             if (bundle.getPickUpWindow() < LocalTime.now().getHour() || bundle.getTimeStamp().toLocalDate().isBefore(LocalDate.now())) {
@@ -220,7 +227,14 @@ public class CustomerController {
                             (timeSelector.equals("less") && Integer.parseInt(time.substring(0, 2)) > bundle.getPickUpWindow()) ||
                             (timeSelector.equals("equal") && Integer.parseInt(time.substring(0, 2)) == bundle.getPickUpWindow())))
             {
-                bundles.add(bundle);
+                //admin bundles can only be seen by admin
+                if(admin.getCustomerView().getdName() == customer.getdName()) {
+                    if(bundle.getSeller().getdName().equals(admin.getSellerView().getdName())) {
+                        bundles.add(bundle);
+                    }
+                }else if(!bundle.getSeller().getdName().equals(admin.getSellerView().getdName())){
+                    bundles.add(bundle);
+                }
             }
         }
         //add bundles to web page
@@ -370,7 +384,7 @@ public class CustomerController {
 
         //badges array: [1 meal saved, 5 meals saved, 10 meals saved,
         //              1 category, 3 categories, 5 categories,
-        //              1 seller, 5 sellers, 10 sellers,
+        //              1 seller, 5 sellers, 9 sellers,
         //              20 co2 saved, 50 co2 saved, 100 co2 saved]
         boolean[] badges = new boolean[12];
 
@@ -389,7 +403,7 @@ public class CustomerController {
         //set badges for seller purchased from
         if(num_sellers==0){ badges[6] = false; badges[7] = false; badges[8] = false;}
         else if(num_sellers>=1 && num_sellers<5){ badges[6] = true; badges[7] = false; badges[8] = false;}
-        else if(num_sellers>=5 && num_sellers<10){ badges[6] = true; badges[7] = true; badges[8] = false;}
+        else if(num_sellers>=5 && num_sellers<9){ badges[6] = true; badges[7] = true; badges[8] = false;}
         else { badges[6] = true; badges[7] = true; badges[8] = true;}
 
         //sets badges for amount of co2 saved

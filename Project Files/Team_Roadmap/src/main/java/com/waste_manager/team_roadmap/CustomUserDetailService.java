@@ -22,9 +22,10 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Admin> aOptional = adminRepository.findBydName(username);
+        //if user is found in admin DB assign role admin and build user
         if(aOptional.isPresent()){
             Admin a = aOptional.get();
-            return User.withUsername(username).password(a.getPassword()).roles("ADMIN").build();
+            return User.withUsername(username).password(a.getPassword()).authorities("ROLE_ADMIN").build();
         }
         //if user is found in customer DB assign role customer and build user
         List<Customer> cList = customerRepository.findBydName(username);
