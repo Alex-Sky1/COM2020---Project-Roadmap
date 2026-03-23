@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="box1" style="height: 400px; border: none; width: 40%">
-            <div class="grid-2-columns" style="row-gap: 5%; margin: 5%; grid-template-columns: 1fr 1fr">
+            <div class="grid-2-columns" style="row-gap: 3%; margin: 5%; grid-template-columns: 1fr 1fr">
                 <label for="email">Email Address:</label>
                 <input class="text-input1" type="email" id="email" name ="email">
                 <label for="phone">Phone Number:</label>
@@ -53,8 +53,9 @@
                 <input class="text-input1" type="password" id="password1" name="password1">
                 <label for="password2">Confirm Password:</label>
                 <input class="text-input1" type="password" id="password2" name="password2">
-                <p th:text="${error}" style="color:red; font-size: 13px; font-weight: bold; grid-column: span 2; text-align: center; margin-bottom: 0"></p>
-                <button type="submit" class="button1" style="width:250px; margin-top: 10%">Create Account</button>
+                <p style="font-size: 13px; font-weight: bold; grid-column: span 2; margin-top: 5px; margin-bottom: 0">Password must be minimum 8 characters, with at least one digit, uppercase letter, lowercase letter and special character</p>
+                <p th:text="${error}" style="color:red; font-size: 13px; font-weight: bold; grid-column: span 2; text-align: center; margin-top: 5px; margin-bottom: 0"></p>
+                <button type="submit" class="button1" style="width:250px">Create Account</button>
             </div>
         </div>
     </form>
