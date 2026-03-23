@@ -426,8 +426,8 @@ public class SellerController {
                 if(!repeat) {
                     Forecast forecast = new Forecast(LocalDateTime.now(), s.getSellerID(), bundle.getWeatherFlag(), bundle.getCategory(), new ArrayList<>(allBundles), new ArrayList<>(allReservations));
                     bundles.add(bundle);
-                    probNoShow.add(forecast.prediction(bundle, "noshow"));
-                    demands.add(forecast.prediction(bundle, "reservations"));
+                    probNoShow.add(forecast.prediction(bundle, "noshow",false));
+                    demands.add(forecast.prediction(bundle, "reservations",false));
                     confidences.add("confidence");
                     rationales.add("rationale");
                 }
