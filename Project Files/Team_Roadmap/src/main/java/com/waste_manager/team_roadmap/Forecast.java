@@ -33,6 +33,7 @@ public class Forecast {
     private static Normalize normalized1;
     private static Normalize normalized2;
     private static int numOfAttr = 7;
+    //private static ArrayList<Bundle> testBundle = ;
 
     private LocalDateTime forecastDate;
     private int sellerID;
@@ -741,7 +742,7 @@ public void onStartUp() throws Exception {
             }
         }
 
-        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation", false) * (1 - prediction(bundle, "noshow", false)));
+        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservations", false) * (1 - prediction(bundle, "noshow", false)));
 
         returnString.append("The recommended number of bundles to post is")
                 .append(recommendedNumber)
