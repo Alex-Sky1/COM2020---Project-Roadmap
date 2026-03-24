@@ -411,8 +411,9 @@ public class SellerController {
         ArrayList<Bundle> bundles = new ArrayList<>();
         ArrayList<Double> probNoShow = new ArrayList<>();
         ArrayList<Double> demands = new ArrayList<>();
-        ArrayList<String> confidences = new ArrayList<>();
+        ArrayList<Double> confidences = new ArrayList<>();
         ArrayList<String> rationales = new ArrayList<>();
+        ArrayList<String> recs = new ArrayList<>();
 
         for( Bundle bundle : allBundles ) {
             if(bundle.getTimeStamp().getDayOfYear() == LocalDate.now().getDayOfYear() && bundle.getTimeStamp().getYear() == LocalDate.now().getYear()) {
@@ -428,21 +429,20 @@ public class SellerController {
                     bundles.add(bundle);
                     probNoShow.add(forecast.prediction(bundle, "noshow",false));
                     demands.add(forecast.prediction(bundle, "reservations",false));
-                    confidences.add("confidence");
-                    rationales.add("rationale");
+                    confidences.add(forecast.prediction(bundle, "reservations", true));
+                    recs.add("some Recommendation");
+                    rationales.add("some rational");
                 }
 
             }
         }
-        for(double demand: demands) {
-            System.out.println(demand);
-        }
+
 
         model.addAttribute("bundles", bundles);
-        model.addAttribute("probNoShow", probNoShow.toArray());
+        model.addAttribute("probNoShow", probNoShow);
         model.addAttribute("confidences", confidences);
         model.addAttribute("rationales", rationales);
-        model.addAttribute("Recommendation", "Some Recommendation");
+        model.addAttribute("Recommendations", recs);
         return "forecasting_seller";
     }
 
