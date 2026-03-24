@@ -32,6 +32,7 @@ public class Forecast {
     private static NominalToBinary nominalTobinary2;
     private static Normalize normalized1;
     private static Normalize normalized2;
+    private static int numOfAttr = 7;
 
     private LocalDateTime forecastDate;
     private int sellerID;
@@ -134,6 +135,7 @@ public class Forecast {
         if (type == "reservations") {
             newRow = new DenseInstance(table1.numAttributes());
             newRow.setDataset(table1);
+            newRow.setValue(table1.attribute("Day"),dayString(dat[0]));
             newRow.setValue(table1.attribute("pickupWindow"),timeString(dat[1]));
             newRow.setValue(table1.attribute("seller"),SellerString(dat[2]));
             newRow.setValue(table1.attribute("category"),numberCatString(dat[3]));
@@ -172,6 +174,7 @@ public class Forecast {
         else if (type == "noshow"){
             newRow = new DenseInstance(table2.numAttributes());
             newRow.setDataset(table2);
+            newRow.setValue(table2.attribute("Day"),dayString(dat[0]));
             newRow.setValue(table2.attribute("pickupWindow"),timeString(dat[1]));
             newRow.setValue(table2.attribute("seller"),SellerString(dat[2]));
             newRow.setValue(table2.attribute("category"),numberCatString(dat[3]));
@@ -392,7 +395,7 @@ public class Forecast {
         ArrayList<ArrayList<Double>> hold = group();
 
         ArrayList<Attribute> attributes = new ArrayList<>();
-        attributes.add(new Attribute("Day"));
+        attributes.add(new Attribute("Day",(ArrayList<String>) null));
         attributes.add(new Attribute("pickupWindow",(ArrayList<String>) null));
         attributes.add(new Attribute("seller",(ArrayList<String>) null));
         attributes.add(new Attribute("category",(ArrayList<String>) null));
@@ -434,6 +437,7 @@ public class Forecast {
 
 
             Instance t = new DenseInstance(1.0,newRow);
+            t.setValue(data.attribute("Day"),timeString(newRow[0]));
             t.setValue(data.attribute("pickupWindow"),timeString(newRow[1]));
             t.setValue(data.attribute("seller"),SellerString(newRow[2]));
             t.setValue(data.attribute("category"),numberCatString(newRow[3]));
@@ -652,6 +656,28 @@ public void onStartUp() throws Exception {
 
         }
     }
+
+    public String dayString(double category){
+
+        switch ((int) category){
+            case 1:
+                return "Monday";
+            case 2:
+                return "Tuesday";
+            case 3:
+                return "Wednesday";
+            case 4:
+                return "Thursday";
+            case 5:
+                return "Friday";
+            case 6:
+                return "Saturday";
+            default:
+                return "Sunday";
+
+        }
+    }
+
 
     public String timeString(double time){
             return String.valueOf(time);
