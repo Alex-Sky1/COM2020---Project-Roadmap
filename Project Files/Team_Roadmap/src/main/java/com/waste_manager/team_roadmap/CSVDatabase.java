@@ -45,7 +45,7 @@ public class CSVDatabase {
     File reservationCSV;
     File issueCSV;
 
-    private static List<String> getRecordFromLine(String line) {
+    public static List<String> getRecordFromLine(String line) {
         List<String> values = new ArrayList<String>();
         try (Scanner rowScanner = new Scanner(line)) {
             rowScanner.useDelimiter(DELIMITER);
