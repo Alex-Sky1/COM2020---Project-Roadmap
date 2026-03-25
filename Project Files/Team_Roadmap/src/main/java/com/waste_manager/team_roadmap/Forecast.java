@@ -714,7 +714,7 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
 
         int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservations") * (1 - prediction(bundle, "noshow")));
 
-        returnString.append("The recommended number of bundles to post is")
+        returnString.append("The recommended number of bundles to post is ")
                 .append(recommendedNumber)
                 .append(" instead of ").append(duplicateBundles.size());
 
