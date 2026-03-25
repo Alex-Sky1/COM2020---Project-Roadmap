@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.functions.Logistic;
 import weka.core.*;
@@ -32,6 +34,12 @@ public class Forecast {
     private static NominalToBinary nominalTobinary2;
     private static Normalize normalized1;
     private static Normalize normalized2;
+    private static int numOfAttr = 7;
+    private static ArrayList<Bundle> testBundle = new ArrayList<>();
+    private static ArrayList<Reservation> testReservation = new ArrayList<>();
+    private static Instances test;
+    private static Instances train;
+
 
     private LocalDateTime forecastDate;
     private int sellerID;
@@ -111,12 +119,12 @@ public class Forecast {
 
     //https://weka.sourceforge.io/doc.dev/
     //https://gist.github.com/knbknb/c7f75d8eaa5b50a7b6786ca5f0fedbfb
-    public double prediction(Bundle bun,String type) throws Exception {
-            return workAround(bun, model,type);
+    public double prediction(Bundle bun,String type,boolean conf) throws Exception {
+            return workAround(bun, model,type,conf);
 
     }
 
-    private double workAround(Bundle bun, LinearRegression model,String type) throws Exception {
+    private double workAround(Bundle bun, LinearRegression model,String type,boolean conf) throws Exception {
         double[] dat = new double[8];
         dat[0] = bun.getTimeStamp().getDayOfWeek().getValue();
         dat[1] = bun.getPickUpWindow();
@@ -134,6 +142,7 @@ public class Forecast {
         if (type == "reservations") {
             newRow = new DenseInstance(table1.numAttributes());
             newRow.setDataset(table1);
+            newRow.setValue(table1.attribute("Day"),dayString(dat[0]));
             newRow.setValue(table1.attribute("pickupWindow"),timeString(dat[1]));
             newRow.setValue(table1.attribute("seller"),SellerString(dat[2]));
             newRow.setValue(table1.attribute("category"),numberCatString(dat[3]));
@@ -150,12 +159,29 @@ public class Forecast {
             normalized1.input(nominalTobinaryData);
             Instance normalizedData = normalized1.output();
 
-            return (Math.ceil(model.classifyInstance(normalizedData)));
+
+
+            if (conf) {
+                double hold = 0;
+                double[] confi = model.distributionForInstance(normalizedData);
+                for (double v : confi) {
+                    if (v > hold) {
+                        hold = v;
+                    }
+                }
+
+                return hold;
+
+            }
+            else{
+                return Math.max(0,(Math.ceil(model.classifyInstance(normalizedData))));
+            }
 
         }
         else if (type == "noshow"){
             newRow = new DenseInstance(table2.numAttributes());
             newRow.setDataset(table2);
+            newRow.setValue(table2.attribute("Day"),dayString(dat[0]));
             newRow.setValue(table2.attribute("pickupWindow"),timeString(dat[1]));
             newRow.setValue(table2.attribute("seller"),SellerString(dat[2]));
             newRow.setValue(table2.attribute("category"),numberCatString(dat[3]));
@@ -172,11 +198,30 @@ public class Forecast {
             normalized2.input(nominalTobinaryData);
             Instance normalizedData = normalized2.output();
 
-            return model2.classifyInstance(normalizedData);
+
+
+            if (conf) {
+                double hold = 0;
+                double[] confi = model2.distributionForInstance(normalizedData);
+                for (double v : confi) {
+                    if (v > hold) {
+                        hold = v;
+                    }
+                }
+
+                return hold;
+            }
+            else {
+                return model2.classifyInstance(normalizedData);
+            }
         }
+
+
 
         return (Math.ceil(model2.classifyInstance(newRow)));
     }
+
+
 
 
 
@@ -332,14 +377,14 @@ public class Forecast {
 
     //sort out data
 
-    public double[][] data() {
-        int rows = bundleList.size();
+    public double[][] data(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
+        int rows = thisBundleList.size();
         int cols = 8;
 
         double[][] bundleArray = new double[rows][cols];
 
         for (int i = 0; i < rows; i++) {
-            Bundle b = bundleList.get(i);
+            Bundle b = thisBundleList.get(i);
             bundleArray[i][0] = b.getPostingID();
             bundleArray[i][1] = b.getTimeStamp().getDayOfWeek().getValue();
             bundleArray[i][2] = b.getPickUpWindow();
@@ -353,11 +398,11 @@ public class Forecast {
     }
 
 
-    public Instances build_data(String type){
-        ArrayList<ArrayList<Double>> hold = group();
+    public Instances build_data(String type,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList){
+        ArrayList<ArrayList<Double>> hold = group(thisBundleList,thisReservationList);
 
         ArrayList<Attribute> attributes = new ArrayList<>();
-        attributes.add(new Attribute("Day"));
+        attributes.add(new Attribute("Day",(ArrayList<String>) null));
         attributes.add(new Attribute("pickupWindow",(ArrayList<String>) null));
         attributes.add(new Attribute("seller",(ArrayList<String>) null));
         attributes.add(new Attribute("category",(ArrayList<String>) null));
@@ -399,6 +444,7 @@ public class Forecast {
 
 
             Instance t = new DenseInstance(1.0,newRow);
+            t.setValue(data.attribute("Day"),timeString(newRow[0]));
             t.setValue(data.attribute("pickupWindow"),timeString(newRow[1]));
             t.setValue(data.attribute("seller"),SellerString(newRow[2]));
             t.setValue(data.attribute("category"),numberCatString(newRow[3]));
@@ -411,19 +457,19 @@ public class Forecast {
 
 
         }
-        if (type == "reservations") {
+        if (type == "reservations" && thisBundleList ==bundleList) {
             table1 = data;
         }
-        else if (type == "noshow"){
+        else if (type == "noshow" && thisBundleList ==bundleList){
             table2 = data;
         }
         return data;
 
     }
 
-    public ArrayList<ArrayList<Double>> group() {
-        double[][] use = data();
-        int rows = bundleList.size();
+    public ArrayList<ArrayList<Double>> group(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
+        double[][] use = data(thisBundleList,thisReservationList);
+        int rows = thisBundleList.size();
 
 
         int attr = 7;
@@ -451,7 +497,7 @@ public class Forecast {
                     }
                 }
             }
-            double[] reservations_noShow = backup(use[i][0], use[i]);
+            double[] reservations_noShow = backup(use[i][0], use[i],thisBundleList,thisReservationList);
             if (grouped.isEmpty() || count != attr) {
                 for (int a = 0; a < attr+1; a++) {
                     make.add(use[i][a]);
@@ -487,17 +533,17 @@ public class Forecast {
 
 
 
-    public double[] backup(double id,double[] use) {
+    public double[] backup(double id,double[] use,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
         int hold = 0;
         double[] reservations_noShow = new double[2];
         reservations_noShow[0] = 0.0;
         reservations_noShow[1] = 0.0;
 
 
-        while(hold < reservationList.size()){
-            if (reservationList.get(hold).getBundle().getPostingID() == id){
+        while(hold < thisReservationList.size()){
+            if (thisReservationList.get(hold).getBundle().getPostingID() == id){
                 reservations_noShow[0] = reservations_noShow[0] + 1.0;
-                if(reservationList.get(hold).getNoShow()){
+                if(thisReservationList.get(hold).getNoShow()){
                     reservations_noShow[1] = reservations_noShow[1] +1.0;
                 }
 
@@ -509,16 +555,15 @@ public class Forecast {
     }
 
 
-public void trainModel(String type) throws Exception {
+public void trainModel(String type,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) throws Exception {
 
         if (model == null) {
             if (type == "reservations") {
-                Instances data = build_data("reservations");
+                Instances data = build_data("reservations",thisBundleList, thisReservationList);
                 data.randomize(new java.util.Random(1));
-                System.out.println("Number of instances: " + data.numInstances());
 
                 StringTonominal1 = new StringToNominal();
-                StringTonominal1.setAttributeRange("first-last");
+                StringTonominal1.setAttributeRange("first-"+(data.numAttributes() - 1));
                 StringTonominal1.setInputFormat(data);
                 Instances StringTonominalData1 = Filter.useFilter(data, StringTonominal1);
 
@@ -531,6 +576,7 @@ public void trainModel(String type) throws Exception {
                 normalized1 = new Normalize();
                 normalized1.setInputFormat(nominalTobinaryData1);
                 Instances normalizedData1 = Filter.useFilter(nominalTobinaryData1, normalized1);
+                train = normalizedData1;
 
 
 
@@ -541,14 +587,13 @@ public void trainModel(String type) throws Exception {
         }
         if (model2 == null) {
             if (type == "noshow") {
-                Instances data = build_data("noshow");
+                Instances data = build_data("noshow",thisBundleList,thisReservationList);
 
 
                 data.randomize(new java.util.Random(1));
-                System.out.println("Number of instances: " + data.numInstances());
 
                 StringTonominal2 = new StringToNominal();
-                StringTonominal2.setAttributeRange("first-last");
+                StringTonominal2.setAttributeRange("first-"+(data.numAttributes() - 1));
                 StringTonominal2.setInputFormat(data);
                 Instances StringTonominalData2 = Filter.useFilter(data, StringTonominal2);
 
@@ -564,7 +609,7 @@ public void trainModel(String type) throws Exception {
 
 
                 model2 = new LinearRegression();
-                model.setAttributeSelectionMethod(new SelectedTag(LinearRegression.SELECTION_NONE, LinearRegression.TAGS_SELECTION));
+                model2.setAttributeSelectionMethod(new SelectedTag(LinearRegression.SELECTION_NONE, LinearRegression.TAGS_SELECTION));
                 model2.buildClassifier(normalizedData2);
 
             }
@@ -572,9 +617,17 @@ public void trainModel(String type) throws Exception {
 }
 
 
-public void onStartUp() throws Exception {
-    trainModel("reservations");
-    trainModel("noshow");
+public Instances testFilter(Instances data) throws Exception {
+
+    return Filter.useFilter(Filter.useFilter(Filter.useFilter(data,StringTonominal1),nominalTobinary1),normalized1);
+}
+
+public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) throws Exception {
+    testBundle = thisBundleList;
+    testReservation = thisReservationList;
+    trainModel("reservations",bundleList,reservationList);
+    trainModel("noshow",bundleList,reservationList);
+    test = testFilter(build_data("reservations",testBundle,testReservation));
 }
 
 
@@ -620,6 +673,28 @@ public void onStartUp() throws Exception {
         }
     }
 
+    public String dayString(double category){
+
+        switch ((int) category){
+            case 1:
+                return "Monday";
+            case 2:
+                return "Tuesday";
+            case 3:
+                return "Wednesday";
+            case 4:
+                return "Thursday";
+            case 5:
+                return "Friday";
+            case 6:
+                return "Saturday";
+            default:
+                return "Sunday";
+
+        }
+    }
+
+
     public String timeString(double time){
             return String.valueOf(time);
     }
@@ -664,9 +739,9 @@ public void onStartUp() throws Exception {
 //        }
 //    }
 
-public String createRecommendation(Bundle bundle) throws Exception {
-    return createRecommendation(bundle, false);
-}
+    public String createRecommendation(Bundle bundle) throws Exception {
+        return createRecommendation(bundle, false);
+    }
 
     public String createRecommendation(Bundle bundle, boolean returnRecommend) throws Exception {
 
@@ -682,17 +757,17 @@ public String createRecommendation(Bundle bundle) throws Exception {
             }
         }
 
-        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservation") * (1 - prediction(bundle, "noshow")));
+        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservations", false) * (1 - prediction(bundle, "noshow", false)));
 
         returnString.append("The recommended number of bundles to post is")
                 .append(recommendedNumber)
                 .append(" instead of ").append(duplicateBundles.size());
 
-        if (recommendedNumber == duplicateBundles.size()) {
-            return "The amount of bundles posted is the right amount";
-        }
         if (returnRecommend) {
             return format("%d %d",  recommendedNumber, duplicateBundles.size());
+        }
+        if (recommendedNumber == duplicateBundles.size()) {
+            return "The amount of bundles posted is the right amount";
         }
         else {
             return returnString.toString();
@@ -715,6 +790,22 @@ public String createRecommendation(Bundle bundle) throws Exception {
         else {
             return "The data indicates you are overposting bundles, and not all of them will sell";
         }
+    }
+
+    public double Eval(String type) throws Exception {
+        Evaluation eva = new Evaluation(train);
+        eva.evaluateModel(model,test);
+
+        if (type == "confidence") {
+            return eva.correlationCoefficient()*eva.correlationCoefficient();
+
+        }
+        else if (type == "MAE"){
+            return eva.meanAbsoluteError();
+        }
+
+
+        return -10000.0;
     }
 
     // Getters and Setters

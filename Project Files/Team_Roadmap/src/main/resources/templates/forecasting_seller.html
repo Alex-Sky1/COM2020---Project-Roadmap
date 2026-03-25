@@ -28,8 +28,8 @@
                 <th>Weather Flag</th>
                 <th>Probability No Show</th>
                 <th>Confidence</th>
-                <th>Rationale</th>
                 <th>Recommendation</th>
+                <th>Rationale</th>
             </tr>
             </thead>
             <tbody>
@@ -43,8 +43,8 @@
                 <td th:text="${bundle.weatherFlag}" style="overflow: auto; max-width: 100px">Ex Weather Flag</td>
                 <td th:text="${probNoShow[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex ProbNoShow</td>
                 <td th:text="${confidences[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex Confidence</td>
-                <td th:text="${rationales[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex Confidence</td>
-                <td th:text="${Recommendation}" style="overflow: auto; max-width: 100px">Ex Recommendation</td>
+                <td th:text="${Recommendations[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex Recommendation</td>
+                <td th:text="${rationales[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex Rationale</td>
             </tr>
             </tbody>
         </table>
