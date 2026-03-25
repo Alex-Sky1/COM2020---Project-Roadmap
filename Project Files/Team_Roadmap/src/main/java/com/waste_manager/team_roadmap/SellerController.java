@@ -429,7 +429,7 @@ public class SellerController {
                     bundles.add(bundle);
                     probNoShow.add(forecast.prediction(bundle, "noshow",false));
                     demands.add(forecast.prediction(bundle, "reservations",false));
-                    confidences.add(0.0);
+                    confidences.add(forecast.Eval("confidence"));
                     recs.add(forecast.createRecommendation(bundle));
                     rationales.add(forecast.rationale(bundle));
                 }
