@@ -47,6 +47,7 @@
 740015758  Thomas Hindle        tah222@exeter.ac.uk
 * Design and implementation of database systems
 * Generation of seeded dataset
+* Assisted with writing of report
 
 ---
 
