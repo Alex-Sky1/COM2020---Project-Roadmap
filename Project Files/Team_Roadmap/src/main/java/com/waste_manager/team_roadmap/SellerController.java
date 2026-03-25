@@ -420,6 +420,7 @@ public class SellerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Seller s = getSellerProfile(auth);
 
+        //get all forecasting statistics
         List<Bundle> allBundles = br.findBySellerID(s.getSellerID());
         List<Reservation>  allReservations = rr.findBySellerID(s.getSellerID());
         ArrayList<Bundle> bundles = new ArrayList<>();
@@ -453,7 +454,7 @@ public class SellerController {
             }
         }
 
-
+        //add to front end table
         model.addAttribute("bundles", bundles);
         model.addAttribute("probNoShow", probNoShow);
         model.addAttribute("confidences", confidences);

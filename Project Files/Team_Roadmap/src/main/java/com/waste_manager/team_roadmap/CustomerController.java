@@ -488,6 +488,7 @@ public class CustomerController {
         Customer c = cr.findBydName(currentUsername).get(0);
         ArrayList<String> notifications = new ArrayList<>();
         List<Reservation> customerReservations = rr.findByCustomerID(c.getCustomerID());
+        //for each reservation check if pickup is in the next hour and add to notification page
         for (Reservation r : customerReservations) {
             if (!r.getCollected()) {
                 int pickuphr = r.getBundle().getPickUpWindow();
