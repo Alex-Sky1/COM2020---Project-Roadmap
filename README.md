@@ -31,9 +31,10 @@
 * Assisted with Documentation - Test-Evidencing
 
 740013807  Alice Sellors        as2132@exeter.ac.uk
-* Documentation and presentation slides/script
-* Assisted with Java controllers
-* Backend for issue reports, analytics, etc
+* Documentation (report, meeting minutes, software inventory, scrumboard, handover pack)
+* Presentation slides and script for both sprints
+* Assisted with Java controllers 
+* Backend for issue reports, analytics, badges, etc
 
 730036344  Christian Mugford    calm203@exeter.ac.uk
 * Created forecasting baseline and predictions
