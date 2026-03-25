@@ -16,13 +16,13 @@
 ### Scrum Master
 740037625  Rosie Bradstock      rb1043@exeter.ac.uk
 * Frontend HTML for major pages and styled with CSS
-* Wrote all the JavaScript and all classes in the main CSS file
+* Wrote the majority of the JavaScript and CSS
 * Assisted with documentation and UI design
 
 ### Development Team
 740033301  Alex Day             mjd244@exeter.ac.uk
-* Testing
-* Forecasting
+* Made unit tests and test suite
+* Assisted with designing and implementing forecasting models
 * Documentation
 
 740060697  Alex Fairbrass       asf212@exeter.ac.uk
@@ -43,10 +43,11 @@
 740033367  Isla Bergin-Smith    isb206@exeter.ac.uk
 * Documentation
 * Assisted with Scrumboard
+* Assisted with seller analytics backend
 
 740015758  Thomas Hindle        tah222@exeter.ac.uk
-* Design and implementation of database systems
-* Generation of seeded dataset
+* Design and implementation of database systems using the Spring Data module and JPA
+* Generation of seeded dataset using Python
 
 ---
 
