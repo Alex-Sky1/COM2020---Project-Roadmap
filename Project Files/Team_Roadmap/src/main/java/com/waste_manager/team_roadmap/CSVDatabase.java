@@ -45,6 +45,8 @@ public class CSVDatabase {
     File reservationCSV;
     File issueCSV;
 
+    private final String AdminPassword = "AdminPassword";
+
     public static List<String> getRecordFromLine(String line) {
         List<String> values = new ArrayList<String>();
         try (Scanner rowScanner = new Scanner(line)) {
@@ -101,7 +103,7 @@ public class CSVDatabase {
                     "N/A",
                     "N/A",
                     "N/A",
-                    "AdminPassword",
+                    this.AdminPassword,
                     true
             ));
         } else { // otherwise read that file
@@ -143,7 +145,7 @@ public class CSVDatabase {
                     "N/A",
                     "N/A",
                     "N/A",
-                    "AdminPassword",
+                    this.AdminPassword,
                     0,
                     new ArrayList<Boolean>(Arrays.asList(false, false, false, false, false, false, false, false, false, false, false, false)),
                     true
@@ -282,7 +284,7 @@ public class CSVDatabase {
 
         adminRepository.save(new Admin(
                 "Admin",
-                new BCryptPasswordEncoder().encode("AdminPassword"),
+                new BCryptPasswordEncoder().encode(this.AdminPassword),
                 sellerRepository.findByID(1).get(),
                 customerRepository.findByID(1).get()
         ));

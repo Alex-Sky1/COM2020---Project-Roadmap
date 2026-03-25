@@ -25,7 +25,7 @@
             <input style="display: none" id="hidden_items" name="hidden_items" th:value="${bundle.getContentsAsString()}" type="text">
             <input style="display: none" id="PostingID" name="PostingID" th:value="${bundle.postingID}">
             <label class="label1" for="category">Food Category</label>
-            <select name="category" id="category" class="text-input2">
+            <select name="category" id="category" class="text-input2" required>
                 <option value="Fish & Meat" th:selected="${bundle.category.equals('Fish & Meat')}">Fish & Meat</option>
                 <option value="Bakery" th:selected="${bundle.category.equals('Bakery')}" >Bakery</option>
                 <option value="Snacks" th:selected="${bundle.category.equals('Snacks')}" >Snacks</option>
@@ -36,12 +36,12 @@
             </select>
             <label class="label1" for="price">Price</label>
             <span class="input-pound-blue">
-                <input class="text-input2" th:value="${bundle.price}" type="number" id="price" name="price" min="0" step="0.01">
+                <input class="text-input2" th:value="${bundle.price}" type="number" id="price" name="price" min="0" step="0.01" style="width: 135px" required>
             </span>
             <label class = label1 for="discount">Discount</label>
-            <input class="text-input2" th:value="${bundle.discount}" type="number" placeholder="%" id="discount" name="discount" max="100" min="0">
+            <input class="text-input2" th:value="${bundle.discount}" type="number" placeholder="%" id="discount" name="discount" max="100" min="0" required>
             <label class="label1" for="pickup">Pickup Window</label>
-            <select class="text-input2" id="pickup" name="pickup">
+            <select class="text-input2" id="pickup" name="pickup" required>
                 <option value="00:00-01:00" th:selected="${bundle.getPickUpWindowAsString().equals('00:00-01:00')}">00:00-01:00</option>
                 <option value="01:00-02:00" th:selected="${bundle.getPickUpWindowAsString().equals('01:00-02:00')}">01:00-02:00</option>
                 <option value="02:00-03:00" th:selected="${bundle.getPickUpWindowAsString().equals('02:00-03:00')}">02:00-03:00</option>
@@ -67,6 +67,7 @@
                 <option value="22:00-23:00" th:selected="${bundle.getPickUpWindowAsString().equals('22:00-23:00')}">22:00-23:00</option>
                 <option value="23:00-00:00" th:selected="${bundle.getPickUpWindowAsString().equals('23:00-00:00')}">23:00-00:00</option>
             </select>
+            <p th:text="${error}" style="color:red; font-size: 13px; font-weight: bold; grid-column: span 2; text-align: center; margin-top: 5px; margin-bottom: 0"></p>
             <button type="submit" class="button2" style="grid-column: span 2" name="post">Edit Bundle</button>
         </div>
 

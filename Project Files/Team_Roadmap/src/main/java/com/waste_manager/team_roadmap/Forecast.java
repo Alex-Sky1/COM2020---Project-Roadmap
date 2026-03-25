@@ -4,18 +4,15 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LinearRegression;
-import weka.classifiers.functions.Logistic;
 import weka.core.*;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.NominalToBinary;
 import weka.filters.unsupervised.attribute.Normalize;
-import weka.filters.unsupervised.attribute.NumericToNominal;
 import weka.filters.unsupervised.attribute.StringToNominal;
 
 import static java.lang.String.format;
@@ -34,7 +31,6 @@ public class Forecast {
     private static NominalToBinary nominalTobinary2;
     private static Normalize normalized1;
     private static Normalize normalized2;
-    private static int numOfAttr = 7;
     private static ArrayList<Bundle> testBundle = new ArrayList<>();
     private static ArrayList<Reservation> testReservation = new ArrayList<>();
     private static Instances test;
@@ -119,12 +115,12 @@ public class Forecast {
 
     //https://weka.sourceforge.io/doc.dev/
     //https://gist.github.com/knbknb/c7f75d8eaa5b50a7b6786ca5f0fedbfb
-    public double prediction(Bundle bun,String type,boolean conf) throws Exception {
-            return workAround(bun, model,type,conf);
+    public double prediction(Bundle bun,String type) throws Exception {
+            return workAround(bun, model,type);
 
     }
 
-    private double workAround(Bundle bun, LinearRegression model,String type,boolean conf) throws Exception {
+    private double workAround(Bundle bun, LinearRegression model,String type) throws Exception {
         double[] dat = new double[8];
         dat[0] = bun.getTimeStamp().getDayOfWeek().getValue();
         dat[1] = bun.getPickUpWindow();
@@ -161,21 +157,9 @@ public class Forecast {
 
 
 
-            if (conf) {
-                double hold = 0;
-                double[] confi = model.distributionForInstance(normalizedData);
-                for (double v : confi) {
-                    if (v > hold) {
-                        hold = v;
-                    }
-                }
 
-                return hold;
-
-            }
-            else{
                 return Math.max(0,(Math.ceil(model.classifyInstance(normalizedData))));
-            }
+
 
         }
         else if (type == "noshow"){
@@ -200,20 +184,10 @@ public class Forecast {
 
 
 
-            if (conf) {
-                double hold = 0;
-                double[] confi = model2.distributionForInstance(normalizedData);
-                for (double v : confi) {
-                    if (v > hold) {
-                        hold = v;
-                    }
-                }
 
-                return hold;
-            }
-            else {
-                return model2.classifyInstance(normalizedData);
-            }
+
+                return Math.round(Math.max(0,model2.classifyInstance(normalizedData))*10000.0)/10000.0;
+
         }
 
 
@@ -267,10 +241,6 @@ public class Forecast {
         return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
     }
 
-    public int movingavg() {
-        return movingavg(this.forecastDate, 24);
-    }
-
     public int movingavg(LocalDateTime date, int hours) {
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
@@ -304,10 +274,6 @@ public class Forecast {
             return -1;
         }
         return returnInt / counter;
-    }
-
-    public float MAE() {
-        return MAE("seasonalNaive", 0);
     }
 
     public float MAE(String baseline, int hours) {
@@ -377,7 +343,7 @@ public class Forecast {
 
     //sort out data
 
-    public double[][] data(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
+    public double[][] data(ArrayList<Bundle> thisBundleList) {
         int rows = thisBundleList.size();
         int cols = 8;
 
@@ -449,10 +415,6 @@ public class Forecast {
             t.setValue(data.attribute("seller"),SellerString(newRow[2]));
             t.setValue(data.attribute("category"),numberCatString(newRow[3]));
             t.setValue(data.attribute("weather"),numberweatherString(newRow[4]));
-
-//            if(type == "noshow"){
-//                t.setValue(data.attribute("noshow"),convetper(newRow[7]));
-//            }
             data.add(t);
 
 
@@ -468,7 +430,7 @@ public class Forecast {
     }
 
     public ArrayList<ArrayList<Double>> group(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
-        double[][] use = data(thisBundleList,thisReservationList);
+        double[][] use = data(thisBundleList);
         int rows = thisBundleList.size();
 
 
@@ -497,7 +459,7 @@ public class Forecast {
                     }
                 }
             }
-            double[] reservations_noShow = backup(use[i][0], use[i],thisBundleList,thisReservationList);
+            double[] reservations_noShow = backup(use[i][0],thisReservationList);
             if (grouped.isEmpty() || count != attr) {
                 for (int a = 0; a < attr+1; a++) {
                     make.add(use[i][a]);
@@ -533,7 +495,7 @@ public class Forecast {
 
 
 
-    public double[] backup(double id,double[] use,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
+    public double[] backup(double id, ArrayList<Reservation> thisReservationList) {
         int hold = 0;
         double[] reservations_noShow = new double[2];
         reservations_noShow[0] = 0.0;
@@ -729,15 +691,7 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
                 return "unknown";
         }
     }
-//
-//    public String convetper(double noshow){
-//        if (noshow >= 0.5){
-//            return "1";
-//        }
-//        else{
-//            return "2";
-//        }
-//    }
+
 
     public String createRecommendation(Bundle bundle) throws Exception {
         return createRecommendation(bundle, false);
@@ -757,17 +711,17 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
             }
         }
 
-        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservations", false) * (1 - prediction(bundle, "noshow", false)));
+        int recommendedNumber = (int) Math.ceil(prediction(bundle, "reservations") * (1 - prediction(bundle, "noshow")));
 
         returnString.append("The recommended number of bundles to post is")
                 .append(recommendedNumber)
                 .append(" instead of ").append(duplicateBundles.size());
 
-        if (recommendedNumber == duplicateBundles.size()) {
-            return "The amount of bundles posted is the right amount";
-        }
         if (returnRecommend) {
             return format("%d %d",  recommendedNumber, duplicateBundles.size());
+        }
+        if (recommendedNumber == duplicateBundles.size()) {
+            return "The amount of bundles posted is the right amount";
         }
         else {
             return returnString.toString();
@@ -797,7 +751,9 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
         eva.evaluateModel(model,test);
 
         if (type == "confidence") {
-            return eva.correlationCoefficient()*eva.correlationCoefficient();
+            return Math.round(eva.correlationCoefficient()*eva.correlationCoefficient()*1000000.0)/1000000.0;
+
+
 
         }
         else if (type == "MAE"){
