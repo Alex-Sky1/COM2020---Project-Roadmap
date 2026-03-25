@@ -452,9 +452,12 @@ public class CustomerController {
         //get bundle from web page
         Optional<Reservation> reservation = rr.findById(reservationID);
         Reservation res = reservation.get();
+        Bundle bundle = br.findById(res.getBundle().getPostingID()).get();
 
         model.addAttribute("reservation", res);
         model.addAttribute("reservationID", reservationID);
+
+        model.addAttribute("bundle", bundle);
 
         return "report_issue_consumer";
     }

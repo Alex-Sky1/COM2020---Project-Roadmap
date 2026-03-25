@@ -17,7 +17,7 @@
 <div class="box1-parent">
     <div class="box1">
         <label for="bundleTable" style="font-weight: bold">Problem Bundle</label>
-        <table id="bundleTable" th:if="${not#lists.isEmpty(bundle)}">
+        <table id="bundleTable" th:if="${bundle.price}">
             <thead>
             <tr>
                 <th>Seller</th>
@@ -29,7 +29,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="bundle">
+            <tr>
                 <td th:text="${bundle.seller.dName}">Ex Seller</td>
                 <td th:text="${bundle.price}">Ex Price</td>
                 <td th:text="${bundle.category}">Ex category</td>
