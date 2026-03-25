@@ -763,11 +763,11 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
                 .append(recommendedNumber)
                 .append(" instead of ").append(duplicateBundles.size());
 
-        if (recommendedNumber == duplicateBundles.size()) {
-            return "The amount of bundles posted is the right amount";
-        }
         if (returnRecommend) {
             return format("%d %d",  recommendedNumber, duplicateBundles.size());
+        }
+        if (recommendedNumber == duplicateBundles.size()) {
+            return "The amount of bundles posted is the right amount";
         }
         else {
             return returnString.toString();
