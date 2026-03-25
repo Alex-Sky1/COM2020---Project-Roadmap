@@ -123,10 +123,12 @@ public class Forecast {
 
     }
 
+    //
     //This is made when I made repeated code for both types of model
     //This uses the Weka machine learning library which is an application that was built using java so it could used in java.
     //This takes in an input model bundle that is then put into the correct data format then is put into the same filters
     //Which is then used to get the final prediction
+    //https://weka.sourceforge.io/doc.stable/weka/core/Instance.html
     private double workAround(Bundle bun, LinearRegression model,String type) throws Exception {
         double[] dat = new double[8];
         dat[0] = bun.getTimeStamp().getDayOfWeek().getValue();
@@ -366,6 +368,7 @@ public class Forecast {
 
 
     //https://weka.sourceforge.io/doc.dev/weka/core/Attribute.html
+    //https://stackoverflow.com/questions/33769848/options-added-to-stringtonominal-have-no-effect
     //this is to turn the data into to correct form for the weka libairy to be able to use for the model making and train
     public Instances build_data(String type,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList){
         ArrayList<ArrayList<Double>> hold = group(thisBundleList,thisReservationList);
@@ -413,6 +416,8 @@ public class Forecast {
 
 
             Instance t = new DenseInstance(1.0,newRow);
+            //uses the name of the made data to select the data that need to be changed
+            //https://weka.sourceforge.io/doc.stable/weka/core/Instance.html
             t.setValue(data.attribute("Day"),timeString(newRow[0]));
             t.setValue(data.attribute("pickupWindow"),timeString(newRow[1]));
             t.setValue(data.attribute("seller"),SellerString(newRow[2]));
@@ -528,9 +533,11 @@ public class Forecast {
 
     //makes the bundle data into the correct data types and normalises all of the bundles
     //which done to filter all of the data used for the prediction is balanced for the prediction and so
-    // a attribute doesnt have more weight on the model than other attributes
+    // an attribute doesnt have more weight on the model than other attributes
     //https://weka.sourceforge.io/doc.dev/weka/filters/package-summary.html
-    //https://weka.sourceforge.io/doc.dev/weka/classifiers/functions/LinearRegression.html
+    //https://weka.sourceforge.io/doc.dev/weka/classifiers/functions/LinearRegression.html#
+    //https://stackoverflow.com/questions/20348220/how-to-use-weka-to-normalize-instances
+    //https://stackoverflow.com/questions/33769848/options-added-to-stringtonominal-have-no-effect
     public void trainModel(String type,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) throws Exception {
 
             if (model == null) {
