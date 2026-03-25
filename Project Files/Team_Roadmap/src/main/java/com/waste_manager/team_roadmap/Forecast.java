@@ -29,8 +29,8 @@ public class Forecast {
     private static StringToNominal StringTonominal2;
     private static NominalToBinary nominalTobinary1;
     private static NominalToBinary nominalTobinary2;
-    private static Normalize normalized1;
-    private static Normalize normalized2;
+    private static Normalize normalised1;
+    private static Normalize normalised2;
     private static ArrayList<Bundle> testBundle = new ArrayList<>();
     private static ArrayList<Reservation> testReservation = new ArrayList<>();
     private static Instances test;
@@ -115,11 +115,14 @@ public class Forecast {
 
     //https://weka.sourceforge.io/doc.dev/
     //https://gist.github.com/knbknb/c7f75d8eaa5b50a7b6786ca5f0fedbfb
+    //used to pick the model and what is being predicted
     public double prediction(Bundle bun,String type) throws Exception {
             return workAround(bun, model,type);
 
     }
 
+    //This is made when I made repeitied code for both types of model
+    //This uses the Weka michine learning libary which
     private double workAround(Bundle bun, LinearRegression model,String type) throws Exception {
         double[] dat = new double[8];
         dat[0] = bun.getTimeStamp().getDayOfWeek().getValue();
@@ -152,8 +155,8 @@ public class Forecast {
             nominalTobinary1.input(StringTonominalData);
             Instance nominalTobinaryData = nominalTobinary1.output();
 
-            normalized1.input(nominalTobinaryData);
-            Instance normalizedData = normalized1.output();
+            normalised1.input(nominalTobinaryData);
+            Instance normalizedData = normalised1.output();
 
 
 
@@ -179,8 +182,8 @@ public class Forecast {
             nominalTobinary2.input(StringTonominalData);
             Instance nominalTobinaryData = nominalTobinary2.output();
 
-            normalized2.input(nominalTobinaryData);
-            Instance normalizedData = normalized2.output();
+            normalised2.input(nominalTobinaryData);
+            Instance normalizedData = normalised2.output();
 
 
 
@@ -198,6 +201,7 @@ public class Forecast {
 
 
 
+    //Used to make a seasonal Naive that is worked out by finding the last bundle with the same time and getCategory as the inputed bundle
     public int seasonalNaive(Bundle bundle, LocalDateTime date) {
 
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
@@ -229,9 +233,11 @@ public class Forecast {
             }
 
         }
-        return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
+        return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error used to show no useful data
     }
 
+
+    //Used to make a moving average that is worked out by finding the bundles at anytime and in the entered amount of hours
     public int movingavg(Bundle bundle, LocalDateTime date, int hours) {
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
@@ -332,8 +338,7 @@ public class Forecast {
     }
 
 
-    //sort out data
-
+    //sort out data so that it is in the correct format and is a list .
     public double[][] data(ArrayList<Bundle> thisBundleList) {
         int rows = thisBundleList.size();
         int cols = 8;
@@ -355,6 +360,8 @@ public class Forecast {
     }
 
 
+    //https://weka.sourceforge.io/doc.dev/weka/core/Attribute.html
+    //
     public Instances build_data(String type,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList){
         ArrayList<ArrayList<Double>> hold = group(thisBundleList,thisReservationList);
 
@@ -420,6 +427,8 @@ public class Forecast {
 
     }
 
+
+    //groups all of the same bundles together that were posted at the sametime by the same seller
     public ArrayList<ArrayList<Double>> group(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
         double[][] use = data(thisBundleList);
         int rows = thisBundleList.size();
@@ -486,6 +495,7 @@ public class Forecast {
 
 
 
+    //used to count all of the reservations and and no shows on the grouped bundles.
     public double[] backup(double id, ArrayList<Reservation> thisReservationList) {
         int hold = 0;
         double[] reservations_noShow = new double[2];
@@ -507,7 +517,7 @@ public class Forecast {
 
     }
 
-
+    //makes the bundle data into the correct data types and normalises all of the bundles 
 public void trainModel(String type,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) throws Exception {
 
         if (model == null) {
@@ -526,9 +536,9 @@ public void trainModel(String type,ArrayList<Bundle> thisBundleList, ArrayList<R
 
 
 
-                normalized1 = new Normalize();
-                normalized1.setInputFormat(nominalTobinaryData1);
-                Instances normalizedData1 = Filter.useFilter(nominalTobinaryData1, normalized1);
+                normalised1 = new Normalize();
+                normalised1.setInputFormat(nominalTobinaryData1);
+                Instances normalizedData1 = Filter.useFilter(nominalTobinaryData1, normalised1);
                 train = normalizedData1;
 
 
@@ -556,9 +566,9 @@ public void trainModel(String type,ArrayList<Bundle> thisBundleList, ArrayList<R
 
 
 
-                normalized2 = new Normalize();
-                normalized2.setInputFormat(nominalTobinaryData2);
-                Instances normalizedData2 = Filter.useFilter(nominalTobinaryData2, normalized2);
+                normalised2 = new Normalize();
+                normalised2.setInputFormat(nominalTobinaryData2);
+                Instances normalizedData2 = Filter.useFilter(nominalTobinaryData2, normalised2);
 
 
                 model2 = new LinearRegression();
@@ -572,7 +582,7 @@ public void trainModel(String type,ArrayList<Bundle> thisBundleList, ArrayList<R
 
 public Instances testFilter(Instances data) throws Exception {
 
-    return Filter.useFilter(Filter.useFilter(Filter.useFilter(data,StringTonominal1),nominalTobinary1),normalized1);
+    return Filter.useFilter(Filter.useFilter(Filter.useFilter(data,StringTonominal1),nominalTobinary1),normalised1);
 }
 
 public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) throws Exception {
