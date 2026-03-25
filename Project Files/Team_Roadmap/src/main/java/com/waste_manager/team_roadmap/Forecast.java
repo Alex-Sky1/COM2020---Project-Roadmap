@@ -49,6 +49,7 @@ public class Forecast {
 
 
 
+    //Constructor
     public Forecast(LocalDateTime thisForecastDate, int thisSellerID, String thisWeatherFlag, String thisCategory,
                     ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
 
@@ -60,6 +61,7 @@ public class Forecast {
         this.reservationList = thisReservationList;
     }
 
+    //Constructor
     public Forecast(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
         this.bundleList = thisBundleList;
         this.reservationList = thisReservationList;
@@ -121,8 +123,10 @@ public class Forecast {
 
     }
 
-    //This is made when I made repeitied code for both types of model
-    //This uses the Weka michine learning libary which
+    //This is made when I made repeated code for both types of model
+    //This uses the Weka machine learning library which is an application that was built using java so it could used in java.
+    //This takes in an input model bundle that is then put into the correct data format then is put into the same filters
+    //Which is then used to get the final prediction
     private double workAround(Bundle bun, LinearRegression model,String type) throws Exception {
         double[] dat = new double[8];
         dat[0] = bun.getTimeStamp().getDayOfWeek().getValue();
@@ -273,6 +277,7 @@ public class Forecast {
         return returnInt / counter;
     }
 
+    //This is used to make the Mean absolute error for both the seasonal naive and moving average
     public double MAE(Bundle bundle, String baseline, int hours) {
 
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
@@ -361,7 +366,7 @@ public class Forecast {
 
 
     //https://weka.sourceforge.io/doc.dev/weka/core/Attribute.html
-    //
+    //this is to turn the data into to correct form for the weka libairy to be able to use for the model making and train
     public Instances build_data(String type,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList){
         ArrayList<ArrayList<Double>> hold = group(thisBundleList,thisReservationList);
 
@@ -428,15 +433,17 @@ public class Forecast {
     }
 
 
-    //groups all of the same bundles together that were posted at the sametime by the same seller
+    //groups all of the same bundles together that were posted at the same time by the same seller
     public ArrayList<ArrayList<Double>> group(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) {
         double[][] use = data(thisBundleList);
         int rows = thisBundleList.size();
 
 
+        //amount of attributes in the model so change if you add more
         int attr = 7;
-        int hold = -1;
         int i = 0;
+
+        int hold = -1;
         int count = 0;
 
         ArrayList<ArrayList<Double>> grouped = new ArrayList<>();
@@ -470,6 +477,7 @@ public class Forecast {
                 grouped.add(make);
             }
             else{
+                //change numbers if someone changes the attributes
                 grouped.get(hold).set(8, grouped.get(hold).get(8) + 1);
                 grouped.get(hold).set(9,grouped.get(hold).get(9) + reservations_noShow[0]);
                 grouped.get(hold).set(10,grouped.get(hold).get(10) + reservations_noShow[1]);
@@ -478,6 +486,7 @@ public class Forecast {
             i++;
 
         }
+        //change numbers if someone changes the attributes
         for (ArrayList<Double> doubles : grouped) {
             if (doubles.get(8) > 0 ) {
                 doubles.set(10, doubles.get(10) / doubles.get(8));
@@ -495,7 +504,7 @@ public class Forecast {
 
 
 
-    //used to count all of the reservations and and no shows on the grouped bundles.
+    //used to count all of the reservations and no shows on the grouped bundles.
     public double[] backup(double id, ArrayList<Reservation> thisReservationList) {
         int hold = 0;
         double[] reservations_noShow = new double[2];
@@ -517,84 +526,91 @@ public class Forecast {
 
     }
 
-    //makes the bundle data into the correct data types and normalises all of the bundles 
-public void trainModel(String type,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) throws Exception {
+    //makes the bundle data into the correct data types and normalises all of the bundles
+    //which done to filter all of the data used for the prediction is balanced for the prediction and so
+    // a attribute doesnt have more weight on the model than other attributes
+    //https://weka.sourceforge.io/doc.dev/weka/filters/package-summary.html
+    //https://weka.sourceforge.io/doc.dev/weka/classifiers/functions/LinearRegression.html
+    public void trainModel(String type,ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) throws Exception {
 
-        if (model == null) {
-            if (type == "reservations") {
-                Instances data = build_data("reservations",thisBundleList, thisReservationList);
-                data.randomize(new java.util.Random(1));
+            if (model == null) {
+                if (type == "reservations") {
+                    Instances data = build_data("reservations",thisBundleList, thisReservationList);
+                    data.randomize(new java.util.Random(1));
 
-                StringTonominal1 = new StringToNominal();
-                StringTonominal1.setAttributeRange("first-"+(data.numAttributes() - 1));
-                StringTonominal1.setInputFormat(data);
-                Instances StringTonominalData1 = Filter.useFilter(data, StringTonominal1);
+                    StringTonominal1 = new StringToNominal();
+                    StringTonominal1.setAttributeRange("first-"+(data.numAttributes() - 1));
+                    StringTonominal1.setInputFormat(data);
+                    Instances StringTonominalData1 = Filter.useFilter(data, StringTonominal1);
 
-                nominalTobinary1 = new NominalToBinary();
-                nominalTobinary1.setInputFormat(StringTonominalData1);
-                Instances nominalTobinaryData1 = Filter.useFilter(StringTonominalData1, nominalTobinary1);
-
-
-
-                normalised1 = new Normalize();
-                normalised1.setInputFormat(nominalTobinaryData1);
-                Instances normalizedData1 = Filter.useFilter(nominalTobinaryData1, normalised1);
-                train = normalizedData1;
+                    nominalTobinary1 = new NominalToBinary();
+                    nominalTobinary1.setInputFormat(StringTonominalData1);
+                    Instances nominalTobinaryData1 = Filter.useFilter(StringTonominalData1, nominalTobinary1);
 
 
 
-                model = new LinearRegression();
-                model.setAttributeSelectionMethod(new SelectedTag(LinearRegression.SELECTION_NONE, LinearRegression.TAGS_SELECTION));
-                model.buildClassifier(normalizedData1);
+                    normalised1 = new Normalize();
+                    normalised1.setInputFormat(nominalTobinaryData1);
+                    Instances normalizedData1 = Filter.useFilter(nominalTobinaryData1, normalised1);
+                    train = normalizedData1;
+
+
+
+                    model = new LinearRegression();
+                    model.setAttributeSelectionMethod(new SelectedTag(LinearRegression.SELECTION_NONE, LinearRegression.TAGS_SELECTION));
+                    model.buildClassifier(normalizedData1);
+                }
             }
-        }
-        if (model2 == null) {
-            if (type == "noshow") {
-                Instances data = build_data("noshow",thisBundleList,thisReservationList);
+            if (model2 == null) {
+                if (type == "noshow") {
+                    Instances data = build_data("noshow",thisBundleList,thisReservationList);
 
 
-                data.randomize(new java.util.Random(1));
+                    data.randomize(new java.util.Random(1));
 
-                StringTonominal2 = new StringToNominal();
-                StringTonominal2.setAttributeRange("first-"+(data.numAttributes() - 1));
-                StringTonominal2.setInputFormat(data);
-                Instances StringTonominalData2 = Filter.useFilter(data, StringTonominal2);
+                    StringTonominal2 = new StringToNominal();
+                    StringTonominal2.setAttributeRange("first-"+(data.numAttributes() - 1));
+                    StringTonominal2.setInputFormat(data);
+                    Instances StringTonominalData2 = Filter.useFilter(data, StringTonominal2);
 
-                nominalTobinary2 = new NominalToBinary();
-                nominalTobinary2.setInputFormat(StringTonominalData2);
-                Instances nominalTobinaryData2 = Filter.useFilter(StringTonominalData2, nominalTobinary2);
-
-
-
-                normalised2 = new Normalize();
-                normalised2.setInputFormat(nominalTobinaryData2);
-                Instances normalizedData2 = Filter.useFilter(nominalTobinaryData2, normalised2);
+                    nominalTobinary2 = new NominalToBinary();
+                    nominalTobinary2.setInputFormat(StringTonominalData2);
+                    Instances nominalTobinaryData2 = Filter.useFilter(StringTonominalData2, nominalTobinary2);
 
 
-                model2 = new LinearRegression();
-                model2.setAttributeSelectionMethod(new SelectedTag(LinearRegression.SELECTION_NONE, LinearRegression.TAGS_SELECTION));
-                model2.buildClassifier(normalizedData2);
 
+                    normalised2 = new Normalize();
+                    normalised2.setInputFormat(nominalTobinaryData2);
+                    Instances normalizedData2 = Filter.useFilter(nominalTobinaryData2, normalised2);
+
+
+                    model2 = new LinearRegression();
+                    model2.setAttributeSelectionMethod(new SelectedTag(LinearRegression.SELECTION_NONE, LinearRegression.TAGS_SELECTION));
+                    model2.buildClassifier(normalizedData2);
+
+                }
             }
-        }
-}
+    }
+
+    //uses the filter done to the training data onto the test data for conf
+    //https://weka.sourceforge.io/doc.dev/weka/filters/Filter.html
+    public Instances testFilter(Instances data) throws Exception {
+
+        return Filter.useFilter(Filter.useFilter(Filter.useFilter(data,StringTonominal1),nominalTobinary1),normalised1);
+    }
+
+    //this function ran on start up to train the data and to make the test and training data
+    public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) throws Exception {
+        testBundle = thisBundleList;
+        testReservation = thisReservationList;
+        trainModel("reservations",bundleList,reservationList);
+        trainModel("noshow",bundleList,reservationList);
+        test = testFilter(build_data("reservations",testBundle,testReservation));
+    }
 
 
-public Instances testFilter(Instances data) throws Exception {
 
-    return Filter.useFilter(Filter.useFilter(Filter.useFilter(data,StringTonominal1),nominalTobinary1),normalised1);
-}
-
-public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> thisReservationList) throws Exception {
-    testBundle = thisBundleList;
-    testReservation = thisReservationList;
-    trainModel("reservations",bundleList,reservationList);
-    trainModel("noshow",bundleList,reservationList);
-    test = testFilter(build_data("reservations",testBundle,testReservation));
-}
-
-
-
+    //turn data into number form
     public int numberCatNum(String category){
 
         switch (category){
@@ -615,6 +631,8 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
 
         }
     }
+
+    //turn data into String form to then be usable in the filters
     public String numberCatString(double category){
 
         switch ((int) category){
@@ -636,6 +654,7 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
         }
     }
 
+    //turn data into String form to then be usable in the filters
     public String dayString(double category){
 
         switch ((int) category){
@@ -658,15 +677,18 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
     }
 
 
+    //turn data into String form to then be usable in the filters
     public String timeString(double time){
             return String.valueOf(time);
     }
 
+    //turn data into String form to then be usable in the filters
     public String SellerString(double ID){
         return String.valueOf(ID);
     }
 
 
+    //turn data into number form
     public int numberweather(String weatherFlag){
         switch (weatherFlag){
             case "sunny":
@@ -680,6 +702,7 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
         }
     }
 
+    //turn data into String form to then be usable in the filters
     public String numberweatherString(double weatherFlag){
         switch ((int) weatherFlag){
             case 1:
@@ -694,10 +717,12 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
     }
 
 
+    //defult method to call if not needed to set certain values
     public String createRecommendation(Bundle bundle) throws Exception {
         return createRecommendation(bundle, false);
     }
 
+    //makes the formatted recommended String for the amount of bundles
     public String createRecommendation(Bundle bundle, boolean returnRecommend) throws Exception {
 
         ArrayList<Bundle> bundles = bundleFromSelectSeller();
@@ -729,6 +754,7 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
         }
     }
 
+    //returns the correct rational to follow the recommended bundles
     public String rationale(Bundle bundle) throws Exception {
 
         String[] rationaleStringList = createRecommendation(bundle, true).split(" ");
@@ -747,6 +773,7 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
         }
     }
 
+    //used to make the confidence and MAE to show the usefulness of the model
     public double Eval(String type) throws Exception {
         Evaluation eva = new Evaluation(train);
         try{
