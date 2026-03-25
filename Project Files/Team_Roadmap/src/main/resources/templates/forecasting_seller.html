@@ -30,6 +30,7 @@
                 <th>Confidence</th>
                 <th>Recommendation</th>
                 <th>Rationale</th>
+                <th>MAE Seasonal Naive:Moving Average:Final Model</th>
             </tr>
             </thead>
             <tbody>
@@ -45,6 +46,7 @@
                 <td th:text="${confidences[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex Confidence</td>
                 <td th:text="${Recommendations[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex Recommendation</td>
                 <td th:text="${rationales[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex Rationale</td>
+                <td th:text="${MAE[iterStat.index]}" style="overflow: auto; max-width: 100px">Ex MAE</td>
             </tr>
             </tbody>
         </table>

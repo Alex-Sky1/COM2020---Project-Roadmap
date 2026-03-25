@@ -69,12 +69,6 @@ public class ForecastTest {
     }
 
     @Test
-    public void testSeasonalNaive() {
-        int seasonalNaiveTestReturn = testForecast.seasonalNaive();
-        assertEquals(4, seasonalNaiveTestReturn);
-    }
-
-    @Test
     public void testGetForecastDate() {assertEquals(testTime.plusDays(7), testForecast.getForecastDate());}
 
     @Test

@@ -428,6 +428,7 @@ public class SellerController {
         ArrayList<Double> confidences = new ArrayList<>();
         ArrayList<String> rationales = new ArrayList<>();
         ArrayList<String> recs = new ArrayList<>();
+        ArrayList<String> MAE = new ArrayList<>();
 
         for( Bundle bundle : allBundles ) {
             if(bundle.getTimeStamp().getDayOfYear() == LocalDate.now().getDayOfYear() && bundle.getTimeStamp().getYear() == LocalDate.now().getYear()) {
@@ -446,6 +447,7 @@ public class SellerController {
                     confidences.add(forecast.Eval("confidence"));
                     recs.add(forecast.createRecommendation(bundle));
                     rationales.add(forecast.rationale(bundle));
+                    MAE.add(forecast.MAE(bundle, "seasonalNaive", 168) + ":" + forecast.MAE(bundle, "movingavg", 168) + ":" + forecast.Eval("MAE"));
                 }
 
             }
@@ -457,6 +459,7 @@ public class SellerController {
         model.addAttribute("confidences", confidences);
         model.addAttribute("rationales", rationales);
         model.addAttribute("Recommendations", recs);
+        model.addAttribute("MAE", MAE);
         return "forecasting_seller";
     }
 

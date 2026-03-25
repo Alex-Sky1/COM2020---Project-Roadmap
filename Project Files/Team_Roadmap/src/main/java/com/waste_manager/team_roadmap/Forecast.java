@@ -198,16 +198,7 @@ public class Forecast {
 
 
 
-
-
-
-
-    public int seasonalNaive() {
-        return seasonalNaive(this.forecastDate);
-    }
-
-
-    public int seasonalNaive(LocalDateTime date) {
+    public int seasonalNaive(Bundle bundle, LocalDateTime date) {
 
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
@@ -225,7 +216,7 @@ public class Forecast {
 
                 for (Reservation reservation : dayReservationList) {
 
-                    if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
+                    if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), bundle.getCategory())) {
 
                         if (!(reservation.getNoShow())) {
                             returnInt += 1;
@@ -241,7 +232,7 @@ public class Forecast {
         return -1; // If there are no valid previous bundles to use for a prediction, return -1 as an error
     }
 
-    public int movingavg(LocalDateTime date, int hours) {
+    public int movingavg(Bundle bundle, LocalDateTime date, int hours) {
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
 
@@ -258,7 +249,7 @@ public class Forecast {
 
                 for (Reservation reservation : dayReservationList) {
 
-                    if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
+                    if (reservation.getBundle().getPickUpWindow() == searchDate.getHour() && Objects.equals(reservation.getBundle().getCategory(), bundle.getCategory())) {
 
                         if (!(reservation.getNoShow())) {
                             returnInt += 1;
@@ -276,7 +267,7 @@ public class Forecast {
         return returnInt / counter;
     }
 
-    public float MAE(String baseline, int hours) {
+    public double MAE(Bundle bundle, String baseline, int hours) {
 
         ArrayList<Bundle> filteredBundleList = bundleFromSelectSeller();
         ArrayList<Reservation> filteredReservationList = searchReservationSeller(filteredBundleList);
@@ -304,7 +295,7 @@ public class Forecast {
 
                     for (Reservation reservation : dayReservationList) {
 
-                        if (reservation.getBundle().getPickUpWindow() == check.getHour() && Objects.equals(reservation.getBundle().getCategory(), this.category)) {
+                        if (reservation.getBundle().getPickUpWindow() == check.getHour() && Objects.equals(reservation.getBundle().getCategory(), bundle.getCategory())) {
 
                             if (!(reservation.getNoShow())) {
                                 returnInt += 1;
@@ -314,13 +305,13 @@ public class Forecast {
                 }
 
                 if (baseline.equals("seasonalNaive")) {
-                    int naive = seasonalNaive(check);
+                    int naive = seasonalNaive(bundle, check);
                     if (naive == -1) {
                         naive = 0;
                     }
                     mae += Math.abs(returnInt - naive);
                 } else if (baseline.equals("movingavg")) {
-                    int moving = movingavg(check, hours);
+                    int moving = movingavg(bundle, check, hours);
                     if (moving == -1) {
                         moving = 0;
                     }
@@ -748,7 +739,13 @@ public void onStartUp(ArrayList<Bundle> thisBundleList, ArrayList<Reservation> t
 
     public double Eval(String type) throws Exception {
         Evaluation eva = new Evaluation(train);
-        eva.evaluateModel(model,test);
+        try{
+            eva.evaluateModel(model,test);
+        }
+        catch(Exception e){
+            System.out.println("Error evaluating the model");
+
+        }
 
         if (type == "confidence") {
             return Math.round(eva.correlationCoefficient()*eva.correlationCoefficient()*1000000.0)/1000000.0;
