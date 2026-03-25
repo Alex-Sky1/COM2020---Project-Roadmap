@@ -1,6 +1,7 @@
 package com.waste_manager.team_roadmap.tests;
 
 import com.waste_manager.team_roadmap.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
@@ -32,6 +33,7 @@ public class CustomerControllerTest {
     @MockitoBean private IssueReportRepository irr;
     @MockitoBean private AdminRepository ar;
     @MockitoBean private CustomUserDetailService cuds;
+
 
     @Test
     @WithMockUser(username = "testUser")
@@ -109,18 +111,20 @@ public class CustomerControllerTest {
 
         when(cr.findBydName("testUser")).thenReturn(new ArrayList<>(List.of(mockCustomer)));
 
-        // Create a user for the session so the
+        // Create a user to allow user authentication for the application
         UserDetails mockUser = new User(
                 "testUser",
                 "encodedPassword",
                 Collections.emptyList()
         );
 
+        // When the CustomUserDetailService requests a user by username, load the mock user
         when(cuds.loadUserByUsername(anyString()))
                 .thenReturn(mockUser);
 
         MockHttpSession session = new MockHttpSession();
 
+        // Submit a request to change the user details
         mockMvcTester.post()
                 .uri("/edit_profile_consumer")
                 .session(session)
@@ -139,11 +143,60 @@ public class CustomerControllerTest {
                 .hasViewName("edit_profile_consumer");
     }
 
+    @Test
+    @WithMockUser(username = "testUser")
+    void testBrowseBundleLoads() {
+
+        Customer mockCustomer = new Customer("jim", "bob", "Jimmy", "no man's land",
+                "NW1 6XE", "test", "test@gmail.com", "0000008776", "jim"
+                , 6, new ArrayList<>(List.of(false, false, false, false, false)), true);
+
+        mockCustomer.setCustomerID(1L);
+
+        when(cr.findBydName("testUser")).thenReturn(new ArrayList<>(List.of(mockCustomer)));
+
+        // Create a user to allow user authentication for the application
+        UserDetails mockUser = new User(
+                "testUser",
+                "encodedPassword",
+                Collections.emptyList()
+        );
+
+        // When the CustomUserDetailService requests a user by username, load the mock user
+        when(cuds.loadUserByUsername(anyString()))
+                .thenReturn(mockUser);
+
+        MockHttpSession session = new MockHttpSession();
+
+        mockMvcTester.get()
+                .uri("/browse_bundles_consumer")
+                .assertThat()
+                .hasStatusOk()
+                .hasViewName("browse_bundles_consumer");
+    }
+
+
+
     /*
-    @RequestParam(value = "fname", required = false) String fname, @RequestParam(value = "sname", required = false) String sname,
-    @RequestParam(value = "dname", required = false) String dname, @RequestParam(value = "address_line_1", required = false) String al1,
-    @RequestParam(value = "postcode", required = false) String pcode, @RequestParam(value = "county", required = false) String county,
-    @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone,
-    @RequestParam(value = "password1", required = false) String pwd1, @RequestParam(value = "password2", required = false) String pwd2,
+    @RequestParam(value="category", required = false) String category,
+    @RequestParam(value = "postcode", required = false) String postcode,
+    @RequestParam(value = "price_selector", required = false) String priceselector,
+    @RequestParam(value="price", required = false) String price,
+    @RequestParam(value = "time_selector", required = false) String timeSelector,
+    @RequestParam(value = "time", required = false) String time,
+    @RequestParam(value="celery", required = false) String celery,
+    @RequestParam(value = "gluten", required = false) String gluten,
+    @RequestParam(value = "crustaceans", required = false) String crustaceans,
+    @RequestParam(value="eggs", required = false) String eggs,
+    @RequestParam(value="fish", required = false) String fish,
+    @RequestParam(value="lupin", required = false) String lupin,
+    @RequestParam(value="milk", required = false) String milk,
+    @RequestParam(value="molluscs", required = false) String molluscs,
+    @RequestParam(value="mustard", required = false) String mustard,
+    @RequestParam(value="peanuts", required = false) String peanuts,
+    @RequestParam(value="sesame", required = false) String sesame,
+    @RequestParam(value="soybeans", required = false) String soybeans,
+    @RequestParam(value="sulphur", required = false) String sulphur,
+    @RequestParam(value="nuts", required = false) String nuts)
      */
 }
