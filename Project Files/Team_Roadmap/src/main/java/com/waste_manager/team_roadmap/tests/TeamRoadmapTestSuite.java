@@ -13,6 +13,7 @@ import org.junit.platform.suite.api.Suite;
         ForecastTest.class,
         LoginControllerTest.class,
         CustomerControllerTest.class,
+        SellerControllerTest.class,
         TeamRoadmapApplicationTests.class
 })
 public class TeamRoadmapTestSuite {}

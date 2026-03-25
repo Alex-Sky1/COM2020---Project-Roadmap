@@ -19,7 +19,7 @@ public class BundleTest {
     static Seller testSeller;
     static LocalDateTime testTime = LocalDateTime.now();
 
-    // Ran once before any of the tests
+    // Ran once before any of the tests - bundle and seller needed to test the bundle class
     @BeforeEach
     public void setup() {
 
@@ -30,6 +30,9 @@ public class BundleTest {
                                 new ArrayList<>(List.of("gluten", "dairy", "peanuts")), testTime, 11.50f, 10,
                 12, false, false, "rainy");
     }
+
+
+    // Getter and setter tests for bundle
 
     @Test
     public void testGetPostID() {assertEquals(0, testBundle.getPostingID());}

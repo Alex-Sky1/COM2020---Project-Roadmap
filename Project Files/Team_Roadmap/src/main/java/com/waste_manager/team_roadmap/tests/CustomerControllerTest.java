@@ -1,7 +1,6 @@
 package com.waste_manager.team_roadmap.tests;
 
 import com.waste_manager.team_roadmap.*;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
@@ -19,13 +18,13 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-
+// Create a controller test for the customer controller - WebMvcTest only loads controller-related methods which makes the testing quicker
 @WebMvcTest(CustomerController.class)
 public class CustomerControllerTest {
 
+    // Load the repositories required using mockito beans to simulate them
     @Autowired
     private MockMvcTester mockMvcTester;
-
     @MockitoBean private CustomerRepository cr;
     @MockitoBean private SellerRepository sr;
     @MockitoBean private BundleRepository br;
@@ -34,7 +33,7 @@ public class CustomerControllerTest {
     @MockitoBean private AdminRepository ar;
     @MockitoBean private CustomUserDetailService cuds;
 
-
+    // Assert the signup page loads
     @Test
     @WithMockUser(username = "testUser")
     void testConsumerSignUpPageLoads() {
@@ -46,6 +45,7 @@ public class CustomerControllerTest {
                 .hasViewName("sign_up_consumer");
     }
 
+    // Assert a customer can create an account
     @Test
     void testLoginSubmit() {
         mockMvcTester.post()
@@ -102,13 +102,11 @@ public class CustomerControllerTest {
     void testEditProfile() {
 
         // Create a mock customer for the customer repository to interact with
-
         Customer mockCustomer = new Customer("jim", "bob", "Jimmy", "no man's land",
                 "NW1 6XE", "test", "test@gmail.com", "0000008776", "jim"
                 , 6, new ArrayList<>(List.of(false, false, false, false, false)), true);
 
         mockCustomer.setCustomerID(1L);
-
         when(cr.findBydName("testUser")).thenReturn(new ArrayList<>(List.of(mockCustomer)));
 
         // Create a user to allow user authentication for the application
@@ -165,8 +163,6 @@ public class CustomerControllerTest {
         // When the CustomUserDetailService requests a user by username, load the mock user
         when(cuds.loadUserByUsername(anyString()))
                 .thenReturn(mockUser);
-
-        MockHttpSession session = new MockHttpSession();
 
         mockMvcTester.get()
                 .uri("/browse_bundles_consumer")
