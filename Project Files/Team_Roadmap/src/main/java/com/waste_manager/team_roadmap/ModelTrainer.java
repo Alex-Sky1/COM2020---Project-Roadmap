@@ -27,7 +27,7 @@ public class ModelTrainer {
         Forecast forecast = new Forecast(new ArrayList<>(br.findAll()), new ArrayList<>(rr.findAll()));
         try {
             System.out.println("doing");
-            forecast.onStartUp();
+            forecast.onStartUp(loadTestBundles(),loadTestReservations(loadTestBundles()));
             System.out.println("done");
         }catch(Exception e){
             e.printStackTrace();

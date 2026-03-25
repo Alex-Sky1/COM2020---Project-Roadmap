@@ -26,7 +26,7 @@
 * Documentation
 
 740060697  Alex Fairbrass       asf212@exeter.ac.uk
-* Front-End development using HTML and CSS - Issue-Reporting, Bundle Management, Sign-Up
+* Front-End development - Issue-Reporting, Bundle Management, Sign-Up/Login, Badges
 * Webpage Concept Design
 * Assisted with Documentation - Test-Evidencing
 

@@ -100,7 +100,8 @@ public class SellerController {
                              @RequestParam(value="sesame", required = false) String sesame,
                              @RequestParam(value="soybeans", required = false) String soybeans,
                              @RequestParam(value="sulphur", required = false) String sulphur,
-                             @RequestParam(value="nuts", required = false) String nuts) {
+                             @RequestParam(value="nuts", required = false) String nuts,
+                             Model model) {
 
         // Get current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -133,12 +134,17 @@ public class SellerController {
         // Take pickup hour using first hour as just an integer
         int pickupHr = Integer.parseInt(pickup.substring(0,2));
 
-        // Make quantity amount of bundles and save to database
-        LocalDateTime now = LocalDateTime.now();
-        for (int i = 0; i < Integer.parseInt(quantity); i++) {
-            Bundle bundle = new Bundle(s, category, content, allergens, now, Float.parseFloat(price),
-                            Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
-            br.save(bundle);
+        try{
+            // Make quantity amount of bundles and save to database
+            LocalDateTime now = LocalDateTime.now();
+            for (int i = 0; i < Integer.parseInt(quantity); i++) {
+                Bundle bundle = new Bundle(s, category, content, allergens, now, Float.parseFloat(price),
+                        Integer.parseInt(discount), pickupHr, false, false, weatherFlag);
+                br.save(bundle);
+            }
+        }catch(NumberFormatException e){
+            model.addAttribute("error", "Quantity, price and discount must all be numbers");
+            return "post_bundle_seller";
         }
         return "post_bundle_seller";
     }
@@ -366,38 +372,46 @@ public class SellerController {
                              @RequestParam(value="sesame", required = false) String sesame,
                              @RequestParam(value="soybeans", required = false) String soybeans,
                              @RequestParam(value="sulphur", required = false) String sulphur,
-                             @RequestParam(value="nuts", required = false) String nuts){
+                             @RequestParam(value="nuts", required = false) String nuts,
+                             Model model){
 
-        Bundle bundle = br.findById(Integer.parseInt(ID)).get();
-        //set bundle changes from web page
-        bundle.setCategory(category);
-        bundle.setPrice(Float.parseFloat(price));
-        bundle.setContents(new ArrayList<>(Arrays.asList(contents.split(","))));
-        bundle.setPickUpWindow(Integer.parseInt(pickup.substring(0,2)));
-        bundle.setDiscount(Integer.parseInt(discount));
-        bundle.setExpired(false);
-        bundle.setTimeStamp(LocalDateTime.now());
 
-        ArrayList<String> allergens = new ArrayList<>();
-        if(celery!= null) allergens.add(celery);
-        if(gluten!= null) allergens.add(gluten);
-        if(crustaceans != null) allergens.add(crustaceans);
-        if(eggs != null) allergens.add(eggs);
-        if(fish != null) allergens.add(fish);
-        if(lupin != null) allergens.add(lupin);
-        if(milk != null) allergens.add(milk);
-        if(molluscs != null) allergens.add(molluscs);
-        if(mustard != null) allergens.add(mustard);
-        if(peanuts != null) allergens.add(peanuts);
-        if(sesame != null) allergens.add(sesame);
-        if(soybeans != null) allergens.add(soybeans);
-        if(sulphur != null) allergens.add(sulphur);
-        if(nuts != null) allergens.add(nuts);
-        bundle.setAllergens(allergens);
+        try {
+            Bundle bundle = br.findById(Integer.parseInt(ID)).get();
+            bundle.setPrice(Float.parseFloat(price));
+            bundle.setDiscount(Integer.parseInt(discount));
+            //set bundle changes from web page
+            bundle.setCategory(category);
+            bundle.setContents(new ArrayList<>(Arrays.asList(contents.split(","))));
+            bundle.setPickUpWindow(Integer.parseInt(pickup.substring(0, 2)));
+            bundle.setExpired(false);
+            bundle.setTimeStamp(LocalDateTime.now());
 
-        br.save(bundle);
+            ArrayList<String> allergens = new ArrayList<>();
+            if(celery!= null) allergens.add(celery);
+            if(gluten!= null) allergens.add(gluten);
+            if(crustaceans != null) allergens.add(crustaceans);
+            if(eggs != null) allergens.add(eggs);
+            if(fish != null) allergens.add(fish);
+            if(lupin != null) allergens.add(lupin);
+            if(milk != null) allergens.add(milk);
+            if(molluscs != null) allergens.add(molluscs);
+            if(mustard != null) allergens.add(mustard);
+            if(peanuts != null) allergens.add(peanuts);
+            if(sesame != null) allergens.add(sesame);
+            if(soybeans != null) allergens.add(soybeans);
+            if(sulphur != null) allergens.add(sulphur);
+            if(nuts != null) allergens.add(nuts);
+            bundle.setAllergens(allergens);
 
-        return "redirect:/manage_bundles_seller";
+            br.save(bundle);
+            return "redirect:/manage_bundles_seller";
+        }catch(NumberFormatException e){
+            model.addAttribute("error", "Price and discount must all be numbers");
+            edit_bundle_seller(ID, model);
+            return "edit_bundle_seller";
+        }
+
     }
 
     @GetMapping("/forecasting_seller")
@@ -429,9 +443,9 @@ public class SellerController {
                     bundles.add(bundle);
                     probNoShow.add(forecast.prediction(bundle, "noshow",false));
                     demands.add(forecast.prediction(bundle, "reservations",false));
-                    confidences.add(0.0);
-                    recs.add("some Recommendation");
-                    rationales.add("some rational");
+                    confidences.add(forecast.Eval("confidence"));
+                    recs.add(forecast.createRecommendation(bundle));
+                    rationales.add(forecast.rationale(bundle));
                 }
 
             }
